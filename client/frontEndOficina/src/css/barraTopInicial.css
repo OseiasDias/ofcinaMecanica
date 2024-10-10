@@ -1,0 +1,48 @@
+
+
+.navbar-brand{
+    font-size: 1.8em !important;
+    color:var(--corPrimaria) !important;
+    font-weight: 600;
+    font-family:"minhaFonte",'Poppins',Arial, Helvetica, sans-serif;
+}
+
+.menuTopInicial{
+    box-shadow: var(--sombra);
+}
+
+
+    .links-acessos{
+        background-color: var(--corPrimaria) !important;
+        margin: 0 6px;
+        color: #fff !important;
+        border-radius: 20px !important;
+    
+    }
+
+    .links-acessos:hover,
+    .links-acessos:active{
+        background-color: var( --corSecodaria) !important;
+    }
+
+
+@media (max-width:768px){
+    .links-acessos{
+       
+        /*color: var(--corPrimaria) !important;*/
+       margin-top: 8px;
+       
+
+    }
+    .links-acessos:hover{
+        transform: scale(1.05) !important;
+    }
+
+    #basic-navbar-nav{
+        margin-top: 25px;
+    }
+
+    .link2{
+        margin-bottom: 30px;
+    }
+}

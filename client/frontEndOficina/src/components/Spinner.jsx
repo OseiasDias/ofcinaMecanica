@@ -3,7 +3,7 @@ import "../css/spinner.css"; // Adicionar estilos
 
 const SpinnerFill = () => {
   return (
-    <div className="container-fluid">
+    
       <div className="spinner-container">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -22,7 +22,7 @@ const SpinnerFill = () => {
           </g>
         </svg>
       </div>
-    </div>
+    
   );
 };
 

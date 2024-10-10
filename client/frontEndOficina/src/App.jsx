@@ -1,5 +1,8 @@
+
 import SpinnerFill from './components/Spinner.jsx'; // Importe o seu componente de spinner
 import  { useState, useEffect } from 'react';
+import Home from '../src/pages/Home.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const App = () => {
@@ -26,8 +29,7 @@ const App = () => {
        </>
       ) : (
         <div>
-          <h1>Dados Carregados!</h1>
-          {/* Coloque seus dados aqui */}
+          <Home />
         </div>
       )}
     </div>

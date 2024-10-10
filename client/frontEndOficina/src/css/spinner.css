@@ -4,19 +4,17 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)), 
-  url('../assets/img/motor.jpg');
-background-size: cover;
-background-position: center;
-
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+    url("../assets/img/motor.jpg");
+  background-size: cover;
+  background-position: center;
+  overflow: hidden;
+ 
 }
 
 .gear-spinner {
   animation: spin 1s linear infinite;
-
 }
-
-
 
 @keyframes spin {
   0% {
@@ -26,8 +24,6 @@ background-position: center;
     transform: rotate(360deg);
   }
 }
-
-
 
 /* Spinner.css 
 .loader {

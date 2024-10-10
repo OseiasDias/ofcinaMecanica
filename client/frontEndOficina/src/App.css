@@ -1,0 +1,32 @@
+/*
+
+ <div className="status justify-content-between d-flex mt-5">
+                                        <div className="colStar me-2">
+                                            <span className='spanPrimeiro'>
+                                                <CountUp  start={1} end={9000} duration={4}/>
+                                                <span>+</span>
+                                            </span>
+                                            <br/>
+                                            <span className='spanPacote'>Pacote Maximo</span>
+                                        </div>
+
+                                        <div className="colStar me-2">
+                                            <span className='spanPrimeiro'>
+                                                <CountUp  start={1} end={2000} duration={4}/>
+                                                <span>+</span>
+                                            </span>
+                                            <br/>
+                                            <span className='spanPacote'>Pacote Médio</span>
+                                        </div>
+
+                                        <div className="colStar me-2">
+                                            <span className='spanPrimeiro'>
+                                                <CountUp  start={1} end={6000} duration={4}/>
+                                                <span>+</span>
+                                            </span>
+                                            <br/>
+                                            <span className='spanPacote'>Pacote Minimo</span>
+                                        </div>
+                                    </div>
+
+*/

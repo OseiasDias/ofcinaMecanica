@@ -1,6 +1,9 @@
 const express = require("express");
 const cors = require("cors");
 
+
+
+
 const ControllerCliente = require('./src/controllers/ControllerCliente');
 const ControllerAdministrador = require('./src/controllers/ControllerAdministrador'); 
 const ControllerUsuario = require('./src/controllers/ControllerUsuario'); // Importa o controller do usuário
@@ -29,7 +32,7 @@ app.use(express.json());
 ======================================
 */
 // Rota para criar um novo cliente
-app.post('/api/clientes', ControllerCliente.criarCliente);
+app.post('/api/clientes', ControllerCliente.criarCliente); 
 
 // Rota para obter todos os clientes
 app.get('/api/clientes', ControllerCliente.obterClientes);
@@ -280,6 +283,9 @@ app.put('/api/veiculos/:id_veiculo', ControllerVeiculo.atualizarVeiculo);
 
 // Rota para deletar um veículo
 app.delete('/api/veiculos/:id_veiculo', ControllerVeiculo.deletarVeiculo);
+
+
+
 
 
 const PORTA = process.env.PORT || 5000; // Define a porta

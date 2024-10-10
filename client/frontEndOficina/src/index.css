@@ -1,5 +1,46 @@
 
+/*IMPORTANDO FONTES*/
+@font-face {
+  font-family: "minhaFonte";
+  src: url("../src/assets/fonts/Advert-Regular.ttf");
+}
+
+
+
+:root{
+  --corPrimaria: #0070fa;
+  --corSecodaria: #044697;
+  --sombra: 0px 6px 30px rgba(0, 0, 0, 0.08);
+  --border:  0.8px solid rgba(128,128,128,.143);
+  --trasicao:all 300ms ease-in;
+  --sombraA: 2px 4px 29px #ddd;;
+}
 *{
   margin: 0;
   padding: 0;
+  /*color: #0070fa;*/
+}
+
+html::-webkit-scrollbar {
+  border-left: 2px solid #0070fa;
+  width: 10px;
+}
+
+
+html::-webkit-scrollbar-thumb {
+ 
+  background-color: #0070fa;
+  
+}
+
+body{
+  font-family: 'Poppins',Arial, Helvetica, sans-serif;
+}
+
+.links-acessos{
+  transition: var(--trasicao);
+}
+
+.links-acessos:hover{
+  transform: scale(1.1);
 }
