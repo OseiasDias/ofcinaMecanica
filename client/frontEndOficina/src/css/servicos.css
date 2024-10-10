@@ -1,0 +1,49 @@
+.seccao-cor {
+    padding-top: 70px;
+    background-color: #f6f9ff!important;
+}
+
+.margem {
+    padding: 30px ;
+    border-radius: 40px;
+    height: 100% !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
+     /*border: 2px solid var(--corPrimaria);*/
+    background:
+        url("../assets/img/pro-table-bottom.png");
+    background-size: 100%;
+    background-position: bottom;
+    background-repeat: no-repeat;
+    color: #000000d5;
+    transition: var(--trasicao);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), /* Sombra mais escura */
+                 -1px -1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.margem:hover{
+    transform: scale(1.07);
+}
+
+
+@media (max-width: 992px) {
+    .margem {
+        margin-top: 20px !important;
+    }
+}
+
+.servico-item {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.margem {
+    flex-grow: 1;
+}
+
+.titulo-secao {
+    font-size: 2rem; /* Ajuste o tamanho da fonte conforme necessário */
+     /* Cor do texto (pode ser ajustada) */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), /* Sombra mais escura */
+                 -1px -1px 2px rgba(255, 255, 255, 0.8); /* Sombra clara para destaque */
+}

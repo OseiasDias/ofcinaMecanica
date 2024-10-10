@@ -5,12 +5,13 @@ import  '../css/barraTopInicial.css';
 
 import { IoLogInOutline } from "react-icons/io5";
 import { MdOutlinePersonAdd } from "react-icons/md";
+import logo from '../assets/img/bb.png';
 
 function BarraTopInicial() {
   return (
-    <Navbar expand="md" className="bg-body-tertiary menuTopInicial py-2 position-fixed w-100">
+    <Navbar expand="md" className="bg-white menuTopInicial py-2 position-fixed w-100">
       <Container>
-        <Navbar.Brand href="#home" className='navbar-brand'>OficinaNome</Navbar.Brand>
+        <Navbar.Brand href="#home" className='navbar-brand'><><img src={logo} className='logoMotor' alt="imagem do um moto" /></> OficinaNome</Navbar.Brand>
        <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav"> 
           <Nav className="ms-auto d-flex justify-content-content">
