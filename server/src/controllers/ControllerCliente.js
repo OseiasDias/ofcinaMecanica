@@ -2,7 +2,7 @@
 const Cliente = require('../models/Cliente'); // Importa o modelo de Cliente
 
 class ControllerCliente {
-    
+
     // Método para criar um novo cliente
     static async criarCliente(req, res) {
         try {
@@ -13,8 +13,8 @@ class ControllerCliente {
 
             res.status(201).json({ message: "Cliente criado com sucesso!", id_cliente });
         } catch (error) {
-            console.error("Erro ao criar cliente:", error);
-            res.status(500).json({ message: "Erro ao criar cliente" });
+            console.error("Erro ao cadastrar cliente:", error);
+            res.status(500).json({ message: "Erro ao cadastrar cliente" });
         }
     }
 
