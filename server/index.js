@@ -7,6 +7,8 @@ const ControllerUsuario = require('./src/controllers/ControllerUsuario'); // Imp
 const ControllerAgendamento = require('./src/controllers/ControllerAgendamento'); // Importa o controller do agendamento
 const ControllerBlog = require('./src/controllers/ControllerBlog'); // Importa as rotas de Blog
 const ControllerEstoque = require('./src/controllers/ControllerEstoque');
+const ControllerFeedback = require('./src/controllers/ControllerFeedback');
+const ControllerNotificacao = require('./src/controllers/ControllerNotificacao');
 
 
 const app = express();
@@ -142,6 +144,49 @@ app.put('/api/estoque/:id_item', ControllerEstoque.atualizarItem);
 
 // Rota para deletar um item do estoque
 app.delete('/api/estoque/:id_item', ControllerEstoque.deletarItem);
+
+
+
+/*
+======================================
+           Rotas de Feedback
+======================================
+*/
+// Rota para criar um novo feedback
+app.post('/api/feedbacks', ControllerFeedback.criarFeedback);
+
+// Rota para obter todos os feedbacks
+app.get('/api/feedbacks', ControllerFeedback.obterFeedbacks);
+
+// Rota para obter um feedback por ID
+app.get('/api/feedbacks/:id_feedback', ControllerFeedback.obterFeedbackPorId);
+
+// Rota para atualizar um feedback
+app.put('/api/feedbacks/:id_feedback', ControllerFeedback.atualizarFeedback);
+
+// Rota para deletar um feedback
+app.delete('/api/feedbacks/:id_feedback', ControllerFeedback.deletarFeedback);
+
+
+/*
+======================================
+        Rotas de Notificação
+======================================
+*/
+// Rota para criar uma nova notificação
+app.post('/api/notificacoes', ControllerNotificacao.criarNotificacao);
+
+// Rota para obter todas as notificações
+app.get('/api/notificacoes', ControllerNotificacao.obterNotificacoes);
+
+// Rota para obter uma notificação por ID
+app.get('/api/notificacoes/:id_notificacao', ControllerNotificacao.obterNotificacaoPorId);
+
+// Rota para atualizar uma notificação
+app.put('/api/notificacoes/:id_notificacao', ControllerNotificacao.atualizarNotificacao);
+
+// Rota para deletar uma notificação
+app.delete('/api/notificacoes/:id_notificacao', ControllerNotificacao.deletarNotificacao);
 
 
 
