@@ -5,7 +5,8 @@ const ControllerCliente = require('./src/controllers/ControllerCliente');
 const ControllerAdministrador = require('./src/controllers/ControllerAdministrador'); 
 const ControllerUsuario = require('./src/controllers/ControllerUsuario'); // Importa o controller do usuário
 const ControllerAgendamento = require('./src/controllers/ControllerAgendamento'); // Importa o controller do agendamento
-
+const ControllerBlog = require('./src/controllers/ControllerBlog'); // Importa as rotas de Blog
+const ControllerEstoque = require('./src/controllers/ControllerEstoque');
 
 
 const app = express();
@@ -101,7 +102,46 @@ app.put('/api/agendamentos/:id_agendamento', ControllerAgendamento.atualizarAgen
 app.delete('/api/agendamentos/:id_agendamento', ControllerAgendamento.deletarAgendamento);
 
 
+/*
+======================================
+           Rotas do Blog
+======================================
+*/
+// Rota para criar um novo blog
+app.post('/api/blogs', ControllerBlog.criarBlog);
 
+// Rota para obter todos os blogs
+app.get('/api/blogs', ControllerBlog.obterBlogs);
+
+// Rota para obter um blog por ID
+app.get('/api/blogs/:id_blog', ControllerBlog.obterBlogPorId);
+
+// Rota para atualizar um blog
+app.put('/api/blogs/:id_blog', ControllerBlog.atualizarBlog);
+
+// Rota para deletar um blog
+app.delete('/api/blogs/:id_blog', ControllerBlog.deletarBlog);
+
+
+/*
+======================================
+           Rotas do Estoque
+======================================
+*/
+// Rota para criar um novo item no estoque
+app.post('/api/estoque', ControllerEstoque.criarItem);
+
+// Rota para obter todos os itens do estoque
+app.get('/api/estoque', ControllerEstoque.obterItens);
+
+// Rota para obter um item do estoque por ID
+app.get('/api/estoque/:id_item', ControllerEstoque.obterItemPorId);
+
+// Rota para atualizar um item no estoque
+app.put('/api/estoque/:id_item', ControllerEstoque.atualizarItem);
+
+// Rota para deletar um item do estoque
+app.delete('/api/estoque/:id_item', ControllerEstoque.deletarItem);
 
 
 
