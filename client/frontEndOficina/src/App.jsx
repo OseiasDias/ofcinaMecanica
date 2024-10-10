@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import SpinnerFill from './components/Spinner.jsx'; // Importe o seu componente de spinner
+import  { useState, useEffect } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+
+const App = () => {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulando um carregamento de dados
+    const fetchData = async () => {
+      // Simula um atraso
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      setLoading(false); // Dados carregados
+    };
+
+    fetchData();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="App">
+      {loading ? (
+       <>  
+          
+           <SpinnerFill /> 
+          
+       </>
+      ) : (
+        <div>
+          <h1>Dados Carregados!</h1>
+          {/* Coloque seus dados aqui */}
+        </div>
+      )}
+    </div>
+  );
+};
 
-export default App
+export default App;
