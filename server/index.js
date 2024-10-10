@@ -9,6 +9,10 @@ const ControllerBlog = require('./src/controllers/ControllerBlog'); // Importa a
 const ControllerEstoque = require('./src/controllers/ControllerEstoque');
 const ControllerFeedback = require('./src/controllers/ControllerFeedback');
 const ControllerNotificacao = require('./src/controllers/ControllerNotificacao');
+const ControllerPagamento = require('./src/controllers/ControllerPagamento');
+const ControllerPromocao = require('./src/controllers/ControllerPromocao');
+const ControllerVeiculo = require('./src/controllers/ControllerVeiculo');
+const ControllerServico = require('./src/controllers/ControllerServico');
 
 
 const app = express();
@@ -188,6 +192,94 @@ app.put('/api/notificacoes/:id_notificacao', ControllerNotificacao.atualizarNoti
 // Rota para deletar uma notificação
 app.delete('/api/notificacoes/:id_notificacao', ControllerNotificacao.deletarNotificacao);
 
+
+/*
+======================================
+        Rotas de Pagamento
+======================================
+*/
+// Rota para criar um novo pagamento
+app.post('/api/pagamentos', ControllerPagamento.criarPagamento);
+
+// Rota para obter todos os pagamentos
+app.get('/api/pagamentos', ControllerPagamento.obterPagamentos);
+
+// Rota para obter um pagamento por ID
+app.get('/api/pagamentos/:id_pagamento', ControllerPagamento.obterPagamentoPorId);
+
+// Rota para atualizar um pagamento
+app.put('/api/pagamentos/:id_pagamento', ControllerPagamento.atualizarPagamento);
+
+// Rota para deletar um pagamento
+app.delete('/api/pagamentos/:id_pagamento', ControllerPagamento.deletarPagamento);
+
+
+
+/*
+======================================
+        Rotas de Promoção
+======================================
+*/
+// Rota para criar um novo promoção
+app.post('/api/promocoes', ControllerPromocao.criarPromocao);
+
+// Rota para obter todas as promoções
+app.get('/api/promocoes', ControllerPromocao.obterPromocoes);
+
+// Rota para obter uma promoção por ID
+app.get('/api/promocoes/:id_promocao', ControllerPromocao.obterPromocaoPorId);
+
+// Rota para atualizar uma promoção
+app.put('/api/promocoes/:id_promocao', ControllerPromocao.atualizarPromocao);
+
+// Rota para deletar uma promoção
+app.delete('/api/promocoes/:id_promocao', ControllerPromocao.deletarPromocao);
+
+
+
+/*
+======================================
+           Rotas de Serviço
+======================================
+*/
+
+// Rota para criar um novo serviço
+app.post('/api/servicos', ControllerServico.criarServico);
+
+// Rota para obter todos os serviços
+app.get('/api/servicos', ControllerServico.obterServicos);
+
+// Rota para obter um serviço por ID
+app.get('/api/servicos/:id_servico', ControllerServico.obterServicoPorId);
+
+// Rota para atualizar um serviço
+app.put('/api/servicos/:id_servico', ControllerServico.atualizarServico);
+
+// Rota para deletar um serviço
+app.delete('/api/servicos/:id_servico', ControllerServico.deletarServico);
+
+
+
+/*
+======================================
+           Rotas de Veículo
+======================================
+*/
+
+// Rota para criar um novo veículo
+app.post('/api/veiculos', ControllerVeiculo.criarVeiculo);
+
+// Rota para obter todos os veículos
+app.get('/api/veiculos', ControllerVeiculo.obterVeiculos);
+
+// Rota para obter um veículo por ID
+app.get('/api/veiculos/:id_veiculo', ControllerVeiculo.obterVeiculoPorId);
+
+// Rota para atualizar um veículo
+app.put('/api/veiculos/:id_veiculo', ControllerVeiculo.atualizarVeiculo);
+
+// Rota para deletar um veículo
+app.delete('/api/veiculos/:id_veiculo', ControllerVeiculo.deletarVeiculo);
 
 
 const PORTA = process.env.PORT || 5000; // Define a porta
