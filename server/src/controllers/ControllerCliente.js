@@ -1,4 +1,3 @@
-// controllers/ControllerCliente.js
 const Cliente = require('../models/Cliente'); // Importa o modelo de Cliente
 
 class ControllerCliente {
@@ -6,9 +5,9 @@ class ControllerCliente {
     // Método para criar um novo cliente
     static async criarCliente(req, res) {
         try {
-            const { nome, email, telefone, endereco, genero, data_nascimento, historico_atendimentos, foto, estado } = req.body;
+            const { nome, email, telefone, endereco, genero, data_nascimento, historico_atendimentos, foto, estado, senha } = req.body;
 
-            const cliente = new Cliente(null, nome, email, telefone, endereco, genero, data_nascimento, historico_atendimentos, foto, estado);
+            const cliente = new Cliente(null, nome, email, telefone, endereco, genero, data_nascimento, historico_atendimentos, foto, estado, senha);
             const id_cliente = await Cliente.salvar(cliente);
 
             res.status(201).json({ message: "Cliente criado com sucesso!", id_cliente });
@@ -50,9 +49,9 @@ class ControllerCliente {
     static async atualizarCliente(req, res) {
         try {
             const { id_cliente } = req.params;
-            const { nome, email, telefone, endereco, genero, data_nascimento, historico_atendimentos, foto, estado } = req.body;
+            const { nome, email, telefone, endereco, genero, data_nascimento, historico_atendimentos, foto, estado, senha } = req.body;
 
-            const cliente = new Cliente(id_cliente, nome, email, telefone, endereco, genero, data_nascimento, historico_atendimentos, foto, estado);
+            const cliente = new Cliente(id_cliente, nome, email, telefone, endereco, genero, data_nascimento, historico_atendimentos, foto, estado, senha);
             await Cliente.atualizar(cliente);
 
             res.status(200).json({ message: "Cliente atualizado com sucesso!" });
