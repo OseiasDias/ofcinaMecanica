@@ -10,14 +10,24 @@
 :root{
   --corPrimaria: #0070fa;
   --corSecodaria: #044697;
-  --sombra: 0px 6px 30px rgba(0, 0, 0, 0.08);
+  --sombra: 0 4px 8px rgba(0, 0, 0, 0.2);
   --border:  0.8px solid rgba(128,128,128,.143);
   --trasicao:all 300ms ease-in;
   --sombraA: 2px 4px 29px #ddd;;
 }
+
+a{
+  color: #fff;
+  text-decoration: none;
+}
+
+a:hover{
+  cursor: pointer;
+}
 *{
   margin: 0;
   padding: 0;
+  box-sizing: border-box !important;
   /*color: #0070fa;*/
 }
 

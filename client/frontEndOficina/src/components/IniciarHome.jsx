@@ -7,7 +7,7 @@ export default function IniciarHome() {
   return (
     <div className="seccao-inicio vh-100 text-white">
       <BarraTopInicial />
-      <div className="textoGrupo">
+      <div className="textoGrupo pt-5">
             <h1 className="h1-home">Agende a manutenção <br /> do seu veículo</h1>
             <h2 className=" text-center">Conheça os nossos serviços</h2>
 

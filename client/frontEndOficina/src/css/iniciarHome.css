@@ -4,6 +4,8 @@
     url("../assets/img/StockCake-Busy Auto Shop_1728583541.jpg");
   background-size: cover;
   background-position: top;
+  border-bottom: 6px solid var(--corPrimaria);
+  box-shadow: var(--sombra) !important;
  
  
 }

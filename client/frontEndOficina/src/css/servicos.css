@@ -1,6 +1,7 @@
 .seccao-cor {
     padding-top: 70px;
-    background-color: #f6f9ff!important;
+    background-color:#fff !important;
+    /*#f6f9ff*/
 }
 
 .margem {
@@ -9,7 +10,8 @@
     height: 100% !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
      /*border: 2px solid var(--corPrimaria);*/
-    background:
+
+    background: 
         url("../assets/img/pro-table-bottom.png");
     background-size: 100%;
     background-position: bottom;
@@ -18,6 +20,8 @@
     transition: var(--trasicao);
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), /* Sombra mais escura */
                  -1px -1px 2px rgba(255, 255, 255, 0.8);
+                 border-top: 5px solid var(--corPrimaria);
+               
 }
 
 .margem:hover{
@@ -42,7 +46,7 @@
 }
 
 .titulo-secao {
-    font-size: 2rem; /* Ajuste o tamanho da fonte conforme necessário */
+    font-size: 2.6rem; /* Ajuste o tamanho da fonte conforme necessário */
      /* Cor do texto (pode ser ajustada) */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), /* Sombra mais escura */
                  -1px -1px 2px rgba(255, 255, 255, 0.8); /* Sombra clara para destaque */
