@@ -94,6 +94,19 @@ class Cliente {
         const [rows] = await pool.promise().query(query, [email]);
         return rows[0]; // Retorna o cliente encontrado
     }
+
+    // Método para fazer login com email e senha
+    static async login(email, senha) {
+        const cliente = await this.obterPorEmail(email); // Obtém o cliente pelo e-mail
+        if (!cliente) {
+            throw new Error('E-mail ou senha inválidos'); // E-mail não encontrado
+        }
+        const isPasswordValid = await bcrypt.compare(senha, cliente.senha); // Compara a senha fornecida com a senha armazenada
+        if (!isPasswordValid) {
+            throw new Error('E-mail ou senha inválidos'); // Senha não corresponde
+        }
+        return cliente; // Retorna o cliente se o login for bem-sucedido
+    }
 }
 
 module.exports = Cliente;

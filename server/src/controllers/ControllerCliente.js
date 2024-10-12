@@ -1,7 +1,6 @@
 const Cliente = require('../models/Cliente'); // Importa o modelo de Cliente
 
 class ControllerCliente {
-
     // Método para criar um novo cliente
     static async criarCliente(req, res) {
         try {
@@ -70,6 +69,22 @@ class ControllerCliente {
         } catch (error) {
             console.error("Erro ao deletar cliente:", error);
             res.status(500).json({ message: "Erro ao deletar cliente" });
+        }
+    }
+
+    // Método para fazer login do cliente
+    static async loginCliente(req, res) {
+        try {
+            const { email, senha } = req.body;
+            const cliente = await Cliente.login(email, senha); // Chama o método de login do modelo
+
+            res.status(200).json({
+                message: "Login bem-sucedido!",
+                cliente // Retorna os dados do cliente (ou pode retornar apenas o ID, se preferir)
+            });
+        } catch (error) {
+            console.error("Erro ao fazer login:", error);
+            res.status(401).json({ message: "E-mail ou senha inválidos" }); // Erro de autenticação
         }
     }
 }

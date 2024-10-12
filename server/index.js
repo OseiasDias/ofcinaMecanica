@@ -46,6 +46,10 @@ app.put('/api/clientes/:id_cliente', ControllerCliente.atualizarCliente);
 // Rota para deletar um cliente
 app.delete('/api/clientes/:id_cliente', ControllerCliente.deletarCliente);
 
+// Rota para Login Cliente
+app.post('/api/clientes/login', ControllerCliente.loginCliente); // Adiciona a rota de login
+
+
 /*
 ======================================
         Rotas do Administrador

@@ -1,4 +1,5 @@
 
+import ContUp from "../components/ContUp";
 import Faq from "../components/Faq";
 import Footer from "../components/Footer";
 import IniciarHome from "../components/IniciarHome";
@@ -10,6 +11,8 @@ export default function Home() {
       <IniciarHome />
      
         <Servicos />
+
+        <ContUp />
         <Faq />
         <Footer />
       

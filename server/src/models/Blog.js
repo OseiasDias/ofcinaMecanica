@@ -23,12 +23,13 @@ class Blog {
         return result.insertId; // Retorna o ID do blog inserido
     }
 
-    // Método para obter todos os blogs
-    static async obterTodos() {
-        const query = 'SELECT * FROM blog';
-        const [rows] = await pool.promise().query(query);
-        return rows; // Retorna todos os blogs
-    }
+  // Método para obter todos os blogs em ordem decrescente de publicação
+static async obterTodos() {
+    const query = 'SELECT * FROM blog ORDER BY data_publicacao DESC'; // Ordena pela data de publicação em ordem decrescente
+    const [rows] = await pool.promise().query(query);
+    return rows; // Retorna todos os blogs ordenados
+}
+
 
     // Método para obter um blog pelo ID
     static async obterPorId(id_blog) {

@@ -1,0 +1,79 @@
+
+@media(min-width:992px){
+    .fotoGrupo{
+        margin-left: 40px;
+    }
+}
+
+.fotoPerfil{
+    border-radius: 50%;
+    
+    box-shadow: var(--sombra);
+}
+
+.iconesMenu{
+    margin-right: 10px !important;
+    color: var(--corPrimaria) !important;
+}
+
+.linksProprios{
+    color: #000 !important;
+    padding-top: 15px;
+   
+}
+
+.basic-nav-dropCliente{
+    padding:8px 50px !important;
+}
+.linksProprios:hover{
+    color: #000000b8 !important;
+}
+
+.menuCliente{
+    background-color:#fff !important;
+    box-shadow: var(--sombra);
+    transition: all 300ms ease-in !important;
+}
+
+.menuCliente .navbar-nav .dropdown-menu
+{
+    border: none !important;
+    
+    box-shadow: var(--sombra);
+    margin-top: 10px;
+    border-bottom: 4px solid var(--corPrimaria) !important;
+    border-top: 4px solid var(--corPrimaria) !important;
+    border-radius: 30px;
+    transition: all 300ms ease-in !important;
+    margin-left: -50px;
+}
+
+.menuCliente .dropdown-item{
+    border-radius: 20px !important;
+    border-bottom: 4px solid #00000000 !important;
+}
+
+.menuCliente .dropdown-item:hover,
+.menuCliente .dropdown-item:active{
+    border-bottom: 4px solid var(--corPrimaria) !important;
+}
+
+.menuCliente .dropdown-item:active{
+ background-color: #fff !important;
+ color: #000 !important;
+}
+
+@media (max-width:992px){
+    .menuCliente .fotoGrupo{
+        margin-bottom: 20px;
+        margin-top: 7px;
+    }
+    .menuCliente .navbar-nav .dropdown-menu{
+        margin-top: 25px;
+    }
+}
+
+
+.menuCliente{
+    z-index: 101;
+}

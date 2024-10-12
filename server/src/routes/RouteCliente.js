@@ -19,4 +19,7 @@ router.put('/:id_cliente', ControllerCliente.atualizarCliente);
 // Rota para deletar um cliente
 router.delete('/:id_cliente', ControllerCliente.deletarCliente);
 
+// Rota para fazer login do cliente
+router.post('/login', ControllerCliente.loginCliente); // Adiciona a rota de login
+
 module.exports = router;
