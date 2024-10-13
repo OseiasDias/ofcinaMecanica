@@ -25,6 +25,12 @@
 .basic-nav-dropCliente{
     padding:8px 50px !important;
 }
+
+@media (max-width:992px){
+    .basic-nav-dropCliente{
+        padding:8px  5px!important;
+    }
+}
 .linksProprios:hover{
     color: #000000b8 !important;
 }
@@ -44,9 +50,19 @@
     border-bottom: 4px solid var(--corPrimaria) !important;
     border-top: 4px solid var(--corPrimaria) !important;
     border-radius: 30px;
-    transition: all 300ms ease-in !important;
-    margin-left: -50px;
+    
+    transition: all 300ms ease-in !important;   
+    padding: 0 10px;
+    
 }
+
+@media (min-width:992px){
+    .menuCliente .navbar-nav .dropdown-menu{
+        margin-left: 40px;
+    }
+}
+
+
 
 .menuCliente .dropdown-item{
     border-radius: 20px !important;
@@ -76,4 +92,21 @@
 
 .menuCliente{
     z-index: 101;
+}
+
+.nomeFull{
+    
+    position: relative;
+}
+
+@media (max-width:992px){
+    .outraDrop{
+        border-top: 1px solid var(--corPrimaria);
+    }
+}
+
+.bordarModal{
+    border-bottom: 5px solid var(--corPrimaria) !important;
+    border-top: 5px solid var(--corPrimaria) !important;
+    border-radius: 30px;
 }

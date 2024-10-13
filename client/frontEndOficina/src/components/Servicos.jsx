@@ -43,10 +43,10 @@ export default function Servicos() {
                         {servicos.slice(0, showAll ? servicos.length : 9).map (servico => (
                             <div key={servico.id_servico} className="servico-item mt-3 col-12 col-md-6 col-lg-4 h-100">
                                 <div className="margem h-100">
-                                    <MdMiscellaneousServices fontSize={48} color='#0070fa' className='my-2' />
-                                    <h5 className='fw-bold my-2'>{servico.nome_servico}</h5>
-                                    <p>{servico.descricao}</p>
-                                    <p><strong>Agende uma avaliação! <IoCalendarNumberOutline fontSize={24} /></strong></p>
+                                    <MdMiscellaneousServices fontSize={38} color='#0070fa' className='my-1' />
+                                    <h5 className='fw-500 tamanhoH5 my-3'>{servico.nome_servico}</h5>
+                                    <p className='parSer'>{servico.descricao}</p>
+                                    <p className='sizeAgenda'><strong>Agende uma avaliação! <IoCalendarNumberOutline fontSize={20} /></strong></p>
                                 {/**                                    <p>A partir de: <strong><GiMoneyStack fontSize={25}/> {parseFloat(servico.preco).toFixed(2)}</strong> kz</p>
  */}
                                 </div>

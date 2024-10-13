@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomeCliente from "./pages/HomeCliente.jsx";
 import Blog from "./pages/Blog.jsx";
+import PerfilCliente from '../src/pages/PerfilCliente.jsx';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -33,6 +34,7 @@ const App = () => {
               <Route path="/" element={<Home />} />
               <Route path="/HomeCliente" element={<HomeCliente />} />
               <Route path="/Blog" element={<Blog />} />
+              <Route path="/perfilCliente" element={<PerfilCliente />} />
               
             </Routes>
           </Router>

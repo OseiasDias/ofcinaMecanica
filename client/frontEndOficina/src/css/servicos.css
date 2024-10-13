@@ -5,7 +5,7 @@
 }
 
 .margem {
-    padding: 30px ;
+    padding: 20px ;
     border-radius: 40px;
     height: 100% !important;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
@@ -50,4 +50,16 @@
      /* Cor do texto (pode ser ajustada) */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), /* Sombra mais escura */
                  -1px -1px 2px rgba(255, 255, 255, 0.8); /* Sombra clara para destaque */
+}
+
+.tamanhoH5{
+    font-size: 1.3em;
+}
+
+.parSer{
+    font-size: 1em;
+}
+
+.sizeAgenda{
+    font-size: .9em;
 }
