@@ -1,0 +1,86 @@
+
+
+.ladoLeft{
+    
+    height: 100vh;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
+      url("../assets/img/perfilCarro.jpg");
+    background-size: cover;
+    background-position: center;
+  
+    margin-left: -30px;
+    padding: 50px;
+    box-shadow: var(--sombra);
+   
+}
+
+.ladoLeft h3{
+    line-height: 50px;
+    font-size: 2.2em;
+    text-align: center;
+    font-family: "minhaFonte";
+    display: none;
+}
+
+.formularioCarro{
+
+    position: relative; /* Permite usar top/left */
+    top: 50%; /* Posiciona a div no meio verticalmente */
+    left: 50%; /* Posiciona a div no meio horizontalmente */
+    transform: translate(-50%, -50%); /* Move a div para que o ponto de referência seja o centro dela */
+    
+    box-shadow: var(--sombra);
+    padding: 15px;
+    border-bottom: 6px solid var(--corPrimaria);
+    border-top: 6px solid var(--corPrimaria) !important;
+    border-radius: 30px;
+    margin-top: 30px; 
+   
+}
+
+@media (min-width:992px){
+
+    .formularioCarro{
+        margin-top: 30px; 
+    }
+  
+}
+
+
+@media (max-width:992px){
+
+    body{
+        
+        height: 100vh;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
+          url("../assets/img/perfilCarro.jpg");
+        background-size: cover;
+        background-position: center;
+        
+        background-attachment: fixed !important;
+       /* padding: 50px;*/
+    }
+
+    .ocultarLado{
+        display: none;
+    }
+    
+    .formularioCarro{
+        background-color: #fff;
+        margin-top:100px !important;
+      
+    }
+}
+
+
+
+@media (max-width:768px){
+    .formularioCarro{
+        margin-top:80px !important;
+        padding-bottom: 20px;
+    }
+
+    .principalFOrm{
+        margin-bottom: 90px !important;
+    }
+}

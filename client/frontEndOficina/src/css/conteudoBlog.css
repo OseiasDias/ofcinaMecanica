@@ -8,6 +8,8 @@
     border-radius: 25px;
     border-right: 6px solid var(--corPrimaria) !important;
     border-left: 6px solid var(--corPrimaria) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
 }
 
 .paragrafoBlog{

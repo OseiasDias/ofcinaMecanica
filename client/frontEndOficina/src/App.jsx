@@ -6,6 +6,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import HomeCliente from "./pages/HomeCliente.jsx";
 import Blog from "./pages/Blog.jsx";
 import PerfilCliente from '../src/pages/PerfilCliente.jsx';
+import { Helmet } from "react-helmet";
+import CadastrarVeiculo from "./pages/CadastrarVeiculo.jsx";
+import MeusVeiculos from "./pages/MeusVeiculos.jsx";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -29,13 +32,18 @@ const App = () => {
         </>
       ) : (
         <div>
+          <Helmet>
+        <title>Oficina Mecâncica</title>
+        <meta name="description" content="Oficina mecâncica" />
+      </Helmet>
           <Router>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/HomeCliente" element={<HomeCliente />} />
               <Route path="/Blog" element={<Blog />} />
               <Route path="/perfilCliente" element={<PerfilCliente />} />
-              
+              <Route path="/cadastroVeiculos" element={<CadastrarVeiculo />} />
+              <Route path="/meusVeiculos" element={<MeusVeiculos />} />
             </Routes>
           </Router>
         </div>

@@ -46,6 +46,7 @@ export default function ConteudoBlog() {
                 compreensão.
               </p>
             </div>
+          </div>
             <div className="row">
               {blogs.length > 0 ? (
                 <>
@@ -74,7 +75,7 @@ export default function ConteudoBlog() {
               )}
             </div>
           </div>
-        </div>
+        
       </section>
     </>
   );

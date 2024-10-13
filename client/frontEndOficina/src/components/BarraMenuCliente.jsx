@@ -11,18 +11,36 @@ import { IoCarSportSharp } from "react-icons/io5";
 import { MdContentPasteSearch } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 
+import { IoIosAddCircle } from "react-icons/io";
+import { FaEye } from "react-icons/fa";
+
 function BarraMenuCliente() {
-    const [showModal, setShowModal] = useState(false); // Estado para controlar a exibição da modal
+    const [showLogoutModal, setShowLogoutModal] = useState(false); // Estado para controlar a modal de logout
+    const [showVehicleModal, setShowVehicleModal] = useState(false); // Estado para controlar a modal de veiculos
     const navigate = useNavigate(); // Hook do react-router-dom para redirecionar
 
-    const handleShowModal = () => setShowModal(true);
-    const handleCloseModal = () => setShowModal(false);
+    const handleShowLogoutModal = () => setShowLogoutModal(true);
+    const handleCloseLogoutModal = () => setShowLogoutModal(false);
+
+    const handleShowVehicleModal = () => setShowVehicleModal(true);
+    const handleCloseVehicleModal = () => setShowVehicleModal(false);
+
     const handleLogout = () => {
-        setShowModal(false);
+        setShowLogoutModal(false);
         navigate("/"); // Redireciona para a página inicial
     };
 
-    let nome = "Jose";
+    const handleNavigateCadastrarVeiculo = () => {
+        setShowVehicleModal(false);
+        navigate("/cadastroVeiculos"); // Redireciona para a página de cadastrar veículo
+    };
+
+    const handleNavigateVerVeiculos = () => {
+        setShowVehicleModal(false);
+        navigate("/meusVeiculos"); // Redireciona para a página de ver meus veículos
+    };
+
+    let nome = "Oseias";
 
     return (
         <>
@@ -52,10 +70,13 @@ function BarraMenuCliente() {
                                     <FaCalendarAlt fontSize={20} className="iconesMenu" />
                                     Agendar Manutenção
                                 </Nav.Link>
-                                <Nav.Link className="linksProprios" href="#link">
+
+                                {/* Quando clicar aqui, abrirá a modal */}
+                                <Nav.Link className="linksProprios" onClick={handleShowVehicleModal}>
                                     <IoCarSportSharp fontSize={20} className="iconesMenu" />
-                                    Cadastrar Veiculo
+                                    Cadastro de Veiculos
                                 </Nav.Link>
+
                                 <Nav.Link className="linksProprios" href="#link">
                                     <MdContentPasteSearch fontSize={20} className="iconesMenu" />
                                     Consultar o estado
@@ -101,7 +122,7 @@ function BarraMenuCliente() {
                                     Ajuda
                                 </NavDropdown.Item>
                                 <NavDropdown.Divider />
-                                <NavDropdown.Item onClick={handleShowModal}>
+                                <NavDropdown.Item onClick={handleShowLogoutModal}>
                                     <IoIosLogOut className="iconesMenu" fontSize={18} /> Sair
                                 </NavDropdown.Item>
                             </NavDropdown>
@@ -110,21 +131,41 @@ function BarraMenuCliente() {
                 </Navbar.Collapse>
             </Navbar>
 
-            {/* Modal de confirmação */}
-            <Modal show={showModal} onHide={handleCloseModal}>
+            {/* Modal de confirmação de saída */}
+            <Modal show={showLogoutModal} onHide={handleCloseLogoutModal}>
                 <div className="bordarModal">
-                <Modal.Header closeButton>
-                    <Modal.Title>Confirmar Saída</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>Tem certeza de que deseja sair?</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="danger" onClick={handleCloseModal}>
-                        Não
-                    </Button>
-                    <Button variant="primary" onClick={handleLogout}>
-                        Sim
-                    </Button>
-                </Modal.Footer>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirmar Saída</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Tem certeza de que deseja sair?</Modal.Body>
+                    <Modal.Footer >
+                        <Button variant="danger" onClick={handleCloseLogoutModal}>
+                            Não
+                        </Button>
+                        <Button variant="primary" onClick={handleLogout}>
+                            Sim
+                        </Button>
+                    </Modal.Footer>
+                </div>
+            </Modal>
+
+
+            {/* Modal com as opções de veículo */}
+            <Modal show={showVehicleModal} onHide={handleCloseVehicleModal} centered>
+                <div className="bordarModal">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Opções de Veículo</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="d-flex justify-content-between">
+                        
+                        <Button variant="primary" className="" onClick={handleNavigateCadastrarVeiculo}>
+                           <IoIosAddCircle /> Cadastrar Veículo
+                        </Button>
+                        
+                        <Button variant="secondary" onClick={handleNavigateVerVeiculos}>
+                           <FaEye /> Ver Meus Veículos
+                        </Button>
+                    </Modal.Body>
                 </div>
             </Modal>
         </>
