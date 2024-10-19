@@ -4,7 +4,7 @@
  
   
   height: 300px !important;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+  background: var(--linearGradiente),
     url("../assets/img/StockCake-Centro de Serviços Automotivos_1728680471.jpg");
   background-size: cover;
   background-position: center;

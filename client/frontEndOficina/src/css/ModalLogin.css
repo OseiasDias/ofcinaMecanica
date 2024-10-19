@@ -1,20 +1,20 @@
 
 
 .modal-content{
-    border-radius: 30px !important;
+    border-radius: var(--borderRadius) !important;
 }
 .modalBeleza{
     
 
     border-bottom: 6px solid var(--corPrimaria);
     border-top: 6px solid var(--corPrimaria) !important;
-    border-radius: 30px;
+    border-radius: var(--borderRadius);
     
   }
 
 .bordarRadius{
-    border-top-left-radius: 40px;
-    border-top-right-radius: 40px;
+    border-top-left-radius: var(--borderRadius);
+    border-top-right-radius:var(--borderRadius);
 }
 
 .ultimoParagrafo{

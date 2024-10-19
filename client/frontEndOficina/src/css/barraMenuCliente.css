@@ -6,8 +6,6 @@
 }
 
 .fotoPerfil{
-    border-radius: 50%;
-    
     box-shadow: var(--sombra);
 }
 
@@ -18,9 +16,38 @@
 
 .linksProprios{
     color: #000 !important;
-    padding-top: 15px;
+    padding-top:15px;
    
 }
+
+@media (min-width:992px) and (max-width:1400px){
+    .iconeMenuNove{
+        margin-top: 6px;
+    }
+    .linksProprios{
+        color: #000 !important;
+        padding-top:20px;
+       
+    }
+
+    .menuCliente .navbar-nav .dropdown-menu{
+        margin-top: 2px !important;
+    }
+
+   
+    
+    
+}
+
+@media (max-width:992px){
+    .iconeMenuNove{
+        left: -5px;
+        position: relative;
+        margin-right: -1px !important;
+    }
+    
+}
+
 
 .basic-nav-dropCliente{
     padding:8px 50px !important;
@@ -36,22 +63,21 @@
 }
 
 .menuCliente{
-    background-color:#fff !important;
+    background-color:var(--corTerciaria) !important;
     box-shadow: var(--sombra);
     transition: all 300ms ease-in !important;
 }
 
 .menuCliente .navbar-nav .dropdown-menu
 {
+
     border: none !important;
-    
     box-shadow: var(--sombra);
-    margin-top: 10px;
+    margin-top: 14px;
     border-bottom: 4px solid var(--corPrimaria) !important;
     border-top: 4px solid var(--corPrimaria) !important;
-    border-radius: 30px;
-    
-    transition: all 300ms ease-in !important;   
+    border-radius:var(--borderRadius);;   
+    transition: var(--transicao) !important;   
     padding: 0 10px;
     
 }
@@ -65,17 +91,20 @@
 
 
 .menuCliente .dropdown-item{
-    border-radius: 20px !important;
-    border-bottom: 4px solid #00000000 !important;
+    border-radius:var(--borderRadius) !important;
+    border-bottom: 3px solid #00000000 !important;
 }
 
 .menuCliente .dropdown-item:hover,
-.menuCliente .dropdown-item:active{
-    border-bottom: 4px solid var(--corPrimaria) !important;
+.menuCliente .dropdown-item:active,
+.menuCliente .colorirLink:hover{
+    background-color: #dddddd58;
+    color: var(--corPrimaria) !important;
 }
 
+
 .menuCliente .dropdown-item:active{
- background-color: #fff !important;
+ background-color: var(--corTerciaria) !important;
  color: #000 !important;
 }
 
@@ -85,7 +114,7 @@
         margin-top: 7px;
     }
     .menuCliente .navbar-nav .dropdown-menu{
-        margin-top: 25px;
+        margin-top:25px;
     }
 }
 
@@ -106,7 +135,18 @@
 }
 
 .bordarModal{
-    border-bottom: 5px solid var(--corPrimaria) !important;
-    border-top: 5px solid var(--corPrimaria) !important;
-    border-radius: 30px;
+    border-bottom: 3px solid var(--corPrimaria) !important;
+    border-top: 3px solid var(--corPrimaria) !important;
+    border-radius:var(--borderRadius);
 }
+
+.fotoPerfil{
+    border-radius: 50% !important;
+}
+
+@media (min-width:992px) and (max-width:1400px){
+    .menuCliente{
+        height: 65px;
+    }
+}
+

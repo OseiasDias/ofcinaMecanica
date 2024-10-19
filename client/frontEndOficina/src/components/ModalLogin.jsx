@@ -2,6 +2,9 @@ import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import ModalCadastrarCliente from './ModalCadastrarCliente';
+
 import '../css/modalLogin.css';
 
 // eslint-disable-next-line react/prop-types
@@ -12,6 +15,7 @@ export default function ModalLogin({ show, onHide }) {
   const [showPassword, setShowPassword] = useState(false);
   const [loginError, setLoginError] = useState(''); // Estado para mensagem de erro de login
   const [loginSuccess, setLoginSuccess] = useState(''); // Estado para mensagem de sucesso de login
+  const [modalShowCadastro, setModalShowCadastro] = useState(false); // Novo estado para modal de cadastro
 
   // Função para validar email
   const validateEmail = (email) => {
@@ -108,8 +112,8 @@ export default function ModalLogin({ show, onHide }) {
                   onClick={() => setShowPassword(!showPassword)} 
                   className="ms-2"
                 >
-                  {showPassword ? "Ocultar" : "Mostrar"}
-                </Button>
+                    {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                    </Button>
               </div>
             </Form.Group>
 
@@ -123,7 +127,11 @@ export default function ModalLogin({ show, onHide }) {
         </Modal.Body>
         <hr />
         <p className='text-center'><strong className='melhorarStrong'>Esqueceste a sua senha?</strong></p>
-        <p className='text-center'>Não tens uma conta? <strong className='melhorarStrong'>Registar</strong></p>
+        <p className='text-center'>Não tens uma conta? <strong className='melhorarStrong' onClick={() => setModalShowCadastro(true)}>Registar</strong></p>
+
+         {/* Modal de cadastro */}
+      <ModalCadastrarCliente show={modalShowCadastro} onHide={() => setModalShowCadastro(false)} />
+   
       </div>
     </Modal>
   );

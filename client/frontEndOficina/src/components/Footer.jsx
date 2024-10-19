@@ -13,6 +13,10 @@ import { RiMapPinLine } from "react-icons/ri";
 
 import { IoLogInOutline } from "react-icons/io5";
 import { MdOutlinePersonAdd } from "react-icons/md";
+import Copyright from "./CopyRight";
+
+
+
 
 export default function Footer() {
   return (
@@ -84,13 +88,8 @@ export default function Footer() {
           </div>
         </div>
       </div>
-
-      <p className="text-center text-white retirarTrasition">
-        Copyright © <strong>2024</strong> <em>NomeMotor</em>, Ltd. Todos os
-        direitos reservados.
-        <br />
-        Desenvolvido por: <strong>Oseias Dias</strong>
-      </p>
+    <Copyright />
+    
     </footer>
   );
 }

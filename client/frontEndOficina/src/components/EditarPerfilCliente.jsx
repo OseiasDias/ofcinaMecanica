@@ -193,7 +193,7 @@ function EditarPerfilCliente() {
                 <div className="row my-5 corpoTab">
                     <div className="col-12 col-lg-4 col-md-10 mx-auto">
                         <div className="espacamento">
-                            <img src={fotoPerfil} alt="foto Perfil" className="w-100 imgPerfil" />
+                            <img src={fotoPerfil} alt="foto Perfil" className="w-100 fotoPerfil imgPerfil" />
                             <h3 className="text-center my-2">Oseias Dias</h3>
                             <h6 className="text-center">Cliente</h6>
                         </div>

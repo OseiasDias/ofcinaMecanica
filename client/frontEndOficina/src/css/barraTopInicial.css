@@ -1,28 +1,59 @@
+
 .logoMotor {
-    width: 60px;
-    height: 50px;
+    width: 200px;
+    height: 65px;
+}
+
+.logoMotor:hover{
+    transform: scale(1.1);
+}
+
+
+@media (max-width:992px){
+
+    .logoMotor {
+        width: 170px;
+        height: 75px;
+    }
+    
+}
+
+@media (max-width:992px){
+
+    .logoMotor {
+        width: 190px;
+        height: 65px;
+    }
+    
 }
 
 .navbar-brand {
     font-size: 1.8em !important;
     color: var(--corPrimaria) !important;
     font-weight: 600;
-    font-family: "minhaFonte", 'Poppins', Arial, Helvetica, sans-serif;
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
 
 }
 
 .menuTopInicial {
     box-shadow: var(--sombra);
-    background-color: #fff !important;
+    background-color: var(--corTerciaria) !important;
     z-index: 101;
+  
+}
+
+@media (min-width:992px) and (max-width:1400px){
+    .menuTopInicial{
+        height: 65px;
+    }
 }
 
 
 .links-acessos {
     background-color: var(--corPrimaria) !important;
     margin: 0 6px;
-    color: #fff !important;
-    border-radius: 20px !important;
+    color: var(--corTerciaria) !important;
+    border-radius: var(--borderRadius);
 
 }
 
@@ -32,7 +63,7 @@
 }
 
 
-@media (max-width:768px) {
+@media (max-width:992px) {
     .links-acessos {
 
         /*color: var(--corPrimaria) !important;*/
@@ -52,4 +83,9 @@
     .link2 {
         margin-bottom: 30px;
     }
+}
+
+
+.minhaCor:hover{
+    color: var(--corSecodaria) !important;
 }

@@ -9,7 +9,7 @@ function Faq() {
       <div className="container">
         <div className="row">
           <div className="col-12 col-md-12 col-lg-6">
-          <h3 className="perguntasFaq">Nossos Horarios <FaArrowDown /></h3>
+          <h3 className="perguntasFaq">Nossos Horarios <FaArrowDown fontSize={17} /></h3>
               <div className="horasTrabalho">
                 <p className="d-flex justify-content-between pHorarios"><strong>SEGUNDA-FEIRA</strong> 08H00-16H00</p>
                 <p className="d-flex justify-content-between pHorarios"><strong>TERÇA-FEIRA</strong> 08H00-16H00</p>
@@ -22,7 +22,7 @@ function Faq() {
               </div>
           </div>
           <div className="col-12 col-md-12 col-lg-6">
-            <h3 className="perguntasFaq">Peguntas Frequentes <FaArrowDown /></h3>
+            <h3 className="perguntasFaq">Peguntas Frequentes <FaArrowDown fontSize={17} /></h3>
             <Accordion defaultActiveKey="0" className="bordaritem">
               <Accordion.Item eventKey="0">
                 <Accordion.Header><FiHelpCircle className="iconeFaq" /> <strong >Com que frequência devo fazer a troca de óleo do meu veículo?</strong></Accordion.Header>

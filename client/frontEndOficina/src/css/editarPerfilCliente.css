@@ -9,21 +9,21 @@
     width: 200px !important;
     display: block;
     margin: auto;
-    border-radius: 50%;
+    border-radius: var(--borderRadius)
 }
 
 .espacamento {
     box-shadow: var(--sombra);
     padding: 25px;
-    border-bottom: 6px solid var(--corPrimaria);
-    border-top: 6px solid var(--corPrimaria) !important;
-    border-radius: 30px;
+    border-bottom: 4px solid var(--corPrimaria);
+    border-top: 4px solid var(--corPrimaria) !important;
+    border-radius: var(--borderRadius);
     margin-bottom: 30px;
 }
 
 .belezaParagrafo{
     border-bottom: 3px solid var(--corPrimaria) !important;
-    border-radius: 30px;
+    border-radius: var(--borderRadius);
     padding: 10px;
     
 }
@@ -36,6 +36,6 @@
 .transitionNone{
     transition: none !important;
     background-color: var(--corPrimaria);
-    color: #fff;
+    color: var(--corTerciaria);
     border: none;
 }

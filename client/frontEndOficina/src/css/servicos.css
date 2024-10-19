@@ -1,31 +1,23 @@
 .seccao-cor {
     padding-top: 70px;
-    background-color:#fff !important;
-    /*#f6f9ff*/
+    background-color:var(--corTerciaria) !important;
+ 
 }
 
 .margem {
     padding: 20px ;
-    border-radius: 40px;
+    border-radius: var(--borderRadius);
     height: 100% !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
-     /*border: 2px solid var(--corPrimaria);*/
-
-    background: 
-        url("../assets/img/pro-table-bottom.png");
-    background-size: 100%;
-    background-position: bottom;
-    background-repeat: no-repeat;
+    box-shadow: var(--sombra) !important;
     color: #000000d5;
     transition: var(--trasicao);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3), /* Sombra mais escura */
-                 -1px -1px 2px rgba(255, 255, 255, 0.8);
+    text-shadow: var(--sombraTexto);
                  border-top: 5px solid var(--corPrimaria);
                
 }
 
 .margem:hover{
-    transform: scale(1.07);
+    transform: var(--transformB);
 }
 
 
@@ -62,4 +54,8 @@
 
 .sizeAgenda{
     font-size: .9em;
+}
+
+.corIcone{
+    color: var(--corPrimaria);
 }

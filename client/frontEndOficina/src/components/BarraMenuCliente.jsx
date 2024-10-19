@@ -5,7 +5,6 @@ import foto from "../assets/img/minha.jpg";
 import { useState } from "react";
 import { Modal, Button, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { CgProfile } from "react-icons/cg";
-import { LuHelpingHand } from "react-icons/lu";
 import { IoIosLogOut } from "react-icons/io";
 import { CgMenuGridO } from "react-icons/cg";
 import { FaHome, FaCalendarAlt, FaBlog, FaEye } from "react-icons/fa";
@@ -13,6 +12,10 @@ import { IoCarSportSharp } from "react-icons/io5";
 import { MdContentPasteSearch } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
+import logo from '../assets/img/lgo.png';
+import ModalFazerAgendamento from "./ModalFazerAgendamento";
+import ModalCadastrarVeiculo from './ModalCadastrarVeiculo.jsx';
+
 
 function BarraMenuCliente() {
     const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -23,6 +26,9 @@ function BarraMenuCliente() {
     const [formErrors, setFormErrors] = useState({}); // Estado para os erros de validação
     //const [showLogoutModalAgendamento, setShowLogoutModalAgendamento] = useState(false);
 
+    const [modalAgendamentoShow, setModalAgendamentoShow] = useState(false);
+
+    const [modalCadVeiculoShow, setModalCadVeiculoShow] = useState(false);
 
     const navigate = useNavigate();
 
@@ -43,15 +49,6 @@ function BarraMenuCliente() {
         navigate("/");
     };
 
-    const handleNavigateCadastrarVeiculo = () => {
-        setShowVehicleModal(false);
-        navigate("/cadastroVeiculos");
-    };
-
-    /** Modal Listar Agendamento 
-
-    const handleModalListarAgendamento = () => showLogoutModalAgendamento(false);
-*/
   
 
     const handleNavigateVerVeiculos = () => {
@@ -59,15 +56,9 @@ function BarraMenuCliente() {
         navigate("/meusVeiculos");
     };
 
-    const handleNavigateMarcarManutencao = () => {
-        setShowAgendamentoModal(false);
-        navigate("/agendarManuetencao");
-    };
+   
 
-    const handleNavigateVerAgendamentos = () => {
-        setShowAgendamentoModal(false);
-        navigate("/verAgendamentos");
-    };
+    
 
     const validatePlaca = () => {
         const errors = {};
@@ -98,8 +89,13 @@ function BarraMenuCliente() {
     return (
         <>
             <Navbar expand="lg" className="container-fluid menuCliente px-5 position-fixed w-100">
-                <Navbar.Brand href="#home">OficinaNome</Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Brand href="#home">
+                  <Link to="/HomeCliente">
+                  <img src={logo} className='logoMotor' alt="imagem de uma moto" />
+                  </Link> 
+
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav"  />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
                         <Link to="/homeCliente">
@@ -113,23 +109,23 @@ function BarraMenuCliente() {
                             <NavDropdown
                                 title={
                                     <>
-                                        <CgMenuGridO fontSize={22} className="iconesMenu" /> Minhas Opções
+                                        <CgMenuGridO fontSize={22} className="iconesMenu iconeMenuNove" /> Minhas Opções
                                     </>
                                 }
                                 className="basic-nav-dropCliente"
                                 id="basic-nav-dropdow"
                             >
-                                <Nav.Link className="linksProprios" onClick={handleShowAgendamentoModal}>
+                                <Nav.Link className="linksProprios colorirLink" onClick={handleShowAgendamentoModal}>
                                     <FaCalendarAlt fontSize={20} className="iconesMenu" />
                                     Agendar Manutenção
                                 </Nav.Link>
 
-                                <Nav.Link className="linksProprios" onClick={handleShowVehicleModal}>
+                                <Nav.Link className="linksProprios colorirLink" onClick={handleShowVehicleModal}>
                                     <IoCarSportSharp fontSize={20} className="iconesMenu" />
                                     Cadastro de Veiculos
                                 </Nav.Link>
 
-                                <Nav.Link className="linksProprios" onClick={handleShowConsultarModal}>
+                                <Nav.Link className="linksProprios colorirLink" onClick={handleShowConsultarModal}>
                                     <MdContentPasteSearch fontSize={20} className="iconesMenu" />
                                     Consultar o estado
                                 </Nav.Link>
@@ -169,10 +165,7 @@ function BarraMenuCliente() {
                                     </NavDropdown.Item>
                                 </Link>
 
-                                <NavDropdown.Item href="#action/3.3">
-                                    <LuHelpingHand className="iconesMenu" fontSize={18} />
-                                    Ajuda
-                                </NavDropdown.Item>
+                                
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={handleShowLogoutModal}>
                                     <IoIosLogOut className="iconesMenu" fontSize={18} /> Sair
@@ -208,7 +201,7 @@ function BarraMenuCliente() {
                         <Modal.Title>Opções de Veículo</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="d-flex justify-content-between">
-                        <Button variant="primary" className="me-1" onClick={handleNavigateCadastrarVeiculo}>
+                        <Button variant="primary" className="me-1" onClick={() => setModalCadVeiculoShow(true)}>
                             <IoIosAddCircle /> Cadastrar Veículo
                         </Button>
                         <Button variant="secondary" className="ms-1" onClick={handleNavigateVerVeiculos}>
@@ -218,6 +211,13 @@ function BarraMenuCliente() {
                 </div>
             </Modal>
 
+             {/* Modal Cadastrar veiculo */}                    
+       <ModalCadastrarVeiculo
+        show={modalCadVeiculoShow}
+        onHide={() => setModalCadVeiculoShow(false)}
+      />
+
+
             {/* Modal de agendamento */}
             <Modal show={showAgendamentoModal} onHide={handleCloseAgendamentoModal} centered>
                 <div className="bordarModal">
@@ -225,16 +225,23 @@ function BarraMenuCliente() {
                         <Modal.Title>Opções de Agendamento</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="d-flex justify-content-between">
-                        <Button variant="primary" className="me-1" onClick={handleNavigateMarcarManutencao}>
+                        <Button variant="primary" className="me-1" onClick={() => setModalAgendamentoShow(true)}>
                             <IoIosAddCircle /> Marcar Manutenção
                         </Button>
-                        <Button variant="secondary" className="ms-1" onClick={handleNavigateVerAgendamentos}>
+                        <Button variant="secondary" className="ms-1" >
                             <FaEye /> Ver Agendamentos
                         </Button>
                     </Modal.Body>
                 </div>
             </Modal>
 
+        {/* Modal Fazer agendamento */}                    
+            <ModalFazerAgendamento
+        show={modalAgendamentoShow}
+        onHide={() => setModalAgendamentoShow(false)}
+      />
+
+      
             {/* Modal para consultar estado pela placa */}
             <Modal show={showConsultarModal} onHide={handleCloseConsultarModal} centered>
                 <div className="bordarModal">

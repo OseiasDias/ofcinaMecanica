@@ -1,7 +1,7 @@
 
 
 .seccao-footer{
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.9)),
+    background:var(--linearGradienteA),
     url("../assets/img/footerB.jpg");
   background-size: cover;
   background-position: center;
@@ -35,7 +35,7 @@
 
 .retirarTrasition{
     transform: scale(1.0) !important;
-    border-top: 1px solid #fff;
+    border-top: 1px solid var(--corTerciaria);
     padding-top: 15px;
     font-size: .9em;
 }
@@ -43,4 +43,10 @@
 .recuar{
     left: -15px;
     position: relative;
+}
+
+.fundoCopyright{
+    background-color:var(--corPrimaria);
+    padding-top:4px !important;
+    margin-bottom: 2px;
 }

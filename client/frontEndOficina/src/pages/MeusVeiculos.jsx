@@ -1,5 +1,5 @@
 import BarraMenuCliente from "../components/BarraMenuCliente";
-import VeiculosCliente from "../components/VeiculosCliente";
+
 
 
 /**gera um formulario para marcar agendamento de manutencao com  os senguintes dados: descricao do ojectivo de manutencao, 
@@ -15,7 +15,6 @@ export default function MeusVeiculos(){
         <>
           <BarraMenuCliente />
          
-         <VeiculosCliente />
          
         </>
     )

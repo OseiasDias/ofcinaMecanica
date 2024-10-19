@@ -40,11 +40,11 @@ export default function Servicos() {
                 <div className="container">
                     <h2 className='titulo-secao text-center'>Conheça a nossa diversidade de serviços</h2>
                     <div className='row'>
-                        {servicos.slice(0, showAll ? servicos.length : 9).map (servico => (
+                        {servicos.slice(0, showAll ? servicos.length : 6).map (servico => (
                             <div key={servico.id_servico} className="servico-item mt-3 col-12 col-md-6 col-lg-4 h-100">
                                 <div className="margem h-100">
-                                    <MdMiscellaneousServices fontSize={38} color='#0070fa' className='my-1' />
-                                    <h5 className='fw-500 tamanhoH5 my-3'>{servico.nome_servico}</h5>
+                                    <MdMiscellaneousServices fontSize={38}  className=' corIcone' />
+                                    <h5 className='fw-500 tamanhoH5 my-1'>{servico.nome_servico}</h5>
                                     <p className='parSer'>{servico.descricao}</p>
                                     <p className='sizeAgenda'><strong>Agende uma avaliação! <IoCalendarNumberOutline fontSize={20} /></strong></p>
                                 {/**                                    <p>A partir de: <strong><GiMoneyStack fontSize={25}/> {parseFloat(servico.preco).toFixed(2)}</strong> kz</p>
@@ -55,7 +55,7 @@ export default function Servicos() {
                     </div>
                     {!showAll && ( // Mostra o botão apenas se não estiver mostrando todos
                         <div className="text-center mt-3">
-                            <button onClick={handleShowAll} className="btn btn-primary links-acessos w-50 my-4">Ver mais <ImEyeBlocked fontSize={25} /></button>
+                            <button onClick={handleShowAll} className="btn btn-primary links-acessos px-5 my-4">Ver mais <ImEyeBlocked fontSize={25} /></button>
                         </div>
                     )}
                 </div>

@@ -33,7 +33,7 @@ export default function ConteudoBlog() {
       <section className="blog-seccao">
         <div className="container">
           <div className="row">
-            <div className="col-12 col-md-12 col-lg-10 mx-auto">
+            <div className="col-12 col-md-12 col-lg-12 mx-auto">
               <h1 className="mb-4 h1Top">
                 Bem-vindo ao Blog da Nossa Oficina!
               </h1>
@@ -53,8 +53,9 @@ export default function ConteudoBlog() {
                   {blogs.map((blog) => (
                     <div
                       key={blog.id_blog}
-                      className="conteuBlog col-12 col-md-12 col-lg-10 mx-auto"
+                      className=" col-12 col-md-12 col-lg-6 mx-auto"
                     >
+                      <div className="conteuBlog">
                       <h3 className="hDois">
                         {blog.titulo}
                         {isNewBlog(blog.data_publicacao) && (
@@ -67,6 +68,7 @@ export default function ConteudoBlog() {
                         {new Date(blog.data_publicacao).toLocaleDateString()}
                       </small>
                       <p className="paragrafoConteudo">{blog.conteudo}</p>
+                      </div>
                     </div>
                   ))}
                 </>

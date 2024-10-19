@@ -7,10 +7,7 @@ import HomeCliente from "./pages/HomeCliente.jsx";
 import Blog from "./pages/Blog.jsx";
 import PerfilCliente from '../src/pages/PerfilCliente.jsx';
 import { Helmet } from "react-helmet";
-import CadastrarVeiculo from "./pages/CadastrarVeiculo.jsx";
 import MeusVeiculos from "./pages/MeusVeiculos.jsx";
-//import AgendamentoManutencao from "./components/AgendarManutencao.jsx";
-import Agendamento from "./pages/Agendamento.jsx";
 import BlogAcess from "./pages/BlogAcess.jsx";
 
 const App = () => {
@@ -36,8 +33,8 @@ const App = () => {
       ) : (
         <div>
           <Helmet>
-        <title>Oficina Mecânica</title>
-        <meta name="description" content="Oficina mecâncica" />
+          <title>Bi-Turbo Motores</title>
+          <meta name="description" content="Oficina mecâncica" />
       </Helmet>
           <Router>
             <Routes>
@@ -45,9 +42,7 @@ const App = () => {
               <Route path="/HomeCliente" element={<HomeCliente />} />
               <Route path="/Blog" element={<Blog />} />
               <Route path="/perfilCliente" element={<PerfilCliente />} />
-              <Route path="/cadastroVeiculos" element={<CadastrarVeiculo />} />
               <Route path="/meusVeiculos" element={<MeusVeiculos />} />
-              <Route path="/agendarManuetencao" element={<Agendamento  />} />
               <Route path="/blogAcess" element={<BlogAcess  />} />
 
             </Routes>
