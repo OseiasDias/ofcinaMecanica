@@ -49,9 +49,9 @@
 
 @media (max-width:992px){
 
-    body{
+    .bodyCadastro{
         
-        height: 100vh;
+        height: 100vh !important;
         background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
           url("../assets/img/perfilCarro.jpg");
         background-size: cover;
@@ -83,4 +83,8 @@
     .principalFOrm{
         margin-bottom: 90px !important;
     }
+    .bodyCadastro{
+        
+        height: 125vh !important;}
 }
+

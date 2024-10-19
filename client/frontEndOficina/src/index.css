@@ -1,12 +1,3 @@
-
-/*IMPORTANDO FONTES*/
-@font-face {
-  font-family: "minhaFonte";
-  src: url("../src/assets/fonts/Advert-Regular.ttf");
-}
-
-
-
 :root{
   --corPrimaria: #0070fa;
   --corSecodaria: #044697;
@@ -74,4 +65,9 @@ body{
   .mmf{
     height: 40px !important;
   }
+}
+
+.minhaCor{
+  color: var(--corPrimaria) !important;
+ padding: 10px 15px;
 }

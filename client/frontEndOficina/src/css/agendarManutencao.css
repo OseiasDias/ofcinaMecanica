@@ -1,0 +1,52 @@
+
+
+
+.descricao{
+    padding: 20px 20px;
+    box-shadow: var(--sombra);
+    border: 1px solid #dddd;
+    margin-top: 130px;
+    border-radius: 25px;
+    border-right: 6px solid var(--corPrimaria) !important;
+    border-left: 6px solid var(--corPrimaria) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    background-color: #fff;
+    
+
+    
+   
+
+}
+
+
+
+.MeuLado{
+    height: 100vh;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
+      url("../assets/img/agendarr.jpg");
+    background-size: cover;
+    background-position: center;
+  
+    margin-left: -30px;
+    padding: 50px;
+    box-shadow: var(--sombra);
+}
+
+
+@media (max-width:992px){
+
+    .difinirFundo{
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)),
+        url("../assets/img/agendarr.jpg");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+    }
+    
+
+    
+        .MeuLado{
+    display: none;
+    }
+}

@@ -1,10 +1,7 @@
-import '../css/veiculosCliente.css';
-import carroFoto from '../assets/img/carroParticular.jpg';
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 
-export default function VeiculosCliente() {
-  const [showModal, setShowModal] = useState(false); // Controla a visibilidade da modal
+const ModalEditarCarro = () => {
   const [formData, setFormData] = useState({
     marca: "",
     modelo: "",
@@ -12,11 +9,9 @@ export default function VeiculosCliente() {
     placa: "",
     fotos: null,
   });
-  
+
   const [errors, setErrors] = useState({});
-  
-  const handleShow = () => setShowModal(true); // Função para mostrar a modal
-  const handleClose = () => setShowModal(false); // Função para fechar a modal
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
 
   const validate = () => {
     let formErrors = {};
@@ -62,9 +57,10 @@ export default function VeiculosCliente() {
     const formErrors = validate();
     
     if (Object.keys(formErrors).length === 0) {
-      console.log("Veículo atualizado:", formData);
-      alert("Dados do veículo atualizados com sucesso!");
-      handleClose(); // Fechar a modal após o envio
+      console.log("Veículo cadastrado:", formData);
+      alert("Veículo cadastrado com sucesso!");
+      // Aqui pode-se enviar os dados para o backend ou fazer outra ação.
+      handleClose(); // Close the modal after successful submission
     } else {
       setErrors(formErrors);
     }
@@ -85,52 +81,28 @@ export default function VeiculosCliente() {
     });
   };
 
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
+  const handleShow = () => {
+    setShowModal(true);
+  };
+
   return (
     <>
-      <div className="container">
-        <div className="row">
-          <div className="col-12 col-md-12 col-lg-10 seccao-meuVeiculos mx-auto">
-            <div className="row">
-              <div className="col-12 col-md-4 col-lg-3">
-                <img src={carroFoto} alt="Foto do Carro" className="w-100 imagemCarro" />
-              </div>
-              <div className="col-12 col-md-8 col-lg-9">
-                <p className='d-flex justify-content-between'>
-                  <span><strong>Nome</strong></span>
-                  <span>Hunday</span>
-                </p>
-                <p className='d-flex justify-content-between'>
-                  <span><strong>Modelo</strong></span>
-                  <span>i-30</span>
-                </p>
-                <p className='d-flex justify-content-between'>
-                  <span><strong>Ano</strong></span>
-                  <span>2014</span>
-                </p>
-                <p className='d-flex justify-content-between'>
-                  <span><strong>Placa</strong></span>
-                  <span>LD-34-12-IH</span>
-                </p>
-                <p className='d-flex justify-content-between'>
-                  <span><strong>Estado de Reparação</strong></span>
-                  <span className='text-primary font-bold'>Em Andamento</span>
-                </p>
-                <button className='links-acessos btnEdit py-2 px-3 d-block ms-auto' onClick={handleShow}>Editar dados</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Button variant="primary" onClick={handleShow}>
+        Cadastrar Veículo
+      </Button>
 
-      {/* Modal para editar os dados do veículo */}
-      <Modal show={showModal} onHide={handleClose} centered size="xl">
+      <Modal show={showModal} onHide={handleClose} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Editar Dados do Veículo</Modal.Title>
+          <Modal.Title>Cadastre o seu veículo</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form onSubmit={handleSubmit} className="">
+          <Form onSubmit={handleSubmit} className="formularioCarro">
             <div className="row">
-              <div className="col-12 col-md-12 col-lg-6 ">
+              <div className="col-12 col-md-6 col-lg-6 ">
                 <Form.Group className="w-100">
                   <Form.Label>Marca</Form.Label>
                   <Form.Control
@@ -146,7 +118,7 @@ export default function VeiculosCliente() {
                   </Form.Control.Feedback>
                 </Form.Group>
               </div>
-              <div className="col-12 col-md-12 col-lg-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <Form.Group className="w-100">
                   <Form.Label>Modelo</Form.Label>
                   <Form.Control
@@ -165,7 +137,7 @@ export default function VeiculosCliente() {
             </div>
 
             <div className="row">
-              <div className="col-12 col-md-12 col-lg-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <Form.Group>
                   <Form.Label>Ano</Form.Label>
                   <Form.Control
@@ -182,13 +154,13 @@ export default function VeiculosCliente() {
                 </Form.Group>
               </div>
 
-              <div className="col-12 col-md-12 col-lg-6">
+              <div className="col-12 col-md-6 col-lg-6">
                 <Form.Group>
                   <Form.Label>Placa</Form.Label>
                   <Form.Control
                     type="text"
                     name="placa"
-                    placeholder="Digite a placa (ex: LD-34-12-IH)"
+                    placeholder="Digite a placa (ex: LD-34-94-HI)"
                     value={formData.placa}
                     onChange={handleChange}
                     isInvalid={!!errors.placa}
@@ -215,11 +187,13 @@ export default function VeiculosCliente() {
             </Form.Group>
 
             <Button variant="primary" type="submit" className="mt-3 d-block mx-auto links-acessos">
-              Atualizar Veículo
+              Cadastrar Veículo
             </Button>
           </Form>
         </Modal.Body>
       </Modal>
     </>
   );
-}
+};
+
+export default ModalEditarCarro;

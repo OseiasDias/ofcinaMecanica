@@ -19,40 +19,40 @@ const CadastroVeiculoForm = () => {
 
   const validate = () => {
     let formErrors = {};
-  
+
     // Validação da Marca
     if (!formData.marca) {
       formErrors.marca = "Marca é obrigatória";
     } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.marca)) {
       formErrors.marca = "A marca deve conter apenas letras, números e os caracteres / . -";
     }
-  
+
     // Validação do Modelo
     if (!formData.modelo) {
       formErrors.modelo = "Modelo é obrigatório";
     } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.modelo)) {
       formErrors.modelo = "O modelo deve conter apenas letras, números e os caracteres / . -";
     }
-  
+
     // Validação do Ano
     if (!formData.ano) {
       formErrors.ano = "Ano é obrigatório";
     } else if (!/^\d{4}$/.test(formData.ano) || formData.ano < 1900 || formData.ano > new Date().getFullYear()) {
       formErrors.ano = `Ano inválido. O ano deve estar entre 1900 e ${new Date().getFullYear()}`;
     }
-  
+
     // Validação da Placa
     if (!formData.placa) {
-        formErrors.placa= "Placa é obrigatória";
+      formErrors.placa = "Placa é obrigatória";
     } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.placa)) {
       formErrors.placa = "A Placa deve conter apenas letras, números e os caracteres / . -";
     }
-  
+
     // Validação das Fotos
     if (!formData.fotos) {
       formErrors.fotos = "Envie pelo menos uma foto";
     }
-  
+
     return formErrors;
   };
   const handleSubmit = (event) => {
@@ -195,7 +195,7 @@ export default function CadastrarVeiculo() {
   return (
     <>
       <BarraMenuCliente />
-      <div className="container-fluid">
+      <div className="container-fluid bodyCadastro">
         <div className="row">
           <div className="col-12 col-md-12 col-lg-5 ocultarLado">
             <LadoLeftCadastro />

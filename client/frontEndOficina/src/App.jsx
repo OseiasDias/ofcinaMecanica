@@ -9,6 +9,9 @@ import PerfilCliente from '../src/pages/PerfilCliente.jsx';
 import { Helmet } from "react-helmet";
 import CadastrarVeiculo from "./pages/CadastrarVeiculo.jsx";
 import MeusVeiculos from "./pages/MeusVeiculos.jsx";
+//import AgendamentoManutencao from "./components/AgendarManutencao.jsx";
+import Agendamento from "./pages/Agendamento.jsx";
+import BlogAcess from "./pages/BlogAcess.jsx";
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -33,7 +36,7 @@ const App = () => {
       ) : (
         <div>
           <Helmet>
-        <title>Oficina Mecâncica</title>
+        <title>Oficina Mecânica</title>
         <meta name="description" content="Oficina mecâncica" />
       </Helmet>
           <Router>
@@ -44,6 +47,9 @@ const App = () => {
               <Route path="/perfilCliente" element={<PerfilCliente />} />
               <Route path="/cadastroVeiculos" element={<CadastrarVeiculo />} />
               <Route path="/meusVeiculos" element={<MeusVeiculos />} />
+              <Route path="/agendarManuetencao" element={<Agendamento  />} />
+              <Route path="/blogAcess" element={<BlogAcess  />} />
+
             </Routes>
           </Router>
         </div>

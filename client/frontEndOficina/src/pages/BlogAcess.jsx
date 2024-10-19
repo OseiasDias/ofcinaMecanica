@@ -1,15 +1,15 @@
-import BarraTopInicial from "../components/BarraTopInicial";
+import BarraMenuCliente from "../components/BarraMenuCliente";
 import ConteudoBlog from "../components/ConteudoBlog";
 import Footer from "../components/Footer";
 
 
 
-export default function Blog(){
+export default function BlogAcess(){
 
     return(
 
         <>
-        <BarraTopInicial />
+        <BarraMenuCliente />
         <ConteudoBlog />
         <div className="mt-5">
         <Footer />

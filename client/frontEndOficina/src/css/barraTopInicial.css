@@ -1,54 +1,55 @@
-.logoMotor{
+.logoMotor {
     width: 60px;
     height: 50px;
 }
 
-.navbar-brand{
+.navbar-brand {
     font-size: 1.8em !important;
-    color:var(--corPrimaria) !important;
+    color: var(--corPrimaria) !important;
     font-weight: 600;
-    font-family:"minhaFonte",'Poppins',Arial, Helvetica, sans-serif;
-    
+    font-family: "minhaFonte", 'Poppins', Arial, Helvetica, sans-serif;
+
 }
 
-.menuTopInicial{
+.menuTopInicial {
     box-shadow: var(--sombra);
     background-color: #fff !important;
     z-index: 101;
 }
 
 
-    .links-acessos{
-        background-color: var(--corPrimaria) !important;
-        margin: 0 6px;
-        color: #fff !important;
-        border-radius: 20px !important;
-    
-    }
+.links-acessos {
+    background-color: var(--corPrimaria) !important;
+    margin: 0 6px;
+    color: #fff !important;
+    border-radius: 20px !important;
 
-    .links-acessos:hover,
-    .links-acessos:active{
-        background-color: var( --corSecodaria) !important;
-    }
+}
+
+.links-acessos:hover,
+.links-acessos:active {
+    background-color: var(--corSecodaria) !important;
+}
 
 
-@media (max-width:768px){
-    .links-acessos{
-       
+@media (max-width:768px) {
+    .links-acessos {
+
         /*color: var(--corPrimaria) !important;*/
-       margin-top: 8px;
-       
+        margin-top: 8px;
+
 
     }
-    .links-acessos:hover{
+
+    .links-acessos:hover {
         transform: scale(1.05) !important;
     }
 
-    #basic-navbar-nav{
+    #basic-navbar-nav {
         margin-top: 25px;
     }
 
-    .link2{
+    .link2 {
         margin-bottom: 30px;
     }
 }

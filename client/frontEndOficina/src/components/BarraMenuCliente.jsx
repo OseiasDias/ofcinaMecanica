@@ -1,23 +1,30 @@
+
+
 import "../css/barraMenuCliente.css";
 import foto from "../assets/img/minha.jpg";
 import { useState } from "react";
-import { Modal, Button, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Modal, Button, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { CgProfile } from "react-icons/cg";
 import { LuHelpingHand } from "react-icons/lu";
 import { IoIosLogOut } from "react-icons/io";
 import { CgMenuGridO } from "react-icons/cg";
-import { FaHome, FaCalendarAlt, FaBlog } from "react-icons/fa";
+import { FaHome, FaCalendarAlt, FaBlog, FaEye } from "react-icons/fa";
 import { IoCarSportSharp } from "react-icons/io5";
 import { MdContentPasteSearch } from "react-icons/md";
+import { IoIosAddCircle } from "react-icons/io";
 import { Link, useNavigate } from "react-router-dom";
 
-import { IoIosAddCircle } from "react-icons/io";
-import { FaEye } from "react-icons/fa";
-
 function BarraMenuCliente() {
-    const [showLogoutModal, setShowLogoutModal] = useState(false); // Estado para controlar a modal de logout
-    const [showVehicleModal, setShowVehicleModal] = useState(false); // Estado para controlar a modal de veiculos
-    const navigate = useNavigate(); // Hook do react-router-dom para redirecionar
+    const [showLogoutModal, setShowLogoutModal] = useState(false);
+    const [showVehicleModal, setShowVehicleModal] = useState(false);
+    const [showAgendamentoModal, setShowAgendamentoModal] = useState(false);
+    const [showConsultarModal, setShowConsultarModal] = useState(false); // Modal para consultar estado
+    const [formData, setFormData] = useState({ placa: '' }); // Estado para os dados do formulário
+    const [formErrors, setFormErrors] = useState({}); // Estado para os erros de validação
+    //const [showLogoutModalAgendamento, setShowLogoutModalAgendamento] = useState(false);
+
+
+    const navigate = useNavigate();
 
     const handleShowLogoutModal = () => setShowLogoutModal(true);
     const handleCloseLogoutModal = () => setShowLogoutModal(false);
@@ -25,19 +32,65 @@ function BarraMenuCliente() {
     const handleShowVehicleModal = () => setShowVehicleModal(true);
     const handleCloseVehicleModal = () => setShowVehicleModal(false);
 
+    const handleShowAgendamentoModal = () => setShowAgendamentoModal(true);
+    const handleCloseAgendamentoModal = () => setShowAgendamentoModal(false);
+
+    const handleShowConsultarModal = () => setShowConsultarModal(true);
+    const handleCloseConsultarModal = () => setShowConsultarModal(false);
+
     const handleLogout = () => {
         setShowLogoutModal(false);
-        navigate("/"); // Redireciona para a página inicial
+        navigate("/");
     };
 
     const handleNavigateCadastrarVeiculo = () => {
         setShowVehicleModal(false);
-        navigate("/cadastroVeiculos"); // Redireciona para a página de cadastrar veículo
+        navigate("/cadastroVeiculos");
     };
+
+    /** Modal Listar Agendamento 
+
+    const handleModalListarAgendamento = () => showLogoutModalAgendamento(false);
+*/
+  
 
     const handleNavigateVerVeiculos = () => {
         setShowVehicleModal(false);
-        navigate("/meusVeiculos"); // Redireciona para a página de ver meus veículos
+        navigate("/meusVeiculos");
+    };
+
+    const handleNavigateMarcarManutencao = () => {
+        setShowAgendamentoModal(false);
+        navigate("/agendarManuetencao");
+    };
+
+    const handleNavigateVerAgendamentos = () => {
+        setShowAgendamentoModal(false);
+        navigate("/verAgendamentos");
+    };
+
+    const validatePlaca = () => {
+        const errors = {};
+        if (!formData.placa) {
+            errors.placa = "Placa é obrigatória";
+        } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.placa)) {
+            errors.placa = "A Placa deve conter apenas letras, números e os caracteres / . -";
+        }
+        setFormErrors(errors);
+        return Object.keys(errors).length === 0;
+    };
+
+    const handleConsultarEstado = (e) => {
+        e.preventDefault();
+        if (validatePlaca()) {
+            // Lógica para consultar a placa na base de dados
+            console.log("Placa consultada:", formData.placa);
+            handleCloseConsultarModal();
+        }
+    };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
     let nome = "Oseias";
@@ -66,25 +119,24 @@ function BarraMenuCliente() {
                                 className="basic-nav-dropCliente"
                                 id="basic-nav-dropdow"
                             >
-                                <Nav.Link className="linksProprios" href="#link">
+                                <Nav.Link className="linksProprios" onClick={handleShowAgendamentoModal}>
                                     <FaCalendarAlt fontSize={20} className="iconesMenu" />
                                     Agendar Manutenção
                                 </Nav.Link>
 
-                                {/* Quando clicar aqui, abrirá a modal */}
                                 <Nav.Link className="linksProprios" onClick={handleShowVehicleModal}>
                                     <IoCarSportSharp fontSize={20} className="iconesMenu" />
                                     Cadastro de Veiculos
                                 </Nav.Link>
 
-                                <Nav.Link className="linksProprios" href="#link">
+                                <Nav.Link className="linksProprios" onClick={handleShowConsultarModal}>
                                     <MdContentPasteSearch fontSize={20} className="iconesMenu" />
                                     Consultar o estado
                                 </Nav.Link>
                             </NavDropdown>
                         </div>
 
-                        <Link to="/Blog">
+                        <Link to="/blogAcess">
                             <Nav.Link className="linksProprios" href="#link">
                                 <FaBlog fontSize={20} className="iconesMenu" />
                                 Blog
@@ -149,25 +201,72 @@ function BarraMenuCliente() {
                 </div>
             </Modal>
 
-
-            {/* Modal com as opções de veículo */}
+    {/* Modal com as opções de veículo */}
             <Modal show={showVehicleModal} onHide={handleCloseVehicleModal} centered>
                 <div className="bordarModal">
                     <Modal.Header closeButton>
                         <Modal.Title>Opções de Veículo</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="d-flex justify-content-between">
-                        
-                        <Button variant="primary" className="" onClick={handleNavigateCadastrarVeiculo}>
-                           <IoIosAddCircle /> Cadastrar Veículo
+                        <Button variant="primary" className="me-1" onClick={handleNavigateCadastrarVeiculo}>
+                            <IoIosAddCircle /> Cadastrar Veículo
                         </Button>
-                        
-                        <Button variant="secondary" onClick={handleNavigateVerVeiculos}>
-                           <FaEye /> Ver Meus Veículos
+                        <Button variant="secondary" className="ms-1" onClick={handleNavigateVerVeiculos}>
+                            <FaEye /> Ver Meus Veículos
                         </Button>
                     </Modal.Body>
                 </div>
             </Modal>
+
+            {/* Modal de agendamento */}
+            <Modal show={showAgendamentoModal} onHide={handleCloseAgendamentoModal} centered>
+                <div className="bordarModal">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Opções de Agendamento</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="d-flex justify-content-between">
+                        <Button variant="primary" className="me-1" onClick={handleNavigateMarcarManutencao}>
+                            <IoIosAddCircle /> Marcar Manutenção
+                        </Button>
+                        <Button variant="secondary" className="ms-1" onClick={handleNavigateVerAgendamentos}>
+                            <FaEye /> Ver Agendamentos
+                        </Button>
+                    </Modal.Body>
+                </div>
+            </Modal>
+
+            {/* Modal para consultar estado pela placa */}
+            <Modal show={showConsultarModal} onHide={handleCloseConsultarModal} centered>
+                <div className="bordarModal">
+                    <Modal.Header closeButton>
+                        <Modal.Title>Consultar Estado do Veículo</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={handleConsultarEstado}>
+                            <Form.Group className="mb-3">
+                                <Form.Label>Digite a matricula do veículo</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    name="placa"
+                                    value={formData.placa}
+                                    onChange={handleChange}
+                                    placeholder="Ex: LD-32-23-ID"
+                                    isInvalid={!!formErrors.placa}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    {formErrors.placa}
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                            <Button variant="primary" type="submit" className="mx-auto links-acessos d-block">
+                                Consultar
+                            </Button>
+                        </Form>
+                    </Modal.Body>
+                </div>
+            </Modal>
+
+
+
         </>
     );
 }
