@@ -22,7 +22,7 @@ export default function ModalFazerAgendamento(props) {
         // Validação da data
         const today = new Date();
         const selectedDate = new Date(formData.data);
-        
+
         if (!formData.data) {
             formErrors.data = "A data é obrigatória";
         } else if (selectedDate < today) {
@@ -66,76 +66,83 @@ export default function ModalFazerAgendamento(props) {
             centered
         >
             <div className="bordarModal">
-            <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <h5> Agendar Manutenção</h5>
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-                <div className="container-fluid">
-                    <div className="row justify-content-center difinirFundo">
-                        <div className="col-12 col-md-12 col-lg-12">
-                            <Form onSubmit={handleSubmit} className='descricao'>
-                                <Form.Group controlId="descricao">
-                                    <Form.Label>Descrição do Objetivo de Manutenção</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        rows={3}
-                                        name="descricao"
-                                        placeholder="Descreva o objetivo da manutenção"
-                                        value={formData.descricao}
-                                        onChange={handleChange}
-                                        isInvalid={!!errors.descricao}
-                                    />
-                                    <Form.Control.Feedback type="invalid">
-                                        {errors.descricao}
-                                    </Form.Control.Feedback>
-                                </Form.Group>
+                <Modal.Header closeButton>
+                    <Modal.Title id="contained-modal-title-vcenter">
+                        <h5> Agendar Manutenção</h5>
+                    </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="container-fluid">
+                        <div className="row justify-content-center difinirFundo">
+                            <div className="col-12 col-md-12 col-lg-12">
+                                <Form onSubmit={handleSubmit} className='descricao'>
+                                    <Form.Group controlId="descricao">
+                                        <Form.Label>Descrição do Objetivo de Manutenção</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={3}
+                                            name="descricao"
+                                            placeholder="Descreva o objetivo da manutenção"
+                                            value={formData.descricao}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.descricao}
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            {errors.descricao}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
 
-                                <div className="row">
-                                    <div className="col-12 col-md-12 col-lg-6">
-                                        <Form.Group controlId="data" className="mt-3">
-                                            <Form.Label>Data</Form.Label>
-                                            <Form.Control
-                                                type="date"
-                                                name="data"
-                                                value={formData.data}
-                                                onChange={handleChange}
-                                                isInvalid={!!errors.data}
-                                            />
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.data}
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
-                                    </div>
-                                    <div className="col-12 col-md-12 col-lg-6">
-                                        <Form.Group controlId="id_veiculo" className="mt-3">
-                                            <Form.Label>ID do Veículo</Form.Label>
-                                            <Form.Control
-                                                type="text"
-                                                name="id_veiculo"
-                                                placeholder="Digite o ID do veículo"
-                                                value={formData.id_veiculo}
-                                                onChange={handleChange}
-                                                isInvalid={!!errors.id_veiculo}
-                                            />
-                                            <Form.Control.Feedback type="invalid">
-                                                {errors.id_veiculo}
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
-                                    </div>
-                                </div>
+                                    <div className="row">
+                                        <div className="col-12 col-md-12 col-lg-6">
+                                            <Form.Group controlId="data" className="mt-3">
+                                                <Form.Label>Data</Form.Label>
+                                                <Form.Control
+                                                    type="date"
+                                                    name="data"
+                                                    value={formData.data}
+                                                    onChange={handleChange}
+                                                    isInvalid={!!errors.data}
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                    {errors.data}
+                                                </Form.Control.Feedback>
+                                            </Form.Group>
+                                        </div>
+                                        <div className="col-12 col-md-12 col-lg-6">
+                                            <Form.Group controlId="id_veiculo" className="mt-3">
+                                                <Form.Label>Matricula do Veículo</Form.Label>
+                                                <Form.Control
+                                                    as="select" // Alterado para select
+                                                    name="id_veiculo"
+                                                    value={formData.id_veiculo}
+                                                    onChange={handleChange}
+                                                    isInvalid={!!errors.id_veiculo}
+                                                    
+                                                >
+                                                    <option value="">Selecione a placa do veículo</option>
+                                                    <option value="1234ABC">1234ABC - Carro 1</option>
+                                                    <option value="5678DEF">5678DEF - Carro 2</option>
+                                                    <option value="91011GHI">91011GHI - Carro 3</option>
+                                                    {/* Adicione mais opções conforme necessário */}
+                                                </Form.Control>
+                                                <Form.Control.Feedback type="invalid">
+                                                    {errors.id_veiculo}
+                                                </Form.Control.Feedback>
+                                            </Form.Group>
+                                        </div>
 
-                                <Button variant="primary" type="submit" className="mt-3 py-2 px-5 d-block mx-auto links-acessos">
-                                    Agendar
-                                </Button>
-                            </Form>
+                                    </div>
+
+                                    <Button variant="primary" type="submit" className="mt-3 py-2 px-5 d-block mx-auto links-acessos">
+                                        Agendar
+                                    </Button>
+                                </Form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </Modal.Body>
-            <Modal.Footer>
-            </Modal.Footer>
+                </Modal.Body>
+                <Modal.Footer>
+                </Modal.Footer>
             </div>
         </Modal>
     );

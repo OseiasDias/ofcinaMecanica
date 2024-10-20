@@ -1,8 +1,14 @@
 
+.menuCliente{
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
 @media(min-width:992px){
     .fotoGrupo{
         margin-left: 40px;
     }
+    
 }
 
 .fotoPerfil{

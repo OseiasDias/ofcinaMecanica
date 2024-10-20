@@ -45,8 +45,14 @@
     position: relative;
 }
 
-.fundoCopyright{
-    background-color:var(--corPrimaria);
-    padding-top:4px !important;
-    margin-bottom: 2px;
+
+/* Estilo para o footer */
+.fundoCopyright {
+    background-color: var(--corPrimaria);
+    padding-top: 4px !important;
+    padding-bottom: 10px; /* Ajuste a altura do padding conforme necessário */
+    margin-bottom: 0; /* Remove a margem inferior */
+    text-align: center; /* Centraliza o texto */
+    
+    
 }

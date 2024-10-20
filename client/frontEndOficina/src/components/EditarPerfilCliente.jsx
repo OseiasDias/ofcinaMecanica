@@ -139,7 +139,7 @@ function MudarSenha() {
 function MostrarDados() {
     return (
         <>
-            <Tabs defaultActiveKey="profile" id="fill-tab-example" className="mb-3" fill>
+            <Tabs defaultActiveKey="home" id="fill-tab-example" className="mb-3" fill>
                 {/* Aba Visão Geral */}
                 <Tab eventKey="home" title="Visão Geral">
                     <p className="d-flex justify-content-between belezaParagrafo">
@@ -189,9 +189,9 @@ function EditarPerfilCliente() {
         <>
             <h1 className="opacity-0">Oseias dias</h1>
 
-            <div className="container ">
+            <div className="container">
                 <div className="row my-5 corpoTab">
-                    <div className="col-12 col-lg-4 col-md-10 mx-auto">
+                    <div className="col-12 col-lg-4 col-md-10  mx-auto">
                         <div className="espacamento">
                             <img src={fotoPerfil} alt="foto Perfil" className="w-100 fotoPerfil imgPerfil" />
                             <h3 className="text-center my-2">Oseias Dias</h3>

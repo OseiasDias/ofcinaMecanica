@@ -9,6 +9,12 @@ import PerfilCliente from '../src/pages/PerfilCliente.jsx';
 import { Helmet } from "react-helmet";
 import MeusVeiculos from "./pages/MeusVeiculos.jsx";
 import BlogAcess from "./pages/BlogAcess.jsx";
+import VerAgendamento from "./pages/VerAgendamento.jsx";
+import VerVeiculos from "./pages/VerVeiculos.jsx";
+import HomeAdministrador from "./pages/pageAdmin/HomeAdministrador.jsx";
+
+
+
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -44,6 +50,11 @@ const App = () => {
               <Route path="/perfilCliente" element={<PerfilCliente />} />
               <Route path="/meusVeiculos" element={<MeusVeiculos />} />
               <Route path="/blogAcess" element={<BlogAcess  />} />
+              <Route path="/verAgendamento" element={<VerAgendamento  />} />
+              <Route path="/verVeiculos" element={<VerVeiculos  />} />
+
+               {/**Routas para o grupoAdministrador */}
+               <Route path="/homeAdministrador" element={<HomeAdministrador  />} />
 
             </Routes>
           </Router>

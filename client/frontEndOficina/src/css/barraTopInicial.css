@@ -65,11 +65,8 @@
 
 @media (max-width:992px) {
     .links-acessos {
-
         /*color: var(--corPrimaria) !important;*/
         margin-top: 8px;
-
-
     }
 
     .links-acessos:hover {

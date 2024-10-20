@@ -7,7 +7,8 @@ import { Modal, Button, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io";
 import { CgMenuGridO } from "react-icons/cg";
-import { FaHome, FaCalendarAlt, FaBlog, FaEye } from "react-icons/fa";
+import { RiGuideFill } from "react-icons/ri";
+import {  FaCalendarAlt, FaBlog, FaEye } from "react-icons/fa";
 import { IoCarSportSharp } from "react-icons/io5";
 import { MdContentPasteSearch } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
@@ -51,11 +52,7 @@ function BarraMenuCliente() {
 
   
 
-    const handleNavigateVerVeiculos = () => {
-        setShowVehicleModal(false);
-        navigate("/meusVeiculos");
-    };
-
+ 
    
 
     
@@ -88,7 +85,7 @@ function BarraMenuCliente() {
 
     return (
         <>
-            <Navbar expand="lg" className="container-fluid menuCliente px-5 position-fixed w-100">
+            <Navbar expand="lg" className="container-fluid menuCliente position-fixed w-100">
                 <Navbar.Brand href="#home">
                   <Link to="/HomeCliente">
                   <img src={logo} className='logoMotor' alt="imagem de uma moto" />
@@ -100,8 +97,8 @@ function BarraMenuCliente() {
                     <Nav className="ms-auto">
                         <Link to="/homeCliente">
                             <Nav.Link className="linksProprios" href="#home">
-                                <FaHome fontSize={20} className="iconesMenu" />
-                                Home
+                                <RiGuideFill fontSize={20} className="iconesMenu" />
+                                Guia
                             </Nav.Link>
                         </Link>
 
@@ -204,7 +201,7 @@ function BarraMenuCliente() {
                         <Button variant="primary" className="me-1" onClick={() => setModalCadVeiculoShow(true)}>
                             <IoIosAddCircle /> Cadastrar Veículo
                         </Button>
-                        <Button variant="secondary" className="ms-1" onClick={handleNavigateVerVeiculos}>
+                        <Button variant="secondary" className="ms-1" onClick={() => navigate('/verVeiculos')}>
                             <FaEye /> Ver Meus Veículos
                         </Button>
                     </Modal.Body>
@@ -228,7 +225,7 @@ function BarraMenuCliente() {
                         <Button variant="primary" className="me-1" onClick={() => setModalAgendamentoShow(true)}>
                             <IoIosAddCircle /> Marcar Manutenção
                         </Button>
-                        <Button variant="secondary" className="ms-1" >
+                        <Button variant="secondary" className="ms-1" onClick={() => navigate("/verAgendamento")} >
                             <FaEye /> Ver Agendamentos
                         </Button>
                     </Modal.Body>

@@ -3,13 +3,15 @@ import Copyright from "../components/CopyRight";
 import EditarPerfilCliente from "../components/EditarPerfilCliente";
 //import { Copyright } from "../components/footer";
 
-export default function Perfil(){
+export default function Perfil() {
 
     return (
         <>
-        <BarraMenuCliente/>
-        <EditarPerfilCliente />
-       <Copyright />
+
+            <BarraMenuCliente />
+            <EditarPerfilCliente />
+            <Copyright />
+
         </>
     )
 }
