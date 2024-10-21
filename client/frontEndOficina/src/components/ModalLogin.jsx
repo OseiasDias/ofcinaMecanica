@@ -1,86 +1,87 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Importar o useNavigate
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import ModalCadastrarCliente from './ModalCadastrarCliente';
 
-import '../css/modalLogin.css';
-
-// eslint-disable-next-line react/prop-types
 export default function ModalLogin({ show, onHide }) {
   const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState(''); // Utilizando "senha" ao invés de "password"
+  const [senha, setSenha] = useState('');
   const [emailError, setEmailError] = useState('');
+  const [senhaError, setSenhaError] = useState('');
+  const [generalError, setGeneralError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-  const [loginError, setLoginError] = useState(''); // Estado para mensagem de erro de login
-  const [loginSuccess, setLoginSuccess] = useState(''); // Estado para mensagem de sucesso de login
-  const [modalShowCadastro, setModalShowCadastro] = useState(false); // Novo estado para modal de cadastro
+  const [modalShowCadastro, setModalShowCadastro] = useState(false);
 
-  // Função para validar email
+  const navigate = useNavigate();
+
+  // Valida o email
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
       setEmailError('E-mail é obrigatório.');
       return false;
     } else if (!emailRegex.test(email) || !email.endsWith('.com')) {
-      setEmailError('Por favor, digite um e-mail válido que contenha "@" e termine com ".com".');
+      setEmailError('Por favor, digite um e-mail válido.');
       return false;
     }
     setEmailError('');
     return true;
   };
 
+  // Valida a senha
+  const validateSenha = (senha) => {
+    if (!senha) {
+      setSenhaError('Senha é obrigatória.');
+      return false;
+    }
+    setSenhaError('');
+    return true;
+  };
+
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (!validateEmail(email)) {
+    const isEmailValid = validateEmail(email);
+    const isSenhaValid = validateSenha(senha);
+
+    if (!isEmailValid || !isSenhaValid) {
       return;
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/clientes/login', { // Usando a URL correta
+      const response = await fetch('http://localhost:5000/api/clientes/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, senha }), // Utilizando "senha" ao invés de "password"
+        body: JSON.stringify({ email, senha }),
       });
 
-      // Verifica se a resposta foi bem-sucedida
       if (!response.ok) {
-        const errorMessage = await response.text(); // Obtém a resposta como texto
-        setLoginError(errorMessage || 'Erro ao fazer login. Verifique suas credenciais.');
-        setLoginSuccess('');
-        return; // Não prossegue se a resposta não for 200
+        setGeneralError(' Verifique as credenciais que inseriste não está associado a uma conta.');
+        return;
       }
 
-      const data = await response.json(); // Apenas analisa o JSON se a resposta for ok
+      const data = await response.json();
+      
+      // Salva o token de autenticação no localStorage
+      localStorage.setItem('authToken', data.token); 
 
-      // Lógica para quando o login for bem-sucedido
-      setLoginSuccess('Login realizado com sucesso!');
-      setLoginError('');
-      console.log('Login bem-sucedido:', data);
+      // Redireciona após o login bem-sucedido
+      navigate('/HomeCliente');
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
-      setLoginError('Erro ao conectar ao servidor.');
-      setLoginSuccess('');
+      setGeneralError('Erro ao conectar ao servidor.');
     }
   };
 
   return (
-    <Modal
-      show={show}
-      onHide={onHide}
-      size="md"
-      aria-labelledby="contained-modal-title-vcenter"
-      centered
-    >
+    <Modal show={show} onHide={onHide} size="md" centered>
       <div className="modalBeleza">
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Faça seu login
-          </Modal.Title>
+          <Modal.Title id="contained-modal-title-vcenter">Faça seu login</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={handleLogin}>
@@ -93,45 +94,45 @@ export default function ModalLogin({ show, onHide }) {
                 onChange={(e) => setEmail(e.target.value)} 
                 isInvalid={!!emailError}
               />
-              <Form.Control.Feedback type="invalid">
-                {emailError}
-              </Form.Control.Feedback>
+              <Form.Control.Feedback type="invalid">{emailError}</Form.Control.Feedback>
             </Form.Group>
 
-            <Form.Group controlId="formBasicSenha" className="mt-3"> {/* Usando "senha" ao invés de "password" */}
+            <Form.Group controlId="formBasicSenha" className="mt-3">
               <Form.Label>Senha</Form.Label>
               <div className="d-flex">
                 <Form.Control 
                   type={showPassword ? "text" : "password"}
                   placeholder="Digite sua senha" 
-                  value={senha} // Usando "senha"
-                  onChange={(e) => setSenha(e.target.value)} // Usando setSenha
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                  isInvalid={!!senhaError}
                 />
                 <Button 
                   variant="outline-secondary" 
                   onClick={() => setShowPassword(!showPassword)} 
                   className="ms-2"
                 >
-                    {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
-                    </Button>
+                  {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                </Button>
               </div>
+              <Form.Control.Feedback type="invalid">{senhaError}</Form.Control.Feedback>
             </Form.Group>
-
-            {loginError && <div className="text-danger mt-2">{loginError}</div>}
-            {loginSuccess && <div className="text-success mt-2">{loginSuccess}</div>}
 
             <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block">
               Entrar
             </Button>
+
+            {/* Exibe o erro geral abaixo do formulário, se existir */}
+            {generalError && (
+              <p className="text-danger px-3 text-center mt-3">{generalError}</p>
+            )}
           </Form>
         </Modal.Body>
         <hr />
         <p className='text-center'><strong className='melhorarStrong'>Esqueceste a sua senha?</strong></p>
         <p className='text-center'>Não tens uma conta? <strong className='melhorarStrong' onClick={() => setModalShowCadastro(true)}>Registar</strong></p>
 
-         {/* Modal de cadastro */}
-      <ModalCadastrarCliente show={modalShowCadastro} onHide={() => setModalShowCadastro(false)} />
-   
+        <ModalCadastrarCliente show={modalShowCadastro} onHide={() => setModalShowCadastro(false)} />
       </div>
     </Modal>
   );

@@ -8,7 +8,7 @@ import { CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io";
 import { CgMenuGridO } from "react-icons/cg";
 import { RiGuideFill } from "react-icons/ri";
-import {  FaCalendarAlt, FaBlog, FaEye } from "react-icons/fa";
+import { FaCalendarAlt, FaBlog, FaEye } from "react-icons/fa";
 import { IoCarSportSharp } from "react-icons/io5";
 import { MdContentPasteSearch } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
@@ -45,17 +45,13 @@ function BarraMenuCliente() {
     const handleShowConsultarModal = () => setShowConsultarModal(true);
     const handleCloseConsultarModal = () => setShowConsultarModal(false);
 
-    const handleLogout = () => {
-        setShowLogoutModal(false);
-        navigate("/");
-    };
 
-  
 
- 
-   
 
-    
+
+
+
+
 
     const validatePlaca = () => {
         const errors = {};
@@ -83,16 +79,33 @@ function BarraMenuCliente() {
 
     let nome = "Oseias";
 
+
+    //Limpar o localStorege ao sair
+
+
+
+    const handleLogout = () => {
+        // Remove o token do localStorage
+        localStorage.removeItem('authToken');
+
+        // Exibe uma mensagem de sucesso (opcional)
+        setShowLogoutModal(false);
+
+
+        // Redireciona para a página de login
+        navigate('/');
+    };
+
     return (
         <>
             <Navbar expand="lg" className="container-fluid menuCliente position-fixed w-100">
                 <Navbar.Brand href="#home">
-                  <Link to="/HomeCliente">
-                  <img src={logo} className='logoMotor' alt="imagem de uma moto" />
-                  </Link> 
+                    <Link to="/HomeCliente">
+                        <img src={logo} className='logoMotor' alt="imagem de uma moto" />
+                    </Link>
 
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"  />
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="ms-auto">
                         <Link to="/homeCliente">
@@ -162,7 +175,7 @@ function BarraMenuCliente() {
                                     </NavDropdown.Item>
                                 </Link>
 
-                                
+
                                 <NavDropdown.Divider />
                                 <NavDropdown.Item onClick={handleShowLogoutModal}>
                                     <IoIosLogOut className="iconesMenu" fontSize={18} /> Sair
@@ -191,7 +204,7 @@ function BarraMenuCliente() {
                 </div>
             </Modal>
 
-    {/* Modal com as opções de veículo */}
+            {/* Modal com as opções de veículo */}
             <Modal show={showVehicleModal} onHide={handleCloseVehicleModal} centered>
                 <div className="bordarModal">
                     <Modal.Header closeButton>
@@ -208,11 +221,11 @@ function BarraMenuCliente() {
                 </div>
             </Modal>
 
-             {/* Modal Cadastrar veiculo */}                    
-       <ModalCadastrarVeiculo
-        show={modalCadVeiculoShow}
-        onHide={() => setModalCadVeiculoShow(false)}
-      />
+            {/* Modal Cadastrar veiculo */}
+            <ModalCadastrarVeiculo
+                show={modalCadVeiculoShow}
+                onHide={() => setModalCadVeiculoShow(false)}
+            />
 
 
             {/* Modal de agendamento */}
@@ -232,13 +245,13 @@ function BarraMenuCliente() {
                 </div>
             </Modal>
 
-        {/* Modal Fazer agendamento */}                    
+            {/* Modal Fazer agendamento */}
             <ModalFazerAgendamento
-        show={modalAgendamentoShow}
-        onHide={() => setModalAgendamentoShow(false)}
-      />
+                show={modalAgendamentoShow}
+                onHide={() => setModalAgendamentoShow(false)}
+            />
 
-      
+
             {/* Modal para consultar estado pela placa */}
             <Modal show={showConsultarModal} onHide={handleCloseConsultarModal} centered>
                 <div className="bordarModal">

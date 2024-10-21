@@ -86,7 +86,7 @@ class ControllerCliente {
             console.error("Erro ao fazer login:", error);
             res.status(401).json({ message: "E-mail ou senha inválidos" }); // Erro de autenticação
         }
-    }
+    } 
 }
 
 module.exports = ControllerCliente;

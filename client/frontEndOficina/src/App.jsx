@@ -12,9 +12,17 @@ import BlogAcess from "./pages/BlogAcess.jsx";
 import VerAgendamento from "./pages/VerAgendamento.jsx";
 import VerVeiculos from "./pages/VerVeiculos.jsx";
 import HomeAdministrador from "./pages/pageAdmin/HomeAdministrador.jsx";
+import LoginAdmin from "./components/compenentesAdmin/LoginAdmin.jsx";
+import PaginaLoginSuperAdmin  from './pages/pageAdmin/PaginaLoginSuperAdmin.jsx';
+import { Navigate } from 'react-router-dom';
+// Componente de rota protegida
 
+// eslint-disable-next-line react/prop-types
+const ProtectedRoute = ({ children }) => {
+  const isAuthenticated = !!localStorage.getItem('authToken'); // Exemplo de verificação de autenticação
 
-
+  return isAuthenticated ? children : <Navigate to="/" />;
+};
 
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -45,7 +53,9 @@ const App = () => {
           <Router>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/HomeCliente" element={<HomeCliente />} />
+              <Route path="/HomeCliente" element={ <ProtectedRoute>
+                <HomeCliente />
+            </ProtectedRoute>} />
               <Route path="/Blog" element={<Blog />} />
               <Route path="/perfilCliente" element={<PerfilCliente />} />
               <Route path="/meusVeiculos" element={<MeusVeiculos />} />
@@ -53,8 +63,16 @@ const App = () => {
               <Route path="/verAgendamento" element={<VerAgendamento  />} />
               <Route path="/verVeiculos" element={<VerVeiculos  />} />
 
-               {/**Routas para o grupoAdministrador */}
+               {/**Routas para o Administrador */}
                <Route path="/homeAdministrador" element={<HomeAdministrador  />} />
+               <Route path="/acessoAdministrador" element={<LoginAdmin  />} />
+
+
+              {/**Routas para o Super Administrador */}
+
+              <Route path="/acessoSuperAdministrador" element={<PaginaLoginSuperAdmin  />} />
+
+
 
             </Routes>
           </Router>
