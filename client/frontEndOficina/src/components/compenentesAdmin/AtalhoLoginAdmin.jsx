@@ -78,7 +78,7 @@ export default function AtalhoLoginAdmin() {
                     <Logo />
                     <h5 className="text-center my-2">Acesso para Administrador</h5>
 
-                    <div className="col-11  col-md-9 col-lg-9 mx-auto ">
+                    <div className="col-11  col-md-9 col-lg-10 mx-auto ">
                         <Form onSubmit={handleLogin}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email</Form.Label>

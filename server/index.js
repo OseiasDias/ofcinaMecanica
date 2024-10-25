@@ -1,6 +1,13 @@
 const express = require("express");
 const cors = require("cors");
 
+/*
+const express = require('express');
+const nodemailer = require('nodemailer');
+const crypto = require('crypto'); // Para gerar tokens aleatórios
+
+app.use(express.json());*/
+
 
 
 
@@ -290,6 +297,71 @@ app.delete('/api/veiculos/:id_veiculo', ControllerVeiculo.deletarVeiculo);
 
 
 
+/*
+
+// Configurações para envio de email usando nodemailer
+const transporter = nodemailer.createTransport({
+  service: 'gmail', // Pode usar outro serviço de e-mail
+  auth: {
+    user: 'seu-email@gmail.com',
+    pass: 'sua-senha-de-app' // Use a senha de app (não a senha do e-mail pessoal)
+  }
+});
+
+// Endpoint para solicitar a alteração de senha
+app.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  // Gera um código de verificação (pode ser um número ou token)
+  const verificationCode = crypto.randomInt(100000, 999999); // Código numérico de 6 dígitos
+
+  // Armazene o código em um banco de dados ou cache, associado ao usuário
+  // Exemplo: `await storeVerificationCode(email, verificationCode)`
+
+  // Enviar o código por e-mail para o usuário
+  const mailOptions = {
+    from: 'seu-email@gmail.com',
+    to: email,
+    subject: 'Seu código de verificação',
+    text: `Seu código de verificação é ${verificationCode}.`
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.status(200).send('Código de verificação enviado!');
+  } catch (error) {
+    console.error('Erro ao enviar o email:', error);
+    res.status(500).send('Erro ao enviar o e-mail.');
+  }
+});
+
+// Endpoint para verificar o código e alterar a senha
+app.post('/verify-code', async (req, res) => {
+  const { email, code, newPassword } = req.body;
+
+  // Verifique se o código está correto e associado ao e-mail
+  // Exemplo: `const isValid = await verifyCode(email, code)`
+  const isValid = true; // Implementar a lógica de verificação
+
+  if (!isValid) {
+    return res.status(400).send('Código inválido ou expirado.');
+  }
+
+  // Atualize a senha do usuário no banco de dados
+  // Exemplo: `await updatePassword(email, newPassword)`
+
+  res.status(200).send('Senha alterada com sucesso!');
+});
+
+app.listen(5000, () => {
+  console.log('Servidor rodando na porta 5000');
+});
+
+*/
+/*
+Ja encontradooooooooooooooooooooooooo
+
+*/
 
 
 const PORTA = process.env.PORT || 5000; // Define a porta

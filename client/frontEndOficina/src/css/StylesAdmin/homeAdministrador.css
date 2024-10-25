@@ -1,13 +1,163 @@
+/* Estrutura básica */
+.container-full {
+    display: flex;
+}
+
+.menuEsp {
+    width: 100%;
+    padding: 20px;
+}
+
+/* Sidebar */
+.sideBar {
+    background-color: #007bff;
+    color: #ddd;
+    height: 100vh;
+    transition: width 0.3s;
+    overflow-x: hidden;
+}
+
+.top_section {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.imagemLogo {
+    width: 140px;
+}
+
+.bars {
+    font-size: 22px;
+    cursor: pointer;
+}
+
+/* Links do menu */
+.menu_item {
+    width: 100%;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    color: #ddd;
+    padding: 15px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.link:hover {
+    background-color: #0056b3;
+}
+
+.icon {
+    font-size: 20px;
+    min-width: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.link_text {
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+/* Dropdown Submenu */
+.submenu {
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    background-color: #0056b3;
+    transition: max-height 0.3s ease;
+    overflow: hidden;
+}
+
+.submenu_link {
+    color: #ddd;
+    padding: 10px 15px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.submenu_link:hover {
+    background-color: #004494;
+}
+
+
 /*
-.sidebar{
-     color: var(--corTerciaria);
-     background-color: var(--corPrimaria);
+.container-full{
+    display: flex;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+.menuEsp{
+    width: 100%;
+    padding: 20px;
+}
+
+.sideBar{
+    height: 100vh !important;
+    width: 250px;
+    transition: all .5s;
+
+}
+
+.top_section{
+    display: flex;
+    align-items: center;
+    padding: 20px 15px;
 }
 
 .logo{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
 
-}*/
+    font-size: 20px;
+}
+
+
+.bars{
+
+    font-size: 22px;
+    display: flex;
+    margin-left: 25px;
+}
+
+
+.link{
+    display: flex;
+    color: #ddd;
+    padding: 25px 10px;
+    gap:15px;
+    transition: all .5s;
+}
+
+.link:hover{
+    background-color: #ddd;
+    color: #000;
+    transition: all .5s;
+}
+
+.active{
+    background-color: antiquewhite;
+    color: #000;
+    
+}
+
+.icon, .link_text{
+
+    font-size: 20px;
+}
+
+.imagemLogo{
+    width:170px;
+}
+
+*/

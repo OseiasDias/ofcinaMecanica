@@ -15,6 +15,12 @@ import HomeAdministrador from "./pages/pageAdmin/HomeAdministrador.jsx";
 import LoginAdmin from "./components/compenentesAdmin/LoginAdmin.jsx";
 import PaginaLoginSuperAdmin  from './pages/pageAdmin/PaginaLoginSuperAdmin.jsx';
 import { Navigate } from 'react-router-dom';
+
+//importacoes para clientes
+import Clientes from './pages/pageAdmin/Clientes.jsx';
+import Estoque from './pages/pageAdmin/Estoque.jsx';
+import Agendamento from './pages/pageAdmin/Agendamento.jsx';
+
 // Componente de rota protegida
 
 // eslint-disable-next-line react/prop-types
@@ -71,6 +77,9 @@ const App = () => {
               {/**Routas para o Super Administrador */}
 
               <Route path="/acessoSuperAdministrador" element={<PaginaLoginSuperAdmin  />} />
+              <Route path="/paginaCliente" element={<Clientes  />} />
+              <Route path="/paginaAdministrador" element={<Agendamento />} />
+              <Route path="/paginaEstoque" element={<Estoque  />} />
 
 
 

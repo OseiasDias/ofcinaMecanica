@@ -30,22 +30,29 @@ a:hover{
   margin: 0 ;
   padding: 0;
   box-sizing: border-box !important;
-  transition: var(--trasicao) !important;
+  
 
   /*  border-radius: 0 !important;
 */
 }
 
+/* Para navegadores WebKit (Chrome, Safari, Edge baseado em Chromium) */
 html::-webkit-scrollbar {
-  border-left: 2px solid var(--corPrimaria);
   width: 10px;
+  border-left: 2px solid var(--corPrimaria);
+ 
 }
 
-
 html::-webkit-scrollbar-thumb {
- 
   background-color: var(--corPrimaria);
   
+}
+
+/* Para navegadores Mozilla Firefox */
+html {
+  scrollbar-width: thin; /* Define uma largura pequena para o scrollbar */
+  scrollbar-color: var(--corPrimaria) transparent; /* Cor do thumb e background do scrollbar */
+ 
 }
 
 body{

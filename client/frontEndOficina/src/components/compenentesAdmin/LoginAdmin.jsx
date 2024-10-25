@@ -16,8 +16,9 @@ export default function LoginAdmin() {
                 
             <div className="row">
                 
-                <div className="col-12 col-md-10 col-lg-5 TabAcessos ">
+                <div className="col-12 col-md-10 col-lg-5 mx-auto TabAcesso ">
                     <AtalhoLoginAdmin />
+                  
                 </div>
             </div>
         </div>

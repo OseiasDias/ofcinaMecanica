@@ -1,13 +1,14 @@
 import LoginSuperAdmin from "../../components/compenentesAdmin/LoginSuperAdmin";
-import '../../css/StylesAdmin/loginSuperAdmin.css';
 
 export default function PaginaLoginAdmin(){
 
     return(
 
-        <section className="loginSuperAdmin">
+        <section className="loginSuperAdmin ">
+            <div className="col-lg-5 col-12 col-md-10  minhaEntradada mx-auto">
             <LoginSuperAdmin />
-        
+            </div>
+         
         </section>
     )
 }

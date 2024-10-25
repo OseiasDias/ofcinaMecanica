@@ -2,6 +2,7 @@ import LoginAdmin from "../../components/compenentesAdmin/LoginAdmin";
 
 
 
+
 export default function PaginaLoginAdmin(){
 
 
@@ -9,6 +10,7 @@ export default function PaginaLoginAdmin(){
 
         <>
             <LoginAdmin />
+          
         </>
     )
 }

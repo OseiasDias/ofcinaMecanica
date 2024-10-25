@@ -1,5 +1,5 @@
-import '../../css/StylesAdmin/loginAdmin.css';
-
+//import '../../css/StylesAdmin/modalAcessoSuperAdmin.css';
+import  '../../css/StylesAdmin/loginSuperAdmin.css';
 import Logo from './Logo';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
@@ -14,11 +14,7 @@ export default function LoginSuperAdmin() {
     const [loginError, setLoginError] = useState('');
     const [loginSuccess, setLoginSuccess] = useState('');
 
-    /**Modal Acesso Super admin */
-
-  
-
-
+    // Validação de e-mail
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email) {
@@ -32,6 +28,7 @@ export default function LoginSuperAdmin() {
         return true;
     };
 
+    // Função de login
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -67,78 +64,64 @@ export default function LoginSuperAdmin() {
     };
 
     return (
-
-
-
-        <div className="container-fluid text-white ">
-            <div className="login-box shadow ">
-               
-               <div className="row vh-100 ">
-                    <div className="col-lg-5 LoginAdmistrador">
-                    
-                    <Logo />
-                    <h5 className="text-center my-2">Super Administrador</h5>
-
-                    <div className="col-11  col-md-9 col-lg-9 mx-auto">
-                        <Form onSubmit={handleLogin}>
-                            <Form.Group controlId="formBasicEmail">
-                                <Form.Label>Email</Form.Label>
-                                <Form.Control
-                                    type="email"
-                                    placeholder="Digite seu email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    isInvalid={!!emailError}
-                                />
-                                <Form.Control.Feedback type="invalid">
-                                    {emailError}
-                                </Form.Control.Feedback>
-                            </Form.Group>
-
-                            <Form.Group controlId="formBasicSenha" className="mt-3">
-                                <Form.Label>Senha</Form.Label>
-                                <div className="d-flex">
+        <div className="container  text-white">
+            <div className="row">
+                <div className="col-lg-12 col-md-10 col-12 ">
+                    <div className="TabAcessoOs">
+                        <Logo />
+                        <h5 className="text-center my-2">Super Administrador</h5>
+                        <div className="col-11 col-md-10 col-lg-10 mx-auto">
+                            <Form onSubmit={handleLogin}>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Email</Form.Label>
                                     <Form.Control
-                                        type={showPassword ? "text" : "password"}
-                                        placeholder="Digite sua senha"
-                                        value={senha}
-                                        onChange={(e) => setSenha(e.target.value)}
+                                        type="email"
+                                        placeholder="Digite seu email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        isInvalid={!!emailError}
                                     />
-                                    <Button
-                                        variant="outline-secondary"
-                                        onClick={() => setShowPassword(!showPassword)}
-                                        className="ms-2"
-                                    >
-                                        {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
-                                    </Button>
-                                </div>
-                            </Form.Group>
+                                    <Form.Control.Feedback type="invalid">
+                                        {emailError}
+                                    </Form.Control.Feedback>
+                                </Form.Group>
 
-                            {loginError && <div className="text-danger mt-2">{loginError}</div>}
-                            {loginSuccess && <div className="text-success mt-2">{loginSuccess}</div>}
+                                <Form.Group controlId="formBasicSenha" className="mt-3">
+                                    <Form.Label>Senha</Form.Label>
+                                    <div className="d-flex">
+                                        <Form.Control
+                                            type={showPassword ? "text" : "password"}
+                                            placeholder="Digite sua senha"
+                                            value={senha}
+                                            onChange={(e) => setSenha(e.target.value)}
+                                        />
+                                        <Button
+                                            variant="outline-secondary"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                            className="ms-2"
+                                        >
+                                            {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+                                        </Button>
+                                    </div>
+                                </Form.Group>
 
-                            <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block">
-                                Entrar
-                            </Button>
-                        </Form>
+                                {/* Mensagens de erro ou sucesso no login */}
+                                {loginError && <div className="text-danger mt-2">{loginError}</div>}
+                                {loginSuccess && <div className="text-success mt-2">{loginSuccess}</div>}
 
-                        <hr />
-                        <p className="text-center">
-                            <strong className="melhorarStron">Esqueceste a sua senha?</strong>
-                
+                                <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block">
+                                    Entrar
+                                </Button>
+                            </Form>
 
-                        </p>
-
-                   
-
+                            <hr />
+                            <p className="text-center">
+                                <strong className="melhorarStron">Esqueceste a sua senha?</strong>
+                            </p>
+                        </div>
                     </div>
-
                 </div>
-                
-               </div>
-
             </div>
         </div>
-
     );
 }
