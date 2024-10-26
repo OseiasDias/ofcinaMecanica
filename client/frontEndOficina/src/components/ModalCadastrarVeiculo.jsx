@@ -2,11 +2,11 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import '../css/modalCadVeiculo.css';
 
-
 export default function ModalCadastrarVeiculo(props) {
-
     const [formData, setFormData] = useState({
         marca: "",
         modelo: "",
@@ -48,20 +48,53 @@ export default function ModalCadastrarVeiculo(props) {
             formErrors.placa = "A Placa deve conter apenas letras, números e os caracteres / . -";
         }
 
-        // Validação das Fotos
-        if (!formData.fotos) {
-            formErrors.fotos = "Envie pelo menos uma foto";
-        }
+        // Removido a validação das Fotos
+        // if (!formData.fotos) {
+        //     formErrors.fotos = "Envie pelo menos uma foto";
+        // }
 
         return formErrors;
     };
-    const handleSubmit = (event) => {
+
+    const handleSubmit = async (event) => {
         event.preventDefault();
         const formErrors = validate();
         if (Object.keys(formErrors).length === 0) {
-            console.log("Veículo cadastrado:", formData);
-            alert("Veículo cadastrado com sucesso!");
-            // Aqui pode-se enviar os dados para o backend ou fazer outra ação.
+            // Prepara os dados para envio
+            const formDataToSend = new FormData();
+            formDataToSend.append('marca', formData.marca);
+            formDataToSend.append('modelo', formData.modelo);
+            formDataToSend.append('ano', formData.ano);
+            formDataToSend.append('placa', formData.placa);
+            formDataToSend.append('fotos', formData.fotos);
+
+            try {
+                const response = await fetch('http://localhost:5000/api/veiculos', {
+                    method: 'POST',
+                    body: formDataToSend,
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao cadastrar veículo');
+                }
+
+                const data = await response.json();
+                toast.success('Veículo cadastrado com sucesso!');
+                console.log("Veículo cadastrado:", data); // Log para verificar a resposta
+
+                // Limpa o formulário após o sucesso
+                setFormData({
+                    marca: "",
+                    modelo: "",
+                    ano: "",
+                    placa: "",
+                    fotos: null,
+                });
+
+                props.onHide(); // Fecha o modal
+            } catch (error) {
+                toast.error(error.message || 'Erro ao cadastrar veículo. Tente novamente.');
+            }
         } else {
             setErrors(formErrors);
         }
@@ -82,119 +115,112 @@ export default function ModalCadastrarVeiculo(props) {
         });
     };
 
-
     return (
-        <Modal
-            {...props}
-            size="xl"
-            aria-labelledby="contained-modal-title-vcenter"
-            centered
-            
-        >
-           <div className='bordarModal'>
-           <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-vcenter">
-                    <h5>Cadastre o seu veiculo</h5>
-                </Modal.Title>
-            </Modal.Header>
-            <Modal.Body >
-                <Form onSubmit={handleSubmit} >
-                    <div className="row">
-                        <div className="col-12 col-md-12 col-lg-6">
-
-                        <Form.Group>
-                        <Form.Label>Marca</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="marca"
-                            value={formData.marca}
-                            onChange={handleChange}
-                            isInvalid={!!errors.marca}
-                            placeholder="Digite a marca do veículo"
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.marca}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-
-                    </div>
-                    <div className="col-12 col-md-12 col-lg-6">
-
-                    <Form.Group>
-                        <Form.Label>Modelo</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="modelo"
-                            value={formData.modelo}
-                            onChange={handleChange}
-                            isInvalid={!!errors.modelo}
-                            placeholder="Digite o modelo do veículo"
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.modelo}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                        </div>
-                        <div className="col-12 col-md-12 col-lg-6">
-
-                    <Form.Group>
-                        <Form.Label>Ano</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="ano"
-                            value={formData.ano}
-                            onChange={handleChange}
-                            isInvalid={!!errors.ano}
-                            placeholder="Digite o ano do veículo"
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.ano}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    </div>
-                    <div className="col-12 col-md-12 col-lg-6">
-                    <Form.Group>
-                        <Form.Label>Placa</Form.Label>
-                        <Form.Control
-                            type="text"
-                            name="placa"
-                            value={formData.placa}
-                            onChange={handleChange}
-                            isInvalid={!!errors.placa}
-                            placeholder="Digite a placa do veículo"
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.placa}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                        </div>
-
-                        <div className="col-12 col-md-12 col-lg-6">
-                    <Form.Group>
-                        <Form.Label>Fotos</Form.Label>
-                        <Form.Control
-                            type="file"
-                            name="fotos"
-                            accept="image/*"
-                            onChange={handleFileChange}
-                            isInvalid={!!errors.fotos}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            {errors.fotos}
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                    </div>
-                    </div>
-                    <Button variant="primary" type="submit" className="mt-3 d-block mx-auto links-acessos">
-                        Cadastrar Veículo
-                    </Button>
-                   
-                </Form>
-            </Modal.Body>
-
-            <Modal.Footer>
-            </Modal.Footer>
-           </div>
-        </Modal >
+        <>
+            <Modal
+                {...props}
+                size="xl"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+            >
+                <div className='bordarModal'>
+                    <Modal.Header closeButton>
+                        <Modal.Title id="contained-modal-title-vcenter">
+                            <h5>Cadastre o seu veículo</h5>
+                        </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Form onSubmit={handleSubmit}>
+                            <div className="row">
+                                <div className="col-12 col-md-12 col-lg-6">
+                                    <Form.Group>
+                                        <Form.Label>Marca</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="marca"
+                                            value={formData.marca}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.marca}
+                                            placeholder="Digite a marca do veículo"
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            {errors.marca}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+                                <div className="col-12 col-md-12 col-lg-6">
+                                    <Form.Group>
+                                        <Form.Label>Modelo</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="modelo"
+                                            value={formData.modelo}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.modelo}
+                                            placeholder="Digite o modelo do veículo"
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            {errors.modelo}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+                                <div className="col-12 col-md-12 col-lg-6">
+                                    <Form.Group>
+                                        <Form.Label>Ano</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="ano"
+                                            value={formData.ano}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.ano}
+                                            placeholder="Digite o ano do veículo"
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            {errors.ano}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+                                <div className="col-12 col-md-12 col-lg-6">
+                                    <Form.Group>
+                                        <Form.Label>Placa</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            name="placa"
+                                            value={formData.placa}
+                                            onChange={handleChange}
+                                            isInvalid={!!errors.placa}
+                                            placeholder="Digite a placa do veículo"
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            {errors.placa}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+                                <div className="col-12 col-md-12 col-lg-6">
+                                    <Form.Group>
+                                        <Form.Label>Fotos</Form.Label>
+                                        <Form.Control
+                                            type="file"
+                                            name="fotos"
+                                            accept="image/*"
+                                            onChange={handleFileChange}
+                                            isInvalid={!!errors.fotos} // Essa linha pode ser removida, já que não temos mais a validação
+                                            multiple
+                                        />
+                                        <Form.Control.Feedback type="invalid">
+                                            {errors.fotos}
+                                        </Form.Control.Feedback>
+                                    </Form.Group>
+                                </div>
+                            </div>
+                            <Button variant="primary" type="submit" className="mt-3 d-block mx-auto links-acessos">
+                                Cadastrar Veículo
+                            </Button>
+                        </Form>
+                    </Modal.Body>
+                </div>
+            </Modal>
+            <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+        </>
     );
 }

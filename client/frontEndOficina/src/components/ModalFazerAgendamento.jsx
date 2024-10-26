@@ -2,12 +2,17 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useState } from 'react';
 import { Form } from 'react-bootstrap';
+import { ToastContainer, toast } from 'react-toastify'; // Importa ToastContainer e toast
+import 'react-toastify/dist/ReactToastify.css'; // Importa o estilo padrão do Toastify
 
 export default function ModalFazerAgendamento(props) {
     const [formData, setFormData] = useState({
         descricao: '',
         data: '',
-        id_veiculo: ''
+        id_veiculo: '',
+        id_servico: 1, // Adicionando ID do serviço (se necessário)
+        id_cliente: 1,  // Adicionando ID do cliente (se necessário)
+        status: 'Confirmado' // Adicionando status (se necessário)
     });
     const [errors, setErrors] = useState({});
 
@@ -40,13 +45,39 @@ export default function ModalFazerAgendamento(props) {
         return Object.keys(formErrors).length === 0;
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         if (validate()) {
-            console.log("Agendamento de Manutenção:", formData);
-            alert("Manutenção agendada com sucesso!");
-            setFormData({ descricao: '', data: '', id_veiculo: '' });
-            setErrors({});
+            try {
+                const response = await fetch('http://localhost:5000/api/agendamentos', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData), // Enviando os dados do formulário
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao criar agendamento');
+                }
+
+                const result = await response.json();
+                console.log("Agendamento de Manutenção:", result);
+                
+                toast.success("Manutenção agendada com sucesso!", {
+                    onClose: () => {
+                        // Fecha a modal após o toast ser fechado
+                        props.onHide(); // Certifique-se de que esta função seja passada como prop
+                    }
+                });
+                
+                // Limpa os dados do formulário após o sucesso
+                setFormData({ descricao: '', data: '', id_veiculo: '' });
+                setErrors({});
+            } catch (error) {
+                console.error(error);
+                toast.error("Ocorreu um erro ao agendar a manutenção."); // Usando toast para erro
+            }
         }
     };
 
@@ -112,25 +143,22 @@ export default function ModalFazerAgendamento(props) {
                                             <Form.Group controlId="id_veiculo" className="mt-3">
                                                 <Form.Label>Matricula do Veículo</Form.Label>
                                                 <Form.Control
-                                                    as="select" // Alterado para select
+                                                    as="select"
                                                     name="id_veiculo"
                                                     value={formData.id_veiculo}
                                                     onChange={handleChange}
                                                     isInvalid={!!errors.id_veiculo}
-                                                    
                                                 >
                                                     <option value="">Selecione a placa do veículo</option>
-                                                    <option value="1234ABC">1234ABC - Carro 1</option>
-                                                    <option value="5678DEF">5678DEF - Carro 2</option>
-                                                    <option value="91011GHI">91011GHI - Carro 3</option>
-                                                    {/* Adicione mais opções conforme necessário */}
+                                                    <option value="1">1234ABC - Carro 1</option>
+                                                    <option value="2">5678DEF - Carro 2</option>
+                                                    <option value="3">91011GHI - Carro 3</option>
                                                 </Form.Control>
                                                 <Form.Control.Feedback type="invalid">
                                                     {errors.id_veiculo}
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </div>
-
                                     </div>
 
                                     <Button variant="primary" type="submit" className="mt-3 py-2 px-5 d-block mx-auto links-acessos">
@@ -144,6 +172,7 @@ export default function ModalFazerAgendamento(props) {
                 <Modal.Footer>
                 </Modal.Footer>
             </div>
+            <ToastContainer /> {/* Adiciona o ToastContainer aqui */}
         </Modal>
     );
 }

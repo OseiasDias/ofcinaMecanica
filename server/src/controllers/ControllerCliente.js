@@ -12,7 +12,7 @@ class ControllerCliente {
             res.status(201).json({ message: "Cliente criado com sucesso!", id_cliente });
         } catch (error) {
             console.error("Erro ao cadastrar cliente:", error);
-            res.status(500).json({ message: "Erro ao cadastrar cliente" });
+            res.status(500).json({ message: "Verifique o seu email  e numero de telefone, ja existem " });
         }
     }
 

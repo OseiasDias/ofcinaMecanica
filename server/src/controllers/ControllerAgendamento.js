@@ -1,18 +1,18 @@
 const Agendamento = require('../models/Agendamento'); // Importa o modelo Agendamento
 
 class ControllerAgendamento {
-    // Método para criar um novo agendamento
-    static async criarAgendamento(req, res) {
-        try {
-            const { data, id_cliente, id_veiculo, id_servico, status } = req.body;
-            const agendamento = new Agendamento(null, data, id_cliente, id_veiculo, id_servico, status);
-            const id = await Agendamento.salvar(agendamento);
-            res.status(201).json({ id, message: 'Agendamento criado com sucesso' });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Erro ao criar agendamento' });
-        }
+   // Método para criar um novo agendamento
+   static async criarAgendamento(req, res) {
+    try {
+        const { data, id_cliente, id_veiculo, id_servico, status, descricao } = req.body; // Inclui descricao
+        const agendamento = new Agendamento(null, data, id_cliente, id_veiculo, id_servico, status, descricao);
+        const id = await Agendamento.salvar(agendamento);
+        res.status(201).json({ id, message: 'Agendamento criado com sucesso' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erro ao criar agendamento' });
     }
+}
 
     // Método para obter todos os agendamentos
     static async obterAgendamentos(req, res) {
@@ -41,20 +41,19 @@ class ControllerAgendamento {
         }
     }
 
-    // Método para atualizar um agendamento
-    static async atualizarAgendamento(req, res) {
-        try {
-            const { id_agendamento } = req.params;
-            const { data, id_cliente, id_veiculo, id_servico, status } = req.body;
-            const agendamento = new Agendamento(id_agendamento, data, id_cliente, id_veiculo, id_servico, status);
-            await Agendamento.atualizar(agendamento);
-            res.status(200).json({ message: 'Agendamento atualizado com sucesso' });
-        } catch (error) {
-            console.error(error);
-            res.status(500).json({ message: 'Erro ao atualizar agendamento' });
-        }
+   // Método para atualizar um agendamento
+   static async atualizarAgendamento(req, res) {
+    try {
+        const { id_agendamento } = req.params;
+        const { data, id_cliente, id_veiculo, id_servico, status, descricao } = req.body; // Inclui descricao
+        const agendamento = new Agendamento(id_agendamento, data, id_cliente, id_veiculo, id_servico, status, descricao);
+        await Agendamento.atualizar(agendamento);
+        res.status(200).json({ message: 'Agendamento atualizado com sucesso' });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Erro ao atualizar agendamento' });
     }
-
+}
     // Método para deletar um agendamento
     static async deletarAgendamento(req, res) {
         try {

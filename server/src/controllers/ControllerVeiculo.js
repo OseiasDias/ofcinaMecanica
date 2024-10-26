@@ -7,10 +7,10 @@ class ControllerVeiculo {
         try {
             const veiculoData = req.body;
             const novoVeiculoId = await Veiculo.salvar(veiculoData);
-            res.status(201).json({ id_veiculo: novoVeiculoId, message: "Veículo criado com sucesso!" });
+            res.status(201).json({ id_veiculo: novoVeiculoId, message: "Veículo cadastrado com sucesso!" });
         } catch (error) {
             console.error(error);
-            res.status(500).json({ message: "Erro ao criar veículo." });
+            res.status(500).json({ message: "Erro ao cadastrado veículo." });
         }
     }
 
