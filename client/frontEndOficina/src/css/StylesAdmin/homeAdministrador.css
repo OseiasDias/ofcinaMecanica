@@ -17,6 +17,12 @@
     overflow-x: hidden;
 }
 
+@media (max-width:768px){
+
+    .sideBar{
+        width: 100% !important;
+    }
+}
 .top_section {
     display: flex;
     align-items: center;
