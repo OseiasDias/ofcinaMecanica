@@ -44,6 +44,14 @@ class Agendamento {
         return rows[0]; // Retorna o agendamento encontrado
     }
 
+
+    // Método para obter agendamentos filtrados pelo ID do cliente
+    static async obterPorCliente(id_cliente) {
+        const query = 'SELECT * FROM agendamento WHERE id_cliente = ?';
+        const [rows] = await pool.promise().query(query, [id_cliente]);
+        return rows; // Retorna todos os agendamentos encontrados para o cliente
+    }
+
     static async atualizar(agendamento) {
         const query = `UPDATE agendamento SET data = ?, id_cliente = ?, id_veiculo = ?, id_servico = ?, status = ?, descricao = ? 
                        WHERE id_agendamento = ?`;

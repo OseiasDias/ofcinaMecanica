@@ -114,6 +114,11 @@ app.get('/api/agendamentos', ControllerAgendamento.obterAgendamentos);
 // Rota para obter um agendamento por ID
 app.get('/api/agendamentos/:id_agendamento', ControllerAgendamento.obterAgendamentoPorId);
 
+
+// Rota para obter agendamentos de um cliente específico
+app.get('/api/agendamentos/cliente/:id_cliente', ControllerAgendamento.obterAgendamentosPorCliente);
+
+
 // Rota para atualizar um agendamento
 app.put('/api/agendamentos/:id_agendamento', ControllerAgendamento.atualizarAgendamento);
 
@@ -291,6 +296,9 @@ app.get('/api/veiculos/:id_veiculo', ControllerVeiculo.obterVeiculoPorId);
 
 // Rota para atualizar um veículo
 app.put('/api/veiculos/:id_veiculo', ControllerVeiculo.atualizarVeiculo);
+
+// Rota para obter veículos por ID do cliente
+app.get('/api/veiculos/cliente/:id_cliente', ControllerVeiculo.obterVeiculosPorIdCliente);
 
 // Rota para deletar um veículo
 app.delete('/api/veiculos/:id_veiculo', ControllerVeiculo.deletarVeiculo);

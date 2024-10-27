@@ -12,6 +12,10 @@ router.get('/', ControllerAgendamento.obterAgendamentos);
 // Rota para obter um agendamento por ID
 router.get('/:id_agendamento', ControllerAgendamento.obterAgendamentoPorId);
 
+// Rota para obter agendamentos de um cliente específico
+router.get('/cliente/:id_cliente', ControllerAgendamento.obterAgendamentosPorCliente);
+
+
 // Rota para atualizar um agendamento
 router.put('/:id_agendamento', ControllerAgendamento.atualizarAgendamento);
 

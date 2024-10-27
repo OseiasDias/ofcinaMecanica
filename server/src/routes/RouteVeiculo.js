@@ -12,6 +12,10 @@ router.get('/', ControllerVeiculo.obterVeiculos);
 // Rota para obter um veículo por ID
 router.get('/:id_veiculo', ControllerVeiculo.obterVeiculoPorId);
 
+// Rota para obter veículos por ID do cliente
+router.get('/cliente/:id_cliente', ControllerVeiculo.obterVeiculosPorIdCliente);
+
+
 // Rota para atualizar um veículo
 router.put('/:id_veiculo', ControllerVeiculo.atualizarVeiculo);
 

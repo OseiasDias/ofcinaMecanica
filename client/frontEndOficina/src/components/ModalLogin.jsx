@@ -48,34 +48,37 @@ export default function ModalLogin({ show, onHide }) {
     const isSenhaValid = validateSenha(senha);
 
     if (!isEmailValid || !isSenhaValid) {
-      return;
+        return;
     }
 
     try {
-      const response = await fetch('http://localhost:5000/api/clientes/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, senha }),
-      });
+        const response = await fetch('http://localhost:5000/api/clientes/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, senha }),
+        });
 
-      if (!response.ok) {
-        setGeneralError(' Verifique as credenciais que inseriste não está associado a uma conta.');
-        return;
-      }
+        if (!response.ok) {
+            setGeneralError('Verifique as credenciais que inseriste não está associado a uma conta.');
+            return;
+        }
 
-      const data = await response.json();
-      
-      // Salva o token de autenticação no localStorage
-      localStorage.setItem('authToken', data.token); 
+        const data = await response.json();
+        
+        // Salva o token de autenticação no localStorage
+        localStorage.setItem('authToken', data.token); 
 
-      // Redireciona após o login bem-sucedido
-      navigate('/HomeCliente');
+        // Redireciona após um atraso de 3 segundos (3000 milissegundos)
+        setTimeout(() => {
+            navigate('/HomeCliente');
+        }, 1000); // Atraso de 1 segundos
+
     } catch (error) {
-      setGeneralError('Erro ao conectar ao servidor.');
+        setGeneralError('Erro ao conectar ao servidor.');
     }
-  };
+}
 
   return (
     <Modal show={show} onHide={onHide} size="md" centered>

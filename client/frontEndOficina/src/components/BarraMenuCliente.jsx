@@ -25,7 +25,6 @@ function BarraMenuCliente() {
     const [showConsultarModal, setShowConsultarModal] = useState(false); // Modal para consultar estado
     const [formData, setFormData] = useState({ placa: '' }); // Estado para os dados do formulário
     const [formErrors, setFormErrors] = useState({}); // Estado para os erros de validação
-    //const [showLogoutModalAgendamento, setShowLogoutModalAgendamento] = useState(false);
 
     const [modalAgendamentoShow, setModalAgendamentoShow] = useState(false);
 

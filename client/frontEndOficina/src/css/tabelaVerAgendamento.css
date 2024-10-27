@@ -36,3 +36,21 @@
     height: 35px !important;
     border: 0 !important;
 }
+
+.posicionar{
+   
+    text-align: justify;
+}
+
+.itemText:hover{
+    color: var(--corPrimaria);
+    cursor: pointer;
+}
+
+.bordarConfirma{
+
+    border-left: 6px solid var(--corPrimaria);
+    border-right: 6px solid var(--corPrimaria) !important;
+    border-radius: var(--borderRadius);
+    
+}

@@ -7,7 +7,7 @@ import CopyRight from '../components/CopyRight.jsx';
 
 
 export default function VerAgendamento(){
-
+    const clienteId = 1;
     return(
 
         <>
@@ -15,8 +15,10 @@ export default function VerAgendamento(){
         <BarraMenuCliente />
         
      
-        <TabelaVerAgendamento />
+      
+       <TabelaVerAgendamento clienteId={clienteId} />
 
+      
         <CopyRight />
        
         </>

@@ -41,6 +41,22 @@ class ControllerVeiculo {
         }
     }
 
+    // Método para obter veículos por ID do cliente
+    static async obterVeiculosPorIdCliente(req, res) {
+        try {
+            const { id_cliente } = req.params;
+            const veiculos = await Veiculo.obterPorIdCliente(id_cliente);
+            if (veiculos.length > 0) {
+                res.status(200).json(veiculos);
+            } else {
+                res.status(404).json({ message: "Nenhum veículo encontrado para este cliente." });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Erro ao obter veículos do cliente." });
+        }
+    }
+
     // Método para atualizar um veículo
     static async atualizarVeiculo(req, res) {
         try {

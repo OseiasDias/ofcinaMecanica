@@ -41,6 +41,23 @@ class ControllerAgendamento {
         }
     }
 
+
+    // Método para obter agendamentos por ID do cliente
+    static async obterAgendamentosPorCliente(req, res) {
+        try {
+            const { id_cliente } = req.params;
+            const agendamentos = await Agendamento.obterPorCliente(id_cliente);
+            if (agendamentos.length > 0) {
+                res.status(200).json(agendamentos);
+            } else {
+                res.status(404).json({ message: 'Nenhum agendamento encontrado para este cliente' });
+            }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao obter agendamentos do cliente' });
+        }
+    }
+
    // Método para atualizar um agendamento
    static async atualizarAgendamento(req, res) {
     try {

@@ -45,6 +45,13 @@ class Veiculo {
         return rows[0]; // Retorna o veículo encontrado
     }
 
+     // Método para obter veículos por ID do cliente
+     static async obterPorIdCliente(id_cliente) {
+        const query = 'SELECT * FROM veiculo WHERE id_cliente = ?';
+        const [rows] = await pool.promise().query(query, [id_cliente]);
+        return rows; // Retorna todos os veículos do cliente
+    }
+
     // Método para atualizar um veículo
     static async atualizar(veiculo) {
         const query = `UPDATE veiculo SET marca = ?, modelo = ?, ano = ?, placa = ?, 
