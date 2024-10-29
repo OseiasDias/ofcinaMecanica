@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Importar o useNavigate
+import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
@@ -17,7 +17,6 @@ export default function ModalLogin({ show, onHide }) {
 
   const navigate = useNavigate();
 
-  // Valida o email
   const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!email) {
@@ -31,7 +30,6 @@ export default function ModalLogin({ show, onHide }) {
     return true;
   };
 
-  // Valida a senha
   const validateSenha = (senha) => {
     if (!senha) {
       setSenhaError('Senha é obrigatória.');
@@ -48,37 +46,51 @@ export default function ModalLogin({ show, onHide }) {
     const isSenhaValid = validateSenha(senha);
 
     if (!isEmailValid || !isSenhaValid) {
-        return;
+      return;
     }
 
     try {
-        const response = await fetch('http://localhost:5000/api/clientes/login', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ email, senha }),
-        });
+      const response = await fetch('http://localhost:5000/api/clientes/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, senha }),
+      });
 
-        if (!response.ok) {
-            setGeneralError('Verifique as credenciais que inseriste não está associado a uma conta.');
-            return;
-        }
+      if (!response.ok) {
+        setGeneralError('Verifique as credenciais que inseriste, não está associado a uma conta.');
+        return;
+      }
 
-        const data = await response.json();
-        
-        // Salva o token de autenticação no localStorage
-        localStorage.setItem('authToken', data.token); 
+      const data = await response.json();
+      // Salva o token de autenticação no localStorage
+      localStorage.setItem('authToken', data.token);
 
-        // Redireciona após um atraso de 3 segundos (3000 milissegundos)
-        setTimeout(() => {
-            navigate('/HomeCliente');
-        }, 1000); // Atraso de 1 segundos
+      // Busca o ID do cliente após autenticação
+      const clienteResponse = await fetch(`http://localhost:5000/api/clientes/email/${email}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${data.token}`,
+        },
+      });
+
+      if (!clienteResponse.ok) {
+        setGeneralError('Erro ao obter ID do cliente.');
+        return;
+      }
+
+      const clienteData = await clienteResponse.json();
+      // Salva o ID do cliente no localStorage
+      localStorage.setItem('userId', clienteData.id_cliente);
+
+      // Redireciona para HomeCliente com um pequeno atraso
+      setTimeout(() => {
+        navigate('/HomeCliente', { state: { id_cliente: clienteData.id_cliente } });
+      }, 1000); // Atraso de 1 segundo
 
     } catch (error) {
-        setGeneralError('Erro ao conectar ao servidor.');
+      setGeneralError('Erro ao conectar ao servidor.');
     }
-}
+  };
 
   return (
     <Modal show={show} onHide={onHide} size="md" centered>
@@ -90,11 +102,11 @@ export default function ModalLogin({ show, onHide }) {
           <Form onSubmit={handleLogin}>
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
-              <Form.Control 
-                type="email" 
-                placeholder="Digite seu email" 
-                value={email} 
-                onChange={(e) => setEmail(e.target.value)} 
+              <Form.Control
+                type="email"
+                placeholder="Digite seu email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 isInvalid={!!emailError}
               />
               <Form.Control.Feedback type="invalid">{emailError}</Form.Control.Feedback>
@@ -103,16 +115,16 @@ export default function ModalLogin({ show, onHide }) {
             <Form.Group controlId="formBasicSenha" className="mt-3">
               <Form.Label>Senha</Form.Label>
               <div className="d-flex">
-                <Form.Control 
+                <Form.Control
                   type={showPassword ? "text" : "password"}
-                  placeholder="Digite sua senha" 
+                  placeholder="Digite sua senha"
                   value={senha}
                   onChange={(e) => setSenha(e.target.value)}
                   isInvalid={!!senhaError}
                 />
-                <Button 
-                  variant="outline-secondary" 
-                  onClick={() => setShowPassword(!showPassword)} 
+                <Button
+                  variant="outline-secondary"
+                  onClick={() => setShowPassword(!showPassword)}
                   className="ms-2"
                 >
                   {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
@@ -125,7 +137,6 @@ export default function ModalLogin({ show, onHide }) {
               Entrar
             </Button>
 
-            {/* Exibe o erro geral abaixo do formulário, se existir */}
             {generalError && (
               <p className="text-danger px-3 text-center mt-3">{generalError}</p>
             )}

@@ -95,6 +95,14 @@ class Cliente {
         return rows[0]; // Retorna o cliente encontrado
     }
 
+
+      // Método para obter um cliente por email (para login)
+      static async obterPorEmail(email) {
+        const query = 'SELECT * FROM cliente WHERE email = ?';
+        const [rows] = await pool.promise().query(query, [email]);
+        return rows[0]; // Retorna o cliente encontrado
+    }
+
     // Método para fazer login com email e senha
     static async login(email, senha) {
         const cliente = await this.obterPorEmail(email); // Obtém o cliente pelo e-mail

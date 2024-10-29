@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,15 +11,22 @@ export default function ModalFazerAgendamento(props) {
         data: '',
         id_veiculo: '',
         id_servico: 1,
-        id_cliente: 1,
+        id_cliente: '',
         status: 'Confirmado'
     });
     const [errors, setErrors] = useState({});
-    const [buttonVisible, setButtonVisible] = useState(true); // Estado para controlar a visibilidade do botão
+    const [buttonVisible, setButtonVisible] = useState(true); // Controle de visibilidade do botão
+
+    // Carrega o userId do localStorage ao montar o componente
+    useEffect(() => {
+        const userId = localStorage.getItem('userId');
+        if (userId) {
+            setFormData(prevData => ({ ...prevData, id_cliente: userId }));
+        }
+    }, []);
 
     const validate = () => {
-        let formErrors = {};
-
+        const formErrors = {};
         const today = new Date();
         const selectedDate = new Date(formData.data);
 
@@ -27,7 +34,7 @@ export default function ModalFazerAgendamento(props) {
             formErrors.data = "A data é obrigatória";
         } else if (selectedDate < today) {
             formErrors.data = "A data não pode ser no passado";
-        } else if (selectedDate.getDay() === 0) { // Bloqueia apenas os domingos
+        } else if (selectedDate.getDay() === 0) {
             formErrors.data = "Agendamentos não podem ser feitos aos domingos";
         }
 
@@ -49,24 +56,19 @@ export default function ModalFazerAgendamento(props) {
             try {
                 const response = await fetch('http://localhost:5000/api/agendamentos', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(formData),
                 });
 
-                if (!response.ok) {
-                    throw new Error('Erro ao criar agendamento');
-                }
-
+                if (!response.ok) throw new Error('Erro ao criar agendamento');
                 const result = await response.json();
                 console.log("Agendamento de Manutenção:", result);
                 
-                setButtonVisible(false); // Esconde o botão após o sucesso
+                setButtonVisible(false);
                 toast.success("Manutenção agendada com sucesso!", {
                     onClose: () => {
-                        setButtonVisible(true); // Mostra o botão após o Toastify terminar
-                        props.onHide(); // Fecha a modal após o toast ser fechado
+                        setButtonVisible(true); // Mostra o botão após Toastify
+                        props.onHide(); // Fecha modal após o toast
                     }
                 });
 
@@ -94,16 +96,17 @@ export default function ModalFazerAgendamento(props) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
-           {buttonVisible && ( <div className="bordarModal">
+           {buttonVisible && ( 
+            <div className="bordarModal">
                 <Modal.Header closeButton>
                     <Modal.Title id="contained-modal-title-vcenter">
-                        <h5> Agendar Manutenção</h5>
+                        <h5> Agendar Manutenção </h5>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="container-fluid">
                         <div className="row justify-content-center difinirFundo">
-                            <div className="col-12 col-md-12 col-lg-12">
+                            <div className="col-12">
                               <Form onSubmit={handleSubmit} className='descricao'>
                                     <Form.Group controlId="descricao">
                                         <Form.Label>Descrição do Objetivo de Manutenção</Form.Label>
@@ -122,7 +125,7 @@ export default function ModalFazerAgendamento(props) {
                                     </Form.Group>
 
                                     <div className="row">
-                                        <div className="col-12 col-md-12 col-lg-6">
+                                        <div className="col-12 col-lg-6">
                                             <Form.Group controlId="data" className="mt-3">
                                                 <Form.Label>Data</Form.Label>
                                                 <Form.Control
@@ -137,7 +140,7 @@ export default function ModalFazerAgendamento(props) {
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </div>
-                                        <div className="col-12 col-md-12 col-lg-6">
+                                        <div className="col-12 col-lg-6">
                                             <Form.Group controlId="id_veiculo" className="mt-3">
                                                 <Form.Label>Matricula do Veículo</Form.Label>
                                                 <Form.Control
@@ -158,21 +161,18 @@ export default function ModalFazerAgendamento(props) {
                                             </Form.Group>
                                         </div>
                                     </div>
-
-                                   
-                                        <Button variant="primary" type="submit" className="mt-3 py-2 px-5 d-block mx-auto links-acessos">
-                                            Agendar
-                                        </Button>
-                                   
+                                    <Button variant="primary" type="submit" className="mt-3 py-2 px-5 d-block mx-auto links-acessos">
+                                        Agendar
+                                    </Button>
                                 </Form> 
                             </div>
                         </div>
                     </div>
                 </Modal.Body>
-                <Modal.Footer>
-                </Modal.Footer>
-            </div>)}
-            <ToastContainer />
+                <Modal.Footer />
+            </div>
+           )}
+           <ToastContainer />
         </Modal>
     );
 }

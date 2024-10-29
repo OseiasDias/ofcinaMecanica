@@ -42,13 +42,17 @@ app.use(express.json());
 app.post('/api/clientes', ControllerCliente.criarCliente); 
 
 // Rota para obter todos os clientes
-app.get('/api/clientes', ControllerCliente.obterClientes);
+app.get('/api/clientes', ControllerCliente.obterClientes); 
 
 // Rota para obter um cliente por ID
 app.get('/api/clientes/:id_cliente', ControllerCliente.obterClientePorId);
 
 // Rota para atualizar um cliente
 app.put('/api/clientes/:id_cliente', ControllerCliente.atualizarCliente);
+
+// Rota para obter um cliente por email
+app.get('/api/clientes/email/:email', ControllerCliente.obterClientePorEmail); // Nova rota para obter cliente por email
+
 
 // Rota para deletar um cliente
 app.delete('/api/clientes/:id_cliente', ControllerCliente.deletarCliente);
@@ -302,6 +306,9 @@ app.get('/api/veiculos/cliente/:id_cliente', ControllerVeiculo.obterVeiculosPorI
 
 // Rota para deletar um veículo
 app.delete('/api/veiculos/:id_veiculo', ControllerVeiculo.deletarVeiculo);
+
+
+
 
 
 

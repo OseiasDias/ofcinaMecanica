@@ -27,6 +27,25 @@ class ControllerCliente {
         }
     }
 
+
+    // Método para obter um cliente pelo email
+    static async obterClientePorEmail(req, res) {
+        try {
+            const { email } = req.params;
+            const cliente = await Cliente.obterPorEmail(email);
+
+            if (!cliente) {
+                return res.status(404).json({ message: "Cliente não encontrado" });
+            }
+
+            res.status(200).json(cliente);
+        } catch (error) {
+            console.error("Erro ao obter cliente por email:", error);
+            res.status(500).json({ message: "Erro ao obter cliente por email" });
+        }
+    }
+
+
     // Método para obter um cliente pelo ID
     static async obterClientePorId(req, res) {
         try {

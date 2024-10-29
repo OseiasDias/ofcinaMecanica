@@ -9,7 +9,9 @@ export default function Perfil() {
         <>
 
             <BarraMenuCliente />
+            
             <EditarPerfilCliente />
+            
             <Copyright />
 
         </>

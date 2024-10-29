@@ -24,13 +24,13 @@
 .belezaParagrafo{
     border-bottom: 3px solid var(--corPrimaria) !important;
     border-radius: var(--borderRadius);
-    padding: 10px;
+    padding: 8px;
     
 }
 
 
 .belezaParagrafo:hover{
-    transform: scale(1.04);
+    transform: scale(1.03);
 }
 
 .transitionNone{
@@ -39,3 +39,4 @@
     color: var(--corTerciaria);
     border: none;
 }
+
