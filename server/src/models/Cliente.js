@@ -96,11 +96,18 @@ class Cliente {
     }
 
 
-      // Método para obter um cliente por email (para login)
-      static async obterPorEmail(email) {
+    // Método para obter um cliente por email (para login)
+    static async obterPorEmail(email) {
         const query = 'SELECT * FROM cliente WHERE email = ?';
         const [rows] = await pool.promise().query(query, [email]);
         return rows[0]; // Retorna o cliente encontrado
+    }
+
+    // Método para obter o maior id_cliente
+    static async obterMaiorId() {
+        const query = 'SELECT MAX(id_cliente) AS maior_id FROM cliente';
+        const [rows] = await pool.promise().query(query);
+        return rows[0].maior_id; // Retorna o maior id_cliente encontrado
     }
 
     // Método para fazer login com email e senha

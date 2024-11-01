@@ -243,9 +243,9 @@ function EditarDados() {
           value={cliente.genero || ""}
           onChange={handleChange}
         >
-          <option value="masculino">Masculino</option>
-          <option value="feminino">Feminino</option>
-          <option value="outro">Outro</option>
+         
+          <option value="Feminino">Feminino</option>
+          <option value="Masculino">Masculino</option>
         </Form.Select>
       </Form.Group>
 

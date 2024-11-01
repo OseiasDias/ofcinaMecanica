@@ -6,7 +6,7 @@ export default function Logo(){
 
         <div className="logo">
             <div className="logo-icon">
-                <img src={logoBiTurbo} width={200} className='mx-auto d-block'  alt="Logotipo da Bi-Turbo" />
+                <img src={logoBiTurbo} width={175}  className=' d-block mt-2'  alt="Logotipo da Bi-Turbo" />
             </div>
         </div>
     )

@@ -27,4 +27,7 @@ router.delete('/:id_cliente', ControllerCliente.deletarCliente);
 // Rota para fazer login do cliente
 router.post('/login', ControllerCliente.loginCliente); // Adiciona a rota de login
 
+// Rota para obter o maior id_cliente
+router.get('pegar/maior-id', ControllerCliente.obterMaiorId); // Adiciona a rota para obter o maior id_cliente
+
 module.exports = router;

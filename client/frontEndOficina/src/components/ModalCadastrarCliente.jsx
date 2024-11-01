@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -74,11 +74,27 @@ export default function ModalCadastrarCliente({ show, onHide }) {
     return Object.keys(newErrors).length === 0;
   };
 
+  /*const fetchUserId = async () => {
+    const response = await fetch('http://localhost:5000/api/clientes/pegar/maior-id');
+    if (!response.ok) {
+      throw new Error('Erro ao buscar o maior ID');
+    }
+    const data = await response.json();
+    return data.id_cliente; // Supondo que a API retorna um objeto { userId: <id> }
+  };*/
+
+
+  
+
+
+ 
+
+
   const handleCadastro = async (e) => {
     e.preventDefault();
-
+  
     if (!validateForm()) return;
-
+  
     try {
       const response = await fetch('http://localhost:5000/api/clientes', {
         method: 'POST',
@@ -86,26 +102,37 @@ export default function ModalCadastrarCliente({ show, onHide }) {
         body: JSON.stringify(formValues),
       });
 
+     
+  
       if (!response.ok) {
-        toast.error('Cadastro não realizado. Verifique os dados. Email e telefone já existem.');
+        // Se a resposta não for ok, capturamos a mensagem de erro.
+        const errorData = await response.json();
+        toast.error(`Cadastro não realizado: ${errorData.message || 'Verifique os dados. Email e telefone já existem.'}`);
         return;
       }
-
+  
       const data = await response.json(); // Captura o retorno da API
-      localStorage.setItem('authToken', data.token); // Armazena o token no localStorage
-      toast.success('Cadastro realizado com sucesso!');
+     // localStorage.setItem('authToken', data.token); // Armazena o token no localStorage
+      localStorage.setItem('authToken', data.id_cliente);
+      // Fetch do maior id_cliente
+     // const userId = await fetchUserId();
 
-      // Redireciona após o Toastify
+     
+
+      // Passa o ID do cliente para a rota HomeCliente
       setTimeout(() => {
-        navigate('/HomeCliente');
-      }, 3000);
-
+      
+        toast.success(`Cadastro realizado com sucesso !`);
+        
+        navigate('/HomeCliente', { state: { id_cliente: data.id_cliente } }); // Inclui o maior ID do cliente
+      }, 2000);
+  
       onHide();
     } catch (error) {
-      toast.error('Erro ao conectar ao servidor.');
+      toast.error('Erro ao conectar ao servidor: ' + error.message);
     }
   };
-
+  
   return (
     <>
       <Modal show={show} onHide={onHide} size="xl" aria-labelledby="contained-modal-title-vcenter" centered>

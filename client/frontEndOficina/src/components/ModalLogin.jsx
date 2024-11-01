@@ -3,9 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import ModalCadastrarCliente from './ModalCadastrarCliente';
 
+
+// eslint-disable-next-line react/prop-types
 export default function ModalLogin({ show, onHide }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
@@ -14,6 +17,7 @@ export default function ModalLogin({ show, onHide }) {
   const [generalError, setGeneralError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [modalShowCadastro, setModalShowCadastro] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Novo estado para o carregamento
 
   const navigate = useNavigate();
 
@@ -49,6 +53,8 @@ export default function ModalLogin({ show, onHide }) {
       return;
     }
 
+    setIsLoading(true); // Ativa o spinner ao iniciar o login
+
     try {
       const response = await fetch('http://localhost:5000/api/clientes/login', {
         method: 'POST',
@@ -58,14 +64,13 @@ export default function ModalLogin({ show, onHide }) {
 
       if (!response.ok) {
         setGeneralError('Verifique as credenciais que inseriste, não está associado a uma conta.');
+        setIsLoading(false); // Desativa o spinner em caso de erro
         return;
       }
 
       const data = await response.json();
-      // Salva o token de autenticação no localStorage
       localStorage.setItem('authToken', data.token);
 
-      // Busca o ID do cliente após autenticação
       const clienteResponse = await fetch(`http://localhost:5000/api/clientes/email/${email}`, {
         headers: {
           'Content-Type': 'application/json',
@@ -75,20 +80,22 @@ export default function ModalLogin({ show, onHide }) {
 
       if (!clienteResponse.ok) {
         setGeneralError('Erro ao obter ID do cliente.');
+        setIsLoading(false); // Desativa o spinner em caso de erro
         return;
       }
 
       const clienteData = await clienteResponse.json();
-      // Salva o ID do cliente no localStorage
       localStorage.setItem('userId', clienteData.id_cliente);
 
-      // Redireciona para HomeCliente com um pequeno atraso
       setTimeout(() => {
+        setIsLoading(false); // Desativa o spinner ao concluir o login
         navigate('/HomeCliente', { state: { id_cliente: clienteData.id_cliente } });
-      }, 1000); // Atraso de 1 segundo
-
+      }, 3000);
+  
+    // eslint-disable-next-line no-unused-vars
     } catch (error) {
       setGeneralError('Erro ao conectar ao servidor.');
+      setIsLoading(false); // Desativa o spinner em caso de erro
     }
   };
 
@@ -133,8 +140,8 @@ export default function ModalLogin({ show, onHide }) {
               <Form.Control.Feedback type="invalid">{senhaError}</Form.Control.Feedback>
             </Form.Group>
 
-            <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block">
-              Entrar
+            <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block" disabled={isLoading}>
+              {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Entrar"}
             </Button>
 
             {generalError && (

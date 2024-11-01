@@ -8,6 +8,7 @@
   border-top: 6px solid var(--corPrimaria);
   box-shadow: var(--sombra) !important;
   overflow-x: hidden;
+  display: block !important;
 }
 
 .seccao-footer p{

@@ -60,6 +60,9 @@ app.delete('/api/clientes/:id_cliente', ControllerCliente.deletarCliente);
 // Rota para Login Cliente
 app.post('/api/clientes/login', ControllerCliente.loginCliente); // Adiciona a rota de login
 
+// Rota para obter o maior id_cliente
+app.get('/api/clientes/pegar/maior-id', ControllerCliente.obterMaiorId);
+
 
 /*
 ======================================

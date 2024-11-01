@@ -1,19 +1,21 @@
 import { useState, useEffect } from "react";
 import { Modal, Button, Form, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { CgProfile } from "react-icons/cg";
+import {  CgProfile } from "react-icons/cg";
 import { IoIosLogOut } from "react-icons/io";
 import { CgMenuGridO } from "react-icons/cg";
-import { RiGuideFill } from "react-icons/ri";
-import { FaCalendarAlt, FaBlog, FaEye } from "react-icons/fa";
+import { FaCalendarAlt, FaBlog, FaEye, FaHome } from "react-icons/fa";
 import { IoCarSportSharp } from "react-icons/io5";
 import { MdContentPasteSearch } from "react-icons/md";
 import { IoIosAddCircle } from "react-icons/io";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate /*useLocation*/ } from "react-router-dom";
 import logo from "../assets/img/lgo.png";
 import ModalFazerAgendamento from "./ModalFazerAgendamento";
 import ModalCadastrarVeiculo from "./ModalCadastrarVeiculo.jsx";
 import "../css/barraMenuCliente.css";
 import minhaFoto from "../assets/img/minha.jpg";
+import { IoMdHelpCircleOutline } from "react-icons/io";
+
+
 
 function BarraMenuCliente() {
   const [showLogoutModal, setShowLogoutModal] = useState(false);
@@ -23,11 +25,11 @@ function BarraMenuCliente() {
   const [formData, setFormData] = useState({ placa: "" });
   const [formErrors, setFormErrors] = useState({});
   const [nome, setNome] = useState("");
-  const [foto, setFoto] = useState(null);
+  //const [foto, setFoto] = useState(null);
 
   const userId = localStorage.getItem("userId");
-  const location = useLocation();
-  const id_cliente = location.state?.id_cliente;
+ // const location = useLocation();
+ // const id_cliente = location.state?.id_cliente;
 
   const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ function BarraMenuCliente() {
         .then((response) => response.json())
         .then((data) => {
           setNome(data.nome);
-          setFoto(data.foto);
+         // setFoto(data.foto);
         })
         .catch((error) =>
           console.error("Erro ao buscar dados do cliente:", error)
@@ -108,8 +110,8 @@ function BarraMenuCliente() {
                 navigate("/homeCliente");
               }}
             >
-              <RiGuideFill fontSize={20} className="iconesMenu" />
-              Guia {userId}
+              <FaHome fontSize={20} className="iconesMenu" />
+              Home {userId}
             </Nav.Link>
 
             <div className="dd d-flex">
@@ -189,6 +191,17 @@ function BarraMenuCliente() {
                 >
                   <CgProfile className="iconesMenu" fontSize={18} />
                   Perfil
+                </NavDropdown.Item>
+
+                <NavDropdown.Item
+                  href="#action/3.1"
+                  onClick={(event) => {
+                    event.preventDefault(); // Previne o comportamento padrão
+                    navigate("/pedidoAjuda");
+                  }}
+                >
+                  <IoMdHelpCircleOutline className="iconesMenu" fontSize={18} />
+                  Ajuda
                 </NavDropdown.Item>
 
                 <NavDropdown.Divider />

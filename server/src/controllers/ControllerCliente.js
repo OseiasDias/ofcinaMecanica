@@ -63,6 +63,17 @@ class ControllerCliente {
         }
     }
 
+    // Método para obter o maior id_cliente
+static async obterMaiorId(req, res) {
+    try {
+        const maiorId = await Cliente.obterMaiorId(); // Chama o método do modelo
+        res.status(200).json({ maior_id: maiorId });
+    } catch (error) {
+        console.error("Erro ao obter maior id_cliente:", error);
+        res.status(500).json({ message: "Erro ao obter maior id_cliente" });
+    }
+}
+
     // Método para atualizar um cliente
     static async atualizarCliente(req, res) {
         try {

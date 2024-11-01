@@ -13,13 +13,15 @@ import VerAgendamento from "./pages/VerAgendamento.jsx";
 import VerVeiculos from "./pages/VerVeiculos.jsx";
 import HomeAdministrador from "./pages/pageAdmin/HomeAdministrador.jsx";
 import LoginAdmin from "./components/compenentesAdmin/LoginAdmin.jsx";
-import PaginaLoginSuperAdmin  from './pages/pageAdmin/PaginaLoginSuperAdmin.jsx';
+import PaginaLoginSuperAdmin from './pages/pageAdmin/PaginaLoginSuperAdmin.jsx';
 import { Navigate } from 'react-router-dom';
 
 //importacoes para clientes
 import Clientes from './pages/pageAdmin/Clientes.jsx';
 import Estoque from './pages/pageAdmin/Estoque.jsx';
 import Agendamento from './pages/pageAdmin/Agendamento.jsx';
+import Ajuda from "./pages/Ajuda.jsx";
+import DashBoard from "./pages/pageAdmin/DashBoard.jsx";
 
 // Componente de rota protegida
 
@@ -53,42 +55,74 @@ const App = () => {
       ) : (
         <div>
           <Helmet>
-          <title>Bi-Turbo Motores</title>
-          <meta name="description" content="Oficina mecâncica" />
-      </Helmet>
+            <title>Bi-Turbo Motores</title>
+            <meta name="description" content="Oficina mecâncica" />
+          </Helmet>
           <Router>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/HomeCliente" element={ <ProtectedRoute>
-                <HomeCliente />
-            </ProtectedRoute>} />
-              <Route path="/Blog" element={<Blog />} />
-              <Route path="/perfilCliente" element={<PerfilCliente />} />
-              <Route path="/meusVeiculos" element={<MeusVeiculos />} />
-              <Route path="/blogAcess" element={<BlogAcess  />} />
-              <Route path="/verAgendamento" element={<VerAgendamento  />} />
-              <Route path="/verVeiculos" element={<VerVeiculos  />} />
 
-               {/**Routas para o Administrador */}
-               <Route path="/homeAdministrador" element={<HomeAdministrador  />} />
-               <Route path="/acessoAdministrador" element={<LoginAdmin  />} />
+              <Route path="/HomeCliente" element={
+                <ProtectedRoute>
+                  <HomeCliente />
+                </ProtectedRoute>}
+              />
+              <Route path="/Blog" element={
+                <Blog />
+              } />
+              <Route path="/perfilCliente" element={
+                <ProtectedRoute>
+                  <PerfilCliente />
+                </ProtectedRoute>
+              } />
+              <Route path="/meusVeiculos" element={
+                <ProtectedRoute>
+                  <MeusVeiculos />
+                </ProtectedRoute>
+              } />
+              <Route path="/blogAcess" element={
+                <ProtectedRoute>
+                  <BlogAcess />
+                </ProtectedRoute>
+              } />
+              <Route path="/verAgendamento" element={
+                <ProtectedRoute>
+                  <VerAgendamento />
+                </ProtectedRoute>
+              } />
+              <Route path="/verVeiculos" element={
 
+                <ProtectedRoute>
+                  <VerVeiculos />
+                </ProtectedRoute>
+              } />
+              <Route path="/pedidoAjuda" element={
+                <ProtectedRoute>
+                  <Ajuda />
+                </ProtectedRoute>
+              } />
 
-              {/**Routas para o Super Administrador */}
+              {/**Routas para o Administrador */}
+              <Route path="/homeAdministrador" element={<HomeAdministrador />} />
+              <Route path="/acessoAdministrador" element={<LoginAdmin />} />
+              <Route path="/dashboardAdmin" element={<DashBoard />} />
 
-              <Route path="/acessoSuperAdministrador" element={<PaginaLoginSuperAdmin  />} />
-              <Route path="/paginaCliente" element={<Clientes  />} />
+             {/**Routas para o Super Administrador */}
+
+              <Route path="/acessoSuperAdministrador" element={<PaginaLoginSuperAdmin />} />
+              <Route path="/paginaCliente" element={<Clientes />} />
               <Route path="/paginaAdministrador" element={<Agendamento />} />
-              <Route path="/paginaEstoque" element={<Estoque  />} />
+              <Route path="/paginaEstoque" element={<Estoque />} />
 
 
 
-            </Routes>
-          </Router>
-        </div>
-      )}
-    </div>
-  );
-};
-
-export default App;
+           </Routes>
+           </Router>
+           </div>
+         )}
+       </div>
+     );
+   };
+   
+   
+   export default App;
