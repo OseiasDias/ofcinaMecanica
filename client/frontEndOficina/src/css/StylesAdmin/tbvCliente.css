@@ -1,0 +1,22 @@
+
+
+.homeDiv{
+    padding: 5px;
+    border-left: 5px solid var(--corPrimaria);
+    border-right: 5px solid var(--corPrimaria);
+    border-radius: 10px;
+    
+    
+
+    
+}
+
+.search input{
+
+    height: 35px;
+    padding-left: 15px;
+}
+
+.search input:active{
+     border: none !important;
+}

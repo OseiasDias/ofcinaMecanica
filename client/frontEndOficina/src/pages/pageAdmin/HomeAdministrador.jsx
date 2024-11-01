@@ -1,4 +1,4 @@
-import { useState } from "react";
+//import { useState } from "react";
 import "../../css/StylesAdmin/homeAdministrador.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
@@ -7,26 +7,26 @@ import Entidades from "../../components/compenentesAdmin/Entidades";
 
 
 const HomeAdministrador = () => {
-  const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
+  /*const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
   const toggleSidebar = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
-  };
+  };*/
 
   return (
     <>
     <div className="container-fluid">
       <div className="d-flex">
-        <SideBar toggleMenu={toggleSidebar}  />
+        <SideBar   />
 
-        <table className="flexAuto w-100 ">
+        <div className="flexAuto w-100 ">
            
-           <TopoAdmin />
+          <TopoAdmin entrada="Painel" />
            <AccordionItem />
            <Entidades />
          
 
-        </table>
+        </div>
       </div>
       </div>
     

@@ -131,3 +131,16 @@
   @media (max-width:992px){
     .ocultarAccordion{display: none; }
   }
+
+  .definirCor{
+    background-color: var(--corPrimaria);
+    color: var(--corTerciaria);
+    padding: 1px 5px !important;
+    border: 3px solid var(--corPrimaria);
+    transition: var(--transicao) !important;
+  }
+
+  .definirCor:hover{
+      background-color: var(--corTerciaria) !important;
+      color: var(--corPrimaria);
+  }

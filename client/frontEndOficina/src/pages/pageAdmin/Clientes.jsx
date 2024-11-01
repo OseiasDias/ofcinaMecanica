@@ -1,9 +1,25 @@
-export default function Clientes(){
+import "../../css/StylesAdmin/homeAdministrador.css";
+import SideBar from "../../components/compenentesAdmin/SideBar";
+import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
+import { IoIosAdd } from "react-icons/io";
+import TabelaVizualizarClientes from "../../components/compenentesAdmin/TabelaVizualizarClientes";
 
-    return(
+const Clientes = () => {
+  return (
+    <>
+      <div className="container-fluid">
+        <div className="d-flex">
+          <SideBar />
 
-        <>
-            <h1>Clientes</h1>
-        </>
-    )
-}
+          <div className="flexAuto w-100 ">
+            <TopoAdmin entrada="Painel" icone={<IoIosAdd />} />
+
+            <TabelaVizualizarClientes />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default Clientes;
