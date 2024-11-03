@@ -2,9 +2,8 @@
 
 .homeDiv{
     padding: 5px;
-    border-left: 5px solid var(--corPrimaria);
-    border-right: 5px solid var(--corPrimaria);
-    border-radius: 10px;
+    
+   
     
     
 
@@ -20,3 +19,51 @@
 .search input:active{
      border: none !important;
 }
+
+.np{
+    margin-top:100px !important;
+}
+
+.dropdownKebab{
+    background-color:var(--corPrimaria) !important;
+    border-radius: 2px !important;
+}
+
+.btnDrop{
+    background-color: var(--corPrimaria) !important;
+    padding: -10px;
+    border-radius: 9px;
+    height: px;
+}
+
+.btnDrop [id="dropdown-basic"]{
+     opacity: 1;
+    color: var(--corTerciaria) !important;
+}
+
+.tabelaStrip{
+    background-color: aqua !important;
+    text-align: start !important;
+}
+
+
+.cimaAll {
+    position: absolute !important; /* Garante que o z-index funcione */
+    z-index: 109; /* Define um valor alto para que apareça acima dos outros elementos */
+  
+}
+
+.zIndex{
+   
+    border: 3px solid var(--corPrimaria) !important;
+   
+
+    
+}
+
+.zIndex:focus{
+    border: 3px solid var(--corPrimaria) !important;
+    box-shadow: var(--sombraC);
+   
+}
+

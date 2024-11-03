@@ -1,7 +1,7 @@
 import { FaBlogger, FaBox } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 import { MdNotifications } from "react-icons/md";
-import { BiCog } from "react-icons/bi";
+//import { BiCog } from "react-icons/bi";
 import { FaCalendarDays, FaCarRear, FaSackDollar } from "react-icons/fa6";
 import { GrServices } from "react-icons/gr";
 //import { FaUsers } from "react-icons/fa6";
@@ -16,20 +16,20 @@ export default function Entidades() {
           <div className="row">
             <div className="col-6 col-md-4 col-lg-3 ">
              <div className="abertura mb-3 py-3">
-              <Link to="/">
+              <Link to="/clienteList">
                 <div className="box-icon">
                   <FaCircleUser className="ikone" />
                 </div>
                 <span className="text-black text-center fw-bold my-1 entiSize d-block">25</span>
                 <div className="">
-                  <h6 className="text-center text-black">Cliente</h6>
+                  <h6 className="text-center text-black">Clientes</h6>
                 </div>
               </Link>
             </div>
             </div>
             <div className="col-6 col-md-4 col-lg-3 ">
              <div className="abertura mb-3 py-3">
-              <Link to="/">
+              <Link to="/funcionariosList">
                 <div className="box-icon">
                   <FaUser className="ikone" />
                 </div>
@@ -68,7 +68,7 @@ export default function Entidades() {
             </div>
             <div className="col-6 col-md-4 col-lg-3 ">
              <div className="abertura mb-3 py-3">
-              <Link to="/">
+              <Link to="/estoqueList">
                 <div className="box-icon">
                   <FaBox className="ikone" />
                 </div>

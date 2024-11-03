@@ -35,7 +35,7 @@ function AccordionItem() {
                                 <div className="container">
                                 <div className="row justify-content-between">
                                     <div className="col-2 col-md-1 col-lg-1 figuraA">
-                                        <Link to="/">
+                                        <Link to="/clienteList">
                                             <div className="figuraB">
                                                 <FaCircleUser className="peca" />
                                             </div>
@@ -45,7 +45,7 @@ function AccordionItem() {
                                         </Link>
                                     </div>
                                     <div className="col-2 col-md-1 col-lg-1 figuraA">
-                                        <Link to="/">
+                                        <Link to="/funcionariosList">
                                             <div className="figuraB">
                                                 <FaUser className="peca" />
                                             </div>
@@ -75,7 +75,7 @@ function AccordionItem() {
                                         </Link>
                                     </div>
                                     <div className="col-2 col-md-1 col-lg-1 figuraA">
-                                        <Link to="/">
+                                        <Link to="/estoqueList">
                                             <div className="figuraB">
                                                 <FaBox className="peca" />
                                             </div>

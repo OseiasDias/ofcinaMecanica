@@ -25,15 +25,15 @@ const routes = [
     name: "Usuarios",
     icon: <FaUsers  />,
     subRoutes: [
-      { path: "/settings/profile", name: "Clientes", icon: <FaCircleUser/> },
-      { path: "/settings/2fa", name: "Funcionarios", icon: <FaUser/> },
+      { path: "/clienteList", name: "Clientes", icon: <FaCircleUser/> },
+      { path: "/funcionariosList", name: "Funcionarios", icon: <FaUser/> },
      
     ],
   },
   { path: "/users", name: "Agendamentos", icon: <FaCalendarDays  /> },
   { path: "/users", name: "Blog", icon: <FaBlogger /> },
   
-  { path: "/users", name: "Estoque", icon: <FaBox /> },
+  { path: "/estoqueList", name: "Estoque", icon: <FaBox /> },
   { path: "/users", name: "Notificação", icon: <MdNotifications /> },
   { path: "/messages", name: "Pagamentos", icon: <FaSackDollar /> },
   { path: "/analytics", name: "Serviços", icon: <GrServices  /> },

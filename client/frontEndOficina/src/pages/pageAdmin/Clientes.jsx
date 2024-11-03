@@ -12,9 +12,18 @@ const Clientes = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Painel" icone={<IoIosAdd />} />
+            <TopoAdmin entrada="Clientes" icone={<IoIosAdd />} />
 
+            <div className="vh-100">
             <TabelaVizualizarClientes />
+            </div>
+            <p className="text-center np pt-5 mt-5 ppAr">
+              <hr />
+              Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos
+              reservados.
+              <br />
+              Desenvolvido por: <b>Oseias Dias</b>
+            </p>
           </div>
         </div>
       </div>
