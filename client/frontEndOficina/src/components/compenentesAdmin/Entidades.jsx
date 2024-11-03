@@ -120,7 +120,7 @@ export default function Entidades() {
             </div>
             <div className="col-6 col-md-4 col-lg-3 ">
              <div className="abertura mb-3 py-3">
-              <Link to="/">
+              <Link to="/veiculosList">
                 <div className="box-icon">
                   <FaCarRear className="ikone" />
                 </div>

@@ -37,7 +37,7 @@ const routes = [
   { path: "/users", name: "Notificação", icon: <MdNotifications /> },
   { path: "/messages", name: "Pagamentos", icon: <FaSackDollar /> },
   { path: "/analytics", name: "Serviços", icon: <GrServices  /> },
-  { path: "/users", name: "Veiculos", icon: <FaCarRear /> },
+  { path: "/veiculosList", name: "Veiculos", icon: <FaCarRear /> },
  
   {
     path: "/settings",

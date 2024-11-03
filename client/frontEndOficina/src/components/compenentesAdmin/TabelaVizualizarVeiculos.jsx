@@ -25,34 +25,36 @@ const customStyles = {
   },
 };
 
-export default function TabelaEstoque() {
+export default function TabelaVizualizarVeiculos() {
   const [records, setRecords] = useState([]);
   const [originalRecords, setOriginalRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
-  const [itemIdToDelete, setItemIdToDelete] = useState(null);
+  const [vehicleIdToDelete, setVehicleIdToDelete] = useState(null);
 
   const columns = [
-    { name: "Nome da Peça", selector: (row) => row.nome_peca },
-    { name: "Quantidade", selector: (row) => row.quantidade },
-    { name: "Data de Reposição", selector: (row) => new Date(row.data_reposicao).toLocaleDateString() },
+    { name: "Marca", selector: (row) => row.marca },
+    { name: "Modelo", selector: (row) => row.modelo },
+    { name: "Ano", selector: (row) => row.ano },
+    { name: "Placa", selector: (row) => row.placa },
+    { name: "Status de Reparação", selector: (row) => row.status_reparacao },
     {
       name: "Ações",
       cell: (row) => (
         <Dropdown className="btnDrop" drop="up">
           <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="cimaAll">
-            <Dropdown.Item onClick={() => handleEdit(row.id_item)}>
+            <Dropdown.Item onClick={() => handleEdit(row.id_veiculo)}>
               <FaRegEye />
               &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleEdit(row.id_item)}>
+            <Dropdown.Item onClick={() => handleEdit(row.id_veiculo)}>
               <FiEdit />
               &nbsp;&nbsp;Editar
             </Dropdown.Item>
             <Dropdown.Item
-              onClick={() => openDeleteModal(row.id_item)}
+              onClick={() => openDeleteModal(row.id_veiculo)}
               className="text-danger"
             >
               <MdDeleteOutline />
@@ -65,39 +67,39 @@ export default function TabelaEstoque() {
   ];
 
   const handleEdit = (id) => {
-    console.log("Editar item com ID:", id);
+    console.log("Editar veículo com ID:", id);
   };
 
   const openDeleteModal = (id) => {
-    setItemIdToDelete(id);
+    setVehicleIdToDelete(id);
     setShowModal(true);
   };
 
   const handleDelete = async () => {
     try {
-      await fetch(`http://localhost:5000/api/estoque/${itemIdToDelete}`, {
+      await fetch(`http://localhost:5000/api/veiculos/${vehicleIdToDelete}`, {
         method: "DELETE",
       });
 
-      const updatedRecords = records.filter((record) => record.id_item !== itemIdToDelete);
+      const updatedRecords = records.filter((record) => record.id_veiculo !== vehicleIdToDelete);
       setRecords(updatedRecords);
-      setOriginalRecords(originalRecords.filter((record) => record.id_item !== itemIdToDelete));
+      setOriginalRecords(originalRecords.filter((record) => record.id_veiculo !== vehicleIdToDelete));
       
       if (updatedRecords.length === 0) {
         fetchData();
       }
 
       setShowModal(false);
-      toast.success("Item excluído com sucesso!");
+      toast.success("Veículo excluído com sucesso!");
     } catch (error) {
-      console.error("Erro ao excluir item:", error);
-      toast.error("Erro ao excluir item.");
+      console.error("Erro ao excluir veículo:", error);
+      toast.error("Erro ao excluir veículo.");
     }
   };
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/estoque");
+      const response = await fetch("http://localhost:5000/api/veiculos");
       if (!response.ok) throw new Error("Erro ao buscar dados");
       const data = await response.json();
       setRecords(data);
@@ -120,20 +122,20 @@ export default function TabelaEstoque() {
     <div className="my-4 homeDiv">
       <div className="search row d-flex justify-content-between">
         <div className="col-12 col-md-6 col-lg-6">
-          <h4>Lista de Produtos em Estoque</h4>
+          <h4>Lista de Veículos</h4>
         </div>
         <div className="col-12 col-md-6 col-lg-6">
           <input
             type="text"
             className="w-100 my-2 zIndex"
-            placeholder="Pesquisa por nome da peça"
+            placeholder="Pesquisa por modelo"
             onChange={(e) => {
               const query = e.target.value.toLowerCase();
               if (!query) {
                 setRecords(originalRecords);
               } else {
                 const filteredRecords = originalRecords.filter((item) =>
-                  item.nome_peca.toLowerCase().includes(query)
+                  item.modelo.toLowerCase().includes(query)
                 );
                 setRecords(filteredRecords);
               }
@@ -149,7 +151,7 @@ export default function TabelaEstoque() {
         pagination
         paginationPerPage={10}
         paginationRowsPerPageOptions={[10]}
-        noDataComponent={<p>Nenhum item encontrado.</p>}
+        noDataComponent={<p>Nenhum veículo encontrado.</p>}
         footer={<div>Exibindo {records.length} registros no total</div>}
       />
 
@@ -157,7 +159,7 @@ export default function TabelaEstoque() {
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Exclusão</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Tem certeza que deseja excluir este item?</Modal.Body>
+        <Modal.Body>Tem certeza que deseja excluir este veículo?</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancelar

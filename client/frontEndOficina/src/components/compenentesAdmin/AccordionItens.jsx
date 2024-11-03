@@ -115,7 +115,7 @@ function AccordionItem() {
                                         </Link>
                                     </div>
                                     <div className="col-2 col-md-1 col-lg-1 figuraA">
-                                        <Link to="/">
+                                        <Link to="/veiculosList">
                                             <div className="figuraB">
                                                 <FaCarRear className="peca" />
                                             </div>

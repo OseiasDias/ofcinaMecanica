@@ -22,6 +22,7 @@ import Estoque from './pages/pageAdmin/Estoque.jsx';
 import Agendamento from './pages/pageAdmin/Agendamento.jsx';
 import Ajuda from "./pages/Ajuda.jsx";
 import Funcionarios from "./pages/pageAdmin/Funcionarios.jsx";
+import Veiculos from "./pages/pageAdmin/Veiculos.jsx";
 //import DashBoard from "./pages/pageAdmin/DashBoard.jsx";
 
 // Componente de rota protegida
@@ -109,6 +110,7 @@ const App = () => {
               <Route path="/clienteList" element={<Clientes />} />
               <Route path="/funcionariosList" element={<Funcionarios />} />
               <Route path="/estoqueList" element={<Estoque />} />
+              <Route path="/veiculosList" element={<Veiculos />} />
 
              {/**Routas para o Super Administrador */}
 
