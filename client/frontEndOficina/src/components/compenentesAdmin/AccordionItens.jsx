@@ -55,7 +55,7 @@ function AccordionItem() {
                                         </Link>
                                     </div>
                                     <div className="col-2 col-md-1 col-lg-1 figuraA">
-                                        <Link to="/">
+                                        <Link to="/agendamentoList">
                                             <div className="figuraB">
                                                 <FaCalendarDays className="peca" />
                                             </div>
@@ -65,7 +65,7 @@ function AccordionItem() {
                                         </Link>
                                     </div>
                                     <div className="col-2 col-md-1 col-lg-1 figuraA">
-                                        <Link to="/">
+                                        <Link to="/blogList">
                                             <div className="figuraB">
                                                 <FaBlogger className="peca" />
                                             </div>
@@ -95,7 +95,7 @@ function AccordionItem() {
                                         </Link>
                                     </div>
                                     <div className="col-2 col-md-1 col-lg-1 figuraA">
-                                        <Link to="/">
+                                        <Link to="/pagamentoList">
                                             <div className="figuraB">
                                                 <FaSackDollar className="peca" />
                                             </div>
@@ -105,7 +105,7 @@ function AccordionItem() {
                                         </Link>
                                     </div>
                                     <div className="col-2 col-md-1 col-lg-1 figuraA">
-                                        <Link to="/">
+                                        <Link to="/servicosList">
                                             <div className="figuraB">
                                                 <GrServices className="peca" />
                                             </div>

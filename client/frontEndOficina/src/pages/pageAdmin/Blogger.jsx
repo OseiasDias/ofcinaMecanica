@@ -1,10 +1,10 @@
 import "../../css/StylesAdmin/homeAdministrador.css";
-import SideBar from "../../components/compenentesAdmin/SideBar";
-import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
+import SideBar from "../../components/compenentesAdmin/SideBar.jsx";
+import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin.jsx";
 import { IoIosAdd } from "react-icons/io";
-import TabelaVizualizarAgendamento from "../../components/compenentesAdmin/TabelaVizualizarAgendamentos.jsx";
+import TabelaVizualizarBlog from "../../components/compenentesAdmin/TabelaVizualizarBlog.jsx";
 
-const Agendamento = () => {
+const Blog = () => {
   return (
     <>
       <div className="container-fluid">
@@ -12,10 +12,10 @@ const Agendamento = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Agendamentos" icone={<IoIosAdd />} />
+            <TopoAdmin entrada="Blogs" icone={<IoIosAdd />} />
 
             <div className="vh-100">
-            <TabelaVizualizarAgendamento />
+            <TabelaVizualizarBlog />
             </div>
             <p className="text-center np pt-5 mt-5 ppAr">
               <hr />
@@ -31,4 +31,4 @@ const Agendamento = () => {
   );
 };
 
-export default Agendamento;
+export default Blog;

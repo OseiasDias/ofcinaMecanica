@@ -42,7 +42,7 @@ export default function Entidades() {
             </div>
             <div className="col-6 col-md-4 col-lg-3 ">
              <div className="abertura mb-3 py-3">
-              <Link to="/">
+              <Link to="/agendamentoList">
                 <div className="box-icon">
                   <FaCalendarDays className="ikone" />
                 </div>
@@ -55,7 +55,7 @@ export default function Entidades() {
             </div>
             <div className="col-6 col-md-4 col-lg-3 ">
              <div className="abertura mb-3 py-3">
-              <Link to="/">
+              <Link to="/blogList">
                 <div className="box-icon">
                   <FaBlogger className="ikone" />
                 </div>
@@ -94,7 +94,7 @@ export default function Entidades() {
             </div>
             <div className="col-6 col-md-4 col-lg-3 ">
              <div className="abertura mb-3 py-3">
-              <Link to="/">
+              <Link to="/pagamentoList">
                 <div className="box-icon">
                   <FaSackDollar className="ikone" />
                 </div>
@@ -107,7 +107,7 @@ export default function Entidades() {
             </div>
             <div className="col-6 col-md-4 col-lg-3 ">
              <div className="abertura mb-3 py-3">
-              <Link to="/">
+              <Link to="/servicosList">
                 <div className="box-icon">
                   <GrServices className="ikone" />
                 </div>

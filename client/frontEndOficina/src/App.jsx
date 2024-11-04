@@ -23,6 +23,9 @@ import Agendamento from './pages/pageAdmin/Agendamento.jsx';
 import Ajuda from "./pages/Ajuda.jsx";
 import Funcionarios from "./pages/pageAdmin/Funcionarios.jsx";
 import Veiculos from "./pages/pageAdmin/Veiculos.jsx";
+import Blogger from "./pages/pageAdmin/Blogger.jsx";
+import Servicos from "./pages/pageAdmin/Servicos.jsx";
+import Pagamento from "./pages/pageAdmin/Pagamento.jsx";
 //import DashBoard from "./pages/pageAdmin/DashBoard.jsx";
 
 // Componente de rota protegida
@@ -111,6 +114,11 @@ const App = () => {
               <Route path="/funcionariosList" element={<Funcionarios />} />
               <Route path="/estoqueList" element={<Estoque />} />
               <Route path="/veiculosList" element={<Veiculos />} />
+              <Route path="/agendamentoList" element={<Agendamento />} />
+              <Route path="/blogList" element={<Blogger />} />
+              <Route path="/servicosList" element={<Servicos />} />
+              <Route path="/pagamentoList" element={<Pagamento />} />
+
 
              {/**Routas para o Super Administrador */}
 

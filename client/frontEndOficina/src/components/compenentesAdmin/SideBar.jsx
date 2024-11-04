@@ -30,13 +30,13 @@ const routes = [
      
     ],
   },
-  { path: "/users", name: "Agendamentos", icon: <FaCalendarDays  /> },
-  { path: "/users", name: "Blog", icon: <FaBlogger /> },
+  { path: "/agendamentoList", name: "Agendamentos", icon: <FaCalendarDays  /> },
+  { path: "/blogList", name: "Blog", icon: <FaBlogger /> },
   
   { path: "/estoqueList", name: "Estoque", icon: <FaBox /> },
   { path: "/users", name: "Notificação", icon: <MdNotifications /> },
-  { path: "/messages", name: "Pagamentos", icon: <FaSackDollar /> },
-  { path: "/analytics", name: "Serviços", icon: <GrServices  /> },
+  { path: "/pagamentoList", name: "Pagamentos", icon: <FaSackDollar /> },
+  { path: "/servicosList", name: "Serviços", icon: <GrServices  /> },
   { path: "/veiculosList", name: "Veiculos", icon: <FaCarRear /> },
  
   {

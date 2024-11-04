@@ -72,6 +72,7 @@ export default function TabelaVizualizarClientes() {
               <FiEdit />
               &nbsp;&nbsp;Editar
             </Dropdown.Item>
+            
             <Dropdown.Item
               onClick={() => openDeleteModal(row.id_cliente)}
               className="text-danger"
