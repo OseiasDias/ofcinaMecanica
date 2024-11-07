@@ -4,8 +4,8 @@ class ControllerUsuario {
     // Método para criar um novo usuário
     static async criarUsuario(req, res) {
         try {
-            const { nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado } = req.body;
-            const usuario = new Usuario(null, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado);
+            const { nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco } = req.body;
+            const usuario = new Usuario(null, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco);
             const id = await Usuario.salvar(usuario);
             res.status(201).json({ id, message: 'Usuário criado com sucesso' });
         } catch (error) {
@@ -45,8 +45,8 @@ class ControllerUsuario {
     static async atualizarUsuario(req, res) {
         try {
             const { id_usuario } = req.params;
-            const { nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado } = req.body;
-            const usuario = new Usuario(id_usuario, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado);
+            const { nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco } = req.body;
+            const usuario = new Usuario(id_usuario, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco);
             await Usuario.atualizar(usuario);
             res.status(200).json({ message: 'Usuário atualizado com sucesso' });
         } catch (error) {

@@ -74,20 +74,6 @@ export default function ModalCadastrarCliente({ show, onHide }) {
     return Object.keys(newErrors).length === 0;
   };
 
-  /*const fetchUserId = async () => {
-    const response = await fetch('http://localhost:5000/api/clientes/pegar/maior-id');
-    if (!response.ok) {
-      throw new Error('Erro ao buscar o maior ID');
-    }
-    const data = await response.json();
-    return data.id_cliente; // Supondo que a API retorna um objeto { userId: <id> }
-  };*/
-
-
-  
-
-
- 
 
 
   const handleCadastro = async (e) => {

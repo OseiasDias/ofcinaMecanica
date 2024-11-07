@@ -29,7 +29,7 @@ function AccordionItem() {
                     <Accordion className="mt-3 ">
                         <Accordion.Item eventKey="0">
                             <Accordion.Header>
-                                <h6 className="me-auto mt-2">Assistente de configuração</h6>
+                                <h6 className="me-auto mt-2 tituloSh">Assistente de configuração</h6>
                             </Accordion.Header>
                             <Accordion.Body>
                                 <div className="container">
@@ -40,7 +40,7 @@ function AccordionItem() {
                                                 <FaCircleUser className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black">Cliente</h6>
+                                                <h6 className="text-black tituloSh">Cliente</h6>
                                             </div>
                                         </Link>
                                     </div>
@@ -50,7 +50,7 @@ function AccordionItem() {
                                                 <FaUser className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black">FuncNario</h6>
+                                                <h6 className="text-black tituloSh">FuncNario</h6>
                                             </div>
                                         </Link>
                                     </div>
@@ -60,7 +60,7 @@ function AccordionItem() {
                                                 <FaCalendarDays className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black">Agenda</h6>
+                                                <h6 className="text-black tituloSh">Agenda</h6>
                                             </div>
                                         </Link>
                                     </div>
@@ -70,7 +70,7 @@ function AccordionItem() {
                                                 <FaBlogger className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black text-center">Blogger</h6>
+                                                <h6 className="text-black tituloSh text-center">Blogger</h6>
                                             </div>
                                         </Link>
                                     </div>
@@ -80,7 +80,7 @@ function AccordionItem() {
                                                 <FaBox className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black">Estoque</h6>
+                                                <h6 className="text-black tituloSh">Estoque</h6>
                                             </div>
                                         </Link>
                                     </div>
@@ -90,7 +90,7 @@ function AccordionItem() {
                                                 <MdNotifications className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black">SMS</h6>
+                                                <h6 className="text-black tituloSh">SMS</h6>
                                             </div>
                                         </Link>
                                     </div>
@@ -100,7 +100,7 @@ function AccordionItem() {
                                                 <FaSackDollar className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black">PagMento</h6>
+                                                <h6 className="text-black tituloSh">PagMento</h6>
                                             </div>
                                         </Link>
                                     </div>
@@ -110,7 +110,7 @@ function AccordionItem() {
                                                 <GrServices className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black">Serviços</h6>
+                                                <h6 className="text-black tituloSh">Serviços</h6>
                                             </div>
                                         </Link>
                                     </div>
@@ -120,7 +120,7 @@ function AccordionItem() {
                                                 <FaCarRear className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black">Veiculos</h6>
+                                                <h6 className="text-black tituloSh">Veiculos</h6>
                                             </div>
                                         </Link>
                                     </div>
@@ -130,7 +130,7 @@ function AccordionItem() {
                                                 <BiCog className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black">Definições</h6>
+                                                <h6 className="text-black tituloSh">Definições</h6>
                                             </div>
                                         </Link>
                                     </div>

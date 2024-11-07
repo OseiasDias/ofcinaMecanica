@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs'); // Importa o bcrypt
 
 // Classe para o modelo de Usuario
 class Usuario {
-    constructor(id_usuario, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado) {
+    constructor(id_usuario, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco) {
         this.id_usuario = id_usuario;
         this.nome = nome;
         this.email = email;
@@ -14,13 +14,14 @@ class Usuario {
         this.data_nascimento = data_nascimento;
         this.foto = foto;
         this.estado = estado;
+        this.endereco = endereco; // Novo campo para o endereço
     }
 
     // Método para salvar um usuário no banco de dados
     static async salvar(usuario) {
         const hashedPassword = await bcrypt.hash(usuario.senha, 10); // Faz o hash da senha
-        const query = `INSERT INTO usuario (nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado) 
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const query = `INSERT INTO usuario (nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const values = [
             usuario.nome,
             usuario.email,
@@ -30,7 +31,8 @@ class Usuario {
             usuario.genero,
             usuario.data_nascimento,
             usuario.foto,
-            usuario.estado
+            usuario.estado,
+            usuario.endereco // Adiciona o campo endereço aqui
         ];
 
         const [result] = await pool.promise().query(query, values);
@@ -61,7 +63,8 @@ class Usuario {
             usuario.genero,
             usuario.data_nascimento,
             usuario.foto,
-            usuario.estado
+            usuario.estado,
+            usuario.endereco // Atualiza o campo endereço também
         ];
 
         // Se a senha estiver sendo atualizada, faça o hash dela
@@ -73,7 +76,7 @@ class Usuario {
         }
 
         const query = `UPDATE usuario SET nome = ?, email = ?, telefone = ?, nivel_acesso = ?, genero = ?, 
-                       data_nascimento = ?, foto = ?, estado = ?, senha = ? WHERE id_usuario = ?`;
+                       data_nascimento = ?, foto = ?, estado = ?, endereco = ?, senha = ? WHERE id_usuario = ?`;
         values.push(usuario.id_usuario); // Adiciona o ID do usuário ao final do array
         await pool.promise().query(query, values);
     }

@@ -12,7 +12,7 @@ const Veiculos = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Veiculos" icone={<IoIosAdd />} />
+            <TopoAdmin entrada="Veiculos"  icone={<IoIosAdd />} direccao="/addVeiculos" />
 
             <div className="vh-100">
             <TabelaVizualizarVeiculos />

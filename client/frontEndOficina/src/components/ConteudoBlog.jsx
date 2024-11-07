@@ -28,6 +28,21 @@ export default function ConteudoBlog() {
     return diffEmHoras <= 72; // Verifica se a diferença é menor ou igual a 72 horas
   };
 
+  // Função para controlar a visibilidade do conteúdo completo
+  const [expandedBlog, setExpandedBlog] = useState(null);
+
+  const toggleExpand = (blogId) => {
+    setExpandedBlog(expandedBlog === blogId ? null : blogId); // Alterna o estado de expandir
+  };
+
+  // Função para limitar o número de caracteres visíveis (4 linhas)
+  const getShortContent = (content, limit = 300) => {
+    if (content.length > limit) {
+      return content.substring(0, limit) + "...";  // Limita o conteúdo a 'limit' caracteres
+    }
+    return content;
+  };
+
   return (
     <>
       <section className="blog-seccao">
@@ -47,15 +62,13 @@ export default function ConteudoBlog() {
               </p>
             </div>
           </div>
-            <div className="row">
-              {blogs.length > 0 ? (
-                <>
-                  {blogs.map((blog) => (
-                    <div
-                      key={blog.id_blog}
-                      className=" col-12 col-md-12 col-lg-6 mx-auto"
-                    >
-                      <div className="conteuBlog">
+
+          <div className="row">
+            {blogs.length > 0 ? (
+              <>
+                {blogs.map((blog) => (
+                  <div key={blog.id_blog} className="col-12 col-md-12 col-lg-12 mx-auto">
+                    <div className="conteuBlog">
                       <h3 className="hDois">
                         {blog.titulo}
                         {isNewBlog(blog.data_publicacao) && (
@@ -67,17 +80,32 @@ export default function ConteudoBlog() {
                       <small>
                         {new Date(blog.data_publicacao).toLocaleDateString()}
                       </small>
-                      <p className="paragrafoConteudo">{blog.conteudo}</p>
-                      </div>
+
+                      {/* Conteúdo com limite de caracteres */}
+                      <p className="paragrafoConteudo">
+                        {expandedBlog === blog.id_blog
+                          ? blog.conteudo  // Exibe o conteúdo completo se expandido
+                          : getShortContent(blog.conteudo)} {/* Conteúdo limitado a um número de caracteres */}
+                      </p>
+
+                      {/* Exibe o botão "ver tudo" se o conteúdo foi cortado */}
+                      {blog.conteudo.length > 300 && (
+                        <button
+                          className="ver-tudo-btn"
+                          onClick={() => toggleExpand(blog.id_blog)}
+                        >
+                          {expandedBlog === blog.id_blog ? "Ver menos" : "Ver tudo"}
+                        </button>
+                      )}
                     </div>
-                  ))}
-                </>
-              ) : (
-                <p>No blog posts available.</p>
-              )}
-            </div>
+                  </div>
+                ))}
+              </>
+            ) : (
+              <p>No blog posts available.</p>
+            )}
           </div>
-        
+        </div>
       </section>
     </>
   );

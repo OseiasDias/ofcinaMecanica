@@ -4,6 +4,7 @@ import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import AccordionItem from "../../components/compenentesAdmin/AccordionItens";
 import Entidades from "../../components/compenentesAdmin/Entidades";
+import { MdDashboard } from "react-icons/md";
 
 
 const HomeAdministrador = () => {
@@ -21,7 +22,7 @@ const HomeAdministrador = () => {
 
         <div className="flexAuto w-100 ">
            
-          <TopoAdmin entrada="Painel" />
+          <TopoAdmin entrada="Painel"  icone={<MdDashboard />} direccao="/homeAdministrador"/>
            <AccordionItem />
            <Entidades />
          

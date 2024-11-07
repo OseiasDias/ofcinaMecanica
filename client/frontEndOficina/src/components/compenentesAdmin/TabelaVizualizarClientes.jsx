@@ -169,6 +169,7 @@ export default function TabelaVizualizarClientes() {
         paginationPerPage={10}
         paginationRowsPerPageOptions={[10]}
         footer={<div>Exibindo {records.length} registros no total</div>}
+        
       />
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>

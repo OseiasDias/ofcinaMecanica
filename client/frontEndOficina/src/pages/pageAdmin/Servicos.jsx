@@ -14,7 +14,7 @@ const Servicos = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Servicos" icone={<IoIosAdd />} />
+            <TopoAdmin entrada="Servicos" leftR="/addServicos" icone={<IoIosAdd />} />
 
             <div className="vh-100">
             <TabelaVizualizarServicos />

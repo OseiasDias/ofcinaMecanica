@@ -11,6 +11,7 @@
     margin-left: auto !important;
     margin-right: auto !important;
     transition: none !important;
+    text-align: justify !important;
 }
 
 .conteuBlog:hover{
@@ -18,6 +19,7 @@
     color: var(--corTerciaria) !important;
     border-right: 6px solid var(--corTerciaria) !important;
     border-left: 6px solid var(--corTerciaria) !important;
+   
 }
 
 .conteuBlog:hover .novo-icon{
@@ -58,3 +60,23 @@
 .paragrafoConteudo{
     font-size: 1.1em;
 }
+
+
+.ver-tudo-btn {
+    background-color: transparent;
+    border: none;
+    color: #007bff;
+    cursor: pointer;
+    text-decoration: underline;
+    text-align: end;
+    margin: auto !important;
+    display: block;
+    color: var(--corPrimaria);
+    font-weight: bold;
+   
+  }
+  
+  .conteuBlog:hover  > .ver-tudo-btn{
+    color: var(--corTerciaria);
+  }
+  

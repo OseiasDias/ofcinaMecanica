@@ -1,19 +1,34 @@
+import { useNavigate } from "react-router-dom"; 
 import { IoMdAdd } from "react-icons/io";
-import { IoSettingsOutline } from "react-icons/io5";
+import { IoSettingsOutline, IoPowerOutline } from "react-icons/io5";
 import { FaUserShield, FaUser } from "react-icons/fa";
 import '../../css/StylesAdmin/topoAdmin.css';
 import Dropdown from 'react-bootstrap/Dropdown';
-import { IoPowerOutline } from "react-icons/io5";
-//import { FaArrowLeftLong } from "react-icons/fa6";
 
+export default function TopoAdmin({ entrada, direccao , icone, leftSeta, leftR }) {
+  const navigate = useNavigate();
 
-// eslint-disable-next-line react/prop-types
-export default function TopoAdmin({ entrada, direccao, icone, leftSeta }) {
+  const handleNavigate = (path) => {
+    if (path) {
+      navigate(path);
+    }
+  };
+
   return (
     <div className="topoAdministrador mt-4 d-flex justify-content-between">
-      <h2>
-        <a href={direccao}>{leftSeta}</a> <span>{entrada}</span> <span className="definirCor">{icone}</span>
-      </h2>
+      <h3 className="tituloSh formatTexto">
+        <span onClick={() => handleNavigate(leftR)}>
+          {leftSeta}
+        </span>{"        "}
+        <span>{entrada}</span>
+        <> &nbsp;&nbsp;&nbsp;</>
+        {direccao && (
+         
+          <span className="definirCor" onClick={() => handleNavigate(direccao)}>
+            {icone}
+          </span>
+        )}
+      </h3>
 
       <div className="escolhas d-flex">
         <Dropdown className="distancia userCorR mx-1">
@@ -22,15 +37,33 @@ export default function TopoAdmin({ entrada, direccao, icone, leftSeta }) {
           </Dropdown.Toggle>
 
           <Dropdown.Menu align="end" className="opAdmin">
-            <Dropdown.Item href="/perfil" className="colorir"><IoMdAdd />&nbsp;&nbsp;Clientes</Dropdown.Item>
-            <Dropdown.Item href="/logout" className="colorir"><IoMdAdd />&nbsp;Funcionarios</Dropdown.Item>
-            <Dropdown.Item href="/perfil" className="colorir"><IoMdAdd />&nbsp;&nbsp;Agendamentos</Dropdown.Item>
-            <Dropdown.Item href="/logout" className="colorir"><IoMdAdd />&nbsp;Blog</Dropdown.Item>
-            <Dropdown.Item href="/logout" className="colorir"><IoMdAdd />&nbsp;Estoque</Dropdown.Item>
-            <Dropdown.Item href="/perfil" className="colorir"><IoMdAdd />&nbsp;&nbsp;Notificação</Dropdown.Item>
-            <Dropdown.Item href="/logout" className="colorir"><IoMdAdd />&nbsp;Pagamentos</Dropdown.Item>
-            <Dropdown.Item href="/perfil" className="colorir"><IoMdAdd />&nbsp;&nbsp;Serviços</Dropdown.Item>
-            <Dropdown.Item href="/logout" className="colorir"><IoMdAdd />&nbsp;Veiculos</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/addClientes")} className="colorir">
+              <IoMdAdd />&nbsp;&nbsp;Clientes
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/addFuncionarios")} className="colorir">
+              <IoMdAdd />&nbsp;Funcionarios
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/perfil")} className="colorir">
+              <IoMdAdd />&nbsp;&nbsp;Agendamentos
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/addBlogs")} className="colorir">
+              <IoMdAdd />&nbsp;Blog
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/logout")} className="colorir">
+              <IoMdAdd />&nbsp;Estoque
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/perfil")} className="colorir">
+              <IoMdAdd />&nbsp;&nbsp;Notificação
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/logout")} className="colorir">
+              <IoMdAdd />&nbsp;Pagamentos
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/addServicos")} className="colorir">
+              <IoMdAdd />&nbsp;&nbsp;Serviços
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/logout")} className="colorir">
+              <IoMdAdd />&nbsp;Veiculos
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
 
@@ -44,8 +77,12 @@ export default function TopoAdmin({ entrada, direccao, icone, leftSeta }) {
           </Dropdown.Toggle>
 
           <Dropdown.Menu align="end" className="opAdmin">
-            <Dropdown.Item href="/perfil" className="colorir"><FaUser />&nbsp;Perfil</Dropdown.Item>
-            <Dropdown.Item href="/logout" className="colorir"><IoPowerOutline />&nbsp;Sair</Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/perfil")} className="colorir">
+              <FaUser />&nbsp;Perfil
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => handleNavigate("/logout")} className="colorir">
+              <IoPowerOutline />&nbsp;Sair
+            </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
       </div>

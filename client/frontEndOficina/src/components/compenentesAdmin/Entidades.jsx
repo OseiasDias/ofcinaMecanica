@@ -18,11 +18,11 @@ export default function Entidades() {
              <div className="abertura mb-3 py-3">
               <Link to="/clienteList">
                 <div className="box-icon">
-                  <FaCircleUser className="ikone" />
+                  <FaCircleUser className="ikone " />
                 </div>
-                <span className="text-black text-center fw-bold my-1 entiSize d-block">25</span>
+                <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">25</span>
                 <div className="">
-                  <h6 className="text-center text-black">Clientes</h6>
+                  <h6 className="text-center text-black tituloSh">Clientes</h6>
                 </div>
               </Link>
             </div>
@@ -31,11 +31,11 @@ export default function Entidades() {
              <div className="abertura mb-3 py-3">
               <Link to="/funcionariosList">
                 <div className="box-icon">
-                  <FaUser className="ikone" />
+                  <FaUser className="ikone " />
                 </div>
-                <span className="text-black text-center fw-bold my-1 entiSize d-block">28</span>
+                <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">28</span>
                 <div className="">
-                  <h6 className="text-center text-black">Funcionarios</h6>
+                  <h6 className="text-center text-black tituloSh">Funcionarios</h6>
                 </div>
               </Link>
             </div>
@@ -44,11 +44,11 @@ export default function Entidades() {
              <div className="abertura mb-3 py-3">
               <Link to="/agendamentoList">
                 <div className="box-icon">
-                  <FaCalendarDays className="ikone" />
+                  <FaCalendarDays className="ikone " />
                 </div>
-                <span className="text-black text-center fw-bold my-1 entiSize d-block">18</span>
+                <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">18</span>
                 <div className="">
-                  <h6 className="text-center text-black">Agendamento</h6>
+                  <h6 className="text-center text-black tituloSh">Agendamento</h6>
                 </div>
               </Link>
             </div>
@@ -57,11 +57,11 @@ export default function Entidades() {
              <div className="abertura mb-3 py-3">
               <Link to="/blogList">
                 <div className="box-icon">
-                  <FaBlogger className="ikone" />
+                  <FaBlogger className="ikone " />
                 </div>
-                <span className="text-black text-center fw-bold my-1 entiSize d-block">34</span>
+                <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">34</span>
                 <div className="">
-                  <h6 className="text-center text-black text-center">Blogger</h6>
+                  <h6 className="text-center text-black tituloSh text-center">Blogger</h6>
                 </div>
               </Link>
             </div>
@@ -70,11 +70,11 @@ export default function Entidades() {
              <div className="abertura mb-3 py-3">
               <Link to="/estoqueList">
                 <div className="box-icon">
-                  <FaBox className="ikone" />
+                  <FaBox className="ikone " />
                 </div>
-                <span className="text-black text-center fw-bold my-1 entiSize d-block">25</span>
+                <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">25</span>
                 <div className="">
-                  <h6 className="text-center text-black">Estoque</h6>
+                  <h6 className="text-center text-black tituloSh">Estoque</h6>
                 </div>
               </Link>
             </div>
@@ -83,11 +83,11 @@ export default function Entidades() {
              <div className="abertura mb-3 py-3">
               <Link to="/">
                 <div className="box-icon">
-                  <MdNotifications className="ikone" />
+                  <MdNotifications className="ikone " />
                 </div>
-                <span className="text-black text-center fw-bold my-1 entiSize d-block">15</span>
+                <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">15</span>
                 <div className="">
-                  <h6 className="text-center text-black">SMS</h6>
+                  <h6 className="text-center text-black tituloSh">SMS</h6>
                 </div>
               </Link>
             </div>
@@ -96,11 +96,11 @@ export default function Entidades() {
              <div className="abertura mb-3 py-3">
               <Link to="/pagamentoList">
                 <div className="box-icon">
-                  <FaSackDollar className="ikone" />
+                  <FaSackDollar className="ikone " />
                 </div>
-                <span className="text-black text-center fw-bold my-1 entiSize d-block">31</span>
+                <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">31</span>
                 <div className="">
-                  <h6 className="text-center text-black">Pagamento</h6>
+                  <h6 className="text-center text-black tituloSh">Pagamento</h6>
                 </div>
               </Link>
             </div>
@@ -109,11 +109,11 @@ export default function Entidades() {
              <div className="abertura mb-3 py-3">
               <Link to="/servicosList">
                 <div className="box-icon">
-                  <GrServices className="ikone" />
+                  <GrServices className="ikone " />
                 </div>
-                <span className="text-black text-center fw-bold my-1 entiSize d-block">25</span>
+                <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">25</span>
                 <div className="">
-                  <h6 className="text-center text-black">Serviços</h6>
+                  <h6 className="text-center text-black tituloSh">Serviços</h6>
                 </div>
               </Link>
             </div>
@@ -122,11 +122,11 @@ export default function Entidades() {
              <div className="abertura mb-3 py-3">
               <Link to="/veiculosList">
                 <div className="box-icon">
-                  <FaCarRear className="ikone" />
+                  <FaCarRear className="ikone " />
                 </div>
-                <span className="text-black text-center fw-bold my-1 entiSize d-block">25</span>
+                <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">25</span>
                 <div className="">
-                  <h6 className="text-center text-black">Veiculos</h6>
+                  <h6 className="text-center text-black tituloSh">Veiculos</h6>
                 </div>
               </Link>
             </div>

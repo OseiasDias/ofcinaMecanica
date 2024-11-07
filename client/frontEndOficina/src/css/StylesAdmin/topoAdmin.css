@@ -95,6 +95,9 @@
       width: 80px; /* Ajusta para tablet */
       height: 80px;
     }
+    .formatTexto{
+      font-size: 1.2em;
+    }
   }
   
   @media (max-width: 480px) {
@@ -143,4 +146,8 @@
   .definirCor:hover{
       background-color: var(--corTerciaria) !important;
       color: var(--corPrimaria);
+  }
+
+  .tituloSh{
+    text-shadow: var(--sombraTexto) !important;
   }

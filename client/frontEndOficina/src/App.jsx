@@ -26,6 +26,12 @@ import Veiculos from "./pages/pageAdmin/Veiculos.jsx";
 import Blogger from "./pages/pageAdmin/Blogger.jsx";
 import Servicos from "./pages/pageAdmin/Servicos.jsx";
 import Pagamento from "./pages/pageAdmin/Pagamento.jsx";
+import AddClientes from "./pages/pageAdmin/AddClientes.jsx";
+import AddFuncionarios from "./pages/pageAdmin/AddFuncionarios.jsx";
+import AddBlog from "./pages/pageAdmin/AddBlog.jsx";
+import AddServicos from "./pages/pageAdmin/AddServicos.jsx";
+import AddVeiculos from "./pages/pageAdmin/AddVeiculos.jsx";
+
 //import DashBoard from "./pages/pageAdmin/DashBoard.jsx";
 
 // Componente de rota protegida
@@ -118,6 +124,17 @@ const App = () => {
               <Route path="/blogList" element={<Blogger />} />
               <Route path="/servicosList" element={<Servicos />} />
               <Route path="/pagamentoList" element={<Pagamento />} />
+
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addClientes" element={<AddClientes />} />
+              <Route path="/addFuncionarios" element={<AddFuncionarios />} />
+              <Route path="/addBlogs" element={<AddBlog />} />
+              <Route path="/addServicos" element={<AddServicos />} />
+              <Route path="/addVeiculos" element={<AddVeiculos />} />
+
+
+
 
 
              {/**Routas para o Super Administrador */}

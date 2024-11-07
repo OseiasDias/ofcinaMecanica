@@ -115,7 +115,7 @@ const SideBar = ({ children }) => {
               <NavLink
                 to={route.path}
                 key={index}
-                className="link"
+                className="link "
                 activeClassName="active"
               >
                 <div className="icon">{route.icon}</div>

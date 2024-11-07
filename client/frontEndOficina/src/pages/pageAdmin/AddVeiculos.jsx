@@ -1,10 +1,12 @@
 import "../../css/StylesAdmin/homeAdministrador.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
-import { IoIosAdd } from "react-icons/io";
-import TabelaVizualizarAgendamento from "../../components/compenentesAdmin/TabelaVizualizarAgendamentos.jsx";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import AdicionarVeiculos from "../../components/compenentesAdmin/AdicionarVeiculos.jsx"; 
 
-const Agendamento = () => {
+
+
+const AddVeiculos = () => {
   return (
     <>
       <div className="container-fluid">
@@ -12,12 +14,13 @@ const Agendamento = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Agendamentos" icone={<IoIosAdd />}  direccao=""/>
+            <TopoAdmin entrada="Cadastrar novo Veiculos" leftSeta={<FaArrowLeftLong />} leftR="/veiculosList" />
 
             <div className="vh-100">
-            <TabelaVizualizarAgendamento />
+            <AdicionarVeiculos />
+          
             </div>
-            <p className="text-center np pt-5 mt-5 ppAr">
+            <p className="text-center np pt-2 mt-2 ppAr">
               <hr />
               Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos
               reservados.
@@ -31,4 +34,4 @@ const Agendamento = () => {
   );
 };
 
-export default Agendamento;
+export default AddVeiculos;
