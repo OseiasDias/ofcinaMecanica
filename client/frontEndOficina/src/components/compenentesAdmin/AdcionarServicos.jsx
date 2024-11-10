@@ -3,8 +3,15 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner'; // Importando o Spinner
+import { useNavigate } from 'react-router-dom'; // Importando o hook useNavigate
+
 
 export default function CadastroServico() {
+
+  const navigate = useNavigate(); // Instanciando o hook navigate para redirecionamento
+
+
   const [formValues, setFormValues] = useState({
     nome_servico: '',
     descricao: '',
@@ -13,6 +20,7 @@ export default function CadastroServico() {
   });
 
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false); // Adicionando estado de carregamento
 
   // Função para lidar com as mudanças nos campos
   const handleInputChange = (e) => {
@@ -44,6 +52,8 @@ export default function CadastroServico() {
 
     if (!validateForm()) return;
 
+    setIsLoading(true); // Ativa o spinner enquanto a requisição é feita
+
     try {
       const response = await fetch('http://localhost:5000/api/servicos', {
         method: 'POST',
@@ -54,21 +64,25 @@ export default function CadastroServico() {
       if (!response.ok) {
         const errorData = await response.json();
         toast.error(`Cadastro não realizado: ${errorData.message || 'Erro desconhecido.'}`);
+        setIsLoading(false); // Desativa o spinner em caso de erro
         return;
       }
 
+
+
+      // Resetando os valores após cadastro bem-sucedido
+      const data = await response.json();
       // Caso o cadastro seja bem-sucedido
       toast.success("Serviço cadastrado com sucesso!");
 
-      // Resetando os valores após cadastro bem-sucedido
-      setFormValues({
-        nome_servico: '',
-        descricao: '',
-      });
+      // Aguarda o tempo da notificação ser fechada (5 segundos) antes de redirecionar
+      setTimeout(() => {
+        navigate('/servicosList');
+      }, 5000); // 5000 ms é o tempo de exibição do toast
 
-      setErrors({});
     } catch (error) {
       toast.error('Erro ao conectar ao servidor: ' + error.message);
+      setIsLoading(false); // Desativa o spinner em caso de erro
     }
   };
 
@@ -108,7 +122,18 @@ export default function CadastroServico() {
 
         {/* Botão para cadastrar */}
         <div className="btnEv w-100">
-          <Button variant="primary" type="submit" className="mt-4 d-block mx-auto links-acessos w-50">Cadastrar Serviço</Button>
+          <Button
+            variant="primary"
+            type="submit"
+            className="mt-4 d-block mx-auto links-acessos px-5"
+            disabled={isLoading} // Desabilita o botão enquanto o processo de envio está em andamento
+          >
+            {isLoading ? (
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            ) : (
+              "Cadastrar Serviço"
+            )}
+          </Button>
         </div>
       </Form>
 

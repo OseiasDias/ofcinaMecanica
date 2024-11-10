@@ -2,9 +2,9 @@ import "../../css/StylesAdmin/homeAdministrador.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { IoIosAdd } from "react-icons/io";
-import TabelaVizualizarFuncinarios from "../../components/compenentesAdmin/TabelaVizualizarFuncionarios";
+import TabelaVizualizarFaturas from "../../components/compenentesAdmin/TabelaVizualizarFaturas";
 
-const Funcionarios = () => {
+const Faturas = () => {
   return (
     <>
       <div className="container-fluid">
@@ -12,10 +12,10 @@ const Funcionarios = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Funcionários" direccao="/addFuncionarios" icone={<IoIosAdd />} leftR="/funcionariosList"/>
+            <TopoAdmin entrada="Faturas" icone={<IoIosAdd />}  leftR="/faturasList" direccao="/addFaturas"/>
 
             <div className="vh-100">
-            <TabelaVizualizarFuncinarios />
+            <TabelaVizualizarFaturas />
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">
               <hr />
@@ -34,4 +34,4 @@ const Funcionarios = () => {
   );
 };
 
-export default Funcionarios;
+export default Faturas;

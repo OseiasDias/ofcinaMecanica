@@ -1,10 +1,11 @@
 import "../../css/StylesAdmin/homeAdministrador.css";
-import SideBar from "../../components/compenentesAdmin/SideBar";
-import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
+import SideBar from "../../components/compenentesAdmin/SideBar.jsx";
+import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin.jsx";
 import { IoIosAdd } from "react-icons/io";
-import TabelaVizualizarFuncinarios from "../../components/compenentesAdmin/TabelaVizualizarFuncionarios";
+import PagarActive from "../../components/compenentesAdmin/PagarActive.jsx";
 
-const Funcionarios = () => {
+
+const PagamentoActive = () => {
   return (
     <>
       <div className="container-fluid">
@@ -12,12 +13,12 @@ const Funcionarios = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Funcionários" direccao="/addFuncionarios" icone={<IoIosAdd />} leftR="/funcionariosList"/>
+            <TopoAdmin entrada="Realizar Pagamentos" leftR="/pagamentoList" icone={<IoIosAdd />} direccao="/addFaturas" />
 
-            <div className="vh-100">
-            <TabelaVizualizarFuncinarios />
+            <div className="vh-100 ">
+              <PagarActive />
             </div>
-            <div className="div text-center np pt-2 mt-2 ppAr">
+            <div className="div text-center  oculte np pt-2 mt-2 ppAr">
               <hr />
               <p className="text-center">
 
@@ -34,4 +35,4 @@ const Funcionarios = () => {
   );
 };
 
-export default Funcionarios;
+export default PagamentoActive;

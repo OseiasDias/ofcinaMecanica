@@ -16,7 +16,7 @@ export default function TopoAdmin({ entrada, direccao , icone, leftSeta, leftR }
 
   return (
     <div className="topoAdministrador mt-4 d-flex justify-content-between">
-      <h3 className="tituloSh formatTexto">
+      <h4 className="tituloSh formatTexto">
         <span onClick={() => handleNavigate(leftR)}>
           {leftSeta}
         </span>{"        "}
@@ -28,7 +28,7 @@ export default function TopoAdmin({ entrada, direccao , icone, leftSeta, leftR }
             {icone}
           </span>
         )}
-      </h3>
+      </h4>
 
       <div className="escolhas d-flex">
         <Dropdown className="distancia userCorR mx-1">
@@ -49,7 +49,7 @@ export default function TopoAdmin({ entrada, direccao , icone, leftSeta, leftR }
             <Dropdown.Item onClick={() => handleNavigate("/addBlogs")} className="colorir">
               <IoMdAdd />&nbsp;Blog
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleNavigate("/logout")} className="colorir">
+            <Dropdown.Item onClick={() => handleNavigate("/addEstoque")} className="colorir">
               <IoMdAdd />&nbsp;Estoque
             </Dropdown.Item>
             <Dropdown.Item onClick={() => handleNavigate("/perfil")} className="colorir">

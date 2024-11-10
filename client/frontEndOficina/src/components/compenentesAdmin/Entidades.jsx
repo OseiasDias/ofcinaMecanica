@@ -7,6 +7,8 @@ import { GrServices } from "react-icons/gr";
 //import { FaUsers } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import { IoNewspaperSharp } from "react-icons/io5";
+
 
 export default function Entidades() {
   return (
@@ -81,13 +83,13 @@ export default function Entidades() {
             </div>
             <div className="col-6 col-md-4 col-lg-3 ">
              <div className="abertura mb-3 py-3">
-              <Link to="/">
+              <Link to="/faturaList">
                 <div className="box-icon">
-                  <MdNotifications className="ikone " />
+                  <IoNewspaperSharp className="ikone " />
                 </div>
                 <span className="text-black tituloSh text-center fw-bold my-1 entiSize d-block">15</span>
                 <div className="">
-                  <h6 className="text-center text-black tituloSh">SMS</h6>
+                  <h6 className="text-center text-black tituloSh">Faturas</h6>
                 </div>
               </Link>
             </div>
@@ -135,10 +137,13 @@ export default function Entidades() {
             
           </div>
 
-          <p className="text-center mt-5 ppAr">
-            <hr />
+         <div className="text-center mt-5 ppAr">
+         <hr />
+         <p className="text-center">
+            
             Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos reservados.
           <br />Desenvolvido por: <b>Oseias Dias</b></p>
+         </div>
         </div>
       
     </>

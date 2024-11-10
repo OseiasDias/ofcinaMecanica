@@ -2,7 +2,8 @@ import "../../css/StylesAdmin/homeAdministrador.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { IoIosAdd } from "react-icons/io";
-import TabelaVizualizarPagamento from "../../components/compenentesAdmin/TabelaVizualizarPagamentos.jsx";
+import TabelaFaturas from "../../components/compenentesAdmin/TabelaFaturas.jsx";
+
 
 const Pagamento = () => {
   return (
@@ -12,18 +13,21 @@ const Pagamento = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Pagamentos" icone={<IoIosAdd />} />
+            <TopoAdmin entrada="Pagamentos" icone={<IoIosAdd />} direccao="/addFaturas" />
 
             <div className="vh-100">
-            <TabelaVizualizarPagamento />
+            <TabelaFaturas />
             </div>
-            <p className="text-center np pt-5 mt-5 ppAr">
+            <div className="div text-center np pt-2 mt-2 ppAr">
               <hr />
-              Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos
-              reservados.
-              <br />
-              Desenvolvido por: <b>Oseias Dias</b>
-            </p>
+              <p className="text-center">
+
+                Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos
+                reservados.
+                <br />
+                Desenvolvido por: <b>Oseias Dias</b>
+              </p>
+            </div>
           </div>
         </div>
       </div>

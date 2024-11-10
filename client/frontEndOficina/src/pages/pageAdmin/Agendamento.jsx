@@ -17,13 +17,16 @@ const Agendamento = () => {
             <div className="vh-100">
             <TabelaVizualizarAgendamento />
             </div>
-            <p className="text-center np pt-5 mt-5 ppAr">
+            <div className="div text-center np pt-2 mt-2 ppAr">
               <hr />
-              Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos
-              reservados.
-              <br />
-              Desenvolvido por: <b>Oseias Dias</b>
-            </p>
+              <p className="text-center">
+
+                Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos
+                reservados.
+                <br />
+                Desenvolvido por: <b>Oseias Dias</b>
+              </p>
+            </div>
           </div>
         </div>
       </div>

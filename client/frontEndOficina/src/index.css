@@ -31,11 +31,15 @@ a:hover{
   margin: 0 ;
   padding: 0;
   box-sizing: border-box !important;
-  
 
-  /*  border-radius: 0 !important;
-*/
 }
+
+input,textarea,select{
+  border-radius: 0 !important;
+  border:1px solid var(--corSecodaria)  !important;
+  
+}
+
 
 /* Para navegadores WebKit (Chrome, Safari, Edge baseado em Chromium) */
 html::-webkit-scrollbar {
@@ -168,4 +172,12 @@ body{
 .pe1{
  padding-left: 50px;
 }
+}
+
+
+
+@media (max-width:769px){
+  .oculte{
+    display: none;
+  }
 }

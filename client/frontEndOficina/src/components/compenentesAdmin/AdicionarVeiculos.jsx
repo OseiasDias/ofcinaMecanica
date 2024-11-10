@@ -6,10 +6,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function AdicionarVeiculo() {
   const [formData, setFormData] = useState({
-    marca: '',
-    modelo: '',
-    ano: '',
-    placa: '',
+    marca: 'Fiat',             // Marca preenchida
+    modelo: 'Punto',           // Modelo preenchido
+    ano: 2010,                 // Ano preenchido
+    placa: 'LD-34-23-W13',     // Placa preenchida
+    id_cliente: 2,             // id_cliente preenchido
+    fotos: null,               // Campo fotos (pode ser null por enquanto)
+    status_reparacao: 'Pronto a Iniciar',  // Status de reparação preenchido
   });
 
   const [errors, setErrors] = useState({});
@@ -21,15 +24,11 @@ export default function AdicionarVeiculo() {
     // Validação da Marca
     if (!formData.marca) {
       formErrors.marca = 'Marca é obrigatória';
-    } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.marca)) {
-      formErrors.marca = 'A marca deve conter apenas letras, números e os caracteres / . -';
     }
 
     // Validação do Modelo
     if (!formData.modelo) {
       formErrors.modelo = 'Modelo é obrigatório';
-    } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.modelo)) {
-      formErrors.modelo = 'O modelo deve conter apenas letras, números e os caracteres / . -';
     }
 
     // Validação do Ano
@@ -42,8 +41,6 @@ export default function AdicionarVeiculo() {
     // Validação da Placa
     if (!formData.placa) {
       formErrors.placa = 'Placa é obrigatória';
-    } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.placa)) {
-      formErrors.placa = 'A Placa deve conter apenas letras, números e os caracteres / . -';
     }
 
     return formErrors;
@@ -55,12 +52,14 @@ export default function AdicionarVeiculo() {
 
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
-      // Prepara os dados para envio
       const dataToSend = new FormData();
       dataToSend.append('marca', formData.marca);
       dataToSend.append('modelo', formData.modelo);
       dataToSend.append('ano', formData.ano);
       dataToSend.append('placa', formData.placa);
+      dataToSend.append('id_cliente', formData.id_cliente);  // Campo id_cliente
+      dataToSend.append('fotos', formData.fotos);  // Campo fotos (null por padrão)
+      dataToSend.append('status_reparacao', formData.status_reparacao);  // Campo status_reparacao
 
       try {
         const response = await fetch('http://localhost:5000/api/veiculos', {
@@ -82,6 +81,9 @@ export default function AdicionarVeiculo() {
           modelo: '',
           ano: '',
           placa: '',
+          id_cliente: 2,  // Reseta o valor padrão para id_cliente
+          //fotos: null,  // Reseta o valor padrão para fotos
+          status_reparacao: 'pronto a começar',  // Reseta o valor padrão para status_reparacao
         });
       } catch (error) {
         toast.error(error.message || 'Erro ao cadastrar veículo. Tente novamente.');
@@ -101,8 +103,9 @@ export default function AdicionarVeiculo() {
   };
 
   return (
-    <div className="container">
-      <h5>Cadastre o seu veículo</h5>
+    <div className="container-fluid">
+      <h6 className="mt-5">CADASTRO DE VEICULOS</h6>
+      <hr />
 
       <Form onSubmit={handleSubmit}>
         <div className="row">
@@ -165,6 +168,35 @@ export default function AdicionarVeiculo() {
               <Form.Control.Feedback type="invalid">{errors.placa}</Form.Control.Feedback>
             </Form.Group>
           </div>
+
+          <div className="col-12 col-md-12 col-lg-6">
+            <Form.Group>
+              <Form.Label>ID do Cliente</Form.Label>
+              <Form.Control
+                type="number"
+                name="id_cliente"
+                value={formData.id_cliente}
+                readOnly
+                placeholder="ID do cliente"
+              />
+            </Form.Group>
+          </div>
+
+          <div className="col-12 col-md-12 col-lg-6">
+            <Form.Group>
+              <Form.Label>Status de Reparação</Form.Label>
+              <Form.Control
+                as="select"
+                name="status_reparacao"
+                value={formData.status_reparacao}
+                onChange={handleChange}
+              >
+                <option value="pronto a começar">Pronto a Começar</option>
+                <option value="em andamento">Em Andamento</option>
+                <option value="concluído">Concluído</option>
+              </Form.Control>
+            </Form.Group>
+          </div>
         </div>
 
         <Button variant="primary" type="submit" className="mt-3 d-block mx-auto">
@@ -172,7 +204,6 @@ export default function AdicionarVeiculo() {
         </Button>
       </Form>
 
-      {/* Toast container para exibir mensagens de sucesso ou erro */}
       <ToastContainer
         position="top-right"
         autoClose={5000}

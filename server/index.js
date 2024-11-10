@@ -7,10 +7,10 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto'); // Para gerar tokens aleatórios
 
 app.use(express.json());*/
+const ControllerEmpresa = require('./src/controllers/ControllerEmpresa'); 
+const ControllerFatura = require('./src/controllers/ControllerFatura'); // Importando as rotas de Carros
 
-
-
-
+const ControllerCarro = require('./src/controllers/ControllerCarro'); // Importando as rotas de Carros
 const ControllerCliente = require('./src/controllers/ControllerCliente');
 const ControllerAdministrador = require('./src/controllers/ControllerAdministrador'); 
 const ControllerUsuario = require('./src/controllers/ControllerUsuario'); // Importa o controller do usuário
@@ -286,6 +286,38 @@ app.delete('/api/servicos/:id_servico', ControllerServico.deletarServico);
 
 
 
+
+
+/*
+======================================
+          Rotas do Carros
+======================================
+*/
+
+// Rota para criar um novo carro
+app.post('/api/carros', ControllerCarro.adicionar); // Rota para adicionar um carro
+
+// Rota para obter todos os carros
+app.get('/api/carros', ControllerCarro.obterTodos); // Rota para obter todos os carros
+
+// Rota para obter um carro por ID
+app.get('/api/carros/:id_carro', ControllerCarro.obterPorId); // Rota para obter um carro por ID
+
+// Rota para obter carros de um cliente específico (corrigida)
+app.get('/api/carros/cliente/:id_cliente', ControllerCarro.obterCarrosPorCliente); // Rota corrigida para retornar os carros de um cliente específico
+
+// Rota para atualizar um carro
+app.put('/api/carros/:id_carro', ControllerCarro.atualizar); // Rota para atualizar um carro
+
+// Rota para deletar um carro
+app.delete('/api/carros/:id_carro', ControllerCarro.excluir); // Rota para deletar um carro
+
+
+
+
+
+
+
 /*
 ======================================
            Rotas de Veículo
@@ -312,9 +344,39 @@ app.delete('/api/veiculos/:id_veiculo', ControllerVeiculo.deletarVeiculo);
 
 
 
+/*
+======================================
+           Rotas de Fatura
+======================================
+*/
 
 
 
+app.post('/api/faturas/', ControllerFatura.criarFatura);
+
+app.get('/api/faturas/', ControllerFatura.obterFaturas);
+
+
+app.get('/api/faturas/:id_fatura', ControllerFatura.obterFaturaPorId);
+
+app.put('/api/faturas/:id_fatura', ControllerFatura.atualizarFatura);
+
+app.delete('/api/faturas/:id_fatura', ControllerFatura.deletarFatura);
+
+app.get('/api/faturas/status/:status_pagamento', ControllerFatura.obterFaturasPorStatus);
+
+
+
+/*
+======================================
+           Rotas de Fatura
+======================================
+*/
+
+
+
+// Rota para obter todos os blogs
+app.get('/api/empresas', ControllerEmpresa.obterEmpresas);
 /*
 
 // Configurações para envio de email usando nodemailer

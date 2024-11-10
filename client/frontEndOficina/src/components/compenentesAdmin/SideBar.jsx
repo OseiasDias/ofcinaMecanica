@@ -1,7 +1,7 @@
 import { FaBlogger, FaBox, FaSignOutAlt } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { FaHome, /**FaLock, FaMoneyBill, */ FaUser } from "react-icons/fa";
-import {  MdNotifications } from "react-icons/md";
+import { IoNewspaperSharp } from "react-icons/io5";
 import {  BiCog } from "react-icons/bi";
 import { FaCarRear } from "react-icons/fa6";
 //import { BsCartCheck } from "react-icons/bs";
@@ -34,7 +34,7 @@ const routes = [
   { path: "/blogList", name: "Blog", icon: <FaBlogger /> },
   
   { path: "/estoqueList", name: "Estoque", icon: <FaBox /> },
-  { path: "/users", name: "Notificação", icon: <MdNotifications /> },
+  { path: "/faturaList", name: "Faturas", icon: <IoNewspaperSharp  /> },
   { path: "/pagamentoList", name: "Pagamentos", icon: <FaSackDollar /> },
   { path: "/servicosList", name: "Serviços", icon: <GrServices  /> },
   { path: "/veiculosList", name: "Veiculos", icon: <FaCarRear /> },
@@ -116,7 +116,7 @@ const SideBar = ({ children }) => {
                 to={route.path}
                 key={index}
                 className="link "
-                activeClassName="active"
+               // activeClassName="active"
               >
                 <div className="icon">{route.icon}</div>
                 <AnimatePresence>

@@ -124,9 +124,10 @@ export default function AtalhoLoginAdmin() {
                         <hr />
                         <p className="text-center">
                             <strong className="melhorarStron">Esqueceste a sua senha?</strong>
-                            <hr />
+                           
 
                         </p>
+                        <hr />
 
                         <p className="text-center">
                             <strong className="melhorarStrong text-danger" onClick={() => setModalSuperShow(true)}>Super Administrador <RiAdminFill fontSize={25} /></strong>

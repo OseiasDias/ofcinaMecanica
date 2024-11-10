@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'; // Importando o hook useNavigate
+import Spinner from 'react-bootstrap/Spinner'; // Importando o Spinner
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function CadastrarCliente() {
@@ -21,6 +22,7 @@ export default function CadastrarCliente() {
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Estado para controlar o carregamento do botão
 
   // Função para gerar senha aleatória com no mínimo 8 caracteres
   const generateRandomPassword = () => {
@@ -92,6 +94,8 @@ export default function CadastrarCliente() {
 
     if (!validateForm()) return;
 
+    setIsLoading(true); // Ativa o spinner ao iniciar o processo de cadastro
+
     // Envio com JSON (não FormData)
     try {
       const response = await fetch('http://localhost:5000/api/clientes', {
@@ -114,6 +118,7 @@ export default function CadastrarCliente() {
       if (!response.ok) {
         const errorData = await response.json();
         toast.error(`Cadastro não realizado: ${errorData.message || 'Verifique os dados. Email e telefone já existem.'}`);
+        setIsLoading(false); // Desativa o spinner em caso de erro
         return;
       }
 
@@ -127,6 +132,7 @@ export default function CadastrarCliente() {
 
     } catch (error) {
       toast.error('Erro ao conectar ao servidor: ' + error.message);
+      setIsLoading(false); // Desativa o spinner em caso de erro
     }
   };
 
@@ -239,14 +245,22 @@ export default function CadastrarCliente() {
 
         {errors.server && <div className="text-danger mt-2">{errors.server}</div>}
 
-       <div className="w-100">
-       <Button variant="primary" type="submit" className="mt-4 links-acessos px-5 mx-auto w-50 d-block">
-          Cadastrar
-        </Button>
-       </div>
+        <div className="w-100">
+          <Button 
+            variant="primary" 
+            type="submit" 
+            className="links-acessos mt-3 px-5  mx-auto d-block" 
+            disabled={isLoading} // Desabilita o botão quando está carregando
+          >
+            {isLoading ? 
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 
+              "Cadastrar"
+            }
+          </Button>
+        </div>
       </Form>
 
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+      <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
     </div>
   );
 }

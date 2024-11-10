@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom"; // Importando o hook useNavigate
+import Spinner from 'react-bootstrap/Spinner'; // Importando o Spinner
 import "react-toastify/dist/ReactToastify.css";
 
 export default function CadastrarFuncionario() {
@@ -22,6 +23,7 @@ export default function CadastrarFuncionario() {
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // Estado para controlar o carregamento do botão
 
   // Função para gerar senha aleatória com no mínimo 8 caracteres
   const generateRandomPassword = () => {
@@ -104,6 +106,8 @@ export default function CadastrarFuncionario() {
 
     if (!validateForm()) return;
 
+    setIsLoading(true); // Ativa o spinner ao iniciar o processo de cadastro
+
     // Envio com JSON (não FormData)
     try {
       const response = await fetch("http://localhost:5000/api/usuarios", {
@@ -132,6 +136,7 @@ export default function CadastrarFuncionario() {
             "Verifique os dados. Email e telefone já existem."
           }`
         );
+        setIsLoading(false); // Desativa o spinner em caso de erro
         return;
       }
 
@@ -144,6 +149,7 @@ export default function CadastrarFuncionario() {
       }, 5000); // 5000 ms é o tempo de exibição do toast
     } catch (error) {
       toast.error("Erro ao conectar ao servidor: " + error.message);
+      setIsLoading(false); // Desativa o spinner em caso de erro
     }
   };
 
@@ -152,10 +158,7 @@ export default function CadastrarFuncionario() {
       <h6 className="mt-5">CADASTRAR FUNCIONÁRIO</h6>
       <hr />
       <Form onSubmit={handleCadastro} className="row">
-        <Form.Group
-          className="col-12 col-md-12 col-lg-6 my-1"
-          controlId="formNome"
-        >
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNome">
           <Form.Label>Nome Completo</Form.Label>
           <Form.Control
             type="text"
@@ -165,15 +168,10 @@ export default function CadastrarFuncionario() {
             onChange={handleInputChange}
             isInvalid={!!errors.nome}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.nome}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.nome}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group
-          className="col-12 col-md-12 col-lg-6 my-1"
-          controlId="formEmail"
-        >
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formEmail">
           <Form.Label>Email</Form.Label>
           <Form.Control
             type="email"
@@ -183,15 +181,10 @@ export default function CadastrarFuncionario() {
             onChange={handleInputChange}
             isInvalid={!!errors.email}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.email}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group
-          className="col-12 col-md-12 col-lg-6 my-1"
-          controlId="formTelefone"
-        >
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formTelefone">
           <Form.Label>Telefone</Form.Label>
           <Form.Control
             type="number"
@@ -201,15 +194,10 @@ export default function CadastrarFuncionario() {
             onChange={handleInputChange}
             isInvalid={!!errors.telefone}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.telefone}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.telefone}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group
-          className="col-12 col-md-12 col-lg-6 my-1"
-          controlId="formDataNascimento"
-        >
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataNascimento">
           <Form.Label>Data de Nascimento</Form.Label>
           <Form.Control
             type="date"
@@ -218,15 +206,10 @@ export default function CadastrarFuncionario() {
             onChange={handleInputChange}
             isInvalid={!!errors.dataNascimento}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.dataNascimento}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.dataNascimento}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group
-          className="col-12 col-md-12 col-lg-6 my-1"
-          controlId="formNivelAcesso"
-        >
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNivelAcesso">
           <Form.Label>Nível de Acesso</Form.Label>
           <Form.Control
             as="select"
@@ -242,43 +225,29 @@ export default function CadastrarFuncionario() {
             <option>Atendente/Recepcionista</option>
             <option>Estagiário</option>
             <option>Técnico em Diagnóstico</option>
-            <option>Mecânico</option> {/* Adicionada a opção "Mecânico" */}
+            <option>Mecânico</option>
           </Form.Control>
-          <Form.Control.Feedback type="invalid">
-            {errors.nivelAcesso}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.nivelAcesso}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group
-  className="col-12 col-md-12 col-lg-6 my-1"
-  controlId="formGenero"
->
-  <Form.Label>Gênero</Form.Label>
-  <Form.Control
-    as="select"
-    name="genero"
-    value={formValues.genero}
-    onChange={(e) => {
-      handleInputChange(e); // Verifique se a função está sendo chamada corretamente
-      console.log("Genero selecionado:", e.target.value); // Debug: verifique o valor
-    }}
-    isInvalid={!!errors.genero}
-  >
-    <option value="">Selecione um gênero</option> {/* Adicionando uma opção padrão */}
-    <option value="Masculino">Masculino</option>
-    <option value="Feminino">Feminino</option>
-    <option value="Outro">Outro</option>
-  </Form.Control>
-  <Form.Control.Feedback type="invalid">
-    {errors.genero}
-  </Form.Control.Feedback>
-</Form.Group>
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formGenero">
+          <Form.Label>Gênero</Form.Label>
+          <Form.Control
+            as="select"
+            name="genero"
+            value={formValues.genero}
+            onChange={handleInputChange}
+            isInvalid={!!errors.genero}
+          >
+            <option value="">Selecione um gênero</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Feminino">Feminino</option>
+            <option value="Outro">Outro</option>
+          </Form.Control>
+          <Form.Control.Feedback type="invalid">{errors.genero}</Form.Control.Feedback>
+        </Form.Group>
 
-
-        <Form.Group
-          className="col-12 col-md-12 col-lg-6 my-1"
-          controlId="formEndereco"
-        >
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formEndereco">
           <Form.Label>Endereço</Form.Label>
           <Form.Control
             type="text"
@@ -288,18 +257,11 @@ export default function CadastrarFuncionario() {
             onChange={handleInputChange}
             isInvalid={!!errors.endereco}
           />
-          <Form.Control.Feedback type="invalid">
-            {errors.endereco}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.endereco}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group
-          className="col-12 col-md-12 col-lg-6 my-1"
-          controlId="formSenha"
-        >
-          <Form.Label>
-            <strong>Senha gerada</strong>
-          </Form.Label>
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formSenha">
+          <Form.Label><strong>Senha gerada</strong></Form.Label>
           <div className="d-flex">
             <Form.Control
               type={showPassword ? "text" : "password"}
@@ -318,22 +280,23 @@ export default function CadastrarFuncionario() {
               {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
             </Button>
           </div>
-          <Form.Control.Feedback type="invalid">
-            {errors.senha}
-          </Form.Control.Feedback>
+          <Form.Control.Feedback type="invalid">{errors.senha}</Form.Control.Feedback>
         </Form.Group>
 
-        {errors.server && (
-          <div className="text-danger mt-2">{errors.server}</div>
-        )}
+        {errors.server && <div className="text-danger mt-2">{errors.server}</div>}
 
         <div className="w-100">
           <Button
             variant="primary"
             type="submit"
-            className="mt-4 links-acessos px-5 mx-auto w-50 d-block"
+            className="mt-4 links-acessos px-5 mx-auto  d-block"
+            disabled={isLoading} // Desabilita o botão quando está carregando
           >
-            Cadastrar
+            {isLoading ? (
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            ) : (
+              "Cadastrar"
+            )}
           </Button>
         </div>
       </Form>

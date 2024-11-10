@@ -4,7 +4,7 @@ import { FaTimes } from "react-icons/fa";
 
 import { FaBlogger, FaBox } from "react-icons/fa";
 import {  FaUser } from "react-icons/fa";
-import { MdNotifications } from "react-icons/md";
+import { IoNewspaperSharp } from "react-icons/io5";
 import { BiCog } from "react-icons/bi";
 import { FaCalendarDays, FaCarRear, FaSackDollar } from "react-icons/fa6";
 import { GrServices } from "react-icons/gr";
@@ -85,12 +85,12 @@ function AccordionItem() {
                                         </Link>
                                     </div>
                                     <div className="col-2 col-md-1 col-lg-1 figuraA">
-                                        <Link to="/">
+                                        <Link to="/faturaList">
                                             <div className="figuraB">
-                                                <MdNotifications className="peca" />
+                                                <IoNewspaperSharp className="peca" />
                                             </div>
                                             <div className="clienteA">
-                                                <h6 className="text-black tituloSh">SMS</h6>
+                                                <h6 className="text-black tituloSh">Faturas</h6>
                                             </div>
                                         </Link>
                                     </div>

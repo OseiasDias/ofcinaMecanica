@@ -86,3 +86,6 @@ class ControllerVeiculo {
 }
 
 module.exports = ControllerVeiculo;
+
+
+//'Em andamento','Pronto','Aguardando peças','Finalizado'
