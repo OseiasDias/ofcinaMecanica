@@ -31,9 +31,11 @@ export default function TabelaEstoque() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showVisualizarModal, setShowVisualizarModal] = useState(false); // Modal para visualização
   const [itemIdToDelete, setItemIdToDelete] = useState(null);
-  const sortedRecords = [...records].sort((a, b) => new Date(b.data_reposicao) - new Date(a.data_reposicao));
+  const [itemDetails, setItemDetails] = useState(null); // Para armazenar os detalhes do item
 
+  const sortedRecords = [...records].sort((a, b) => new Date(b.data_reposicao) - new Date(a.data_reposicao));
 
   const columns = [
     { name: "Nome da Peça", selector: (row) => row.nome_peca },
@@ -45,7 +47,7 @@ export default function TabelaEstoque() {
         <Dropdown className="btnDrop" drop="up">
           <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="cimaAll">
-            <Dropdown.Item onClick={() => handleEdit(row.id_item)}>
+            <Dropdown.Item onClick={() => handleVisualizar(row)}>
               <FaRegEye />
               &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
@@ -65,6 +67,12 @@ export default function TabelaEstoque() {
       ),
     },
   ];
+
+  // Função para abrir o modal de visualização
+  const handleVisualizar = (row) => {
+    setItemDetails(row);  // Armazena os detalhes do item no estado
+    setShowVisualizarModal(true);  // Exibe a modal de visualização
+  };
 
   const handleEdit = (id) => {
     console.log("Editar item com ID:", id);
@@ -155,6 +163,31 @@ export default function TabelaEstoque() {
         footer={<div>Exibindo {records.length} registros no total</div>}
       />
 
+      {/* Modal para visualização do item */}
+      <Modal show={showVisualizarModal} onHide={() => setShowVisualizarModal(false)} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>{itemDetails ? itemDetails.nome_peca : "Carregando..."}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {itemDetails ? (
+            <>
+              <p><strong>Nome da Peça:</strong> {itemDetails.nome_peca}</p>
+              <p><strong>Quantidade:</strong> {itemDetails.quantidade}</p>
+              <p><strong>Data de Reposição:</strong> {new Date(itemDetails.data_reposicao).toLocaleDateString()}</p>
+              {/* Outros dados adicionais podem ser adicionados aqui */}
+            </>
+          ) : (
+            <p>Carregando dados do item...</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
+            Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de Exclusão */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Exclusão</Modal.Title>

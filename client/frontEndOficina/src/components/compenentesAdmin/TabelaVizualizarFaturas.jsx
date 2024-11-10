@@ -268,7 +268,7 @@ export default function TabelaVizualizarFaturas() {
       </div>
 
       {/* Modal de Visualização */}
-      <Modal show={showModalVisualizar} onHide={() => setShowModalVisualizar(false)} centered size="lg">
+      <Modal show={showModalVisualizar} onHide={() => setShowModalVisualizar(false)} scrollable centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Visualizar Fatura</Modal.Title>
         </Modal.Header>

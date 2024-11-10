@@ -53,13 +53,13 @@ export default function CadastroBlog() {
       
       if (!response.ok) {
         const errorData = await response.json();
-        toast.error(`Cadastro não realizado: ${errorData.message || 'Erro desconhecido.'}`);
+        toast.error(`Publicação não realizado: ${errorData.message || 'Erro desconhecido.'}`);
         setIsLoading(false); // Desativa o spinner em caso de erro
         return;
       }
 
       // Caso o cadastro seja bem sucedido
-      toast.success("Blog cadastrado com sucesso!");
+      toast.success("Blog publicado com sucesso!");
       
       setTimeout(() => {
         navigation('/blogList');

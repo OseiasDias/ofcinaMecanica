@@ -33,7 +33,9 @@ export default function TabelaBlog() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showVisualizarModal, setShowVisualizarModal] = useState(false);  // Modal para visualização
   const [blogIdToDelete, setBlogIdToDelete] = useState(null);
+  const [blogDetails, setBlogDetails] = useState(null);  // Detalhes do blog para exibir no modal de visualização
 
   const columns = [
     { name: "Data", selector: (row) => new Date(row.data_publicacao).toLocaleDateString(), sortable: true },
@@ -45,7 +47,7 @@ export default function TabelaBlog() {
         <Dropdown className="btnDrop" drop="up">
           <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="cimaAll">
-            <Dropdown.Item onClick={() => handleEdit(row.id_blog)}>
+            <Dropdown.Item onClick={() => handleVisualizar(row)}>
               <FaRegEye />
               &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
@@ -65,6 +67,25 @@ export default function TabelaBlog() {
       ),
     },
   ];
+
+  // Função para abrir o modal de visualização
+  const handleVisualizar = async (row) => {
+    try {
+      // Carrega os detalhes do blog
+      const response = await fetch(`http://localhost:5000/api/blogs/${row.id_blog}`);
+      if (!response.ok) throw new Error("Erro ao carregar os detalhes do blog.");
+      const blogData = await response.json();
+
+      // Armazena os detalhes do blog no estado
+      setBlogDetails(blogData);
+      
+      // Exibe o modal de visualização
+      setShowVisualizarModal(true);
+    } catch (error) {
+      console.error("Erro ao carregar o blog:", error);
+      toast.error("Erro ao carregar os detalhes do blog.");
+    }
+  };
 
   const handleEdit = (id) => {
     console.log("Editar blog com ID:", id);
@@ -151,6 +172,33 @@ export default function TabelaBlog() {
         />
       </div>
 
+      {/* Modal para visualizar o blog */}
+      <Modal show={showVisualizarModal} onHide={() => setShowVisualizarModal(false)} scrollable centered size="xl">
+        <Modal.Header closeButton>
+          <Modal.Title>{blogDetails ? blogDetails.titulo : "Carregando..."}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body >
+         
+              {blogDetails ? (
+            <>
+              <p><strong>Autor:</strong> {blogDetails.autor || "BI-TURBO MOTORS"}</p>
+              <p><strong>Data de Publicação:</strong> {new Date(blogDetails.data_publicacao).toLocaleDateString()}</p>
+              <p><strong>Conteúdo:</strong>
+              {blogDetails.conteudo || "Sem conteúdo"}</p>
+            </>
+          ) : (
+            <p>Carregando dados do blog...</p>
+          )}
+            
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
+            Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de Exclusão */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Exclusão</Modal.Title>

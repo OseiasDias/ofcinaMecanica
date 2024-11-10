@@ -33,7 +33,9 @@ export default function TabelaServicos() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showVisualizarModal, setShowVisualizarModal] = useState(false); // Modal para visualização
   const [servicosIdToDelete, setServicosIdToDelete] = useState(null);
+  const [selectedService, setSelectedService] = useState(null); // Para armazenar os detalhes do serviço
 
   const columns = [
     { name: "Nome do Serviço", selector: (row) => row.nome_servico, sortable: true },
@@ -44,7 +46,7 @@ export default function TabelaServicos() {
         <Dropdown className="btnDrop" drop="up">
           <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="cimaAll">
-            <Dropdown.Item onClick={() => handleEdit(row.id_servico)}>
+            <Dropdown.Item onClick={() => handleVisualizar(row)}>
               <FaRegEye />
               &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
@@ -64,6 +66,11 @@ export default function TabelaServicos() {
       ),
     },
   ];
+
+  const handleVisualizar = (service) => {
+    setSelectedService(service);  // Armazena os dados do serviço selecionado
+    setShowVisualizarModal(true); // Abre a modal para visualização
+  };
 
   const handleEdit = (id) => {
     console.log("Editar Serviço com ID:", id);
@@ -150,6 +157,30 @@ export default function TabelaServicos() {
         />
       </div>
 
+      {/* Modal para visualização do serviço */}
+      <Modal show={showVisualizarModal} onHide={() => setShowVisualizarModal(false)} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedService ? selectedService.nome_servico : "Carregando..."}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedService ? (
+            <>
+              <p><strong>Nome do Serviço:</strong> {selectedService.nome_servico}</p>
+              <p><strong>Descrição:</strong> {selectedService.descricao}</p>
+              {/* Adicione outros dados do serviço conforme necessário */}
+            </>
+          ) : (
+            <p>Carregando dados do serviço...</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
+            Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de Exclusão */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Exclusão</Modal.Title>

@@ -31,7 +31,9 @@ export default function TabelaVizualizarVeiculos() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
+  const [showVisualizarModal, setShowVisualizarModal] = useState(false);  // Modal de visualização
   const [vehicleIdToDelete, setVehicleIdToDelete] = useState(null);
+  const [selectedVehicle, setSelectedVehicle] = useState(null); // Dados do veículo selecionado
 
   const columns = [
     { name: "Marca", selector: (row) => row.marca },
@@ -52,7 +54,7 @@ export default function TabelaVizualizarVeiculos() {
         <Dropdown className="btnDrop" drop="up">
           <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="cimaAll">
-            <Dropdown.Item onClick={() => handleEdit(row.id_veiculo)}>
+            <Dropdown.Item onClick={() => handleVisualizar(row)}>
               <FaRegEye />
               &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
@@ -72,6 +74,12 @@ export default function TabelaVizualizarVeiculos() {
       ),
     },
   ];
+
+  // Função para visualizar os detalhes do veículo
+  const handleVisualizar = (vehicle) => {
+    setSelectedVehicle(vehicle);  // Armazena os dados do veículo selecionado
+    setShowVisualizarModal(true);  // Exibe a modal de visualização
+  };
 
   const handleEdit = (id) => {
     console.log("Editar veículo com ID:", id);
@@ -182,6 +190,34 @@ export default function TabelaVizualizarVeiculos() {
         footer={<div>Exibindo {records.length} registros no total</div>}
       />
 
+      {/* Modal para visualização do veículo */}
+      <Modal show={showVisualizarModal} onHide={() => setShowVisualizarModal(false)} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedVehicle ? selectedVehicle.marca : "Carregando..."}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedVehicle ? (
+            <>
+              <p><strong>Marca:</strong> {selectedVehicle.marca}</p>
+              <p><strong>Modelo:</strong> {selectedVehicle.modelo}</p>
+              <p><strong>Ano:</strong> {selectedVehicle.ano}</p>
+              <p><strong>Placa:</strong> {selectedVehicle.placa}</p>
+              <p><strong>Cliente:</strong> {selectedVehicle.clienteNome}</p>
+              <p><strong>Status de Reparação:</strong> {selectedVehicle.status_reparacao}</p>
+              {/* Adicione outros dados do veículo conforme necessário */}
+            </>
+          ) : (
+            <p>Carregando dados do veículo...</p>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
+            Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de Exclusão */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Exclusão</Modal.Title>

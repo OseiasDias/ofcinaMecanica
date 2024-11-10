@@ -5,8 +5,7 @@ import { Dropdown, Modal, Button } from "react-bootstrap";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../css/StylesAdmin/tbvCliente.css";
-import { FaRegEye } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
+import { GiMoneyStack } from "react-icons/gi";
 import { MdDeleteOutline } from "react-icons/md";
 
 const customStyles = {
@@ -51,13 +50,10 @@ export default function TabelaFaturas() {
           <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="cimaAll">
             <Dropdown.Item onClick={() => handleEdit(row.id_veiculo)}>
-              <FaRegEye />
-              &nbsp;&nbsp;Visualizar
+              <GiMoneyStack  />
+              &nbsp;&nbsp;Pagar
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleEdit(row.id_veiculo)}>
-              <FiEdit />
-              &nbsp;&nbsp;Editar
-            </Dropdown.Item>
+           
             <Dropdown.Item
               onClick={() => openDeleteModal(row.id_veiculo)}
               className="text-danger"
