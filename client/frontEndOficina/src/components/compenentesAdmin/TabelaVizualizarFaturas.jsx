@@ -10,8 +10,6 @@ import { MdDeleteOutline } from "react-icons/md";
 import { jsPDF } from "jspdf"; // Importando a biblioteca jsPDF
 import logoFatura from "../../assets/lgo.png";
 
-
-
 // Estilos personalizados para a tabela
 const customStyles = {
   headCells: {
@@ -154,7 +152,7 @@ export default function TabelaVizualizarFaturas() {
     const doc = new jsPDF("p", "mm", "a4"); // Definindo o formato A4
 
     // Adicionando a logo (garantir que a logo esteja disponível na URL ou caminho correto)
-    doc.addImage("path/to/logo.png", "PNG", 10, 10, 30, 30); // Logo em 10mm x 10mm, com tamanho 30x30
+    doc.addImage(logoFatura, "PNG", 10, 10, 30, 30); // Logo em 10mm x 10mm, com tamanho 30x30
 
     // Adicionando título
     doc.setFontSize(16);
@@ -197,6 +195,9 @@ export default function TabelaVizualizarFaturas() {
 
     // Salvando o PDF
     doc.save('fatura.pdf');
+    
+    // Exibindo mensagem de sucesso com Toast
+    toast.success("Fatura PDF gerada com sucesso!");
   };
 
   // Função para imprimir a fatura
@@ -206,25 +207,21 @@ export default function TabelaVizualizarFaturas() {
 
     // Adicionando o estilo para garantir que a impressão siga o formato A4
     const printStyle = `
-      @page {
-        size: A4;
-        margin: 10mm;
-      }
-      body {
-        font-family: Helvetica, Arial, sans-serif;
-      }
-      .content {
-        margin: 20px;
-      }
-      .bold-text {
-        font-weight: bold;
-      }
-      .line {
-        border-top: 1px solid #000;
-        margin: 10px 0;
+      @media print {
+        body {
+          font-family: Arial, sans-serif;
+          font-size: 12pt;
+        }
+        .bold-text {
+          font-weight: bold;
+        }
+        .line {
+          border-top: 1px solid #000;
+          margin: 10px 0;
+        }
       }
     `;
-
+    
     printWindow.document.write(`<style>${printStyle}</style>`);
     printWindow.document.write(content.innerHTML);
     printWindow.document.close();
@@ -271,8 +268,7 @@ export default function TabelaVizualizarFaturas() {
       </div>
 
       {/* Modal de Visualização */}
-      {/* Modal de Visualização */}
-      <Modal show={showModalVisualizar} onHide={() => setShowModalVisualizar(false)} centered size="xl">
+      <Modal show={showModalVisualizar} onHide={() => setShowModalVisualizar(false)} centered size="lg">
         <Modal.Header closeButton>
           <Modal.Title>Visualizar Fatura</Modal.Title>
         </Modal.Header>
@@ -280,45 +276,38 @@ export default function TabelaVizualizarFaturas() {
           <div id="faturaContent">
             {faturaSelecionada && (
               <>
-                  <div className="headerFatura d-flex  mb-5 justify-content-between">
-
-                      <img src={logoFatura} width={200} height={70} alt="logo" />
-                      <p><strong className="bold-text">Nº da Fatura: </strong>BT00{faturaSelecionada.id_fatura}</p>
-
-                  </div>
-                  <hr />
+                <div className="headerFatura d-flex mb-5 justify-content-between">
+                  <img src={logoFatura} width={200} height={70} alt="logo" style={{ marginTop: "-20px" }} />
+                  <p><strong className="bold-text">Nº da Fatura: </strong>BT00{faturaSelecionada.id_fatura}</p>
+                </div>
+                <hr />
                 <h5>Dados do Cliente</h5>
                 <hr />
-                <div className="dadosCliente ">
+                <div className="dadosCliente">
                   <p><strong className="bold-text">Nome do Cliente:</strong> {faturaSelecionada.nome_cliente}</p>
                   <p><strong className="bold-text">Email do Cliente:</strong> {faturaSelecionada.email_cliente}</p>
                   <p><strong className="bold-text">Telefone do Cliente:</strong> {faturaSelecionada.telefone_cliente}</p>
                   <p><strong className="bold-text">Gênero do Cliente:</strong> {faturaSelecionada.genero_cliente}</p>
-
                 </div>
                 <hr />
-                <h5>Dados do Veiculo</h5>
-
+                <h5>Dados do Veículo</h5>
                 <hr />
                 <div className="dadosVeiculos">
                   <p><strong className="bold-text">Marca do Veículo:</strong> {faturaSelecionada.marca_veiculo}</p>
                   <p><strong className="bold-text">Modelo do Veículo:</strong> {faturaSelecionada.modelo_veiculo}</p>
                   <p><strong className="bold-text">Ano do Veículo:</strong> {faturaSelecionada.ano_veiculo}</p>
                   <p><strong className="bold-text">Placa do Veículo:</strong> {faturaSelecionada.placa_veiculo}</p>
-
                 </div>
                 <hr />
                 <h5>Detalhes do Pagamento</h5>
-
                 <hr />
-
                 <div className="dadosPagamento">
-                <p><strong className="bold-text">Forma de Pagamento:</strong> {faturaSelecionada.forma_pagamento}</p>
-                <p><strong className="bold-text">Valor do Desconto:</strong> {parseFloat(faturaSelecionada.valor_desconto).toFixed(2)} KZ</p>
-                <p><strong className="bold-text">Valor Total:</strong> {parseFloat(faturaSelecionada.valor_total).toFixed(2)} KZ</p>
-                
+                  <p><strong className="bold-text">Forma de Pagamento:</strong> {faturaSelecionada.forma_pagamento}</p>
+                  <p><strong className="bold-text">Valor do Desconto:</strong> {parseFloat(faturaSelecionada.valor_desconto).toFixed(2)} KZ</p>
+                  <p><strong className="bold-text">Valor Total:</strong> {parseFloat(faturaSelecionada.valor_total).toFixed(2)} KZ</p>
                 </div>
-               <p><strong className="bold-text">Data de Emissão:</strong> {new Date(faturaSelecionada.data_emissao).toLocaleDateString()}</p>
+                <hr />
+                <p><strong className="bold-text">Data de Emissão:</strong> {new Date(faturaSelecionada.data_emissao).toLocaleDateString()}</p>
                 <p><strong className="bold-text">Status de Pagamento:</strong> {faturaSelecionada.status_pagamento}</p>
                 <div className="line"></div>
               </>
