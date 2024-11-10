@@ -34,6 +34,7 @@ export default function TabelaVizualizarVeiculos() {
   const [showVisualizarModal, setShowVisualizarModal] = useState(false);  // Modal de visualização
   const [vehicleIdToDelete, setVehicleIdToDelete] = useState(null);
   const [selectedVehicle, setSelectedVehicle] = useState(null); // Dados do veículo selecionado
+  const [clientDetails, setClientDetails] = useState(null); // Dados do cliente
 
   const columns = [
     { name: "Marca", selector: (row) => row.marca },
@@ -76,9 +77,25 @@ export default function TabelaVizualizarVeiculos() {
   ];
 
   // Função para visualizar os detalhes do veículo
-  const handleVisualizar = (vehicle) => {
+  const handleVisualizar = async (vehicle) => {
     setSelectedVehicle(vehicle);  // Armazena os dados do veículo selecionado
     setShowVisualizarModal(true);  // Exibe a modal de visualização
+
+    if (vehicle.id_cliente) {
+      // Buscar os dados do cliente associado ao veículo
+      try {
+        const response = await fetch(`http://localhost:5000/api/clientes/${vehicle.id_cliente}`);
+        if (!response.ok) {
+          throw new Error("Erro ao buscar dados do cliente");
+        }
+        const clientData = await response.json();
+        setClientDetails(clientData); // Armazena os dados do cliente
+      } catch (error) {
+        console.error("Erro ao buscar os dados do cliente:", error);
+        toast.error("Erro ao carregar os dados do cliente.");
+        setClientDetails(null);
+      }
+    }
   };
 
   const handleEdit = (id) => {
@@ -99,7 +116,7 @@ export default function TabelaVizualizarVeiculos() {
       const updatedRecords = records.filter((record) => record.id_veiculo !== vehicleIdToDelete);
       setRecords(updatedRecords);
       setOriginalRecords(originalRecords.filter((record) => record.id_veiculo !== vehicleIdToDelete));
-      
+
       if (updatedRecords.length === 0) {
         fetchData();
       }
@@ -198,13 +215,50 @@ export default function TabelaVizualizarVeiculos() {
         <Modal.Body>
           {selectedVehicle ? (
             <>
-              <p><strong>Marca:</strong> {selectedVehicle.marca}</p>
-              <p><strong>Modelo:</strong> {selectedVehicle.modelo}</p>
-              <p><strong>Ano:</strong> {selectedVehicle.ano}</p>
-              <p><strong>Placa:</strong> {selectedVehicle.placa}</p>
-              <p><strong>Cliente:</strong> {selectedVehicle.clienteNome}</p>
-              <p><strong>Status de Reparação:</strong> {selectedVehicle.status_reparacao}</p>
-              {/* Adicione outros dados do veículo conforme necessário */}
+              <div className="row">
+
+                <div className="col-12 col-md-6 col-lg-6">
+                  <p><strong>Marca:</strong> {selectedVehicle.marca}</p>
+                </div>
+                <div className="col-12 col-md-6 col-lg-6">
+                  <p><strong>Modelo:</strong> {selectedVehicle.modelo}</p>
+                </div>
+                <div className="col-12 col-md-6 col-lg-6">
+                  <p><strong>Placa:</strong> {selectedVehicle.placa}</p>
+                </div>
+
+                <div className="col-12 col-md-6 col-lg-6">
+                  <p><strong>Status de Reparação:</strong> {selectedVehicle.status_reparacao}</p>
+
+                </div>
+              </div>
+
+              {/* Dados do cliente */}
+              {clientDetails && (
+                <>
+                  <hr />
+                  <h6>Detalhes do Cliente</h6>
+                  <hr />
+                  <div className="row">
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong>Nome:</strong> {clientDetails.nome}</p>
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong>Email:</strong> {clientDetails.email}</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong>Endereço:</strong> {clientDetails.endereco}</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong>Telfone:</strong> {clientDetails.telefone}</p>
+
+                  </div>
+                  </div>
+
+                </>
+              )}
             </>
           ) : (
             <p>Carregando dados do veículo...</p>
@@ -217,7 +271,7 @@ export default function TabelaVizualizarVeiculos() {
         </Modal.Footer>
       </Modal>
 
-      {/* Modal de Exclusão */}
+      {/* Modal para confirmar exclusão */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Exclusão</Modal.Title>
