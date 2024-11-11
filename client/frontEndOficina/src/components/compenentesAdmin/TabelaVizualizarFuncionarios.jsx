@@ -7,6 +7,10 @@ import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TbLockFilled } from "react-icons/tb";
+
+
+
 
 const customStyles = {
   headCells: {
@@ -50,9 +54,10 @@ export default function TabelaVizualizarFuncionarios() {
               <FaRegEye />
               &nbsp;&nbsp;Vizualizar
             </Dropdown.Item>
+        
             <Dropdown.Item onClick={() => handleEdit(row.id_cliente)}>
-              <FiEdit />
-              &nbsp;&nbsp;Editar
+              <TbLockFilled />
+              &nbsp;&nbsp;Bloquear
             </Dropdown.Item>
             <Dropdown.Item
               onClick={() => openDeleteModal(row.id_cliente)}

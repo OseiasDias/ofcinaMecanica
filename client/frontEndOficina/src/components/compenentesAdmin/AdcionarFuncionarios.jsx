@@ -3,34 +3,37 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
-import { useNavigate } from "react-router-dom"; // Importando o hook useNavigate
-import Spinner from 'react-bootstrap/Spinner'; // Importando o Spinner
+import { useNavigate } from "react-router-dom";
+import Spinner from 'react-bootstrap/Spinner';
 import "react-toastify/dist/ReactToastify.css";
 
 export default function CadastrarFuncionario() {
-  const navigate = useNavigate(); // Instanciando o hook navigate para redirecionamento
+  const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
     nome: "",
     email: "",
     telefone: "",
     senha: "",
-    nivelAcesso: "", // Campo específico para o tipo de funcionário
-    genero: "", // Gênero com valor padrão
-    endereco: "", // Endereço
-    dataNascimento: "", // Data de nascimento
-    estado: 1, // Estado fixo com valor 1
+    nivelAcesso: "",
+    genero: "",
+    endereco: "",
+    dataNascimento: "",
+    estado: 1,
+    bilhete_identidade: "",  // Novo campo
+    iban: "",  // Novo campo
+    data_admissao: "",  // Novo campo
   });
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false); // Estado para controlar o carregamento do botão
+  const [isLoading, setIsLoading] = useState(false);
 
   // Função para gerar senha aleatória com no mínimo 8 caracteres
   const generateRandomPassword = () => {
-    let password = Math.random().toString(36).slice(-10); // Gera uma senha aleatória de pelo menos 8 caracteres
+    let password = Math.random().toString(36).slice(-10);
     return password.length < 8
       ? password + Math.random().toString(36).slice(-2)
-      : password; // Garantir que a senha tenha no mínimo 8 caracteres
+      : password;
   };
 
   // Gera uma senha ao carregar o componente
@@ -41,7 +44,7 @@ export default function CadastrarFuncionario() {
       senha: senhaGerada,
     }));
     console.log("Senha gerada:", senhaGerada); // Exibe a senha gerada no console
-  }, []); // Executa apenas uma vez, quando o componente for montado
+  }, []);
 
   // Quando o usuário digita no formulário
   const handleInputChange = (e) => {
@@ -97,6 +100,23 @@ export default function CadastrarFuncionario() {
       newErrors.endereco = "Endereço é obrigatório.";
     }
 
+    // Validação para o campo "Bilhete de Identidade" (não obrigatório, mas podemos validar o formato)
+    if (formValues.bilhete_identidade && !/^(?=(.*[A-Za-z]){2})[A-Za-z0-9]{14}$/.test(formValues.bilhete_identidade)) {
+      newErrors.bilhete_identidade = "Bilhete de identidade inválido. Deve ter 14 caracteres, pelo menos 2 letras (maiúsculas ou minúsculas), sem espaços ou caracteres especiais.";
+    }
+
+    // Validação para o campo "IBAN" (não obrigatório, mas podemos validar o formato)
+if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
+  newErrors.iban = "IBAN inválido. O formato correto é AOXX seguido de 21 números.";
+}
+
+
+    // Validação para o campo "Data de Admissão"
+    if (formValues.data_admissao && formValues.data_admissao > hoje) {
+      newErrors.data_admissao =
+        "A data de admissão não pode ser maior que a data atual.";
+    }
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -108,7 +128,6 @@ export default function CadastrarFuncionario() {
 
     setIsLoading(true); // Ativa o spinner ao iniciar o processo de cadastro
 
-    // Envio com JSON (não FormData)
     try {
       const response = await fetch("http://localhost:5000/api/usuarios", {
         method: "POST",
@@ -125,15 +144,17 @@ export default function CadastrarFuncionario() {
           endereco: formValues.endereco,
           data_nascimento: formValues.dataNascimento,
           estado: formValues.estado,
+          bilhete_identidade: formValues.bilhete_identidade, // Incluindo bilhete_identidade
+          iban: formValues.iban, // Incluindo iban
+          data_admissao: formValues.data_admissao, // Incluindo data_admissao
         }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
         toast.error(
-          `Cadastro não realizado: ${
-            errorData.message ||
-            "Verifique os dados. Email e telefone já existem."
+          `Cadastro não realizado: ${errorData.message ||
+          "Verifique os dados. Email e telefone já existem."
           }`
         );
         setIsLoading(false); // Desativa o spinner em caso de erro
@@ -143,7 +164,6 @@ export default function CadastrarFuncionario() {
       const data = await response.json();
       toast.success(`Cadastro realizado com sucesso!`);
 
-      // Aguarda o tempo da notificação ser fechada (5 segundos) antes de redirecionar
       setTimeout(() => {
         navigate("/funcionariosList"); // Redireciona para a lista de funcionários
       }, 5000); // 5000 ms é o tempo de exibição do toast
@@ -158,6 +178,8 @@ export default function CadastrarFuncionario() {
       <h6 className="mt-5">CADASTRAR FUNCIONÁRIO</h6>
       <hr />
       <Form onSubmit={handleCadastro} className="row">
+        {/* Campos existentes */}
+
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNome">
           <Form.Label>Nome Completo</Form.Label>
           <Form.Control
@@ -210,7 +232,7 @@ export default function CadastrarFuncionario() {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNivelAcesso">
-          <Form.Label>Nível de Acesso</Form.Label>
+          <Form.Label>Cargo</Form.Label>
           <Form.Control
             as="select"
             name="nivelAcesso"
@@ -260,37 +282,53 @@ export default function CadastrarFuncionario() {
           <Form.Control.Feedback type="invalid">{errors.endereco}</Form.Control.Feedback>
         </Form.Group>
 
-        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formSenha">
-          <Form.Label><strong>Senha gerada</strong></Form.Label>
-          <div className="d-flex">
-            <Form.Control
-              type={showPassword ? "text" : "password"}
-              placeholder="Digite sua senha"
-              name="senha"
-              value={formValues.senha}
-              onChange={handleInputChange}
-              isInvalid={!!errors.senha}
-              disabled={!!formValues.senha} // Desabilita o campo se a senha já estiver gerada
-            />
-            <Button
-              variant="outline-secondary"
-              onClick={() => setShowPassword(!showPassword)}
-              className="ms-2"
-            >
-              {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
-            </Button>
-          </div>
-          <Form.Control.Feedback type="invalid">{errors.senha}</Form.Control.Feedback>
+        {/* Novos campos adicionados */}
+
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formBilheteIdentidade">
+          <Form.Label>Bilhete de Identidade</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Digite o número do bilhete"
+            name="bilhete_identidade"
+            value={formValues.bilhete_identidade}
+            onChange={handleInputChange}
+            isInvalid={!!errors.bilhete_identidade}
+          />
+          <Form.Control.Feedback type="invalid">{errors.bilhete_identidade}</Form.Control.Feedback>
         </Form.Group>
 
-        {errors.server && <div className="text-danger mt-2">{errors.server}</div>}
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formIban">
+          <Form.Label>IBAN</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Digite o IBAN"
+            name="iban"
+            value={formValues.iban}
+            onChange={handleInputChange}
+            isInvalid={!!errors.iban}
+          />
+          <Form.Control.Feedback type="invalid">{errors.iban}</Form.Control.Feedback>
+        </Form.Group>
 
+        <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataAdmissao">
+          <Form.Label>Data de Admissão</Form.Label>
+          <Form.Control
+            type="date"
+            name="data_admissao"
+            value={formValues.data_admissao}
+            onChange={handleInputChange}
+            isInvalid={!!errors.data_admissao}
+          />
+          <Form.Control.Feedback type="invalid">{errors.data_admissao}</Form.Control.Feedback>
+        </Form.Group>
+
+        {/* Botão de Cadastro */}
         <div className="w-100">
           <Button
             variant="primary"
             type="submit"
             className="mt-4 links-acessos px-5 mx-auto  d-block"
-            disabled={isLoading} // Desabilita o botão quando está carregando
+            disabled={isLoading}
           >
             {isLoading ? (
               <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />

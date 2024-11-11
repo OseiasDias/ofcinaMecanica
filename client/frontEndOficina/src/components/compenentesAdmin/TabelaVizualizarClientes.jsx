@@ -3,10 +3,10 @@ import DataTable from "react-data-table-component";
 import { Dropdown, Modal, Button } from "react-bootstrap";
 import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { TbLockFilled } from "react-icons/tb";
 
 const customStyles = {
   headCells: {
@@ -69,8 +69,8 @@ export default function TabelaVizualizarClientes() {
               &nbsp;&nbsp;Vizualizar
             </Dropdown.Item>
             <Dropdown.Item onClick={() => handleEdit(row.id_cliente)}>
-              <FiEdit />
-              &nbsp;&nbsp;Editar
+              <TbLockFilled />
+              &nbsp;&nbsp;Bloquear
             </Dropdown.Item>
             
             <Dropdown.Item

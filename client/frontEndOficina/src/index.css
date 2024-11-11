@@ -184,3 +184,8 @@ body{
 
 
 
+.OutroText{
+  font-size: .9em;
+  display: block;
+  margin: auto !important
+}

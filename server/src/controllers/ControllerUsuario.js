@@ -4,8 +4,13 @@ class ControllerUsuario {
     // Método para criar um novo usuário
     static async criarUsuario(req, res) {
         try {
-            const { nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco } = req.body;
-            const usuario = new Usuario(null, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco);
+            // Desestruturando os dados de entrada
+            const { nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco, bilhete_identidade, iban, data_admissao, salario } = req.body;
+
+            // Criando uma instância do usuário com os novos campos
+            const usuario = new Usuario(null, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco, bilhete_identidade, iban, data_admissao, salario);
+
+            // Salvando o usuário no banco de dados
             const id = await Usuario.salvar(usuario);
             res.status(201).json({ id, message: 'Usuário criado com sucesso' });
         } catch (error) {
@@ -45,8 +50,12 @@ class ControllerUsuario {
     static async atualizarUsuario(req, res) {
         try {
             const { id_usuario } = req.params;
-            const { nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco } = req.body;
-            const usuario = new Usuario(id_usuario, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco);
+            const { nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco, bilhete_identidade, iban, data_admissao, salario } = req.body;
+
+            // Criando uma instância do usuário com os dados fornecidos
+            const usuario = new Usuario(id_usuario, nome, email, telefone, senha, nivel_acesso, genero, data_nascimento, foto, estado, endereco, bilhete_identidade, iban, data_admissao, salario);
+
+            // Atualizando o usuário no banco de dados
             await Usuario.atualizar(usuario);
             res.status(200).json({ message: 'Usuário atualizado com sucesso' });
         } catch (error) {

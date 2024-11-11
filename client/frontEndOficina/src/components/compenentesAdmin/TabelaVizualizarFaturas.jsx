@@ -195,7 +195,7 @@ export default function TabelaVizualizarFaturas() {
 
     // Salvando o PDF
     doc.save('fatura.pdf');
-    
+
     // Exibindo mensagem de sucesso com Toast
     toast.success("Fatura PDF gerada com sucesso!");
   };
@@ -221,7 +221,7 @@ export default function TabelaVizualizarFaturas() {
         }
       }
     `;
-    
+
     printWindow.document.write(`<style>${printStyle}</style>`);
     printWindow.document.write(content.innerHTML);
     printWindow.document.close();
@@ -268,7 +268,7 @@ export default function TabelaVizualizarFaturas() {
       </div>
 
       {/* Modal de Visualização */}
-      <Modal show={showModalVisualizar} onHide={() => setShowModalVisualizar(false)} scrollable centered size="lg">
+      <Modal show={showModalVisualizar} onHide={() => setShowModalVisualizar(false)} scrollable centered size="xl">
         <Modal.Header closeButton>
           <Modal.Title>Visualizar Fatura</Modal.Title>
         </Modal.Header>
@@ -281,35 +281,83 @@ export default function TabelaVizualizarFaturas() {
                   <p><strong className="bold-text">Nº da Fatura: </strong>BT00{faturaSelecionada.id_fatura}</p>
                 </div>
                 <hr />
-                <h5>Dados do Cliente</h5>
+                <h6 className="fw-bold">Dados do Cliente</h6>
                 <hr />
-                <div className="dadosCliente">
-                  <p><strong className="bold-text">Nome do Cliente:</strong> {faturaSelecionada.nome_cliente}</p>
-                  <p><strong className="bold-text">Email do Cliente:</strong> {faturaSelecionada.email_cliente}</p>
-                  <p><strong className="bold-text">Telefone do Cliente:</strong> {faturaSelecionada.telefone_cliente}</p>
-                  <p><strong className="bold-text">Gênero do Cliente:</strong> {faturaSelecionada.genero_cliente}</p>
+                <div className="dadosCliente row">
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Nome:</strong> {faturaSelecionada.nome_cliente}</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Email:</strong> {faturaSelecionada.email_cliente}</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Telefone:</strong> {faturaSelecionada.telefone_cliente}</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Gênero:</strong> {faturaSelecionada.genero_cliente}</p>
+
+                  </div>
                 </div>
                 <hr />
-                <h5>Dados do Veículo</h5>
+                <h6 className="fw-bold">Dados do Veículo</h6>
                 <hr />
-                <div className="dadosVeiculos">
-                  <p><strong className="bold-text">Marca do Veículo:</strong> {faturaSelecionada.marca_veiculo}</p>
-                  <p><strong className="bold-text">Modelo do Veículo:</strong> {faturaSelecionada.modelo_veiculo}</p>
-                  <p><strong className="bold-text">Ano do Veículo:</strong> {faturaSelecionada.ano_veiculo}</p>
-                  <p><strong className="bold-text">Placa do Veículo:</strong> {faturaSelecionada.placa_veiculo}</p>
+
+                <div className="dadosVeiculos row">
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Marca:</strong> {faturaSelecionada.marca_veiculo}</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Modelo:</strong> {faturaSelecionada.modelo_veiculo}</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Ano:</strong> {faturaSelecionada.ano_veiculo}</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Placa:</strong> {faturaSelecionada.placa_veiculo}</p>
+
+                  </div>
+                </div>
+
+                <hr />
+                <h6 className="fw-bold">Detalhes do Pagamento</h6>
+                <hr />
+                <div className="dadosPagamento row">
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Forma de Pagamento:</strong> {faturaSelecionada.forma_pagamento}</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Valor do Desconto:</strong> {parseFloat(faturaSelecionada.valor_desconto).toFixed(2)} KZ</p>
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+
+
+                  </div>
+                  <div className="col-12 col-md-6 col-lg-6">
+                    <p><strong className="bold-text">Valor Total:</strong> {parseFloat(faturaSelecionada.valor_total).toFixed(2)} KZ</p>
+
+                  </div>
+
+
+                </div>
+
+                <hr />
+                <div className="displayF d-flex justify-content-between">
+                  <p><strong className="bold-text">Status de Pagamento:</strong> {faturaSelecionada.status_pagamento}</p>
+
+                  <p><strong className="bold-text">Data de Emissão:</strong> {new Date(faturaSelecionada.data_emissao).toLocaleDateString()}</p>
+
                 </div>
                 <hr />
-                <h5>Detalhes do Pagamento</h5>
-                <hr />
-                <div className="dadosPagamento">
-                  <p><strong className="bold-text">Forma de Pagamento:</strong> {faturaSelecionada.forma_pagamento}</p>
-                  <p><strong className="bold-text">Valor do Desconto:</strong> {parseFloat(faturaSelecionada.valor_desconto).toFixed(2)} KZ</p>
-                  <p><strong className="bold-text">Valor Total:</strong> {parseFloat(faturaSelecionada.valor_total).toFixed(2)} KZ</p>
-                </div>
-                <hr />
-                <p><strong className="bold-text">Data de Emissão:</strong> {new Date(faturaSelecionada.data_emissao).toLocaleDateString()}</p>
-                <p><strong className="bold-text">Status de Pagamento:</strong> {faturaSelecionada.status_pagamento}</p>
-                <div className="line"></div>
+
+                <span className="text-center OutroText">Este documento foi gerado electronicamente, dispensa a assinatura e carimbo</span>
               </>
             )}
           </div>
