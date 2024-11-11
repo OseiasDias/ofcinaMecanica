@@ -14,7 +14,7 @@ const Funcionarios = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Funcionários" direccao="/addFuncionarios" icone={<IoIosAdd />} leftR="/funcionariosList"/>
 
-            <div className="vh-100">
+            <div className="vh-100 alturaPereita">
             <TabelaVizualizarFuncinarios />
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">

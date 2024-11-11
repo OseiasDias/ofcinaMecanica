@@ -190,10 +190,11 @@ body{
   margin: auto !important
 }
 
-@media (max-width:768px){
 
+
+
+
+.alturaPereita{
   
-.ppAr{
-  display: none; 
-}
+  height: auto !important;
 }

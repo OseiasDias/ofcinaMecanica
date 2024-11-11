@@ -15,7 +15,7 @@ const AddEstoque = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Adicionar Produtos em Estoque"  leftSeta={<FaArrowLeftLong />} leftR="/estoqueList" />
 
-            <div className="vh-100">
+            <div className="vh-100 alturaPereita">
               <AdicionarEstoque />
 
             </div>

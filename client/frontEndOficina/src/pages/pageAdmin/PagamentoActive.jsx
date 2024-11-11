@@ -15,7 +15,7 @@ const PagamentoActive = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin  entrada="Realizar Pagamentos"  icone={<IoIosAdd />}  />
 
-            <div className="vh-100 ">
+            <div className="vh-100 alturaPereita">
               <PagarActive />
             </div>
             <div className="div text-center  oculte np pt-2 mt-2 ppAr">

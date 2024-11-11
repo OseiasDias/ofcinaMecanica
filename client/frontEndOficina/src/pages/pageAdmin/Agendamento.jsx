@@ -14,7 +14,7 @@ const Agendamento = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Agendamentos" icone={<IoIosAdd />}  direccao=""/>
 
-            <div className="vh-100">
+            <div className="vh-100 alturaPereita">
             <TabelaVizualizarAgendamento />
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">

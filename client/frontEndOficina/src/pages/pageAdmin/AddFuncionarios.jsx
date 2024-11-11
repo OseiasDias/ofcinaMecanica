@@ -15,7 +15,7 @@ const AddFuncionarios = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Adicionar Funcionarios" leftSeta={<FaArrowLeftLong />} leftR="/funcionariosList" />
 
-            <div className="vh-100">
+            <div className="vh-100 alturaPereita">
             <AdicionarFuncionarios />
           
             </div>

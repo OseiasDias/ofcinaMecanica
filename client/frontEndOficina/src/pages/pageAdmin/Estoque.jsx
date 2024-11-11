@@ -14,7 +14,7 @@ const Estoque = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Estoque" icone={<IoIosAdd />}  leftR="/estoqueList" direccao="/addEstoque"/>
 
-            <div className="vh-100">
+            <div className="vh-100 alturaPereita">
             <TabelaVizualizarEstoque />
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">

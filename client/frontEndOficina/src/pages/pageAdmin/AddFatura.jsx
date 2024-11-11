@@ -16,7 +16,7 @@ const AddFaturas = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Adicionar Faturas" icone={<IoPersonAdd />} leftSeta={<FaArrowLeftLong />} leftR="/pagamentoList" />
 
-            <div className="vh-100">
+            <div className="vh-100 alturaPereita">
             <AdicionarFatura />
           
             </div>

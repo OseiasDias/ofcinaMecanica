@@ -175,7 +175,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
 
   return (
     <div className="form-cadastro">
-      <h6 className="mt-5 fw-bold">CADASTRAR FUNCIONÁRIO</h6>
+      <h6 className="mt-5">CADASTRAR FUNCIONÁRIO</h6>
       <hr />
       <Form onSubmit={handleCadastro} className="row">
         {/* Campos existentes */}

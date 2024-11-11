@@ -14,7 +14,7 @@ const Blog = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Blogs" icone={<IoIosAdd />} direccao="/addBlogs" />
 
-            <div className="vh-100">
+            <div className="vh-100 alturaPereita">
             <TabelaVizualizarBlog />
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">

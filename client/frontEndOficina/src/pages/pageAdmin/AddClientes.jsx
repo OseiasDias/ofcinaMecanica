@@ -14,7 +14,7 @@ const AddClientes = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Adicionar Clientes" icone={<IoPersonAdd />} leftSeta={<FaArrowLeftLong />} leftR="/clienteList" />
 
-            <div className="vh-100">
+            <div className="vh-100 alturaPereita">
             <AdicionarClientes />
           
             </div>

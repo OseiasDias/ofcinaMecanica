@@ -13,7 +13,7 @@ const AddBlog = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Publicar novo Blog" leftSeta={<FaArrowLeftLong />} leftR="/blogList" />
 
-            <div className="vh-100">
+            <div className="vh-100 alturaPereita">
               <AdicionarBlog />
 
             </div>
