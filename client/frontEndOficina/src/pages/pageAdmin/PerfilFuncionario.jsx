@@ -35,20 +35,40 @@ import TopPerfil from "../../components/compenentesAdmin/TopPerfil";
   if (error) return <p>Erro: {error}</p>;
 
   return (
-    <div className="row">
+    <div>
         <TopPerfil nome={funcionario.nome} email={funcionario.email}
             telefone={funcionario.telefone}
         />
       
       {funcionario ? (
-        <div>
+        <div className="row mt-4">
+        {/* Seção de Informações Pessoais */}
+        <section className="col-12 col-md-6 col-lg-4">
+          <h5 className="mb-4 fw-bold">Informações Pessoais</h5>
           <p><strong>Nome:</strong> {funcionario.nome}</p>
+          <p><strong>Gênero:</strong> {funcionario.genero}</p>
+          <p><strong>Data de Nascimento:</strong> {new Date(funcionario.data_nascimento).toLocaleDateString()}</p>
+        </section>
+
+        {/* Seção de Contato */}
+        <section className="col-12 col-md-6 col-lg-4">
+          <h5 className="mb-4 fw-bold">Contato</h5>
           <p><strong>Email:</strong> {funcionario.email}</p>
           <p><strong>Telefone:</strong> {funcionario.telefone}</p>
-          <p><strong>Endereço:</strong> {funcionario.endereco}</p>
-          <p><strong>Endereço:</strong> {funcionario.id_usuario}</p>
-          {/* Adicione outros campos conforme necessário */}
-        </div>
+          <p><strong>Endereço:</strong> {funcionario.endereco || 'Não disponível'}</p>
+        </section>
+
+        {/* Seção Profissional */}
+        <section className="col-12 col-md-6 col-lg-4">
+          <h5 className="mb-4 fw-bold">Informações Profissionais</h5>
+          <p><strong>Nível de Acesso:</strong> {funcionario.nivel_acesso}</p>
+          <p><strong>Bilhete de Identidade:</strong> {funcionario.bilhete_identidade || 'Não disponível'}</p>
+          <p><strong>IBAN:</strong> {funcionario.iban || 'Não disponível'}</p>
+          <p><strong>Data de Admissão:</strong> {funcionario.data_admissao || 'Não disponível'}</p>
+        </section>
+
+     
+      </div>
       ) : (
         <p>Funcionário não encontrado.</p>
       )}
@@ -71,7 +91,7 @@ const PerfilFuncionarios = () => {
           <div className="flexAuto w-100 ">
             <TopoAdmin entrada="Configuração de Perfil"  icone={<IoIosAdd />} leftR="/funcionariosList"/>
             
-            <div className="vh-100">
+            <div className="vh-100 ">
                     <VerPerfilFuncionario />
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">

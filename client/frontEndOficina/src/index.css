@@ -189,3 +189,11 @@ body{
   display: block;
   margin: auto !important
 }
+
+@media (max-width:768px){
+
+  
+.ppAr{
+  display: none; 
+}
+}
