@@ -88,12 +88,12 @@ export default function CadastroServico() {
 
   return (
     <>
-      <h6 className="mt-5">CADASTRAR SERVIÇO</h6>
+      <h6 className="mt-5 fw-bold">CADASTRAR SERVIÇO</h6>
       <hr />
       <Form onSubmit={handleCadastro} className="row">
         {/* Nome do Serviço */}
         <Form.Group className="col-12 my-2" controlId="formNomeServico">
-          <Form.Label>Nome do Serviço</Form.Label>
+          <Form.Label className="fw-bold">Nome do Serviço</Form.Label>
           <Form.Control
             type="text"
             placeholder="Digite o nome do serviço"
@@ -107,7 +107,7 @@ export default function CadastroServico() {
 
         {/* Descrição */}
         <Form.Group className="col-12 my-2" controlId="formDescricao">
-          <Form.Label>Descrição</Form.Label>
+          <Form.Label className="fw-bold">Descrição</Form.Label>
           <Form.Control
             as="textarea"
             rows={5}

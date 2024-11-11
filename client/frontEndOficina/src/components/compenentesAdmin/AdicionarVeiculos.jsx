@@ -104,14 +104,14 @@ export default function AdicionarVeiculo() {
 
   return (
     <div className="container-fluid">
-      <h6 className="mt-5">CADASTRO DE VEICULOS</h6>
+      <h6 className="mt-5 fw-bold">CADASTRO DE VEICULOS</h6>
       <hr />
 
       <Form onSubmit={handleSubmit}>
         <div className="row">
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
-              <Form.Label>Marca</Form.Label>
+              <Form.Label className='fw-bold'>Marca</Form.Label>
               <Form.Control
                 type="text"
                 name="marca"
@@ -126,7 +126,7 @@ export default function AdicionarVeiculo() {
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
-              <Form.Label>Modelo</Form.Label>
+              <Form.Label className='fw-bold'>Modelo</Form.Label>
               <Form.Control
                 type="text"
                 name="modelo"
@@ -141,7 +141,7 @@ export default function AdicionarVeiculo() {
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
-              <Form.Label>Ano</Form.Label>
+              <Form.Label className='fw-bold'>Ano</Form.Label>
               <Form.Control
                 type="text"
                 name="ano"
@@ -156,7 +156,7 @@ export default function AdicionarVeiculo() {
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
-              <Form.Label>Placa</Form.Label>
+              <Form.Label className='fw-bold'>Placa</Form.Label>
               <Form.Control
                 type="text"
                 name="placa"
@@ -171,7 +171,7 @@ export default function AdicionarVeiculo() {
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
-              <Form.Label>ID do Cliente</Form.Label>
+              <Form.Label className='fw-bold'>ID do Cliente</Form.Label>
               <Form.Control
                 type="number"
                 name="id_cliente"
@@ -184,7 +184,7 @@ export default function AdicionarVeiculo() {
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
-              <Form.Label>Status de Reparação</Form.Label>
+              <Form.Label className='fw-bold'>Status de Reparação</Form.Label>
               <Form.Control
                 as="select"
                 name="status_reparacao"

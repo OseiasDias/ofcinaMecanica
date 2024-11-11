@@ -3,14 +3,11 @@ import DataTable from "react-data-table-component";
 import { Dropdown, Modal, Button } from "react-bootstrap";
 import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TbLockFilled } from "react-icons/tb";
-
-
-
+import { useNavigate } from "react-router-dom"; // Importando o hook useNavigate
 
 const customStyles = {
   headCells: {
@@ -36,6 +33,7 @@ export default function TabelaVizualizarFuncionarios() {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [clientIdToDelete, setClientIdToDelete] = useState(null);
+  const navigate = useNavigate();  // Hook para navegação
 
   const columns = [
     { name: "Nome", selector: (row) => row.nome },
@@ -50,12 +48,12 @@ export default function TabelaVizualizarFuncionarios() {
         <Dropdown className="btnDrop" drop="up">
           <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="cimaAll">
-            <Dropdown.Item onClick={() => handleEdit(row.id_cliente)}>
+            <Dropdown.Item onClick={() => handleView(row.id_usuario)}>
               <FaRegEye />
-              &nbsp;&nbsp;Vizualizar
+              &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
         
-            <Dropdown.Item onClick={() => handleEdit(row.id_cliente)}>
+            <Dropdown.Item >
               <TbLockFilled />
               &nbsp;&nbsp;Bloquear
             </Dropdown.Item>
@@ -72,8 +70,9 @@ export default function TabelaVizualizarFuncionarios() {
     },
   ];
 
-  const handleEdit = (id) => {
-    console.log("Editar funcionário com ID:", id);
+  // Função para redirecionar para a página de visualização do funcionário
+  const handleView = (id) => {
+    navigate(`/perfilFuncionario/${id}`);  // Redireciona para o perfil do funcionário com o id
   };
 
   const openDeleteModal = (id) => {

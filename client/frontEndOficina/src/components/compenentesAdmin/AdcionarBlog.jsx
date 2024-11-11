@@ -73,12 +73,12 @@ export default function CadastroBlog() {
 
   return (
     <>
-      <h6 className="mt-5">PUBLICAR BLOG</h6>
+      <h6 className="mt-5 fw-bold">PUBLICAR BLOG</h6>
       <hr />
       <Form onSubmit={handleCadastro} className="row">
         {/* Título */}
         <Form.Group className="col-12 my-2" controlId="formTitulo">
-          <Form.Label>Título</Form.Label>
+          <Form.Label className="fw-bold">Título</Form.Label>
           <Form.Control 
             type="text" 
             placeholder="Digite o título do blog" 
@@ -92,7 +92,7 @@ export default function CadastroBlog() {
 
         {/* Conteúdo */}
         <Form.Group className="col-12 my-2" controlId="formConteudo">
-          <Form.Label>Conteúdo</Form.Label>
+          <Form.Label className="fw-bold">Conteúdo</Form.Label>
           <Form.Control 
             as="textarea" 
             rows={5} 

@@ -175,13 +175,13 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
 
   return (
     <div className="form-cadastro">
-      <h6 className="mt-5">CADASTRAR FUNCIONÁRIO</h6>
+      <h6 className="mt-5 fw-bold">CADASTRAR FUNCIONÁRIO</h6>
       <hr />
       <Form onSubmit={handleCadastro} className="row">
         {/* Campos existentes */}
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNome">
-          <Form.Label>Nome Completo</Form.Label>
+          <Form.Label className="fw-bold">Nome Completo</Form.Label>
           <Form.Control
             type="text"
             placeholder="Digite seu nome"
@@ -194,7 +194,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formEmail">
-          <Form.Label>Email</Form.Label>
+          <Form.Label className="fw-bold">Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="Digite seu email"
@@ -207,7 +207,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formTelefone">
-          <Form.Label>Telefone</Form.Label>
+          <Form.Label className="fw-bold">Telefone</Form.Label>
           <Form.Control
             type="number"
             placeholder="Digite seu telefone"
@@ -220,7 +220,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataNascimento">
-          <Form.Label>Data de Nascimento</Form.Label>
+          <Form.Label className="fw-bold">Data de Nascimento</Form.Label>
           <Form.Control
             type="date"
             name="dataNascimento"
@@ -232,7 +232,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNivelAcesso">
-          <Form.Label>Cargo</Form.Label>
+          <Form.Label className="fw-bold">Cargo</Form.Label>
           <Form.Control
             as="select"
             name="nivelAcesso"
@@ -253,7 +253,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formGenero">
-          <Form.Label>Gênero</Form.Label>
+          <Form.Label className="fw-bold">Gênero</Form.Label>
           <Form.Control
             as="select"
             name="genero"
@@ -270,7 +270,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formEndereco">
-          <Form.Label>Endereço</Form.Label>
+          <Form.Label className="fw-bold">Endereço</Form.Label>
           <Form.Control
             type="text"
             placeholder="Digite o endereço"
@@ -285,7 +285,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         {/* Novos campos adicionados */}
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formBilheteIdentidade">
-          <Form.Label>Bilhete de Identidade</Form.Label>
+          <Form.Label className="fw-bold">Bilhete de Identidade</Form.Label>
           <Form.Control
             type="text"
             placeholder="Digite o número do bilhete"
@@ -298,7 +298,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formIban">
-          <Form.Label>IBAN</Form.Label>
+          <Form.Label className="fw-bold">IBAN</Form.Label>
           <Form.Control
             type="text"
             placeholder="Digite o IBAN"
@@ -311,7 +311,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataAdmissao">
-          <Form.Label>Data de Admissão</Form.Label>
+          <Form.Label className="fw-bold">Data de Admissão</Form.Label>
           <Form.Control
             type="date"
             name="data_admissao"

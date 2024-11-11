@@ -138,11 +138,11 @@ export default function CadastrarCliente() {
 
   return (
     <div className="form-cadastro">
-      <h6 className="mt-5">CADASTRAR CLIENTE</h6>
+      <h6 className="mt-5 fw-bold">CADASTRAR CLIENTE</h6>
       <hr />
       <Form onSubmit={handleCadastro} className='row'>
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formNome">
-          <Form.Label>Nome Completo</Form.Label>
+          <Form.Label className="fw-bold">Nome Completo</Form.Label>
           <Form.Control
             type="text"
             placeholder="Digite seu nome"
@@ -155,7 +155,7 @@ export default function CadastrarCliente() {
         </Form.Group>
 
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formEmail">
-          <Form.Label>Email</Form.Label>
+          <Form.Label className="fw-bold">Email</Form.Label>
           <Form.Control
             type="email"
             placeholder="Digite seu email"
@@ -168,7 +168,7 @@ export default function CadastrarCliente() {
         </Form.Group>
 
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formTelefone">
-          <Form.Label>Telefone</Form.Label>
+          <Form.Label className="fw-bold">Telefone</Form.Label>
           <Form.Control
             type="number"
             placeholder="Digite seu telefone"
@@ -181,7 +181,7 @@ export default function CadastrarCliente() {
         </Form.Group>
 
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formDataNascimento">
-          <Form.Label>Data de Nascimento</Form.Label>
+          <Form.Label className="fw-bold">Data de Nascimento</Form.Label>
           <Form.Control
             type="date"
             name="dataNascimento"
@@ -193,7 +193,7 @@ export default function CadastrarCliente() {
         </Form.Group>
 
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formEndereco">
-          <Form.Label>Endereço</Form.Label>
+          <Form.Label className="fw-bold">Endereço</Form.Label>
           <Form.Control
             type="text"
             placeholder="Digite seu endereço"
@@ -206,7 +206,7 @@ export default function CadastrarCliente() {
         </Form.Group>
 
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formGenero">
-          <Form.Label>Gênero</Form.Label>
+          <Form.Label className="fw-bold">Gênero</Form.Label>
           <Form.Control
             as="select"
             name="genero"
@@ -221,7 +221,7 @@ export default function CadastrarCliente() {
         </Form.Group>
 
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formSenha">
-          <Form.Label><strong>Senha gerada</strong></Form.Label>
+          <Form.Label className="fw-bold"><strong>Senha gerada</strong></Form.Label>
           <div className="d-flex">
             <Form.Control
               type={showPassword ? "text" : "password"}

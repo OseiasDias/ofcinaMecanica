@@ -100,11 +100,11 @@ export default function AdicionarProdutoEstoque() {
 
   return (
     <div className="form-cadastro">
-      <h6 className="mt-5">CADASTRAR PRODUTO NO ESTOQUE</h6>
+      <h6 className="mt-5 fw-bold">CADASTRAR PRODUTO NO ESTOQUE</h6>
       <hr />
       <Form onSubmit={handleCadastro} className="row">
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNomePeca">
-          <Form.Label>Nome da Peça</Form.Label>
+          <Form.Label className="fw-bold">Nome da Peça</Form.Label>
           <Form.Control
             type="text"
             placeholder="Digite o nome da peça"
@@ -117,7 +117,7 @@ export default function AdicionarProdutoEstoque() {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formQuantidade">
-          <Form.Label>Quantidade</Form.Label>
+          <Form.Label className="fw-bold">Quantidade</Form.Label>
           <Form.Control
             type="number"
             placeholder="Digite a quantidade"
@@ -130,7 +130,7 @@ export default function AdicionarProdutoEstoque() {
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataReposicao">
-          <Form.Label>Data de Reposição</Form.Label>
+          <Form.Label className="fw-bold">Data de Reposição</Form.Label>
           <Form.Control
             type="datetime-local"
             name="data_reposicao"

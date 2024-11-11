@@ -32,9 +32,10 @@ import AddBlog from "./pages/pageAdmin/AddBlog.jsx";
 import AddServicos from "./pages/pageAdmin/AddServicos.jsx";
 import AddVeiculos from "./pages/pageAdmin/AddVeiculos.jsx";
 import AddEstoque from "./pages/pageAdmin/AddEstoque.jsx";
-import AddFaturas from "./pages/pageAdmin/AddFatura.jsx";
+//import AddFaturas from "./pages/pageAdmin/AddFatura.jsx";
 import PagamentoActive from "./pages/pageAdmin/PagamentoActive.jsx";
 import Faturas from "./pages/pageAdmin/Faturas.jsx";
+import PerfilFuncionario from "./pages/pageAdmin/PerfilFuncionario.jsx";
 
 //import DashBoard from "./pages/pageAdmin/DashBoard.jsx";
 
@@ -138,6 +139,11 @@ const App = () => {
               <Route path="/addServicos" element={<AddServicos />} />
               <Route path="/addEstoque" element={<AddEstoque/>} />
               <Route path="/addVeiculos" element={<AddVeiculos />} />
+
+              {/**Routes Perfil Funcionarios */}
+
+              <Route path="/perfilFuncionario/:id" element={<PerfilFuncionario />} />
+
 
              {/* <Route path="/addFaturas" element={<AddFaturas />} /> */}
    
