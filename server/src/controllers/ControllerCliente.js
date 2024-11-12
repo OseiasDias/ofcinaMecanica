@@ -117,6 +117,33 @@ static async obterMaiorId(req, res) {
             res.status(401).json({ message: "E-mail ou senha inválidos" }); // Erro de autenticação
         }
     } 
+
+
+   // Método para atualizar o status de um cliente
+static async atualizarStatus(req, res) {
+    try {
+        const { id_cliente, novoStatus } = req.params; // Pega o id_cliente e o novoStatus da URL
+
+        // Mapeia os valores de status de string para números
+        let statusValue;
+        if (novoStatus === 'Confirmado') {
+            statusValue = 1;  // Mapeando Confirmado para 1
+        } else if (novoStatus === 'Cancelado') {
+            statusValue = 0;  // Mapeando Cancelado para 0
+        } else {
+            return res.status(400).json({ message: "Status inválido. Deve ser 'Confirmado' ou 'Cancelado'." });
+        }
+
+        // Chama o método do modelo para atualizar o status
+        const result = await Cliente.atualizarStatus(id_cliente, statusValue);
+
+        res.status(200).json(result); // Retorna uma mensagem de sucesso
+    } catch (error) {
+        console.error("Erro ao atualizar status do cliente:", error);
+        res.status(400).json({ message: error.message }); // Retorna a mensagem de erro caso algo falhe
+    }
+}
+
 }
 
 module.exports = ControllerCliente;

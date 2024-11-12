@@ -63,6 +63,10 @@ app.post('/api/clientes/login', ControllerCliente.loginCliente); // Adiciona a r
 // Rota para obter o maior id_cliente
 app.get('/api/clientes/pegar/maior-id', ControllerCliente.obterMaiorId);
 
+// Rota para atualizar o status de um cliente
+app.put('/api/clientes/:id_cliente/status', ControllerCliente.atualizarStatus); // Nova rota para atualizar o status
+
+
 
 /*
 ======================================

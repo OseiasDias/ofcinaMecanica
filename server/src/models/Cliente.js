@@ -122,6 +122,33 @@ class Cliente {
         }
         return cliente; // Retorna o cliente se o login for bem-sucedido
     }
+
+
+
+    // Método para atualizar o status de um cliente
+    // Método para atualizar o status de um cliente
+static async atualizarStatus(id_cliente, novoStatus) {
+    // Verifica se o novoStatus é válido (0 ou 1)
+    if (![0, 1].includes(novoStatus)) {
+        throw new Error("Status inválido. Deve ser 'Confirmado' ou 'Cancelado'.");
+    }
+
+    // Query para atualizar o status no banco de dados
+    const query = `UPDATE cliente SET status = ? WHERE id_cliente = ?`;
+    const values = [novoStatus, id_cliente];
+
+    // Executa a consulta
+    const [result] = await pool.promise().query(query, values);
+
+    // Se não houverem linhas afetadas, significa que o cliente não foi encontrado
+    if (result.affectedRows === 0) {
+        throw new Error('Cliente não encontrado');
+    }
+
+    return { message: 'Status atualizado com sucesso!' };
+}
+
+
 }
 
 module.exports = Cliente;
