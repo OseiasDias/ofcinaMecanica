@@ -5,6 +5,7 @@ import { IoIosAdd } from "react-icons/io";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import TopPerfil from "../../components/compenentesAdmin/TopPerfil";
+import { FaArrowLeftLong } from "react-icons/fa6";
 
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -56,10 +57,10 @@ function VerPerfilFuncionario() {
       >
         <Tab eventKey="dados-Pessoais" title="Dados Pessoais">
           {funcionario ? (
-            <div className="row mt-4 pt-2">
+            <div className="row mt-4 pt-2 outrosD">
               {/* Seção de Informações Pessoais */}
               <section className="col-12 col-md-6 col-lg-4">
-                <h5 className="mb-4 fw-bold">Informações Pessoais</h5>
+                <h6 className="mb-4 fw-bold">Informações Pessoais</h6>
                 <p><strong>Nome:</strong> {funcionario.nome}</p>
                 <p><strong>Gênero:</strong> {funcionario.genero}</p>
                 <p><strong>Data de Nascimento:</strong> {new Date(funcionario.data_nascimento).toLocaleDateString()}</p>
@@ -67,7 +68,7 @@ function VerPerfilFuncionario() {
 
               {/* Seção de Contato */}
               <section className="col-12 col-md-6 col-lg-4">
-                <h5 className="mb-4 fw-bold">Contato</h5>
+                <h6 className="mb-4 fw-bold">Contato</h6>
                 <p><strong>Email:</strong> {funcionario.email}</p>
                 <p><strong>Telefone:</strong> {funcionario.telefone}</p>
                 <p><strong>Endereço:</strong> {funcionario.endereco || 'Não disponível'}</p>
@@ -75,7 +76,7 @@ function VerPerfilFuncionario() {
 
               {/* Seção Profissional */}
               <section className="col-12 col-md-6 col-lg-4">
-                <h5 className="mb-4 fw-bold">Informações Profissionais</h5>
+                <h6 className="mb-4 fw-bold">Informações Profissionais</h6>
                 <p><strong>Nível de Acesso:</strong> {funcionario.nivel_acesso}</p>
                 <p><strong>Bilhete de Identidade:</strong> {funcionario.bilhete_identidade || 'Não disponível'}</p>
                 <p><strong>IBAN:</strong> {funcionario.iban || 'Não disponível'}</p>
@@ -475,7 +476,7 @@ const PerfilFuncionarios = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Configuração de Perfil" icone={<IoIosAdd />} leftR='/funcionariosList' />
+            <TopoAdmin entrada="Configuração de Perfil" leftSeta={<FaArrowLeftLong />} icone={<IoIosAdd />} leftR='/funcionariosList' />
 
             <div className="vh-100 alturaPereita">
               <VerPerfilFuncionario />

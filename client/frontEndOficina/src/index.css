@@ -195,6 +195,20 @@ body{
 
 
 .alturaPereita{
-  
   height: auto !important;
+  min-height: 100vh;
+}
+
+.fotoImagem{
+  border: 5px solid #000000ce;
+  width: 130px;
+  height: 130px;
+  box-shadow: var(--sombraA);
+  border-radius: 15px;
+}
+
+.fotoAR{
+  font-size: 60px;
+  color: #000000ce;
+  margin: 30px;
 }

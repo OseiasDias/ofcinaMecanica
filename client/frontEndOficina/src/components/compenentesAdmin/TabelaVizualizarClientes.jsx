@@ -7,6 +7,7 @@ import { MdDeleteOutline } from "react-icons/md";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TbLockFilled } from "react-icons/tb";
+import { BiUserCircle } from "react-icons/bi";
 
 const customStyles = {
   headCells: {
@@ -30,33 +31,35 @@ export default function TabelaVizualizarClientes() {
   const [originalRecords, setOriginalRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [clientIdToDelete, setClientIdToDelete] = useState(null);
+  const [showViewModal, setShowViewModal] = useState(false); // Modal para visualização
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // Modal para confirmação de exclusão
+  const [clientIdToDelete, setClientIdToDelete] = useState(null); // ID do cliente a ser excluído
+  const [clientDetails, setClientDetails] = useState(null); // Estado para armazenar os detalhes do cliente
 
   const columns = [
     {
       name: "Nome",
-      selector: (row) => row.nome,
+      selector: (row) => row.nome || "Sem informação", // Verifica se o nome existe
     },
     {
       name: "Email",
-      selector: (row) => row.email,
+      selector: (row) => row.email || "Sem informação", // Verifica se o email existe
     },
     {
       name: "Telefone",
-      selector: (row) => row.telefone,
+      selector: (row) => row.telefone || "Sem informação", // Verifica se o telefone existe
     },
     {
       name: "Endereço",
-      selector: (row) => row.endereco,
+      selector: (row) => row.endereco || "Sem informação", // Verifica se o endereço existe
     },
     {
       name: "Gênero",
-      selector: (row) => row.genero,
+      selector: (row) => row.genero || "Sem informação", // Verifica se o gênero existe
     },
     {
       name: "Estado",
-      selector: (row) => (row.estado ? "Ativo" : "Inativo"),
+      selector: (row) => (row.estado ? "Ativo" : "Inativo") || "Sem informação", // Verifica se o estado existe
     },
     {
       name: "Ações",
@@ -64,7 +67,7 @@ export default function TabelaVizualizarClientes() {
         <Dropdown className="btnDrop" drop="up">
           <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="cimaAll">
-            <Dropdown.Item onClick={() => handleEdit(row.id_cliente)}>
+            <Dropdown.Item onClick={() => handleView(row.id_cliente)}>
               <FaRegEye />
               &nbsp;&nbsp;Vizualizar
             </Dropdown.Item>
@@ -72,7 +75,6 @@ export default function TabelaVizualizarClientes() {
               <TbLockFilled />
               &nbsp;&nbsp;Bloquear
             </Dropdown.Item>
-            
             <Dropdown.Item
               onClick={() => openDeleteModal(row.id_cliente)}
               className="text-danger"
@@ -90,9 +92,21 @@ export default function TabelaVizualizarClientes() {
     console.log("Editar cliente com ID:", id);
   };
 
+  const handleView = async (id) => {
+    try {
+      const response = await fetch(`http://localhost:5000/api/clientes/${id}`);
+      if (!response.ok) throw new Error("Erro ao buscar cliente");
+      const data = await response.json();
+      setClientDetails(data); // Armazena os dados do cliente no estado
+      setShowViewModal(true); // Exibe a modal de visualização
+    } catch (err) {
+      toast.error("Erro ao buscar dados do cliente");
+    }
+  };
+
   const openDeleteModal = (id) => {
     setClientIdToDelete(id);
-    setShowModal(true);
+    setShowDeleteModal(true); // Exibe a modal de confirmação de exclusão
   };
 
   const handleDelete = async () => {
@@ -104,10 +118,11 @@ export default function TabelaVizualizarClientes() {
       setRecords(
         records.filter((record) => record.id_cliente !== clientIdToDelete)
       );
-      setShowModal(false);
+      setShowDeleteModal(false);
       toast.success("Cliente excluído com sucesso!"); // Exibe o Toast de sucesso
     } catch (error) {
       console.error("Erro ao excluir cliente:", error);
+      toast.error("Erro ao excluir cliente.");
     }
   };
 
@@ -133,32 +148,29 @@ export default function TabelaVizualizarClientes() {
   if (error) return <p>Erro: {error}</p>;
 
   return (
-    <div className="my-4  homeDiv">
-     
-        <div className="search row d-flex justify-content-between">
-          <div className="col-12 col-md-6 col-lg-6">
-            <h4>Lista de Clientes</h4>
-          </div>
-          <div className="col-12 col-md-6 col-lg-6">
-              <input
-                type="text"
-                className="w-100 my-2 zIndex"
-                placeholder="Pesquisa por nome"
-                onChange={(e) => {
-                  const query = e.target.value.toLowerCase();
-                  if (!query) {
-                    setRecords(originalRecords);
-                  } else {
-                    const filteredRecords = originalRecords.filter((item) =>
-                      item.nome.toLowerCase().includes(query)
-                    );
-                    setRecords(filteredRecords);
-                  }
-                }}
-              />
-          </div>
-          
-        
+    <div className="my-4 homeDiv">
+      <div className="search row d-flex justify-content-between">
+        <div className="col-12 col-md-6 col-lg-6">
+          <h4>Lista de Clientes</h4>
+        </div>
+        <div className="col-12 col-md-6 col-lg-6">
+          <input
+            type="text"
+            className="w-100 my-2 zIndex"
+            placeholder="Pesquisa por nome"
+            onChange={(e) => {
+              const query = e.target.value.toLowerCase();
+              if (!query) {
+                setRecords(originalRecords);
+              } else {
+                const filteredRecords = originalRecords.filter((item) =>
+                  item.nome.toLowerCase().includes(query)
+                );
+                setRecords(filteredRecords);
+              }
+            }}
+          />
+        </div>
       </div>
 
       <DataTable
@@ -169,16 +181,60 @@ export default function TabelaVizualizarClientes() {
         paginationPerPage={10}
         paginationRowsPerPageOptions={[10]}
         footer={<div>Exibindo {records.length} registros no total</div>}
-        
       />
 
-      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+      {/* Modal de visualização */}
+      <Modal show={showViewModal} onHide={() => setShowViewModal(false)} centered scrollable size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Detalhes do Cliente</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          {clientDetails ? (
+            <div className="d-flex justify-content-between">
+              <div className="dados">
+                <p><strong>Nome:</strong> {clientDetails.nome || "Sem informação"}</p>
+                <p><strong>Email:</strong> {clientDetails.email || "Sem informação"}</p>
+                <p><strong>Telefone:</strong> {clientDetails.telefone || "Sem informação"}</p>
+                <p><strong>Endereço:</strong> {clientDetails.endereco || "Sem informação"}</p>
+                <p><strong>Gênero:</strong> {clientDetails.genero || "Sem informação"}</p>
+                <p><strong>Estado:</strong> {clientDetails.estado ? "Ativo" : "Inativo" || "Sem informação"}</p>
+                <p>
+                  <strong>Data de Nascimento:</strong>
+                  {clientDetails.data_nascimento
+                    ? new Date(clientDetails.data_nascimento).toLocaleDateString("pt-BR")
+                    : "Sem informação"}
+                </p>
+              </div>
+
+              <div className="fotoImagem">
+                <BiUserCircle className="fotoAR" />
+              </div>
+            </div>
+          ) : (
+            <p>Carregando dados do cliente...</p>
+          )}
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowViewModal(false)}>
+            Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de confirmação de exclusão */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Exclusão</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Tem certeza que deseja excluir este cliente?</Modal.Body>
+
+        <Modal.Body>
+          <p>Tem certeza que deseja excluir este cliente?</p>
+        </Modal.Body>
+
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
             Cancelar
           </Button>
           <Button variant="danger" onClick={handleDelete}>
