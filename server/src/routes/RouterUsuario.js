@@ -12,6 +12,10 @@ router.get('/', ControllerUsuario.obterUsuarios);
 // Rota para obter um usuário por ID
 router.get('/:id_usuario', ControllerUsuario.obterUsuarioPorId);
 
+// Rota para atualizar o status de um cliente
+router.put('/:id_usuario/status', ControllerUsuario.atualizarStatus);
+
+
 // Rota para atualizar um usuário
 router.put('/:id_usuario', ControllerUsuario.atualizarUsuario);
 

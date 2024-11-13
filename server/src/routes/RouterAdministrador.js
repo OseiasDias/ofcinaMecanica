@@ -19,4 +19,7 @@ router.put('/:id_administrador', ControllerAdministrador.atualizarAdministrador)
 // Rota para deletar um administrador
 router.delete('/:id_administrador', ControllerAdministrador.deletarAdministrador);
 
+// Rota para atualizar o status de um cliente
+router.put('/:id_administrador/status', ControllerAdministrador.atualizarStatus);
+
 module.exports = router;

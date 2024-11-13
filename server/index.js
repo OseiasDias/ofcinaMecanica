@@ -63,10 +63,8 @@ app.post('/api/clientes/login', ControllerCliente.loginCliente); // Adiciona a r
 // Rota para obter o maior id_cliente
 app.get('/api/clientes/pegar/maior-id', ControllerCliente.obterMaiorId);
 
-// Rota para atualizar o status de um cliente
-app.put('/api/clientes/:id_cliente/status', ControllerCliente.atualizarStatus); // Nova rota para atualizar o status
-
-
+// Rota atualizada para receber novoStatus no corpo da requisição
+app.put('/api/clientes/:id_cliente/status', ControllerCliente.atualizarStatus);
 
 /*
 ======================================
@@ -88,6 +86,8 @@ app.put('/api/administradores/:id_administrador', ControllerAdministrador.atuali
 // Rota para deletar um administrador
 app.delete('/api/administradores/:id_administrador', ControllerAdministrador.deletarAdministrador);
 
+// Rota atualizada para receber novoStatus no corpo da requisição
+app.put('/api/administradores/:id_administrador/status', ControllerAdministrador.atualizarStatus);
 /*
 ======================================
            Rotas do Usuário
@@ -110,6 +110,10 @@ app.delete('/api/usuarios/:id_usuario', ControllerUsuario.deletarUsuario);
 
 // Rota para obter um usuário por email (para login)
 app.get('/api/usuarios/email/:email', ControllerUsuario.obterUsuarioPorEmail);
+
+// Rota atualizada para receber novoStatus no corpo da requisição
+app.put('/api/usuarios/:id_usuario/status', ControllerUsuario.atualizarStatus);
+
 
 /*
 ======================================

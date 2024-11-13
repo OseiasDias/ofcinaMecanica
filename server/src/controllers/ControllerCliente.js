@@ -120,14 +120,16 @@ static async obterMaiorId(req, res) {
 
 
    // Método para atualizar o status de um cliente
+// Método para atualizar o status de um cliente
 static async atualizarStatus(req, res) {
     try {
-        const { id_cliente, novoStatus } = req.params; // Pega o id_cliente e o novoStatus da URL
+        const { id_cliente } = req.params; // Pega o id_cliente da URL
+        const { novoStatus } = req.body; // Pega o novoStatus do corpo da requisição
 
         // Mapeia os valores de status de string para números
         let statusValue;
         if (novoStatus === 'Confirmado') {
-            statusValue = 1;  // Mapeando Confirmado para 1
+             statusValue = 1;  // Mapeando Confirmado para 1
         } else if (novoStatus === 'Cancelado') {
             statusValue = 0;  // Mapeando Cancelado para 0
         } else {

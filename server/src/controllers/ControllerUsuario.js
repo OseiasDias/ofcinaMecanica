@@ -91,6 +91,33 @@ class ControllerUsuario {
             res.status(500).json({ message: 'Erro ao obter usuário' });
         }
     }
+
+
+    // Método para atualizar o status (estado) de um usuário
+    static async atualizarStatus(req, res) {
+        try {
+            const { id_usuario } = req.params; // Pega o id_usuario da URL
+            const { novoStatus } = req.body; // Pega o novoStatus do corpo da requisição
+
+            // Mapeia os valores de status de string para números
+            let statusValue;
+            if (novoStatus === 'Confirmado') {
+                statusValue = 1;  // Mapeando Confirmado para 1
+            } else if (novoStatus === 'Cancelado') {
+                statusValue = 0;  // Mapeando Cancelado para 0
+            } else {
+                return res.status(400).json({ message: "Status inválido. Deve ser 'Confirmado' ou 'Cancelado'." });
+            }
+
+            // Chama o método do modelo para atualizar o status
+            const result = await Usuario.atualizarStatus(id_usuario, statusValue);
+
+            res.status(200).json(result); // Retorna uma mensagem de sucesso
+        } catch (error) {
+            console.error("Erro ao atualizar status do usuário:", error);
+            res.status(400).json({ message: error.message }); // Retorna a mensagem de erro caso algo falhe
+        }
+    }
 }
 
 module.exports = ControllerUsuario;

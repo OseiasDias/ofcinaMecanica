@@ -8,17 +8,17 @@ class Usuario {
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
-        this.senha = senha; // Campo para senha
-        this.nivel_acesso = nivel_acesso; // Novo campo para nível de acesso
+        this.senha = senha;
+        this.nivel_acesso = nivel_acesso;
         this.genero = genero;
         this.data_nascimento = data_nascimento;
         this.foto = foto;
         this.estado = estado;
-        this.endereco = endereco; // Novo campo para o endereço
-        this.bilhete_identidade = bilhete_identidade; // Novo campo para bilhete de identidade
-        this.iban = iban; // Novo campo para IBAN
-        this.data_admissao = data_admissao; // Novo campo para data de admissão
-        this.salario = salario; // Novo campo para salário
+        this.endereco = endereco;
+        this.bilhete_identidade = bilhete_identidade;
+        this.iban = iban;
+        this.data_admissao = data_admissao;
+        this.salario = salario;
     }
 
     // Método para salvar um usuário no banco de dados
@@ -36,11 +36,11 @@ class Usuario {
             usuario.data_nascimento,
             usuario.foto,
             usuario.estado,
-            usuario.endereco, // Adiciona o campo endereço aqui
-            usuario.bilhete_identidade, // Adiciona bilhete de identidade
-            usuario.iban, // Adiciona IBAN
-            usuario.data_admissao, // Adiciona data de admissão
-            usuario.salario // Adiciona salário
+            usuario.endereco,
+            usuario.bilhete_identidade,
+            usuario.iban,
+            usuario.data_admissao,
+            usuario.salario
         ];
 
         const [result] = await pool.promise().query(query, values);
@@ -72,11 +72,11 @@ class Usuario {
             usuario.data_nascimento,
             usuario.foto,
             usuario.estado,
-            usuario.endereco, // Atualiza o campo endereço também
-            usuario.bilhete_identidade, // Atualiza bilhete de identidade
-            usuario.iban, // Atualiza IBAN
-            usuario.data_admissao, // Atualiza data de admissão
-            usuario.salario // Atualiza salário
+            usuario.endereco,
+            usuario.bilhete_identidade,
+            usuario.iban,
+            usuario.data_admissao,
+            usuario.salario
         ];
 
         // Se a senha estiver sendo atualizada, faça o hash dela
@@ -105,6 +105,28 @@ class Usuario {
         const query = 'SELECT * FROM usuario WHERE email = ?';
         const [rows] = await pool.promise().query(query, [email]);
         return rows[0]; // Retorna o usuário encontrado
+    }
+
+    // Método para atualizar o status (estado) de um usuário
+    static async atualizarStatus(id_usuario, novoStatus) {
+        // Verifica se o novoStatus é válido (0 ou 1)
+        if (![0, 1].includes(novoStatus)) {
+            throw new Error("Status inválido. Deve ser 0 (Cancelado) ou 1 (Confirmado).");
+        }
+
+        // Query para atualizar o estado no banco de dados
+        const query = `UPDATE usuario SET estado = ? WHERE id_usuario = ?`;
+        const values = [novoStatus, id_usuario];
+
+        // Executa a consulta
+        const [result] = await pool.promise().query(query, values);
+
+        // Se não houverem linhas afetadas, significa que o usuário não foi encontrado
+        if (result.affectedRows === 0) {
+            throw new Error('Usuário não encontrado');
+        }
+
+        return { message: 'Status do usuário atualizado com sucesso!' };
     }
 }
 

@@ -134,7 +134,7 @@ static async atualizarStatus(id_cliente, novoStatus) {
     }
 
     // Query para atualizar o status no banco de dados
-    const query = `UPDATE cliente SET status = ? WHERE id_cliente = ?`;
+    const query = `UPDATE cliente SET estado = ? WHERE id_cliente = ?`;
     const values = [novoStatus, id_cliente];
 
     // Executa a consulta

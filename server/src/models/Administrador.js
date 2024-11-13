@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs'); // Importa o bcrypt
 
 // Classe para o modelo de Administrador
 class Administrador {
-    constructor(id_administrador, nome, email, telefone, senha, genero, estado, data_nascimento, foto) {
+    constructor(id_administrador, nome, email, telefone, senha, genero, estado, data_nascimento, foto,isSuperAdmin) {
         this.id_administrador = id_administrador;
         this.nome = nome;
         this.email = email;
@@ -13,13 +13,14 @@ class Administrador {
         this.estado = estado;
         this.data_nascimento = data_nascimento;
         this.foto = foto;
+        this.isSuperAdmin = isSuperAdmin;
     }
 
     // Método para salvar um administrador no banco de dados
     static async salvar(administrador) {
         const hashedPassword = await bcrypt.hash(administrador.senha, 10); // Faz o hash da senha
-        const query = `INSERT INTO administrador (nome, email, telefone, senha, genero, estado, data_nascimento, foto) 
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+        const query = `INSERT INTO administrador (nome, email, telefone, senha, genero, estado, data_nascimento, foto,isSuperAdmin) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const values = [
             administrador.nome,
             administrador.email,
@@ -28,7 +29,8 @@ class Administrador {
             administrador.genero,
             administrador.estado,
             administrador.data_nascimento,
-            administrador.foto
+            administrador.foto,
+            administrador.isSuperAdmin
         ];
 
         const [result] = await pool.promise().query(query, values);
@@ -58,7 +60,8 @@ class Administrador {
             administrador.genero,
             administrador.estado,
             administrador.data_nascimento,
-            administrador.foto
+            administrador.foto,
+            administrador.isSuperAdmin
         ];
 
         // Se a senha estiver sendo atualizada, faça o hash dela
@@ -70,7 +73,7 @@ class Administrador {
         }
 
         const query = `UPDATE administrador SET nome = ?, email = ?, telefone = ?, genero = ?, estado = ?, 
-                       data_nascimento = ?, foto = ?, senha = ? WHERE id_administrador = ?`;
+                       data_nascimento = ?, foto = ?, senha = ?, isSuperAdmin = ? WHERE id_administrador = ?`;
         values.push(administrador.id_administrador); // Adiciona o ID do administrador ao final do array
         await pool.promise().query(query, values);
     }
@@ -87,6 +90,30 @@ class Administrador {
         const [rows] = await pool.promise().query(query, [email]);
         return rows[0]; // Retorna o administrador encontrado
     }
+
+
+    // Método para atualizar o status de administrador
+static async atualizarSuperAdmin(id_administrador, novoStatus) {
+    // Verifica se o novoStatus é válido (0 ou 1)
+    if (![0, 1].includes(novoStatus)) {
+        throw new Error("Status inválido. Deve ser 0 (não é administrador) ou 1 (é administrador).");
+    }
+
+    // Query para atualizar o campo 'isSuperAdmin' no banco de dados
+    const query = `UPDATE administrador SET estado = ? WHERE id_administrador = ?`;
+    const values = [novoStatus, id_administrador];
+
+    // Executa a consulta
+    const [result] = await pool.promise().query(query, values);
+
+    // Se não houverem linhas afetadas, significa que o administrador não foi encontrado
+    if (result.affectedRows === 0) {
+        throw new Error('Administrador não encontrado');
+    }
+
+    return { message: 'Status de Administrador atualizado com sucesso!' };
+}
+
 }
 
 module.exports = Administrador;

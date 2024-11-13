@@ -121,7 +121,7 @@ export default function ModalCadastrarCliente({ show, onHide }) {
   
   return (
     <>
-      <Modal show={show} onHide={onHide} size="xl" aria-labelledby="contained-modal-title-vcenter" centered>
+      <Modal show={show} onHide={onHide} size="xl"  aria-labelledby="contained-modal-title-vcenter" centered>
         <div className="modalBeleza">
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">Cadastro de Cliente</Modal.Title>

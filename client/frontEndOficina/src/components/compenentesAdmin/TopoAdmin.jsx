@@ -7,6 +7,9 @@ import '../../css/StylesAdmin/topoAdmin.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 import { Modal, Button } from 'react-bootstrap'; // Importar componentes para modal
 
+
+
+// eslint-disable-next-line react/prop-types
 export default function TopoAdmin({ entrada, direccao, icone, leftSeta, leftR }) {
   const navigate = useNavigate();
 
@@ -66,25 +69,23 @@ export default function TopoAdmin({ entrada, direccao, icone, leftSeta, leftR })
             <Dropdown.Item onClick={() => handleNavigate("/addFuncionarios")} className="colorir">
               <IoMdAdd />&nbsp;Funcionarios
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleNavigate("/perfil")} className="colorir">
+           {/** <Dropdown.Item onClick={() => handleNavigate("/perfil")} className="colorir">
               <IoMdAdd />&nbsp;&nbsp;Agendamentos
-            </Dropdown.Item>
+            </Dropdown.Item>*/} 
             <Dropdown.Item onClick={() => handleNavigate("/addBlogs")} className="colorir">
               <IoMdAdd />&nbsp;Blog
             </Dropdown.Item>
             <Dropdown.Item onClick={() => handleNavigate("/addEstoque")} className="colorir">
               <IoMdAdd />&nbsp;Estoque
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleNavigate("/perfil")} className="colorir">
-              <IoMdAdd />&nbsp;&nbsp;Notificação
-            </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleNavigate("/logout")} className="colorir">
+            
+            <Dropdown.Item onClick={() => handleNavigate("/pagamentoList")} className="colorir">
               <IoMdAdd />&nbsp;Pagamentos
             </Dropdown.Item>
             <Dropdown.Item onClick={() => handleNavigate("/addServicos")} className="colorir">
               <IoMdAdd />&nbsp;&nbsp;Serviços
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleNavigate("/logout")} className="colorir">
+            <Dropdown.Item onClick={() => handleNavigate("/addVeiculost")} className="colorir">
               <IoMdAdd />&nbsp;Veiculos
             </Dropdown.Item>
           </Dropdown.Menu>
