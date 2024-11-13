@@ -307,7 +307,7 @@ export default function TabelaAgendamento() {
           <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
             Cancelar
           </Button>
-          <Button variant="success" onClick={handleConfirmCancel}>
+          <Button variant="primary" onClick={handleConfirmCancel}>
             Confirmar
           </Button>
         </Modal.Footer>
