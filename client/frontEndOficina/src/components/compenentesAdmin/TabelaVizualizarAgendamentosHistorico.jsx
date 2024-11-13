@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
-import { GiConfirmed } from "react-icons/gi";
 import { MdDeleteOutline } from "react-icons/md";
 
 // Definição de estilos personalizados para a tabela
@@ -38,6 +37,7 @@ export default function TabelaAgendamento() {
   const [agendamentoIdToDelete, setAgendamentoIdToDelete] = useState(null);
   const [agendamentoToConfirm, setAgendamentoToConfirm] = useState(null); // Agendamento para Confirmar/Cancelar
   const [agendamentoDetails, setAgendamentoDetails] = useState(null); // Detalhes do agendamento para a modal de visualização
+  const [viewMode, setViewMode] = useState("all"); // "all", "past", "upcoming" (para filtragem)
 
   // Definição das colunas da tabela
   const columns = [
@@ -67,15 +67,11 @@ export default function TabelaAgendamento() {
         <Dropdown className="btnDrop" drop="up">
           <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
           <Dropdown.Menu className="cimaAll">
-            <Dropdown.Item onClick={() => handleVisualizar(row)}>
+            <Dropdown.Item onClick={() => handleVisualizarHistorico(row)}>
               <FaRegEye />
               &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => openConfirmModal(row.id_agendamento, row.status)}>
-
-              <ImCancelCircle />
-              &nbsp;&nbsp;{row.status === 1 ? "Cancelar" : "Confirmar"}
-            </Dropdown.Item>
+            
             <Dropdown.Item
               onClick={() => openDeleteModal(row.id_agendamento)}  // Habilitando a exclusão na tabela
               className="text-danger"
@@ -90,7 +86,7 @@ export default function TabelaAgendamento() {
   ];
 
   // Função para abrir a modal de visualização com os dados do agendamento
-  const handleVisualizar = async (row) => {
+  const handleVisualizarHistorico = async (row) => {
     try {
       const clienteResponse = await fetch(`http://localhost:5000/api/clientes/${row.id_cliente}`);
       const veiculoResponse = await fetch(`http://localhost:5000/api/veiculos/${row.id_veiculo}`);
@@ -205,15 +201,8 @@ export default function TabelaAgendamento() {
         })
       );
 
-      // Filtra os agendamentos para exibir apenas os que não passaram da data atual
-      const today = new Date();
-      const upcomingAgendamentos = dataWithDetails.filter((agendamento) => {
-        const agendamentoDate = new Date(agendamento.data);  // Data do agendamento
-        return agendamentoDate >= today; // Filtra agendamentos que não passaram
-      });
-
-      setRecords(upcomingAgendamentos);  // Atualiza o estado com os agendamentos válidos
-      setOriginalRecords(upcomingAgendamentos);  // Atualiza o estado original também
+      setRecords(dataWithDetails);
+      setOriginalRecords(dataWithDetails);  // Atualiza o estado original também
     } catch (err) {
       setError(err.message);
     } finally {
@@ -221,18 +210,34 @@ export default function TabelaAgendamento() {
     }
   };
 
+  const filterAgendamentos = () => {
+    const today = new Date();
+    if (viewMode === "upcoming") {
+      return records.filter(agendamento => new Date(agendamento.data) >= today);
+    } else if (viewMode === "past") {
+      return records.filter(agendamento => new Date(agendamento.data) < today);
+    } else {
+      return records; // Exibe todos
+    }
+  };
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  if (loading) return <p>Carregando...</p>;
-  if (error) return <p>Erro: {error}</p>;
+  const filteredRecords = filterAgendamentos();
 
   return (
-    <div className="my-4 homeDiv">
+    <div className="agendamentos-container">
+      <ToastContainer />
+
       <div className="search row d-flex justify-content-between">
         <div className="col-12 col-md-6 col-lg-4">
-          <h4>Lista de Agendamentos</h4>
+          <div className="filter-buttons">
+            <Button onClick={() => setViewMode("all")}>Todos</Button>
+            <Button onClick={() => setViewMode("upcoming")}>Futuros</Button>
+            <Button onClick={() => setViewMode("past")}>Passados</Button>
+          </div>
         </div>
         <div className="col-12 col-md-6 col-lg-4">
           <input
@@ -269,23 +274,23 @@ export default function TabelaAgendamento() {
 
       <DataTable
         columns={columns}
-        data={records}
+        data={filteredRecords}  // Agora usa a lista filtrada
         customStyles={customStyles}
         pagination
         paginationPerPage={10}
         paginationRowsPerPageOptions={[10]}
         noDataComponent={<p>Nenhum agendamento encontrado.</p>}
-        footer={<div>Exibindo {records.length} registros no total</div>}
+        footer={<div>Exibindo {filteredRecords.length} registros no total</div>}
       />
 
-      {/* Modal de Visualização */}
-      <Modal show={showVisualizarModal} onHide={() => setShowVisualizarModal(false)} scrollable centered size="xl">
-        <Modal.Header closeButton>
-          <Modal.Title>Detalhes do Agendamento</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {agendamentoDetails ? (
-            <>
+      {/* Modal Visualizar */}
+      {showVisualizarModal && (
+        <Modal show={showVisualizarModal} onHide={() => setShowVisualizarModal(false)} scrollable centered size="xl">
+          <Modal.Header closeButton>
+            <Modal.Title>Detalhes do Agendamento</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          <>
               <div className="row">
                 <p className="col-12 col-md-6 col-lg-4"><strong>Nome:</strong> {agendamentoDetails.cliente.nome || "Sem nome"}</p>
                 <p className="col-12 col-md-6 col-lg-4"><strong>Email:</strong> {agendamentoDetails.cliente.email || "Sem email"}</p>
@@ -301,55 +306,44 @@ export default function TabelaAgendamento() {
                 <p className="col-12 col-md-6 col-lg-4"><strong>Status:</strong> {agendamentoDetails.agendamento.status || "Sem status"}</p>
                 <p className="col-12 col-md-12 col-lg-12"><strong>Descrição:</strong> {agendamentoDetails.agendamento.descricao || "Sem descrição"}</p>
               </div>
-            </>
-          ) : (
-            <p>Carregando detalhes...</p>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
-            Fechar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+            </> </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>Fechar</Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
-      {/* Modal de Confirmação de Status */}
-      <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmar Status</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Tem certeza que deseja {agendamentoToConfirm?.novoStatus === 1 ? "confirmar" : "cancelar"} este agendamento?</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
-            Cancelar
-          </Button>
-          <Button variant="primary" onClick={handleConfirmCancel}>
-            Confirmar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+      {/* Modal Confirmar/Cancelar */}
+      {showConfirmModal && (
+        <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirmar Cancelamento</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Você tem certeza que deseja {agendamentoToConfirm?.novoStatus === 1 ? "confirmar" : "cancelar"} este agendamento?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>Fechar</Button>
+            <Button variant="primary" onClick={handleConfirmCancel}>Confirmar</Button>
+          </Modal.Footer>
+        </Modal>
+      )}
 
-      {/* Modal de Exclusão */}
-      <Modal show={showExcluirModal} onHide={() => setShowExcluirModal(false)} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmar Exclusão</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <p>Tem certeza que deseja excluir este agendamento?</p>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowExcluirModal(false)}>
-            Cancelar
-          </Button>
-          <Button variant="danger" onClick={handleDelete}>
-            Excluir
-          </Button>
-        </Modal.Footer>
-      </Modal>
-
-      <ToastContainer position="top-center" autoClose={3000} />
+      {/* Modal Excluir */}
+      {showExcluirModal && (
+        <Modal show={showExcluirModal} onHide={() => setShowExcluirModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Excluir Agendamento</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Tem certeza que deseja excluir este agendamento?</p>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowExcluirModal(false)}>Fechar</Button>
+            <Button variant="danger" onClick={handleDelete}>Excluir</Button>
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 }

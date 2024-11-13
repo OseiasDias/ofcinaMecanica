@@ -1,8 +1,10 @@
 import "../../css/StylesAdmin/homeAdministrador.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
-import { FaHistory } from "react-icons/fa";
-import TabelaVizualizarAgendamento from "../../components/compenentesAdmin/TabelaVizualizarAgendamentos.jsx";
+import { IoIosAdd } from "react-icons/io";
+import { FaArrowLeftLong } from "react-icons/fa6";
+
+import TabelaVizualizarAgendamentoHistorico from "../../components/compenentesAdmin/TabelaVizualizarAgendamentosHistorico.jsx";
 
 const Agendamento = () => {
   return (
@@ -12,10 +14,10 @@ const Agendamento = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Agendamentos" icone={<FaHistory />}  direccao="/agendamentoHistorico"/>
+            <TopoAdmin entrada="Historico de Agendamentos" icone={<IoIosAdd />}  leftSeta={<FaArrowLeftLong />} leftR="/agendamentoList"/>
 
             <div className="vh-100 alturaPereita">
-            <TabelaVizualizarAgendamento />
+            <TabelaVizualizarAgendamentoHistorico />
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">
               <hr />

@@ -36,6 +36,7 @@ import AddEstoque from "./pages/pageAdmin/AddEstoque.jsx";
 import PagamentoActive from "./pages/pageAdmin/PagamentoActive.jsx";
 import Faturas from "./pages/pageAdmin/Faturas.jsx";
 import PerfilFuncionario from "./pages/pageAdmin/PerfilFuncionario.jsx";
+import AgendamentoHistorico from "./pages/pageAdmin/AgendamentoHistorico.jsx";
 
 //import DashBoard from "./pages/pageAdmin/DashBoard.jsx";
 
@@ -130,6 +131,7 @@ const App = () => {
               <Route path="/servicosList" element={<Servicos />} />
               <Route path="/pagamentoList" element={<Pagamento />} />
               <Route path="/faturaList" element={<Faturas />} />
+              <Route path="/agendamentoHistorico" element={<AgendamentoHistorico />} />
 
  
               {/**Routes de Add de Entidades */}
