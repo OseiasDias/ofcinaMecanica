@@ -142,6 +142,10 @@ app.put('/api/agendamentos/:id_agendamento', ControllerAgendamento.atualizarAgen
 app.delete('/api/agendamentos/:id_agendamento', ControllerAgendamento.deletarAgendamento);
 
 
+// Rota atualizada para receber novoStatus no corpo da requisição
+app.put('/api/agendamentos/:id_agendamento/status', ControllerAgendamento.atualizarStatus);
+
+
 /*
 ======================================
            Rotas do Blog

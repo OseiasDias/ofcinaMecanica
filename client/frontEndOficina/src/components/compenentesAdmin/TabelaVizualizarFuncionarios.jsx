@@ -246,3 +246,4 @@ export default function TabelaVizualizarFuncionarios() {
     </div>
   );
 }
+ 

@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs'); // Importa o bcrypt
 
 // Classe para o modelo de Administrador
 class Administrador {
-    constructor(id_administrador, nome, email, telefone, senha, genero, estado, data_nascimento, foto,isSuperAdmin) {
+    constructor(id_administrador, nome, email, telefone, senha, genero, estado, data_nascimento, foto, isSuperAdmin) {
         this.id_administrador = id_administrador;
         this.nome = nome;
         this.email = email;
@@ -93,26 +93,26 @@ class Administrador {
 
 
     // Método para atualizar o status de administrador
-static async atualizarSuperAdmin(id_administrador, novoStatus) {
-    // Verifica se o novoStatus é válido (0 ou 1)
-    if (![0, 1].includes(novoStatus)) {
-        throw new Error("Status inválido. Deve ser 0 (não é administrador) ou 1 (é administrador).");
+    static async atualizarSuperAdmin(id_administrador, novoStatus) {
+        // Verifica se o novoStatus é válido (0 ou 1)
+        if (![0, 1].includes(novoStatus)) {
+            throw new Error("Status inválido. Deve ser 0 (não é administrador) ou 1 (é administrador).");
+        }
+
+        // Query para atualizar o campo 'isSuperAdmin' no banco de dados
+        const query = `UPDATE administrador SET estado = ? WHERE id_administrador = ?`;
+        const values = [novoStatus, id_administrador];
+
+        // Executa a consulta
+        const [result] = await pool.promise().query(query, values);
+
+        // Se não houverem linhas afetadas, significa que o administrador não foi encontrado
+        if (result.affectedRows === 0) {
+            throw new Error('Administrador não encontrado');
+        }
+
+        return { message: 'Status de Administrador atualizado com sucesso!' };
     }
-
-    // Query para atualizar o campo 'isSuperAdmin' no banco de dados
-    const query = `UPDATE administrador SET estado = ? WHERE id_administrador = ?`;
-    const values = [novoStatus, id_administrador];
-
-    // Executa a consulta
-    const [result] = await pool.promise().query(query, values);
-
-    // Se não houverem linhas afetadas, significa que o administrador não foi encontrado
-    if (result.affectedRows === 0) {
-        throw new Error('Administrador não encontrado');
-    }
-
-    return { message: 'Status de Administrador atualizado com sucesso!' };
-}
 
 }
 

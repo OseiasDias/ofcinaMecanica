@@ -74,6 +74,28 @@ class Agendamento {
         const query = 'DELETE FROM agendamento WHERE id_agendamento = ?';
         await pool.promise().query(query, [id_agendamento]);
     }
+
+    // Método para atualizar o status de um agendamento
+    static async atualizarStatus(id_agendamento, novoStatus) {
+        // Verifica se o novoStatus é válido (0 ou 1)
+        if (![0, 1].includes(novoStatus)) {
+            throw new Error("Status inválido. Deve ser 0 (Cancelado) ou 1 (Confirmado).");
+        }
+
+        // Query para atualizar o status do agendamento
+        const query = `UPDATE agendamento SET status = ? WHERE id_agendamento = ?`;
+        const values = [novoStatus, id_agendamento];
+
+        // Executa a consulta
+        const [result] = await pool.promise().query(query, values);
+
+        // Se não houverem linhas afetadas, significa que o agendamento não foi encontrado
+        if (result.affectedRows === 0) {
+            throw new Error('Agendamento não encontrado');
+        }
+
+        return { message: 'Status do agendamento atualizado com sucesso!' };
+    }
 }
 
 module.exports = Agendamento;

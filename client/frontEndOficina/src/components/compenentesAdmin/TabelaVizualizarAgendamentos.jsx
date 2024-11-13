@@ -5,7 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
+import { ImCancelCircle } from "react-icons/im";
+import { GiConfirmed } from "react-icons/gi";
 import { MdDeleteOutline } from "react-icons/md";
 
 // Definição de estilos personalizados para a tabela
@@ -33,7 +34,9 @@ export default function TabelaAgendamento() {
   const [error, setError] = useState(null);
   const [showVisualizarModal, setShowVisualizarModal] = useState(false);  // Modal de Visualização
   const [showExcluirModal, setShowExcluirModal] = useState(false);  // Modal de Exclusão
+  const [showConfirmModal, setShowConfirmModal] = useState(false); // Modal de Confirmação de Status
   const [agendamentoIdToDelete, setAgendamentoIdToDelete] = useState(null);
+  const [agendamentoToConfirm, setAgendamentoToConfirm] = useState(null); // Agendamento para Confirmar/Cancelar
   const [agendamentoDetails, setAgendamentoDetails] = useState(null); // Detalhes do agendamento para a modal de visualização
 
   // Definição das colunas da tabela
@@ -46,7 +49,17 @@ export default function TabelaAgendamento() {
         ? `${row.veiculo.marca} ${row.veiculo.modelo} (${row.veiculo.ano})`
         : "Carregando...",
     },
-    { name: "Status", selector: (row) => row.status },
+    {
+      name: "Status",
+      selector: (row) => {
+        if (row.status === 1) {
+          return "Confirmado";
+        } else if (row.status === 0) {
+          return "Cancelado";
+        }
+        return row.status || "Sem status"; // Caso não tenha status definido
+      }
+    },
     { name: "Descrição", selector: (row) => row.descricao || "Sem descrição" },
     {
       name: "Ações",
@@ -58,9 +71,10 @@ export default function TabelaAgendamento() {
               <FaRegEye />
               &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleEdit(row.id_agendamento)}>
-              <FiEdit />
-              &nbsp;&nbsp;Editar
+            <Dropdown.Item onClick={() => openConfirmModal(row.id_agendamento, row.status)}>
+             
+            <ImCancelCircle />
+              &nbsp;&nbsp;{row.status === 1 ?  "Cancelar" : "Confirmar"}
             </Dropdown.Item>
             <Dropdown.Item
               onClick={() => openDeleteModal(row.id_agendamento)}  // Habilitando a exclusão na tabela
@@ -74,10 +88,9 @@ export default function TabelaAgendamento() {
       ),
     },
   ];
-
+  
   // Função para abrir a modal de visualização com os dados do agendamento
   const handleVisualizar = async (row) => {
-    // Busca os detalhes do agendamento e do veículo
     try {
       const clienteResponse = await fetch(`http://localhost:5000/api/clientes/${row.id_cliente}`);
       const veiculoResponse = await fetch(`http://localhost:5000/api/veiculos/${row.id_veiculo}`);
@@ -85,14 +98,12 @@ export default function TabelaAgendamento() {
       const clienteData = await clienteResponse.json();
       const veiculoData = await veiculoResponse.json();
 
-      // Armazena os detalhes na variável de estado
       setAgendamentoDetails({
         agendamento: row,
         cliente: clienteData,
         veiculo: veiculoData
       });
 
-      // Exibe a modal de visualização
       setShowVisualizarModal(true);
     } catch (err) {
       console.error("Erro ao carregar os detalhes do agendamento:", err);
@@ -100,10 +111,46 @@ export default function TabelaAgendamento() {
     }
   };
 
-  const handleEdit = (id) => {
-    console.log("Editar agendamento com ID:", id);
+  const openConfirmModal = (id, statusAtual) => {
+    const novoStatus = statusAtual === 1 ? 0 : 1; // Inverte o status (0 = cancelado, 1 = confirmado)
+    setAgendamentoToConfirm({ id, novoStatus });
+    setShowConfirmModal(true);  // Exibe a modal de confirmação
   };
 
+  const handleConfirmCancel = async () => {
+    if (!agendamentoToConfirm) return;
+  
+    const { id, novoStatus } = agendamentoToConfirm;
+    
+    // Mapeia o novoStatus para uma string (Confirmado ou Cancelado)
+    const statusString = novoStatus === 1 ? "Confirmado" : "Cancelado";
+  
+    try {
+      const response = await fetch(`http://localhost:5000/api/agendamentos/${id}/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ novoStatus: statusString }), // Ajuste o campo para "novoStatus"
+      });
+  
+      if (!response.ok) throw new Error("Erro ao atualizar status do agendamento");
+  
+      const updatedAgendamentos = records.map((agendamento) =>
+        agendamento.id_agendamento === id
+          ? { ...agendamento, status: novoStatus === "Cancelado" ? 0 : 1 }
+          : agendamento
+      );
+  
+      setRecords(updatedAgendamentos);
+  
+      toast.success(`Agendamento ${statusString} com sucesso!`);
+      setShowConfirmModal(false); // Fecha a modal
+    } catch (err) {
+      toast.error("Erro ao atualizar status do agendamento.");
+    }
+  };
+  
   const openDeleteModal = (id) => {
     setAgendamentoIdToDelete(id);  // Define o agendamento a ser excluído
     setShowExcluirModal(true);  // Abre a modal de exclusão
@@ -118,7 +165,7 @@ export default function TabelaAgendamento() {
       const updatedRecords = records.filter((record) => record.id_agendamento !== agendamentoIdToDelete);
       setRecords(updatedRecords);
       setOriginalRecords(originalRecords.filter((record) => record.id_agendamento !== agendamentoIdToDelete));
-      
+
       if (updatedRecords.length === 0) {
         fetchData();
       }
@@ -221,7 +268,6 @@ export default function TabelaAgendamento() {
         <Modal.Body>
           {agendamentoDetails ? (
             <>
-              {/* Dados do Cliente */}
               <div className="row">
                 <p className="col-12 col-md-6 col-lg-4"><strong>Nome:</strong> {agendamentoDetails.cliente.nome || "Sem nome"}</p>
                 <p className="col-12 col-md-6 col-lg-4"><strong>Email:</strong> {agendamentoDetails.cliente.email || "Sem email"}</p>
@@ -245,6 +291,24 @@ export default function TabelaAgendamento() {
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
             Fechar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de Confirmação de Status */}
+      <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Status</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Tem certeza que deseja {agendamentoToConfirm?.novoStatus === 1 ? "confirmar" : "cancelar"} este agendamento?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant="success" onClick={handleConfirmCancel}>
+            Confirmar
           </Button>
         </Modal.Footer>
       </Modal>

@@ -22,4 +22,7 @@ router.put('/:id_agendamento', ControllerAgendamento.atualizarAgendamento);
 // Rota para deletar um agendamento
 router.delete('/:id_agendamento', ControllerAgendamento.deletarAgendamento);
 
+// Rota para atualizar o status de um cliente
+router.put('/:id_agendamento/status', ControllerAgendamento.atualizarStatus);
+
 module.exports = router;
