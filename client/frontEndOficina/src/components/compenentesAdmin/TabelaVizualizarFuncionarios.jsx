@@ -31,64 +31,74 @@ export default function TabelaVizualizarFuncionarios() {
   const [originalRecords, setOriginalRecords] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [showModal, setShowModal] = useState(false);
-  const [clientIdToDelete, setClientIdToDelete] = useState(null);
-  const navigate = useNavigate();  // Hook para navegação
+  const [showModal, setShowModal] = useState(false); // Modal de exclusão
+  const [clientIdToDelete, setClientIdToDelete] = useState(null); // ID do funcionário a ser excluído
+  const [showConfirmModal, setShowConfirmModal] = useState(false); // Modal de confirmação de bloqueio/desbloqueio
+  const [clientToEdit, setClientToEdit] = useState(null); // ID do cliente e a ação a ser tomada (bloquear/reativar)
+  const navigate = useNavigate(); // Hook para navegação
 
-  const columns = [
-    { name: "Nome", selector: (row) => row.nome },
-    { name: "Email", selector: (row) => row.email },
-    { name: "Telefone", selector: (row) => row.telefone },
-    { name: "Endereço", selector: (row) => row.endereco },
-    { name: "Gênero", selector: (row) => row.genero },
-    { name: "Estado", selector: (row) => (row.estado ? "Ativo" : "Inativo") },
-    {
-      name: "Ações",
-      cell: (row) => (
-        <Dropdown className="btnDrop" drop="up">
-          <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
-          <Dropdown.Menu className="cimaAll">
-            <Dropdown.Item onClick={() => handleView(row.id_usuario)}>
-              <FaRegEye />
-              &nbsp;&nbsp;Visualizar
-            </Dropdown.Item>
-        
-            <Dropdown.Item >
-              <TbLockFilled />
-              &nbsp;&nbsp;Bloquear
-            </Dropdown.Item>
-            <Dropdown.Item
-              onClick={() => openDeleteModal(row.id_cliente)}
-              className="text-danger"
-            >
-              <MdDeleteOutline />
-              &nbsp;&nbsp;Excluir
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
-      ),
-    },
-  ];
+  // Função para bloquear ou desbloquear o funcionário
+  const handleEdit = async () => {
+    if (!clientToEdit) return;
+
+    const { id, novoStatus } = clientToEdit;
+    try {
+      const response = await fetch(`http://localhost:5000/api/usuarios/${id}/status`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ novoStatus }), // Passa "Ativo" ou "Bloqueado"
+      });
+
+      if (!response.ok) throw new Error("Erro ao atualizar status do funcionário");
+
+      const updatedClient = await response.json();
+
+      // Atualiza o estado local após o bloqueio/desbloqueio
+      const updatedRecords = records.map((record) =>
+        record.id_usuario === id
+          ? { ...record, estado: novoStatus === "Bloqueado" ? 0 : 1 } // Mapeia "Bloqueado" para 'false' e "Ativo" para 'true'
+          : record
+      );
+      setRecords(updatedRecords);
+
+      toast.success(`Funcionário ${novoStatus === "Bloqueado" ? "bloqueado" : "reativado"} com sucesso!`);
+      setShowConfirmModal(false); // Fecha a modal após a ação
+    } catch (err) {
+      console.error("Erro ao bloquear/desbloquear funcionário:", err);
+      toast.error("Erro ao atualizar status do funcionário.");
+    }
+  };
+
+  // Função para abrir a modal de confirmação de bloqueio/desbloqueio
+  const openConfirmModal = (id, estadoAtual) => {
+    const novoStatus = estadoAtual ? "Bloqueado" : "Ativo"; // Se está Ativo (estado = true), vai ser Bloqueado, e vice-versa.
+    setClientToEdit({ id, novoStatus });
+    setShowConfirmModal(true); // Exibe a modal de confirmação
+  };
 
   // Função para redirecionar para a página de visualização do funcionário
   const handleView = (id) => {
     navigate(`/perfilFuncionario/${id}`);  // Redireciona para o perfil do funcionário com o id
   };
 
+  // Função para abrir a modal de exclusão
   const openDeleteModal = (id) => {
     setClientIdToDelete(id);
-    setShowModal(true);
+    setShowModal(true); // Exibe a modal de confirmação de exclusão
   };
 
+  // Função para excluir o funcionário
   const handleDelete = async () => {
     try {
       await fetch(`http://localhost:5000/api/usuarios/${clientIdToDelete}`, {
         method: "DELETE",
       });
 
-      const updatedRecords = records.filter((record) => record.id_cliente !== clientIdToDelete);
+      const updatedRecords = records.filter((record) => record.id_usuario !== clientIdToDelete);
       setRecords(updatedRecords);
-      setOriginalRecords(originalRecords.filter((record) => record.id_cliente !== clientIdToDelete));
+      setOriginalRecords(originalRecords.filter((record) => record.id_usuario !== clientIdToDelete));
       
       if (updatedRecords.length === 0) {
         fetchData();
@@ -102,6 +112,7 @@ export default function TabelaVizualizarFuncionarios() {
     }
   };
 
+  // Função para buscar os dados dos funcionários
   const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/usuarios");
@@ -122,6 +133,41 @@ export default function TabelaVizualizarFuncionarios() {
 
   if (loading) return <p>Carregando...</p>;
   if (error) return <p>Erro: {error}</p>;
+
+  // Colunas da tabela
+  const columns = [
+    { name: "Nome", selector: (row) => row.nome },
+    { name: "Email", selector: (row) => row.email },
+    { name: "Telefone", selector: (row) => row.telefone },
+    { name: "Endereço", selector: (row) => row.endereco },
+    { name: "Gênero", selector: (row) => row.genero },
+    { name: "Estado", selector: (row) => (row.estado ? "Ativo" : "Bloqueado") },
+    {
+      name: "Ações",
+      cell: (row) => (
+        <Dropdown className="btnDrop" drop="up">
+          <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
+          <Dropdown.Menu className="cimaAll">
+            <Dropdown.Item onClick={() => handleView(row.id_usuario)}>
+              <FaRegEye />
+              &nbsp;&nbsp;Visualizar
+            </Dropdown.Item>
+            <Dropdown.Item onClick={() => openConfirmModal(row.id_usuario, row.estado)}>
+              <TbLockFilled />
+              &nbsp;&nbsp;{row.estado ? "Bloquear" : "Reativar"}
+            </Dropdown.Item>
+            <Dropdown.Item
+              onClick={() => openDeleteModal(row.id_usuario)}
+              className="text-danger"
+            >
+              <MdDeleteOutline />
+              &nbsp;&nbsp;Excluir
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      ),
+    },
+  ];
 
   return (
     <div className="my-4 homeDiv">
@@ -160,6 +206,27 @@ export default function TabelaVizualizarFuncionarios() {
         footer={<div>Exibindo {records.length} registros no total</div>}
       />
 
+      {/* Modal de confirmação de bloqueio/desbloqueio */}
+      <Modal show={showConfirmModal} onHide={() => setShowConfirmModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Ação</Modal.Title>
+        </Modal.Header>
+
+        <Modal.Body>
+          <p>Tem certeza que deseja {clientToEdit ? (clientToEdit.novoStatus === "Bloqueado" ? "bloquear" : "reativar") : ""} este funcionário?</p>
+        </Modal.Body>
+
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowConfirmModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant="primary" onClick={handleEdit}>
+            Confirmar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal de exclusão */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Confirmar Exclusão</Modal.Title>
@@ -175,7 +242,7 @@ export default function TabelaVizualizarFuncionarios() {
         </Modal.Footer>
       </Modal>
 
-      <ToastContainer position="top-center" autoClose={3000} />
+      <ToastContainer position="top-center" autoClose={3000}  />
     </div>
   );
 }

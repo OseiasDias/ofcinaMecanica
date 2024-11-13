@@ -128,12 +128,12 @@ static async atualizarStatus(req, res) {
 
         // Mapeia os valores de status de string para números
         let statusValue;
-        if (novoStatus === 'Confirmado') {
+        if (novoStatus === 'Ativo') {
              statusValue = 1;  // Mapeando Confirmado para 1
-        } else if (novoStatus === 'Cancelado') {
+        } else if (novoStatus === 'Bloqueado') {
             statusValue = 0;  // Mapeando Cancelado para 0
         } else {
-            return res.status(400).json({ message: "Status inválido. Deve ser 'Confirmado' ou 'Cancelado'." });
+            return res.status(400).json({ message: "Status inválido. Deve ser 'Ativo' ou 'Bloqueado'." });
         }
 
         // Chama o método do modelo para atualizar o status
