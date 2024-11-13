@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
-import { GiConfirmed } from "react-icons/gi";
 import { MdDeleteOutline } from "react-icons/md";
 
 // Definição de estilos personalizados para a tabela
@@ -307,6 +306,9 @@ export default function TabelaAgendamento() {
           )}
         </Modal.Body>
         <Modal.Footer>
+        <Button variant="primary" className="links-acessos">
+            Remarcar
+          </Button>
           <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
             Fechar
           </Button>

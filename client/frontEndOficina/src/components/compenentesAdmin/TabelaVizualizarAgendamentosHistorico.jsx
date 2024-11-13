@@ -5,7 +5,6 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
-import { ImCancelCircle } from "react-icons/im";
 import { MdDeleteOutline } from "react-icons/md";
 
 // Definição de estilos personalizados para a tabela
@@ -234,9 +233,9 @@ export default function TabelaAgendamento() {
       <div className="search row d-flex justify-content-between">
         <div className="col-12 col-md-6 col-lg-4">
           <div className="filter-buttons">
-            <Button onClick={() => setViewMode("all")}>Todos</Button>
-            <Button onClick={() => setViewMode("upcoming")}>Futuros</Button>
-            <Button onClick={() => setViewMode("past")}>Passados</Button>
+            <Button onClick={() => setViewMode("all")} className="mx-1">Todos</Button>
+            <Button onClick={() => setViewMode("upcoming")} className="mx-1">Futuros</Button>
+            <Button onClick={() => setViewMode("past")} className="mx-1">Passados</Button>
           </div>
         </div>
         <div className="col-12 col-md-6 col-lg-4">

@@ -37,6 +37,13 @@ import PagamentoActive from "./pages/pageAdmin/PagamentoActive.jsx";
 import Faturas from "./pages/pageAdmin/Faturas.jsx";
 import PerfilFuncionario from "./pages/pageAdmin/PerfilFuncionario.jsx";
 import AgendamentoHistorico from "./pages/pageAdmin/AgendamentoHistorico.jsx";
+import ConnectionStatus from "./components/compenentesAdmin/ConnectionStatus.jsx"
+
+
+
+
+
+
 
 //import DashBoard from "./pages/pageAdmin/DashBoard.jsx";
 
@@ -63,6 +70,9 @@ const App = () => {
     fetchData();
   }, []);
 
+
+
+ 
   return (
     <div className="App">
       {loading ? (
@@ -170,7 +180,9 @@ const App = () => {
 
            </Routes>
            </Router>
+            <ConnectionStatus />
            </div>
+           
          )}
        </div>
      );
@@ -178,3 +190,4 @@ const App = () => {
    
    
    export default App;
+
