@@ -26,7 +26,10 @@ const ControllerServico = require('./src/controllers/ControllerServico');
 
 /** ============= Importacoes de routes contadoras do itens em tabela ============= */
 
-const blogRouter = require('./src/routes/RouteBlog');
+
+
+
+//const blogRouter = require('./src/routes/RouteBlog');
 const agendamentoRouter = require('./src/routes/RouteAgendamento');
 const clientesRouter = require('./src/routes/RouteCliente');
 const estoqueRouter = require('./src/routes/RouteEstoque');
@@ -63,18 +66,16 @@ app.use(express.json());
 ============================================================
 */
 
-app.use('/api', blogRouter);
-app.use('/api', agendamentoRouter);
-app.use('/api', clientesRouter);
-app.use('/api', estoqueRouter);
-app.use('/api', faturaRouter);
-app.use('/api', pagamentosRouter);
-app.use('/api', servicoRouter);
-app.use('/api', usuarioRouter);
-app.use('/api', veiculoRouter);
-
-
-
+//app.use('/api', blogRouter);
+app.get('/api/blogs/total',ControllerBlog.contarBlogs);
+app.get('/api/agendamentos/total',ControllerAgendamento.contarAgendamentos);
+app.get('/api/clientes/total',ControllerCliente.contarClientes);
+app.get('/api/estoque/total',ControllerEstoque.contarEstoque);
+app.get('/api/fatura/total',ControllerFatura.contarFatura);
+app.get('/api/pagamento/total',ControllerPagamento.contarPagamentos);
+app.get('/api/servico/total',ControllerServico.contarServicos);
+app.get('/api/usuario/total',ControllerUsuario.contarUsuarios);
+app.get('/api/veiculo/total',ControllerVeiculo.contarVeiculos);
 
 
 
