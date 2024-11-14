@@ -62,7 +62,6 @@ export default function TabelaAgendamento() {
         return row.status || "Sem status"; // Caso não tenha status definido
       }
     },
-    { name: "Descrição", selector: (row) => row.descricao || "Sem descrição" },
     {
       name: "Ações",
       cell: (row) => (

@@ -8,7 +8,10 @@ import "react-toastify/dist/ReactToastify.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { toast } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'; // Importante para os estilos do Toast
+import Spinner from 'react-bootstrap/Spinner'; // Spinner importado
+
 
 
 import { Form, Button } from "react-bootstrap";
@@ -18,11 +21,13 @@ import { Form, Button } from "react-bootstrap";
 
 function TabelaAgendamento() {
   const { id } = useParams();
+  const navigate = useNavigate(); // Definição de useNavigate para navegação
   const [novaData, setNovaData] = useState("");
   const [motivoAdiar, setMotivoAdiar] = useState("");
   const [loading, setLoading] = useState(false);
   const [agendamento, setAgendamento] = useState({});
   const [formErrors, setFormErrors] = useState({}); // Para armazenar os erros de validação
+  const [isLoading, setIsLoading] = useState(false); // Estado de carregamento
 
   // Verifique se o id está definido
   if (!id) {
@@ -62,7 +67,7 @@ function TabelaAgendamento() {
       return;
     }
 
-    setLoading(true);
+    setIsLoading(true); // Usando isLoading para mostrar o spinner
 
     try {
       const response = await fetch(`http://localhost:5000/api/agendamentos/${id}/adiar`, {
@@ -86,6 +91,10 @@ function TabelaAgendamento() {
         position: "top-center", // Posição da notificação
       });
 
+      setTimeout(() => {
+        window.location.reload();
+            }, 4000);
+
       // Limpar os campos após o sucesso
       setNovaData("");
       setMotivoAdiar("");
@@ -96,9 +105,7 @@ function TabelaAgendamento() {
         duration: 3000, // Duração da notificação em milissegundos
         position: "top-center", // Posição da notificação
       });
-    } finally {
-      setLoading(false);
-    }
+    } 
   };
 
   useEffect(() => {
@@ -137,7 +144,7 @@ function TabelaAgendamento() {
             type="date"
             value={novaData}
             onChange={(e) => setNovaData(e.target.value)}
-            disabled={loading}
+            disabled={isLoading}
             isInvalid={formErrors.novaData} // Marca o campo como inválido se houver erro
           />
           <Form.Control.Feedback type="invalid">
@@ -152,7 +159,7 @@ function TabelaAgendamento() {
             rows={4}
             value={motivoAdiar}
             onChange={(e) => setMotivoAdiar(e.target.value)}
-            disabled={loading}
+            disabled={isLoading}
             isInvalid={formErrors.motivoAdiar} // Marca o campo como inválido se houver erro
           />
           <Form.Control.Feedback type="invalid">
@@ -164,15 +171,20 @@ function TabelaAgendamento() {
           variant="primary"
           onClick={handleSalvarEdicao}
           className="mt-3"
-          disabled={loading}
+          disabled={isLoading} // Desabilita o botão enquanto você está carregando
         >
-          {loading ? "Salvando..." : "Salvar alterações"}
+          {isLoading ? (
+            <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+          ) : (
+            "Salvar Alterações"
+          )}
         </Button>
       </Form>
+
+      <ToastContainer /> {/* ToastContainer para mostrar as notificações */}
     </div>
   );
 }
-
 
 
 
