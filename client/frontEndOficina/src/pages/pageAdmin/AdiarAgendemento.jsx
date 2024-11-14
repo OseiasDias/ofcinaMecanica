@@ -10,9 +10,11 @@ import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
+
+ 
 function AdiarAgendamento() {
   const { id } = useParams();  // Pega o id do agendamento da URL
-  const navigate = useNavigate();  // Hook para navegação
+ const navigate = useNavigate();  // Hook para navegação
   const [agendamento, setAgendamento] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -135,7 +137,7 @@ const AdiarAgendamentoPage = () => {
             <TopoAdmin
               entrada="Adiar Agendamento"
               leftSeta={<FaArrowLeftLong />}
-              leftR='/agendamentosList' // Redireciona de volta para a lista de agendamentos
+              leftR='/agendamentoList' // Redireciona de volta para a lista de agendamentos
             />
 
             <div className="vh-100 alturaPereita">

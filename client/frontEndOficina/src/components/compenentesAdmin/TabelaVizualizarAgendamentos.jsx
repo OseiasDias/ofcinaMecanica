@@ -7,6 +7,7 @@ import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
 import { ImCancelCircle } from "react-icons/im";
 import { MdDeleteOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom";  // Importando o hook useNavigate
 
 // Definição de estilos personalizados para a tabela
 const customStyles = {
@@ -37,6 +38,8 @@ export default function TabelaAgendamento() {
   const [agendamentoIdToDelete, setAgendamentoIdToDelete] = useState(null);
   const [agendamentoToConfirm, setAgendamentoToConfirm] = useState(null); // Agendamento para Confirmar/Cancelar
   const [agendamentoDetails, setAgendamentoDetails] = useState(null); // Detalhes do agendamento para a modal de visualização
+
+  const navigate = useNavigate();  // Inicializa o hook para navegação
 
   // Definição das colunas da tabela
   const columns = [
@@ -71,7 +74,6 @@ export default function TabelaAgendamento() {
               &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
             <Dropdown.Item onClick={() => openConfirmModal(row.id_agendamento, row.status)}>
-
               <ImCancelCircle />
               &nbsp;&nbsp;{row.status === 1 ? "Cancelar" : "Confirmar"}
             </Dropdown.Item>
@@ -262,7 +264,6 @@ export default function TabelaAgendamento() {
               }
             }}
           />
-
         </div>
       </div>
 
@@ -297,7 +298,10 @@ export default function TabelaAgendamento() {
                 <p className="col-12 col-md-6 col-lg-4"><strong>Placa:</strong> {agendamentoDetails.veiculo.placa || "Sem placa"}</p>
 
                 <p className="col-12 col-md-6 col-lg-4"><strong>Data:</strong> {new Date(agendamentoDetails.agendamento.data).toLocaleDateString()}</p>
-                <p className="col-12 col-md-6 col-lg-4"><strong>Status:</strong> {agendamentoDetails.agendamento.status || "Sem status"}</p>
+                <p className="col-12 col-md-6 col-lg-4">
+  <strong>Status:</strong> 
+  {agendamentoDetails.agendamento.status === 1 ? "Confirmado" : agendamentoDetails.agendamento.status === 0 ? "Cancelado" : "Sem status"}
+</p>
                 <p className="col-12 col-md-12 col-lg-12"><strong>Descrição:</strong> {agendamentoDetails.agendamento.descricao || "Sem descrição"}</p>
               </div>
             </>
@@ -306,12 +310,10 @@ export default function TabelaAgendamento() {
           )}
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="primary" className="links-acessos">
-            Remarcar
+          <Button variant="primary" className="links-acessos px-5" onClick={() => navigate(`/agendamentoAdiar/${agendamentoDetails.agendamento.id_agendamento}`)}>
+            Adiar
           </Button>
-          <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
-            Fechar
-          </Button>
+        
         </Modal.Footer>
       </Modal>
 

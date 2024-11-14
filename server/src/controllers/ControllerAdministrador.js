@@ -6,7 +6,7 @@ class ControllerAdministrador {
     static async criarAdministrador(req, res) {
         try {
             const { nome, email, telefone, senha, genero, estado, data_nascimento, foto,isSuperAdmin } = req.body;
-
+ 
             const administrador = new Administrador(null, nome, email, telefone, senha, genero, estado, data_nascimento, foto,isSuperAdmin);
             const id_administrador = await Administrador.salvar(administrador);
 
