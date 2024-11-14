@@ -59,6 +59,18 @@ class Pagamento {
         const query = 'DELETE FROM pagamento WHERE id_pagamento = ?';
         await pool.promise().query(query, [id_pagamento]);
     }
+
+     // Método para contar todos os blogs
+     static async contarTodosPagamentos() {
+        try {
+          const query = 'SELECT COUNT(*) AS total FROM pagamento';
+          const [rows] = await pool.promise().query(query);
+          return rows[0].total; // Retorna o número total de linhas
+        } catch (error) {
+          console.error('Erro ao contar linhas:', error);
+          throw error;
+        }
+    }
 }
 
 module.exports = Pagamento;

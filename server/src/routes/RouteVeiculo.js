@@ -22,4 +22,7 @@ router.put('/:id_veiculo', ControllerVeiculo.atualizarVeiculo);
 // Rota para deletar um veículo
 router.delete('/:id_veiculo', ControllerVeiculo.deletarVeiculo);
 
+router.get('/veiculo/total', ControllerVeiculo.contarVeiculos);
+
+
 module.exports = router;

@@ -64,15 +64,15 @@ class ControllerCliente {
     }
 
     // Método para obter o maior id_cliente
-static async obterMaiorId(req, res) {
-    try {
-        const maiorId = await Cliente.obterMaiorId(); // Chama o método do modelo
-        res.status(200).json({ maior_id: maiorId });
-    } catch (error) {
-        console.error("Erro ao obter maior id_cliente:", error);
-        res.status(500).json({ message: "Erro ao obter maior id_cliente" });
+    static async obterMaiorId(req, res) {
+        try {
+            const maiorId = await Cliente.obterMaiorId(); // Chama o método do modelo
+            res.status(200).json({ maior_id: maiorId });
+        } catch (error) {
+            console.error("Erro ao obter maior id_cliente:", error);
+            res.status(500).json({ message: "Erro ao obter maior id_cliente" });
+        }
     }
-}
 
     // Método para atualizar um cliente
     static async atualizarCliente(req, res) {
@@ -116,35 +116,45 @@ static async obterMaiorId(req, res) {
             console.error("Erro ao fazer login:", error);
             res.status(401).json({ message: "E-mail ou senha inválidos" }); // Erro de autenticação
         }
-    } 
-
-
-   // Método para atualizar o status de um cliente
-// Método para atualizar o status de um cliente
-static async atualizarStatus(req, res) {
-    try {
-        const { id_cliente } = req.params; // Pega o id_cliente da URL
-        const { novoStatus } = req.body; // Pega o novoStatus do corpo da requisição
-
-        // Mapeia os valores de status de string para números
-        let statusValue;
-        if (novoStatus === 'Ativado') {
-             statusValue = 1;  // Mapeando Confirmado para 1
-        } else if (novoStatus === 'Bloqueado') {
-            statusValue = 0;  // Mapeando Cancelado para 0
-        } else {
-            return res.status(400).json({ message: "Status inválido. Deve ser 'Ativo' ou 'Bloqueado'." });
-        }
-
-        // Chama o método do modelo para atualizar o status
-        const result = await Cliente.atualizarStatus(id_cliente, statusValue);
-
-        res.status(200).json(result); // Retorna uma mensagem de sucesso
-    } catch (error) {
-        console.error("Erro ao atualizar status do cliente:", error);
-        res.status(400).json({ message: error.message }); // Retorna a mensagem de erro caso algo falhe
     }
-}
+
+
+    // Método para atualizar o status de um cliente
+    // Método para atualizar o status de um cliente
+    static async atualizarStatus(req, res) {
+        try {
+            const { id_cliente } = req.params; // Pega o id_cliente da URL
+            const { novoStatus } = req.body; // Pega o novoStatus do corpo da requisição
+
+            // Mapeia os valores de status de string para números
+            let statusValue;
+            if (novoStatus === 'Ativado') {
+                statusValue = 1;  // Mapeando Confirmado para 1
+            } else if (novoStatus === 'Bloqueado') {
+                statusValue = 0;  // Mapeando Cancelado para 0
+            } else {
+                return res.status(400).json({ message: "Status inválido. Deve ser 'Ativo' ou 'Bloqueado'." });
+            }
+
+            // Chama o método do modelo para atualizar o status
+            const result = await Cliente.atualizarStatus(id_cliente, statusValue);
+
+            res.status(200).json(result); // Retorna uma mensagem de sucesso
+        } catch (error) {
+            console.error("Erro ao atualizar status do cliente:", error);
+            res.status(400).json({ message: error.message }); // Retorna a mensagem de erro caso algo falhe
+        }
+    }
+
+    static async contarClientes(req, res) {
+        try {
+          const totalClientes = await Cliente.contarTodosClientes();
+          res.status(200).json({ total: totalClientes });
+        } catch (error) {
+          console.error('Erro ao contar clientes:', error);
+          res.status(500).json({ message: 'Erro ao contar clientes' });
+        }
+      }
 
 }
 

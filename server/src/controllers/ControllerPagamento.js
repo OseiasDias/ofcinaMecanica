@@ -96,6 +96,16 @@ class ControllerPagamento {
             return res.status(500).json({ message: 'Erro ao deletar pagamento.', error: error.message });
         }
     }
+
+    static async contarPagamentos(req, res) {
+        try {
+            const totalClientes = await Pagamento.contarTodosPagamentos();
+            res.status(200).json({ total: totalClientes });
+        } catch (error) {
+            console.error('Erro ao contar pagamentos:', error);
+            res.status(500).json({ message: 'Erro ao contar pagamento' });
+        }
+    }
 }
 
 module.exports = ControllerPagamento;

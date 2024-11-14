@@ -63,6 +63,16 @@ class ControllerEstoque {
             res.status(500).json({ message: 'Erro ao deletar item.', error });
         }
     }
+
+    static async contarEstoque(req, res) {
+        try {
+          const totalClientes = await Estoque.contarTodosEstoque();
+          res.status(200).json({ total: totalClientes });
+        } catch (error) {
+          console.error('Erro ao contar clientes:', error);
+          res.status(500).json({ message: 'Erro ao contar clientes' });
+        }
+      }
 }
 
 module.exports = ControllerEstoque;

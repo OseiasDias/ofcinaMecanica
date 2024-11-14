@@ -56,6 +56,18 @@ class Estoque {
         const query = 'DELETE FROM estoque WHERE id_item = ?';
         await pool.promise().query(query, [id_item]);
     }
+
+    // Método para contar todos os blogs
+    static async contarTodosEstoque() {
+        try {
+          const query = 'SELECT COUNT(*) AS total FROM estoque';
+          const [rows] = await pool.promise().query(query);
+          return rows[0].total; // Retorna o número total de linhas
+        } catch (error) {
+          console.error('Erro ao contar linhas:', error);
+          throw error;
+        }
+    }
 }
 
 module.exports = Estoque;

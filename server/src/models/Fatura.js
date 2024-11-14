@@ -114,6 +114,18 @@ class Fatura {
         const [rows] = await pool.promise().query(query, [status_pagamento]);
         return rows; // Retorna as faturas encontradas com o status especificado
     }
+
+      // Método para contar todos os blogs
+      static async contarTodasFaturas() {
+        try {
+          const query = 'SELECT COUNT(*) AS total FROM fatura';
+          const [rows] = await pool.promise().query(query);
+          return rows[0].total; // Retorna o número total de linhas
+        } catch (error) {
+          console.error('Erro ao contar linhas:', error);
+          throw error;
+        }
+    }
 }
 
 module.exports = Fatura;

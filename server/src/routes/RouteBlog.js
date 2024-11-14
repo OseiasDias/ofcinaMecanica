@@ -18,4 +18,6 @@ router.put('/:id_blog', ControllerBlog.atualizarBlog);
 // Rota para deletar um blog
 router.delete('/:id_blog', ControllerBlog.deletarBlog);
 
+router.get('/blogs/total', ControllerBlog.contarBlogs);
+
 module.exports = router;

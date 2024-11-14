@@ -127,26 +127,38 @@ class Cliente {
 
     // Método para atualizar o status de um cliente
     // Método para atualizar o status de um cliente
-static async atualizarStatus(id_cliente, novoStatus) {
-    // Verifica se o novoStatus é válido (0 ou 1)
-    if (![0, 1].includes(novoStatus)) {
-        throw new Error("Status inválido. Deve ser 'Confirmado' ou 'Cancelado'.");
+    static async atualizarStatus(id_cliente, novoStatus) {
+        // Verifica se o novoStatus é válido (0 ou 1)
+        if (![0, 1].includes(novoStatus)) {
+            throw new Error("Status inválido. Deve ser 'Confirmado' ou 'Cancelado'.");
+        }
+
+        // Query para atualizar o status no banco de dados
+        const query = `UPDATE cliente SET estado = ? WHERE id_cliente = ?`;
+        const values = [novoStatus, id_cliente];
+
+        // Executa a consulta
+        const [result] = await pool.promise().query(query, values);
+
+        // Se não houverem linhas afetadas, significa que o cliente não foi encontrado
+        if (result.affectedRows === 0) {
+            throw new Error('Cliente não encontrado');
+        }
+
+        return { message: 'Status atualizado com sucesso!' };
     }
 
-    // Query para atualizar o status no banco de dados
-    const query = `UPDATE cliente SET estado = ? WHERE id_cliente = ?`;
-    const values = [novoStatus, id_cliente];
-
-    // Executa a consulta
-    const [result] = await pool.promise().query(query, values);
-
-    // Se não houverem linhas afetadas, significa que o cliente não foi encontrado
-    if (result.affectedRows === 0) {
-        throw new Error('Cliente não encontrado');
+     // Método para contar todos os blogs
+     static async contarTodosClientes() {
+        try {
+          const query = 'SELECT COUNT(*) AS total FROM cliente';
+          const [rows] = await pool.promise().query(query);
+          return rows[0].total; // Retorna o número total de linhas
+        } catch (error) {
+          console.error('Erro ao contar linhas:', error);
+          throw error;
+        }
     }
-
-    return { message: 'Status atualizado com sucesso!' };
-}
 
 
 }

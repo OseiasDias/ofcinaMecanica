@@ -56,6 +56,18 @@ class Servico {
         const query = 'DELETE FROM servico WHERE id_servico = ?';
         await pool.promise().query(query, [id_servico]);
     }
+
+    // Método para contar todos os blogs
+    static async contarTodosServicos() {
+        try {
+          const query = 'SELECT COUNT(*) AS total FROM servico';
+          const [rows] = await pool.promise().query(query);
+          return rows[0].total; // Retorna o número total de linhas
+        } catch (error) {
+          console.error('Erro ao contar linhas:', error);
+          throw error;
+        }
+    }
 }
 
 module.exports = Servico;

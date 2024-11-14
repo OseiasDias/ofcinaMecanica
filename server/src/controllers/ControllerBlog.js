@@ -66,6 +66,16 @@ class ControllerBlog {
             res.status(500).json({ message: 'Erro ao deletar blog' });
         }
     }
+
+    static async contarBlogs(req, res) {
+        try {
+          const totalBlogs = await Blog.contarTodos();
+          res.status(200).json({ total: totalBlogs });
+        } catch (error) {
+          console.error('Erro ao contar blogs:', error);
+          res.status(500).json({ message: 'Erro ao contar blogs' });
+        }
+      }
 }
 
 module.exports = ControllerBlog;

@@ -21,4 +21,7 @@ router.delete('/:id_fatura', ControllerFatura.deletarFatura);
 // Rota para obter faturas por status de pagamento (Pendente ou Pago)
 router.get('/status/:status_pagamento', ControllerFatura.obterFaturasPorStatus);
 
+router.get('/fatura/total', ControllerFatura.contarFatura);
+
+
 module.exports = router;

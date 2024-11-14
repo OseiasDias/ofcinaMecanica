@@ -27,4 +27,7 @@ router.put('/:id_agendamento/status', ControllerAgendamento.atualizarStatus);
 
 router.put('/:id_agendamento/adiar', ControllerAgendamento.adiarAgendamento);
 
+// Rota para contar todos os agendamentos
+router.get('/agendamentos/total', ControllerAgendamento.contarAgendamentos);
+
 module.exports = router;

@@ -83,6 +83,16 @@ class ControllerVeiculo {
             res.status(500).json({ message: "Erro ao deletar veículo." });
         }
     }
+
+    static async contarVeiculos(req, res) {
+        try {
+            const totalClientes = await Veiculo.contarTodosVeiculos();
+            res.status(200).json({ total: totalClientes });
+        } catch (error) {
+            console.error('Erro ao contar veiculos:', error);
+            res.status(500).json({ message: 'Erro ao contar veiculos' });
+        }
+    }
 }
 
 module.exports = ControllerVeiculo;

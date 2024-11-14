@@ -18,4 +18,7 @@ router.put('/:id_item', ControllerEstoque.atualizarItem);
 // Rota para deletar um item do estoque
 router.delete('/:id_item', ControllerEstoque.deletarItem);
 
+router.get('/estoque/total', ControllerEstoque.contarEstoque);
+
+
 module.exports = router;

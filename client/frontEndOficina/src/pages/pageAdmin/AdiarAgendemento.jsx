@@ -87,13 +87,13 @@ function TabelaAgendamento() {
       console.log(result);
 
       toast.success("Agendamento adiado com sucesso!", {
-        duration: 3000, // Duração da notificação em milissegundos
+        duration: 2000, // Duração da notificação em milissegundos
         position: "top-center", // Posição da notificação
       });
 
       setTimeout(() => {
         window.location.reload();
-            }, 4000);
+            }, 3000);
 
       // Limpar os campos após o sucesso
       setNovaData("");

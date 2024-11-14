@@ -118,6 +118,16 @@ class ControllerUsuario {
             res.status(400).json({ message: error.message }); // Retorna a mensagem de erro caso algo falhe
         }
     }
+
+    static async contarUsuarios(req, res) {
+        try {
+            const totalClientes = await Usuario.contarTodosUsuarios();
+            res.status(200).json({ total: totalClientes });
+        } catch (error) {
+            console.error('Erro ao contar usuarios:', error);
+            res.status(500).json({ message: 'Erro ao contar usuarios' });
+        }
+    }
 }
 
 module.exports = ControllerUsuario;

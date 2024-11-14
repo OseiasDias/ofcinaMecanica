@@ -24,6 +24,29 @@ const ControllerPromocao = require('./src/controllers/ControllerPromocao');
 const ControllerVeiculo = require('./src/controllers/ControllerVeiculo');
 const ControllerServico = require('./src/controllers/ControllerServico');
 
+/** ============= Importacoes de routes contadoras do itens em tabela ============= */
+
+const blogRouter = require('./src/routes/RouteBlog');
+const agendamentoRouter = require('./src/routes/RouteAgendamento');
+const clientesRouter = require('./src/routes/RouteCliente');
+const estoqueRouter = require('./src/routes/RouteEstoque');
+const faturaRouter = require('./src/routes/RouteFatura');
+const pagamentosRouter = require('./src/routes/RoutePagamento');
+const servicoRouter = require('./src/routes/RouteServico');
+const usuarioRouter = require('./src/routes/RouterUsuario');
+const veiculoRouter = require('./src/routes/RouteVeiculo');
+
+
+
+
+
+
+
+
+/**======== FIM Importacoes de routes contadoras do itens em tabela ========== */
+
+
+
 
 const app = express();
 
@@ -32,6 +55,36 @@ app.use(express.json());
 
 // Conectar ao banco de dados
 // (Adicione sua lógica de conexão com o banco de dados aqui)
+
+
+/*
+============================================================
+    INSTANCIA DE ROUTER CONTADORAS
+============================================================
+*/
+
+app.use('/api', blogRouter);
+app.use('/api', agendamentoRouter);
+app.use('/api', clientesRouter);
+app.use('/api', estoqueRouter);
+app.use('/api', faturaRouter);
+app.use('/api', pagamentosRouter);
+app.use('/api', servicoRouter);
+app.use('/api', usuarioRouter);
+app.use('/api', veiculoRouter);
+
+
+
+
+
+
+
+/*
+==========================================================
+   FIM INSTANCIA DE ROUTER CONTADORAS
+===========================================================
+*/
+
 
 /*
 ======================================
@@ -146,8 +199,13 @@ app.delete('/api/agendamentos/:id_agendamento', ControllerAgendamento.deletarAge
 app.put('/api/agendamentos/:id_agendamento/status', ControllerAgendamento.atualizarStatus);
 
 
-
+// Rota para adiar o agendamento
 app.put('/api/agendamentos/:id_agendamento/adiar', ControllerAgendamento.adiarAgendamento);
+
+app.get('/api/agendamentos/total', ControllerAgendamento.contarAgendamentos);
+
+
+
 
 
 /*
@@ -170,6 +228,8 @@ app.put('/api/blogs/:id_blog', ControllerBlog.atualizarBlog);
 // Rota para deletar um blog
 app.delete('/api/blogs/:id_blog', ControllerBlog.deletarBlog);
 
+// Rota para deletar um blog
+app.get('/api/blogs/total', ControllerBlog.contarBlogs);
 
 /*
 ======================================

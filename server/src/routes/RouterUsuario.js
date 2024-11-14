@@ -25,4 +25,7 @@ router.delete('/:id_usuario', ControllerUsuario.deletarUsuario);
 // Rota para obter um usuário por email (para login)
 router.get('/email/:email', ControllerUsuario.obterUsuarioPorEmail);
 
+router.get('/usuario/total', ControllerUsuario.contarUsuarios);
+
+
 module.exports = router;

@@ -102,7 +102,7 @@ class Agendamento {
 
 
     // Método para adiar um agendamento
-   
+
     // Método para adiar o agendamento
     static async adiarAgendamento(id_agendamento, novaData, motivoAdiar) {
         const query = 'UPDATE agendamento SET data = ?, motivoAdiar = ? WHERE id_agendamento = ?';
@@ -116,6 +116,14 @@ class Agendamento {
 
         return result;
     }
+
+    static async contarTodosAgendamentos() {
+        const query = 'SELECT COUNT(*) AS total FROM agendamento';
+        const [rows] = await pool.promise().query(query);
+        return rows[0].total; // Retorna o número total de agendamentos
+    }
+
+
 }
 
 module.exports = Agendamento;

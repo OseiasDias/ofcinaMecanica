@@ -128,6 +128,17 @@ class Usuario {
 
         return { message: 'Status do usuário atualizado com sucesso!' };
     }
+
+    static async contarTodosUsuarios() {
+        try {
+          const query = 'SELECT COUNT(*) AS total FROM usuario';
+          const [rows] = await pool.promise().query(query);
+          return rows[0].total; // Retorna o número total de linhas
+        } catch (error) {
+          console.error('Erro ao contar linhas:', error);
+          throw error;
+        }
+    }
 }
 
 module.exports = Usuario;

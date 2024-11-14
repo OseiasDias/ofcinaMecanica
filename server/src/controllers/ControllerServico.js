@@ -65,6 +65,17 @@ class ControllerServico {
             res.status(500).json({ mensagem: 'Erro ao deletar o serviço.' }); // Retorna erro em caso de falha
         }
     }
+
+    
+    static async contarServicos(req, res) {
+        try {
+            const totalClientes = await Servico.contarTodosServicos();
+            res.status(200).json({ total: totalClientes });
+        } catch (error) {
+            console.error('Erro ao contar servicos:', error);
+            res.status(500).json({ message: 'Erro ao contar servicos' });
+        }
+    }
 }
 
 module.exports = ControllerServico; // Exporta o controller

@@ -17,4 +17,7 @@ router.put('/:id_servico', ControllerServico.atualizarServico);
 // Rota para deletar um serviço
 router.delete('/:id_servico', ControllerServico.deletarServico);
 
+router.get('/servico/total', ControllerServico.contarServicos);
+
+
 module.exports = router; // Exporta as rotas

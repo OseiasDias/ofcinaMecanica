@@ -16,9 +16,7 @@ router.get('/:id_cliente', ControllerCliente.obterClientePorId);
 // Rota para obter um cliente por email
 router.get('/email/:email', ControllerCliente.obterClientePorEmail); // Adiciona a rota para buscar cliente por email
 
-/* Rota para atualizar o status de um cliente
-router.put('/:id_cliente/status/:novoStatus', ControllerCliente.atualizarStatus);
-*/ 
+
 
 // Rota para atualizar o status de um cliente
 router.put('/:id_cliente/status', ControllerCliente.atualizarStatus);
@@ -34,5 +32,9 @@ router.post('/login', ControllerCliente.loginCliente); // Adiciona a rota de log
 
 // Rota para obter o maior id_cliente
 router.get('pegar/maior-id', ControllerCliente.obterMaiorId); // Adiciona a rota para obter o maior id_cliente
+
+router.get('/clientes/total', ControllerCliente.contarClientes);
+
+
 
 module.exports = router;

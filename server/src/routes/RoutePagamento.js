@@ -18,4 +18,7 @@ router.put('/:id_pagamento', ControllerPagamento.atualizarPagamento);
 // Rota para deletar um pagamento
 router.delete('/:id_pagamento', ControllerPagamento.deletarPagamento);
 
+router.get('/pagamento/total', ControllerPagamento.contarPagamentos);
+
+
 module.exports = router;

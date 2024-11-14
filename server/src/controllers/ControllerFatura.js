@@ -5,20 +5,20 @@ class ControllerFatura {
     // Método para criar uma nova fatura
     static async criarFatura(req, res) {
         try {
-            const { 
-                nome_cliente, 
-                email_cliente, 
-                telefone_cliente, 
-                genero_cliente, 
-                marca_veiculo, 
-                modelo_veiculo, 
-                ano_veiculo, 
-                placa_veiculo, 
-                forma_pagamento, 
-                valor_desconto, 
-                valor_total, 
-                data_emissao, 
-                status_pagamento 
+            const {
+                nome_cliente,
+                email_cliente,
+                telefone_cliente,
+                genero_cliente,
+                marca_veiculo,
+                modelo_veiculo,
+                ano_veiculo,
+                placa_veiculo,
+                forma_pagamento,
+                valor_desconto,
+                valor_total,
+                data_emissao,
+                status_pagamento
             } = req.body;
 
             // Cria um objeto Fatura
@@ -82,20 +82,20 @@ class ControllerFatura {
     static async atualizarFatura(req, res) {
         try {
             const { id_fatura } = req.params;
-            const { 
-                nome_cliente, 
-                email_cliente, 
-                telefone_cliente, 
-                genero_cliente, 
-                marca_veiculo, 
-                modelo_veiculo, 
-                ano_veiculo, 
-                placa_veiculo, 
-                forma_pagamento, 
-                valor_desconto, 
-                valor_total, 
-                data_emissao, 
-                status_pagamento 
+            const {
+                nome_cliente,
+                email_cliente,
+                telefone_cliente,
+                genero_cliente,
+                marca_veiculo,
+                modelo_veiculo,
+                ano_veiculo,
+                placa_veiculo,
+                forma_pagamento,
+                valor_desconto,
+                valor_total,
+                data_emissao,
+                status_pagamento
             } = req.body;
 
             // Cria um objeto Fatura para atualização
@@ -155,6 +155,17 @@ class ControllerFatura {
             res.status(500).json({ message: "Erro ao obter faturas por status" });
         }
     }
+
+    static async contarFatura(req, res) {
+        try {
+            const totalClientes = await Fatura.contarTodasFaturas();
+            res.status(200).json({ total: totalClientes });
+        } catch (error) {
+            console.error('Erro ao contar faturas:', error);
+            res.status(500).json({ message: 'Erro ao contar faturas' });
+        }
+    }
+
 }
 
 module.exports = ControllerFatura;

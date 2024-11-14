@@ -76,6 +76,17 @@ class Veiculo {
         const query = 'DELETE FROM veiculo WHERE id_veiculo = ?';
         await pool.promise().query(query, [id_veiculo]);
     }
+
+    static async contarTodosVeiculos() {
+        try {
+          const query = 'SELECT COUNT(*) AS total FROM veiculo';
+          const [rows] = await pool.promise().query(query);
+          return rows[0].total; // Retorna o número total de linhas
+        } catch (error) {
+          console.error('Erro ao contar linhas:', error);
+          throw error;
+        }
+    }
 }
 
 module.exports = Veiculo;

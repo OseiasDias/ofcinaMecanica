@@ -23,12 +23,12 @@ class Blog {
         return result.insertId; // Retorna o ID do blog inserido
     }
 
-  // Método para obter todos os blogs em ordem decrescente de publicação
-static async obterTodos() {
-    const query = 'SELECT * FROM blog ORDER BY data_publicacao DESC'; // Ordena pela data de publicação em ordem decrescente
-    const [rows] = await pool.promise().query(query);
-    return rows; // Retorna todos os blogs ordenados
-}
+    // Método para obter todos os blogs em ordem decrescente de publicação
+    static async obterTodos() {
+        const query = 'SELECT * FROM blog ORDER BY data_publicacao DESC'; // Ordena pela data de publicação em ordem decrescente
+        const [rows] = await pool.promise().query(query);
+        return rows; // Retorna todos os blogs ordenados
+    }
 
 
     // Método para obter um blog pelo ID
@@ -57,6 +57,13 @@ static async obterTodos() {
         const query = 'DELETE FROM blog WHERE id_blog = ?';
         await pool.promise().query(query, [id_blog]);
     }
+
+    // Método para contar todos os blogs
+    static async contarTodos() {
+        const query = 'SELECT COUNT(*) AS total FROM blog';
+        const [rows] = await pool.promise().query(query);
+        return rows[0].total; // Retorna o número total de blogs
+      }
 }
 
 module.exports = Blog;
