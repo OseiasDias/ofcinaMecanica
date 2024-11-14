@@ -267,16 +267,23 @@ export default function TabelaAgendamento() {
         </div>
       </div>
 
-      <DataTable
+      <div className="container">
+        <div className="row">
+          <div className="col-12">
+          <DataTable
         columns={columns}
         data={records}
         customStyles={customStyles}
         pagination
+        responsive
         paginationPerPage={10}
         paginationRowsPerPageOptions={[10]}
         noDataComponent={<p>Nenhum agendamento encontrado.</p>}
         footer={<div>Exibindo {records.length} registros no total</div>}
       />
+          </div>
+        </div>
+      </div>
 
       {/* Modal de Visualização */}
       <Modal show={showVisualizarModal} onHide={() => setShowVisualizarModal(false)} scrollable centered size="xl">

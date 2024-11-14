@@ -146,6 +146,10 @@ app.delete('/api/agendamentos/:id_agendamento', ControllerAgendamento.deletarAge
 app.put('/api/agendamentos/:id_agendamento/status', ControllerAgendamento.atualizarStatus);
 
 
+
+app.put('/api/agendamentos/:id_agendamento/adiar', ControllerAgendamento.adiarAgendamento);
+
+
 /*
 ======================================
            Rotas do Blog

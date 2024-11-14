@@ -11,10 +11,176 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { toast } from "react-toastify";
 
 
- 
+import { Form, Button } from "react-bootstrap";
+
+
+
+
+function TabelaAgendamento() {
+  const { id } = useParams();
+  const [novaData, setNovaData] = useState("");
+  const [motivoAdiar, setMotivoAdiar] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [agendamento, setAgendamento] = useState({});
+  const [formErrors, setFormErrors] = useState({}); // Para armazenar os erros de validação
+
+  // Verifique se o id está definido
+  if (!id) {
+    toast.error("ID do agendamento não encontrado.");
+    return <div>ID do agendamento não encontrado.</div>;
+  }
+
+  // Função de validação
+  const validate = () => {
+    const errors = {};
+    const today = new Date();
+    const selectedDate = new Date(novaData);
+
+    // Validação da data
+    if (!novaData) {
+      errors.novaData = "A data é obrigatória";
+    } else if (selectedDate < today) {
+      errors.novaData = "A data não pode ser no passado";
+    } else if (selectedDate.getDay() === 0) { // 0 = Domingo
+      errors.novaData = "Agendamentos não podem ser feitos aos domingos";
+    }
+
+    // Validação do motivo de adiar
+    if (!motivoAdiar) {
+      errors.motivoAdiar = "O motivo para adiar é obrigatório";
+    }
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0; // Retorna true se não houver erros
+  };
+
+  // Função para salvar as edições
+  const handleSalvarEdicao = async () => {
+    if (!validate()) {
+      // Se a validação falhar, não envia os dados
+      toast.error("Por favor, corrija os erros antes de salvar.");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const response = await fetch(`http://localhost:5000/api/agendamentos/${id}/adiar`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          novaData,
+          motivoAdiar,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao atualizar o agendamento.");
+      }
+
+      const result = await response.json();
+      console.log(result);
+
+      toast.success("Agendamento adiado com sucesso!", {
+        duration: 3000, // Duração da notificação em milissegundos
+        position: "top-center", // Posição da notificação
+      });
+
+      // Limpar os campos após o sucesso
+      setNovaData("");
+      setMotivoAdiar("");
+      setFormErrors({}); // Limpar erros
+    } catch (error) {
+      console.error("Erro:", error);
+      toast.error("Falha ao adiar o agendamento. Verifique os dados e tente novamente.", {
+        duration: 3000, // Duração da notificação em milissegundos
+        position: "top-center", // Posição da notificação
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const fetchAgendamento = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/agendamentos/${id}`);
+        if (response.ok) {
+          const data = await response.json();
+          setAgendamento(data);
+          setNovaData(data.data ? new Date(data.data).toISOString().split("T")[0] : "");
+          setMotivoAdiar(data.motivoAdiar || "");
+        } else {
+          toast.error("Erro ao carregar os dados do agendamento. Verifique a URL e tente novamente.", {
+            duration: 3000, // Duração da notificação em milissegundos
+            position: "top-center", // Posição da notificação
+          });
+        }
+      } catch (err) {
+        toast.error("Erro ao carregar os dados do agendamento. Verifique a conexão e tente novamente.", {
+          duration: 3000, // Duração da notificação em milissegundos
+          position: "top-center", // Posição da notificação
+        });
+      }
+    };
+
+    fetchAgendamento();
+  }, [id]);
+
+  return (
+    <div>
+      <h3>Editar Agendamento</h3>
+      <Form className="pt-3">
+        <Form.Group controlId="formNovaData" className="mt-3">
+          <Form.Label>Nova Data de Remarcação</Form.Label>
+          <Form.Control
+            type="date"
+            value={novaData}
+            onChange={(e) => setNovaData(e.target.value)}
+            disabled={loading}
+            isInvalid={formErrors.novaData} // Marca o campo como inválido se houver erro
+          />
+          <Form.Control.Feedback type="invalid">
+            {formErrors.novaData}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Form.Group controlId="formMotivoAdiar" className="mt-3">
+          <Form.Label>Motivo para Adiar</Form.Label>
+          <Form.Control
+            as="textarea"
+            rows={4}
+            value={motivoAdiar}
+            onChange={(e) => setMotivoAdiar(e.target.value)}
+            disabled={loading}
+            isInvalid={formErrors.motivoAdiar} // Marca o campo como inválido se houver erro
+          />
+          <Form.Control.Feedback type="invalid">
+            {formErrors.motivoAdiar}
+          </Form.Control.Feedback>
+        </Form.Group>
+
+        <Button
+          variant="primary"
+          onClick={handleSalvarEdicao}
+          className="mt-3"
+          disabled={loading}
+        >
+          {loading ? "Salvando..." : "Salvar alterações"}
+        </Button>
+      </Form>
+    </div>
+  );
+}
+
+
+
+
+
 function AdiarAgendamento() {
+
   const { id } = useParams();  // Pega o id do agendamento da URL
- const navigate = useNavigate();  // Hook para navegação
+  const navigate = useNavigate();  // Hook para navegação
   const [agendamento, setAgendamento] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -25,17 +191,17 @@ function AdiarAgendamento() {
       // Primeiro busca o agendamento pelo ID
       const agendamentoResponse = await fetch(`http://localhost:5000/api/agendamentos/${id}`);
       if (!agendamentoResponse.ok) throw new Error("Erro ao buscar dados do agendamento");
-      
+
       const agendamentoData = await agendamentoResponse.json();
-      
+
       // Depois busca os dados do cliente e do veículo com base nos IDs
       const clienteResponse = await fetch(`http://localhost:5000/api/clientes/${agendamentoData.id_cliente}`);
       const veiculoResponse = await fetch(`http://localhost:5000/api/veiculos/${agendamentoData.id_veiculo}`);
-      
+
       if (!clienteResponse.ok || !veiculoResponse.ok) {
         throw new Error("Erro ao buscar dados do cliente ou do veículo");
       }
-      
+
       const clienteData = await clienteResponse.json();
       const veiculoData = await veiculoResponse.json();
 
@@ -71,10 +237,10 @@ function AdiarAgendamento() {
   return (
     <div>
       {/* TopPerfil mostrando as informações do cliente */}
-      <TopPerfil 
-        nome={agendamento?.nome_cliente} 
-        email={agendamento?.email_cliente} 
-        telefone={agendamento?.telefone_cliente} 
+      <TopPerfil
+        nome={agendamento?.nome_cliente}
+        email={agendamento?.email_cliente}
+        telefone={agendamento?.telefone_cliente}
       />
 
       <Tabs
@@ -109,7 +275,7 @@ function AdiarAgendamento() {
                 <p><strong>Observações:</strong> {agendamento.observacoes || 'Sem observações'}</p>
               </section>
               <section className="col-12">
-              <p><strong>Descrição:</strong> {agendamento.descricao}</p>
+                <p><strong>Descrição:</strong> {agendamento.descricao}</p>
 
               </section>
             </div>
@@ -118,8 +284,9 @@ function AdiarAgendamento() {
           )}
         </Tab>
 
-        <Tab eventKey="editar" title="Editar Agendamento">
+        <Tab eventKey="editar" title="Adiar Agendamento">
           {/* Formulário de edição pode ser adicionado aqui */}
+          <TabelaAgendamento />
         </Tab>
       </Tabs>
     </div>

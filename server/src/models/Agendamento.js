@@ -2,7 +2,7 @@ const pool = require('../db/Conexao'); // Importa a conexão com o banco de dado
 
 // Classe para o modelo de Agendamento
 class Agendamento {
-    constructor(id_agendamento, data, id_cliente, id_veiculo, id_servico, status, descricao) {
+    constructor(id_agendamento, data, id_cliente, id_veiculo, id_servico, status, descricao, motivoAdiar) {
         this.id_agendamento = id_agendamento;
         this.data = data;
         this.id_cliente = id_cliente;
@@ -10,25 +10,27 @@ class Agendamento {
         this.id_servico = id_servico;
         this.status = status;
         this.descricao = descricao; // Adiciona o campo descricao
+        this.motivoAdiar = motivoAdiar;
     }
 
     // Método para salvar um agendamento no banco de dados
-   // Método para salvar um agendamento no banco de dados
-   static async salvar(agendamento) {
-    const query = `INSERT INTO agendamento (data, id_cliente, id_veiculo, id_servico, status, descricao) 
-                   VALUES (?, ?, ?, ?, ?, ?)`;
-    const values = [
-        agendamento.data,
-        agendamento.id_cliente,
-        agendamento.id_veiculo,
-        agendamento.id_servico,
-        agendamento.status,
-        agendamento.descricao // Adiciona o campo descricao ao salvar
-    ];
+    // Método para salvar um agendamento no banco de dados
+    static async salvar(agendamento) {
+        const query = `INSERT INTO agendamento (data, id_cliente, id_veiculo, id_servico, status, descricao, motivoAdiar) 
+                   VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const values = [
+            agendamento.data,
+            agendamento.id_cliente,
+            agendamento.id_veiculo,
+            agendamento.id_servico,
+            agendamento.status,
+            agendamento.descricao,// Adiciona o campo descricao ao salvar
+            agendamento.motivoAdiar
+        ];
 
-    const [result] = await pool.promise().query(query, values);
-    return result.insertId; // Retorna o ID do agendamento inserido
-}
+        const [result] = await pool.promise().query(query, values);
+        return result.insertId; // Retorna o ID do agendamento inserido
+    }
 
     // Método para obter todos os agendamentos
     static async obterTodos() {
@@ -53,7 +55,7 @@ class Agendamento {
     }
 
     static async atualizar(agendamento) {
-        const query = `UPDATE agendamento SET data = ?, id_cliente = ?, id_veiculo = ?, id_servico = ?, status = ?, descricao = ? 
+        const query = `UPDATE agendamento SET data = ?, id_cliente = ?, id_veiculo = ?, id_servico = ?, status = ?, descricao = ?, motivoAdiar = ? 
                        WHERE id_agendamento = ?`;
         const values = [
             agendamento.data,
@@ -62,7 +64,8 @@ class Agendamento {
             agendamento.id_servico,
             agendamento.status,
             agendamento.descricao, // Adiciona o campo descricao na atualização
-            agendamento.id_agendamento
+            agendamento.id_agendamento,
+            agendamento.motivoAdiar
         ];
 
         await pool.promise().query(query, values);
@@ -95,6 +98,23 @@ class Agendamento {
         }
 
         return { message: 'Status do agendamento atualizado com sucesso!' };
+    }
+
+
+    // Método para adiar um agendamento
+   
+    // Método para adiar o agendamento
+    static async adiarAgendamento(id_agendamento, novaData, motivoAdiar) {
+        const query = 'UPDATE agendamento SET data = ?, motivoAdiar = ? WHERE id_agendamento = ?';
+        const values = [novaData, motivoAdiar, id_agendamento];
+
+        const [result] = await pool.promise().query(query, values);
+
+        if (result.affectedRows === 0) {
+            throw new Error('Agendamento não encontrado');
+        }
+
+        return result;
     }
 }
 

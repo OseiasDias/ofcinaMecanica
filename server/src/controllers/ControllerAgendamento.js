@@ -4,7 +4,7 @@ class ControllerAgendamento {
    // Método para criar um novo agendamento
    static async criarAgendamento(req, res) {
     try {
-        const { data, id_cliente, id_veiculo, id_servico, status, descricao } = req.body; // Inclui descricao
+        const { data, id_cliente, id_veiculo, id_servico, status, descricao, motivoAdiar } = req.body; // Inclui descricao
         const agendamento = new Agendamento(null, data, id_cliente, id_veiculo, id_servico, status, descricao);
         const id = await Agendamento.salvar(agendamento);
         res.status(201).json({ id, message: 'Agendamento criado com sucesso' });
@@ -62,8 +62,8 @@ class ControllerAgendamento {
    static async atualizarAgendamento(req, res) {
     try {
         const { id_agendamento } = req.params;
-        const { data, id_cliente, id_veiculo, id_servico, status, descricao } = req.body; // Inclui descricao
-        const agendamento = new Agendamento(id_agendamento, data, id_cliente, id_veiculo, id_servico, status, descricao);
+        const { data, id_cliente, id_veiculo, id_servico, status, descricao,motivoAdiar } = req.body; // Inclui descricao
+        const agendamento = new Agendamento(id_agendamento, data, id_cliente, id_veiculo, id_servico, status, descricao,motivoAdiar);
         await Agendamento.atualizar(agendamento);
         res.status(200).json({ message: 'Agendamento atualizado com sucesso' });
     } catch (error) {
@@ -106,6 +106,28 @@ class ControllerAgendamento {
         } catch (error) {
             console.error("Erro ao atualizar status do agendamento:", error);
             res.status(400).json({ message: error.message }); // Retorna a mensagem de erro caso algo falhe
+        }
+    }
+
+     // Método para adiar um agendamento
+     static async adiarAgendamento(req, res) {
+        try {
+            const { id_agendamento } = req.params;  // Captura o ID do agendamento
+            const { novaData, motivoAdiar } = req.body;  // Captura os dados do corpo da requisição
+
+            // Verifique se todos os parâmetros foram enviados
+            if (!novaData || !motivoAdiar) {
+                return res.status(400).json({ message: 'Dados insuficientes. Necessário novaData e motivoAdiar.' });
+            }
+
+            // Chame o método no modelo para adiar o agendamento
+            const result = await Agendamento.adiarAgendamento(id_agendamento, novaData, motivoAdiar);
+
+            // Retorna a resposta com sucesso
+            res.status(200).json({ message: 'Agendamento adiado com sucesso!' });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: 'Erro ao adiantar agendamento.' });
         }
     }
 }
