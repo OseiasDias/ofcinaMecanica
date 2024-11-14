@@ -43,7 +43,7 @@ export default function TabelaVizualizarClientes() {
  
   // Função para bloquear ou reativar o cliente
 // Função para bloquear ou reativar o cliente
-const handleEdit = async () => {
+const handleEdit = async () => { 
   if (!clientToEdit) return;
 
   const { id, novoStatus } = clientToEdit;
