@@ -128,7 +128,7 @@ static async atualizarStatus(req, res) {
 
         // Mapeia os valores de status de string para números
         let statusValue;
-        if (novoStatus === 'Ativo') {
+        if (novoStatus === 'Ativado') {
              statusValue = 1;  // Mapeando Confirmado para 1
         } else if (novoStatus === 'Bloqueado') {
             statusValue = 0;  // Mapeando Cancelado para 0

@@ -37,8 +37,8 @@ import PagamentoActive from "./pages/pageAdmin/PagamentoActive.jsx";
 import Faturas from "./pages/pageAdmin/Faturas.jsx";
 import PerfilFuncionario from "./pages/pageAdmin/PerfilFuncionario.jsx";
 import AgendamentoHistorico from "./pages/pageAdmin/AgendamentoHistorico.jsx";
-import ConnectionStatus from "./components/compenentesAdmin/ConnectionStatus.jsx"
-
+//import ConnectionStatus from "./components/compenentesAdmin/ConnectionStatus.jsx"
+import AdiarAgendamento from "./pages/pageAdmin/AdiarAgendemento.jsx";
 
 
 
@@ -142,6 +142,7 @@ const App = () => {
               <Route path="/pagamentoList" element={<Pagamento />} />
               <Route path="/faturaList" element={<Faturas />} />
               <Route path="/agendamentoHistorico" element={<AgendamentoHistorico />} />
+              <Route path="/agendamentoAdiar/:id" element={<AdiarAgendamento />} />
 
  
               {/**Routes de Add de Entidades */}
@@ -180,7 +181,7 @@ const App = () => {
 
            </Routes>
            </Router>
-            <ConnectionStatus />
+           {/** <ConnectionStatus /> */}
            </div>
            
          )}

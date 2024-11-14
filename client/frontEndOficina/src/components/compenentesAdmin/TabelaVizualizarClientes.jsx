@@ -40,42 +40,51 @@ export default function TabelaVizualizarClientes() {
   // Novo estado para controlar a modal de confirmação de bloqueio/reativação
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [clientToEdit, setClientToEdit] = useState(null); // ID do cliente e ação a ser tomada (bloquear/reativar)
-
+ 
   // Função para bloquear ou reativar o cliente
-  const handleEdit = async () => {
-    if (!clientToEdit) return;
+// Função para bloquear ou reativar o cliente
+const handleEdit = async () => {
+  if (!clientToEdit) return;
 
-    const { id, novoStatus } = clientToEdit;
-    try {
-      // Envia a requisição PUT para bloquear/desbloquear o cliente
-      const response = await fetch(`http://localhost:5000/api/clientes/${id}/status`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ novoStatus }), // Passando "Ativado" ou "Bloqueado"
-      });
+  const { id, novoStatus } = clientToEdit;
+  try {
+    // Envia a requisição PUT para bloquear/desbloquear o cliente
+    const response = await fetch(`http://localhost:5000/api/clientes/${id}/status`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ novoStatus }), // Passando "Ativado" ou "Bloqueado"
+    });
 
-      if (!response.ok) throw new Error("Erro ao atualizar status do cliente");
+    if (!response.ok) throw new Error("Erro ao atualizar status do cliente");
 
-      // Atualiza o estado local após o bloqueio/desbloqueio
-      const updatedClient = await response.json();
+    // Atualiza o estado local após o bloqueio/desbloqueio
+    const updatedClient = await response.json();
 
-      // Atualiza a tabela com os novos dados (atualizando o estado 'estado' na tabela de acordo com o novo status)
-      const updatedRecords = records.map((record) =>
-        record.id_cliente === id
-          ? { ...record, estado: novoStatus === "Bloqueado" ? false : true } // Mapeia "Bloqueado" para 'false' e "Ativado" para 'true'
-          : record
-      );
-      setRecords(updatedRecords);
+    // Lógica para atualizar a tabela com os novos dados
+    const updatedRecords = records.map((record) =>
+      record.id_cliente === id
+        ? { 
+            ...record, 
+            estado: novoStatus === "Bloqueado" ? 0 : 1  // Se "Bloqueado", estado = 0 (bloqueado); caso contrário, estado = 1 (ativo)
+          }
+        : record
+    );
+    
+    // Atualiza o estado local
+    setRecords(updatedRecords);
 
-      toast.success(`Cliente ${novoStatus === "Bloqueado" ? "bloqueado" : "reativado"} com sucesso!`);
-      setShowConfirmModal(false); // Fecha a modal após a ação
-    } catch (err) {
-      console.error("Erro ao bloquear/desbloquear cliente:", err);
-      toast.error("Erro ao atualizar status do cliente.");
-    }
-  };
+    // Exibe a mensagem de sucesso
+    toast.success(`Cliente ${novoStatus === "Bloqueado" ? "bloqueado" : "reativado"} com sucesso!`);
+    
+    // Fecha a modal após a ação
+    setShowConfirmModal(false);
+  } catch (err) {
+    console.error("Erro ao bloquear/desbloquear cliente:", err);
+    toast.error("Erro ao atualizar status do cliente.");
+  }
+};
 
   // Função para abrir modal de confirmação de bloqueio/reativação
   const openConfirmModal = (id, estadoAtual) => {

@@ -5,11 +5,11 @@ const cors = require("cors");
 const express = require('express');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto'); // Para gerar tokens aleatórios
-
+    
 app.use(express.json());*/
 const ControllerEmpresa = require('./src/controllers/ControllerEmpresa'); 
 const ControllerFatura = require('./src/controllers/ControllerFatura'); // Importando as rotas de Carros
-
+ 
 const ControllerCarro = require('./src/controllers/ControllerCarro'); // Importando as rotas de Carros
 const ControllerCliente = require('./src/controllers/ControllerCliente');
 const ControllerAdministrador = require('./src/controllers/ControllerAdministrador'); 
