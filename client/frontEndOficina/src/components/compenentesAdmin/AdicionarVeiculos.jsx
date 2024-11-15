@@ -1,23 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 export default function AdicionarVeiculo() {
+  // Estado do formulário
   const [formData, setFormData] = useState({
     marca: '',             // Marca começa vazia
     modelo: '',           // Modelo começa vazio
     ano: '',              // Ano começa vazio
     placa: '',            // Placa começa vazia
-    id_cliente: 2,        // ID do cliente (preenchido com valor fixo ou vazio conforme necessidade)
+    id_cliente: '',       // ID do cliente começa vazio
     fotos: null,          // Campo fotos (null por enquanto)
     status_reparacao: '', // Status de reparação começa vazio
   });
 
+  // Estado de erro de validação
   const [errors, setErrors] = useState({});
-
-  // Validação do formulário
+  
+  // Estado para armazenar os clientes da API
+  const [clientes, setClientes] = useState([]);
+  
+  // Função de validação do formulário
   const validate = () => {
     const formErrors = {};
 
@@ -43,8 +48,32 @@ export default function AdicionarVeiculo() {
       formErrors.placa = 'Placa é obrigatória';
     }
 
+    // Validação do ID do Cliente
+    if (!formData.id_cliente) {
+      formErrors.id_cliente = 'Selecione um cliente';
+    }
+
     return formErrors;
   };
+
+  // Carregar os clientes da API
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        const response = await fetch('http://localhost:5000/api/clientes');
+        if (response.ok) {
+          const data = await response.json();
+          setClientes(data); // Armazena os clientes no estado
+        } else {
+          toast.error('Erro ao carregar clientes');
+        }
+      } catch (error) {
+        toast.error('Erro ao carregar clientes');
+      }
+    };
+
+    fetchClientes();
+  }, []);
 
   // Envio do formulário
   const handleSubmit = async (event) => {
@@ -87,9 +116,9 @@ export default function AdicionarVeiculo() {
           modelo: '',
           ano: '',
           placa: '',
-          id_cliente: 2,  // Reseta o valor padrão para id_cliente
-          fotos: null,  // Reseta o valor padrão para fotos
-          status_reparacao: '',  // Reseta o valor padrão para status_reparacao
+          id_cliente: '',  // Reseta o valor para id_cliente
+          fotos: null,  // Reseta o valor para fotos
+          status_reparacao: '',  // Reseta o valor para status_reparacao
         });
       } catch (error) {
         toast.error(error.message || 'Erro ao cadastrar veículo. Tente novamente.');
@@ -179,12 +208,20 @@ export default function AdicionarVeiculo() {
             <Form.Group>
               <Form.Label className='fw-bold'>ID do Cliente</Form.Label>
               <Form.Control
-                type="number"
+                as="select"
                 name="id_cliente"
                 value={formData.id_cliente}
-                readOnly
-                placeholder="ID do cliente"
-              />
+                onChange={handleChange}
+                isInvalid={!!errors.id_cliente}
+              >
+                <option value="">Selecione o Cliente</option>
+                {clientes.map((cliente) => (
+                  <option key={cliente.id_cliente} value={cliente.id_cliente}>
+                    {cliente.nome} - {cliente.email} - {cliente.telefone}
+                  </option>
+                ))}
+              </Form.Control>
+              <Form.Control.Feedback type="invalid">{errors.id_cliente}</Form.Control.Feedback>
             </Form.Group>
           </div>
 
