@@ -3,12 +3,14 @@ import "react-toastify/dist/ReactToastify.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { FaArrowLeftLong } from "react-icons/fa6";
-
-
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
+import TopPerfil from "../../components/compenentesAdmin/TopPerfil";
+
 
 
 
@@ -69,79 +71,102 @@ function VisualizarVeiculo() {
   if (error) return <p>Erro: {error}</p>;
 
   return (
-    <div className="container mt-4">
-      <h5>Detalhes do Veículo</h5>
-      {vehicle? (
-        <div className="card p-4">
-          <div className="row">
-            <div className="col-12 col-md-6 col-lg-6">
-              <p><strong>Marca:</strong> {vehicle.marca || 'Sem informação'}</p>
-            </div>
-            <div className="col-12 col-md-6 col-lg-6">
-              <p><strong>Modelo:</strong> {vehicle.modelo || 'Sem informação'}</p>
-            </div>
-            <div className="col-12 col-md-6 col-lg-6">
-              <p><strong>Ano:</strong> {vehicle.ano || 'Sem informação'}</p>
-            </div>
-            <div className="col-12 col-md-6 col-lg-6">
-              <p><strong>Placa:</strong> {vehicle.placa || 'Sem informação'}</p>
-            </div>
-            <div className="col-12 col-md-6 col-lg-6">
-              <p><strong>Status de Reparação:</strong> {vehicle.status_reparacao || 'Sem informação'}</p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <p>Dados do veículo não encontrados.</p>
-      )}
 
-      {client? (
-        <>
-          <h5 className="my-3">Detalhes do Cliente</h5>
-          <div className="card p-4">
-            <div className="row">
-              <div className="col-12 col-md-6 col-lg-6">
-                <p><strong>Nome:</strong> {client.nome || 'Sem informação'}</p>
-              </div>
-              <div className="col-12 col-md-6 col-lg-6">
-                <p><strong>Email:</strong> {client.email || 'Sem informação'}</p>
-              </div>
-              <div className="col-12 col-md-6 col-lg-6">
-                <p><strong>Endereço:</strong> {client.endereco || 'Sem informação'}</p>
-              </div>
-              <div className="col-12 col-md-6 col-lg-6">
-                <p><strong>Telefone:</strong> {client.telefone || 'Sem informação'}</p>
-              </div>
-            </div>
-          </div>
-        </>
-      ) : (
-        <h6 className="my-3 text-danger">Cliente não encontrado.</h6>
-      )}
+    <>
+                <TopPerfil nome={client.nome } email={client.email} telefone={client.telefone}/>
 
-      <h5 className="my-3">Detalhes do Agendamento</h5>
-      {agendamento? (
-        <>
-          <div className="card p-4">
-            <div className="row">
-              <div className="col-12 col-md-6 col-lg-6">
-                <p><strong>Data de Agendada:</strong> {agendamento.data || 'Sem informação'}</p>
-              </div>
-              <div className="col-12 col-md-6 col-lg-6">
-                <p><strong>Descrição:</strong> {agendamento.descricao || 'Sem informação'}</p>
-              </div>
-              <div className="col-12 col-md-6 col-lg-6">
-                <p><strong>Motivo de Adiamento:</strong> {agendamento.motivoAdiar || 'Sem informação'}</p>
-              </div>
-            </div>
-          </div>
-        </>
-      ) : (
-        <h6 className="my-3 text-danger">Veículo entrou sem agendamento.</h6>
-      )}
+      <div className="container-fluid">
+        <Tabs
+          defaultActiveKey="exibir"
+          id="fill-tab-example"
+          className="mb-3 mt-2"
+          fill
 
-      <ToastContainer position="top-center" autoClose={3000} />
-    </div>
+        >
+          <Tab eventKey="exibir"  title={<strong>Mostrar Dados</strong>}>
+            <div className=" mt-5">
+              <h5>Detalhes do Veículo</h5>
+              {vehicle ? (
+                <div className="card p-4">
+                  <div className="row">
+                    <div className="col-12 col-md-6 col-lg-6">
+                      <p><strong>Marca:</strong> {vehicle.marca || 'Sem informação'}</p>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-6">
+                      <p><strong>Modelo:</strong> {vehicle.modelo || 'Sem informação'}</p>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-6">
+                      <p><strong>Ano:</strong> {vehicle.ano || 'Sem informação'}</p>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-6">
+                      <p><strong>Placa:</strong> {vehicle.placa || 'Sem informação'}</p>
+                    </div>
+                    <div className="col-12 col-md-6 col-lg-6">
+                      <p><strong>Status de Reparação:</strong> {vehicle.status_reparacao || 'Sem informação'}</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <p>Dados do veículo não encontrados.</p>
+              )}
+
+              {client ? (
+                <>
+                  <h5 className="my-3">Detalhes do Cliente</h5>
+                  <div className="card p-4">
+                    <div className="row">
+                      <div className="col-12 col-md-6 col-lg-6">
+                        <p><strong>Nome:</strong> {client.nome || 'Sem informação'}</p>
+                      </div>
+                      <div className="col-12 col-md-6 col-lg-6">
+                        <p><strong>Email:</strong> {client.email || 'Sem informação'}</p>
+                      </div>
+                      <div className="col-12 col-md-6 col-lg-6">
+                        <p><strong>Endereço:</strong> {client.endereco || 'Sem informação'}</p>
+                      </div>
+                      <div className="col-12 col-md-6 col-lg-6">
+                        <p><strong>Telefone:</strong> {client.telefone || 'Sem informação'}</p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <h6 className="my-3 text-danger">Cliente não encontrado.</h6>
+              )}
+
+              <h5 className="my-3">Detalhes do Agendamento</h5>
+              {agendamento ? (
+                <>
+                  <div className="card p-4">
+                    <div className="row">
+                      <div className="col-12 col-md-6 col-lg-6">
+                        <p><strong>Data de Agendada:</strong> {agendamento.data || 'Sem informação'}</p>
+                      </div>
+                      <div className="col-12 col-md-6 col-lg-6">
+                        <p><strong>Descrição:</strong> {agendamento.descricao || 'Sem informação'}</p>
+                      </div>
+                      <div className="col-12 col-md-6 col-lg-6">
+                        <p><strong>Motivo de Adiamento:</strong> {agendamento.motivoAdiar || 'Sem informação'}</p>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <h6 className="my-3 text-danger">Veículo entrou sem agendamento.</h6>
+              )}
+
+              <ToastContainer position="top-center" autoClose={3000} />
+            </div>
+          </Tab>
+          <Tab eventKey="editarDados" title={<strong>Editar os Dados</strong>}>
+            Tab content for Profile
+          </Tab>
+
+        </Tabs>
+
+
+      </div>
+    </>
   );
 }
 
