@@ -57,7 +57,7 @@ export default function TabelaBlog() {
           <Dropdown.Menu className="cimaAll">
             <Dropdown.Item onClick={() => handleVisualizar(row)}>
               <FaRegEye />
-              &nbsp;&nbsp;Visualizar
+              &nbsp;&nbsp;Visualizar 
             </Dropdown.Item>
             <Dropdown.Item onClick={() => handleEdit(row.id_blog)}>
               <FiEdit />

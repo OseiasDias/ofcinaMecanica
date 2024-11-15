@@ -1,164 +1,176 @@
-import { IoIosAdd } from "react-icons/io";
+import "../../css/StylesAdmin/homeAdministrador.css";
+import "react-toastify/dist/ReactToastify.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import TopPerfil from "../../components/compenentesAdmin/TopPerfil";
+
+
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 
-
-
-const ExibirDadosVeiculo = () => {
+function VisualizarVeiculo() {
   const { idVeiculo } = useParams();
+
   const [vehicle, setVehicle] = useState(null);
+  const [client, setClient] = useState(null);
+  const [agendamento, setAgendamento] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [networkError, setNetworkError] = useState(false);
-  const [serverError, setServerError] = useState(false);
-  const [clientDetails, setClientDetails] = useState(null);
 
-  const fetchVehicle = async () => {
+  const fetchData = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/veiculos/${idVeiculo}`);
-      setVehicle(response.data);
-    } catch (error) {
-      if (error.response) {
-        setServerError(true);
-        setError(error.response.data.message);
-      } else if (error.request) {
-        setNetworkError(true);
-        setError('Erro de rede. Verifique sua conexão.');
-      } else {
-        setError('Erro inesperado. Tente novamente mais tarde.');
+      if (!idVeiculo) {
+        throw new Error('ID do veículo não encontrado na URL.');
       }
-    }
-  };
 
-  const fetchClientDetails = async (idCliente) => {
-    if (!idCliente) return;
-    try {
-      const response = await axios.get(`http://localhost:5000/api/clientes/${idCliente}`);
-      setClientDetails(response.data);
-    } catch (error) {
-      console.error('Erro ao buscar os dados do cliente:', error);
-      setClientDetails(null);
+      // Buscar dados do veículo
+      const vehicleResponse = await fetch(`http://localhost:5000/api/veiculos/${idVeiculo}`);
+      if (!vehicleResponse.ok) {
+        throw new Error(`Erro ao buscar dados do veículo. Código: ${vehicleResponse.status}`);
+      }
+      const vehicleData = await vehicleResponse.json();
+      setVehicle(vehicleData);
+
+      // Buscar dados do cliente associado ao veículo
+      if (vehicleData.id_cliente) {
+        const clientResponse = await fetch(`http://localhost:5000/api/clientes/${vehicleData.id_cliente}`);
+        if (!clientResponse.ok) {
+          throw new Error("Erro ao buscar dados do cliente.");
+        }
+        const clientData = await clientResponse.json();
+        setClient(clientData);
+      }
+
+      // Buscar dados do agendamento do veículo
+      const agendamentoResponse = await fetch(`http://localhost:5000/api/agendamentos/`);
+      if (!agendamentoResponse.ok) {
+        throw new Error(`Erro ao buscar dados do agendamento. Código: ${agendamentoResponse.status}`);
+      }
+      const agendamentoData = await agendamentoResponse.json();
+      const agendamentoVeiculo = agendamentoData.find(agendamento => agendamento.id_veiculo === parseInt(idVeiculo));
+      setAgendamento(agendamentoVeiculo);
+    } catch (err) {
+      setError(err.message);
+      toast.error(`Erro ao carregar os dados: ${err.message}`);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchVehicle();
-  }, [idVeiculo]);
-
-  useEffect(() => {
-    if (vehicle && vehicle.id_cliente) {
-      fetchClientDetails(vehicle.id_cliente);
-    }
-  }, [vehicle]);
-
-  useEffect(() => {
-    setLoading(false);
-  }, [vehicle, clientDetails]);
-
-  // Função para exibir "Sem informação" caso o valor seja inválido
-  const renderValue = (value) => {
-    return value ? value : "Sem informação";
-  };
+    fetchData();
+  }, [idVeiculo]); // Chama a função toda vez que o ID muda
 
   if (loading) return <p>Carregando...</p>;
-  if (networkError) return <p>Erro de rede. Verifique sua conexão.</p>;
-  if (serverError) return <p>Erro do servidor: {error}</p>;
   if (error) return <p>Erro: {error}</p>;
 
   return (
-    <div>
-      <TopPerfil />
-      <Tabs
-        defaultActiveKey="dadosAtuais"
-        id="uncontrolled-tab-example"
-        className="mb-3"
-      >
-        <Tab eventKey="dadosAtuais" title="Dados Atuais">
-         <div className="container-fluid">
-         <div className="row mt-4 h-100">
-            
-            <div className=" mb-4 col-md-6">
-              
-              <div className="margemLinha card p-4 h-100">
-                <h5>Dados do Veículo</h5>
-                <p><strong>Marca:</strong> {renderValue(vehicle.marca)}</p>
-                <p><strong>Modelo:</strong> {renderValue(vehicle.modelo)}</p>
-                <p><strong>Placa:</strong> {renderValue(vehicle.placa)}</p>
-                <p><strong>Ano:</strong> {renderValue(vehicle.ano)}</p>
-                <p><strong>Status de Reparação:</strong> {renderValue(vehicle.status_reparacao)}</p>
-             
+    <div className="container mt-4">
+      <h5>Detalhes do Veículo</h5>
+      {vehicle? (
+        <div className="card p-4">
+          <div className="row">
+            <div className="col-12 col-md-6 col-lg-6">
+              <p><strong>Marca:</strong> {vehicle.marca || 'Sem informação'}</p>
+            </div>
+            <div className="col-12 col-md-6 col-lg-6">
+              <p><strong>Modelo:</strong> {vehicle.modelo || 'Sem informação'}</p>
+            </div>
+            <div className="col-12 col-md-6 col-lg-6">
+              <p><strong>Ano:</strong> {vehicle.ano || 'Sem informação'}</p>
+            </div>
+            <div className="col-12 col-md-6 col-lg-6">
+              <p><strong>Placa:</strong> {vehicle.placa || 'Sem informação'}</p>
+            </div>
+            <div className="col-12 col-md-6 col-lg-6">
+              <p><strong>Status de Reparação:</strong> {vehicle.status_reparacao || 'Sem informação'}</p>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <p>Dados do veículo não encontrados.</p>
+      )}
+
+      {client? (
+        <>
+          <h5 className="my-3">Detalhes do Cliente</h5>
+          <div className="card p-4">
+            <div className="row">
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Nome:</strong> {client.nome || 'Sem informação'}</p>
+              </div>
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Email:</strong> {client.email || 'Sem informação'}</p>
+              </div>
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Endereço:</strong> {client.endereco || 'Sem informação'}</p>
+              </div>
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Telefone:</strong> {client.telefone || 'Sem informação'}</p>
               </div>
             </div>
-
-            {vehicle.id_cliente && (
-              <div className="col-md-6">
-                  <div className="margemLinha card p-4 h-100">
-               
-                  <h5>Dados do Cliente</h5>
-                  {clientDetails ? (
-                    <div>
-                      <p><strong>Nome:</strong> {renderValue(clientDetails.nome)}</p>
-                      <p><strong>Email:</strong> {renderValue(clientDetails.email)}</p>
-                      <p><strong>Telefone:</strong> {renderValue(clientDetails.telefone)}</p>
-                      <p><strong>Endereço:</strong> {renderValue(clientDetails.endereco)}</p>
-                      <p><strong>Gênero:</strong> {renderValue(clientDetails.genero)}</p>
-                      <p><strong>Data de Nascimento:</strong> {clientDetails.data_nascimento ? new Date(clientDetails.data_nascimento).toLocaleDateString() : "Sem informação"}</p>
-                    </div>
-                  ) : (
-                    <p>Carregando dados do cliente...</p>
-                  )}
-              
-                  </div>
-              </div>
-            )}
           </div>
-         </div>
-        </Tab>
-        <Tab eventKey="profile" title="Editar os Dados">
-          Tab content for Profile
-        </Tab>
-      </Tabs>
+        </>
+      ) : (
+        <h6 className="my-3 text-danger">Cliente não encontrado.</h6>
+      )}
+
+      <h5 className="my-3">Detalhes do Agendamento</h5>
+      {agendamento? (
+        <>
+          <div className="card p-4">
+            <div className="row">
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Data de Agendada:</strong> {agendamento.data || 'Sem informação'}</p>
+              </div>
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Descrição:</strong> {agendamento.descricao || 'Sem informação'}</p>
+              </div>
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Motivo de Adiamento:</strong> {agendamento.motivoAdiar || 'Sem informação'}</p>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <h6 className="my-3 text-danger">Veículo entrou sem agendamento.</h6>
+      )}
+
+      <ToastContainer position="top-center" autoClose={3000} />
     </div>
   );
-};
+}
 
 
 
 
-
-
-
-
-
-
-const PerfilVeiculo = () => {
+const EditarVeiculoAll = () => {
   return (
     <>
       <div className="container-fluid">
         <div className="d-flex">
           <SideBar />
 
-          <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Dados do Veículo" leftSeta={<FaArrowLeftLong
-            />} icone={<IoIosAdd />} leftR='/funcionariosList' />
+          <div className="flexAuto w-100">
+            <TopoAdmin
+              entrada="Editar o conteudo do Blog"
+              leftSeta={<FaArrowLeftLong />}
+              leftR='/blogList' // Redireciona de volta para a lista de agendamentos
+            />
 
             <div className="vh-100 alturaPereita">
-            <ExibirDadosVeiculo />
+
+              <VisualizarVeiculo />
 
             </div>
+
             <div className="div text-center np pt-2 mt-2 ppAr">
               <hr />
               <p className="text-center">
-
                 Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos
                 reservados.
                 <br />
@@ -174,4 +186,4 @@ const PerfilVeiculo = () => {
   );
 };
 
-export default PerfilVeiculo;
+export default EditarVeiculoAll;

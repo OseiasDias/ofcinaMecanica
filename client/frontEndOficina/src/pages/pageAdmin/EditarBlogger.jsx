@@ -1,28 +1,19 @@
 import "../../css/StylesAdmin/homeAdministrador.css";
-
-//import TopPerfil from "../../components/compenentesAdmin/TopPerfil";
-
 import "react-toastify/dist/ReactToastify.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { FaArrowLeftLong } from "react-icons/fa6";
-/*import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'; // Importante para os estilos do Toast
-import Spinner from 'react-bootstrap/Spinner'; // Spinner importado
-
-*/
 import { ToastContainer, toast } from 'react-toastify';
-
 import { useEffect, useState } from "react";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, Form } from "react-bootstrap";
-
-import { useParams,  } from "react-router-dom"; // Importando useNavigate para redirecionar
+import { useNavigate, useParams,  } from "react-router-dom"; // Importando useNavigate para redirecionar
 import "react-toastify/dist/ReactToastify.css";
 
 
 
  function EditarBlog() {
+  const navigate = useNavigate();
   const { idBlog } = useParams(); // Pegando o id da URL
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -69,8 +60,8 @@ import "react-toastify/dist/ReactToastify.css";
       // Redirecionar para a página de lista de blogs após sucesso
       //navigate("/blogList");
       setTimeout(() => {
-        window.location.reload();
-            }, 3000);
+        navigate("/blogList");//window.location.reload();
+        }, 3000);
 
 
     } catch (error) {

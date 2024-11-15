@@ -146,6 +146,7 @@ const App = () => {
               <Route path="/agendamentoHistorico" element={<AgendamentoHistorico />} />
               <Route path="/agendamentoAdiar/:id" element={<AdiarAgendamento />} />
               <Route path="/editarBlog/:idBlog" element={<EditarBlogger />} />
+              <Route path="/editarVeiculo/:idVeiculo" element={<EditarVeiculo />} />
  
               {/**Routes de Add de Entidades */}
               <Route path="/addClientes" element={<AddClientes />} />
@@ -158,7 +159,6 @@ const App = () => {
               {/**Routes Perfil Funcionarios */}
 
               <Route path="/perfilFuncionario/:id" element={<PerfilFuncionario />} />
-              <Route path="/perfilVeiculo/:idVeiculo" element={<EditarVeiculo />} />
 
 
              {/* <Route path="/addFaturas" element={<AddFaturas />} /> */}

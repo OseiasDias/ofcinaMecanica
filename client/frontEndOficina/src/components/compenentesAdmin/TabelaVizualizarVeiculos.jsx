@@ -41,7 +41,7 @@ export default function TabelaVizualizarVeiculos() {
 
 
   const handleEdit = (id) => {
-    navigate(`/perfilVeiculo/${id}`);
+    navigate(`/editarVeiculo/${id}`);
   };
 
   const columns = [
