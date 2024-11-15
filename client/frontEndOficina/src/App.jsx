@@ -40,6 +40,7 @@ import AgendamentoHistorico from "./pages/pageAdmin/AgendamentoHistorico.jsx";
 //import ConnectionStatus from "./components/compenentesAdmin/ConnectionStatus.jsx"
 import AdiarAgendamento from "./pages/pageAdmin/AdiarAgendemento.jsx";
 import EditarBlogger from "./pages/pageAdmin/EditarBlogger.jsx";
+import EditarVeiculo from "./pages/pageAdmin/EditarVeiculo.jsx";
 
 
 
@@ -157,6 +158,7 @@ const App = () => {
               {/**Routes Perfil Funcionarios */}
 
               <Route path="/perfilFuncionario/:id" element={<PerfilFuncionario />} />
+              <Route path="/perfilVeiculo/:idVeiculo" element={<EditarVeiculo />} />
 
 
              {/* <Route path="/addFaturas" element={<AddFaturas />} /> */}

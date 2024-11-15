@@ -7,6 +7,7 @@ import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
+import { useNavigate } from 'react-router-dom';
 
 const customStyles = {
   headCells: {
@@ -26,6 +27,8 @@ const customStyles = {
 };
 
 export default function TabelaVizualizarVeiculos() {
+
+  const navigate = useNavigate();
   const [records, setRecords] = useState([]);
   const [originalRecords, setOriginalRecords] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +38,11 @@ export default function TabelaVizualizarVeiculos() {
   const [vehicleIdToDelete, setVehicleIdToDelete] = useState(null);
   const [selectedVehicle, setSelectedVehicle] = useState(null); // Dados do veículo selecionado
   const [clientDetails, setClientDetails] = useState(null); // Dados do cliente
+
+
+  const handleEdit = (id) => {
+    navigate(`/perfilVeiculo/${id}`);
+  };
 
   const columns = [
     { name: "Marca", selector: (row) => row.marca },
@@ -76,6 +84,8 @@ export default function TabelaVizualizarVeiculos() {
     },
   ];
 
+ 
+
   // Função para visualizar os detalhes do veículo
   const handleVisualizar = async (vehicle) => {
     setSelectedVehicle(vehicle);  // Armazena os dados do veículo selecionado
@@ -98,10 +108,7 @@ export default function TabelaVizualizarVeiculos() {
     }
   };
 
-  const handleEdit = (id) => {
-    console.log("Editar veículo com ID:", id);
-  };
-
+  
   const openDeleteModal = (id) => {
     setVehicleIdToDelete(id);
     setShowModal(true);
