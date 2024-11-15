@@ -228,3 +228,9 @@ body{
 .divHeaderBloger h1{
   font-size: 1.8em;
 }
+
+
+.alinharParagrafoEspecial{
+  text-align:justify !important;
+  color: #555;
+}

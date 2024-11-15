@@ -217,7 +217,8 @@ export default function AdicionarVeiculo() {
                 <option value="">Selecione o Cliente</option>
                 {clientes.map((cliente) => (
                   <option key={cliente.id_cliente} value={cliente.id_cliente}>
-                    {cliente.nome} - {cliente.email} - {cliente.telefone}
+                    <><p className='text-primary alinharParagrafoEspecial'><strong>{cliente.nome}</strong>- {cliente.email} - {cliente.telefone}
+                    </p></> 
                   </option>
                 ))}
               </Form.Control>
