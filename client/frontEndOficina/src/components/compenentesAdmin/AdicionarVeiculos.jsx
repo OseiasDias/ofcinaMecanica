@@ -18,13 +18,14 @@ export default function AdicionarVeiculo() {
 
   // Estado de erro de validação
   const [errors, setErrors] = useState({});
-  
+
   // Estado para armazenar os clientes da API
   const [clientes, setClientes] = useState([]);
-  
+
   // Estado para armazenar o filtro de pesquisa
   const [searchTerm, setSearchTerm] = useState('');
 
+  // Função de validação do formulário
   // Função de validação do formulário
   const validate = () => {
     const formErrors = {};
@@ -232,19 +233,20 @@ export default function AdicionarVeiculo() {
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
-              <Form.Label className='fw-bold'>Pesquisar Cliente</Form.Label>
+              <Form.Label className='fw-bold'>Selecione o Propretário</Form.Label>
               <Form.Control
                 type="text"
                 value={searchTerm}
                 onChange={handleSearchChange}
                 placeholder="Pesquisar por nome, email ou telefone"
+                isInvalid={!!errors.id_cliente} // Exibe erro se não selecionar um cliente
               />
               <div className="list-group mt-2" style={{ maxHeight: '200px', overflowY: 'auto' }}>
                 {filteredClientes.length > 0 ? (
                   filteredClientes.map(cliente => (
                     <div
                       key={cliente.id_cliente}
-                      className="list-group-item list-group-item-action"
+                      className={`list-group-item list-group-item-action ${formData.id_cliente === cliente.id_cliente ? 'list-group-item-primary' : ''}`}
                       onClick={() => handleClienteSelect(cliente.id_cliente)}
                       style={{ cursor: 'pointer' }}
                     >
@@ -255,8 +257,12 @@ export default function AdicionarVeiculo() {
                   <div className="list-group-item">Nenhum cliente encontrado</div>
                 )}
               </div>
+              <Form.Control.Feedback type="invalid">
+                {errors.id_cliente || 'Selecione um cliente'} {/* Mensagem de erro */}
+              </Form.Control.Feedback>
             </Form.Group>
           </div>
+
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
