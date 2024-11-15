@@ -7,13 +7,13 @@ import 'react-toastify/dist/ReactToastify.css';
 export default function AdicionarVeiculo() {
   // Estado do formulário
   const [formData, setFormData] = useState({
-    marca: '',             // Marca começa vazia
-    modelo: '',           // Modelo começa vazio
-    ano: '',              // Ano começa vazio
-    placa: '',            // Placa começa vazia
-    id_cliente: '',       // ID do cliente começa vazio
-    fotos: null,          // Campo fotos (null por enquanto)
-    status_reparacao: '', // Status de reparação começa vazio
+    marca: '',
+    modelo: '',
+    ano: '',
+    placa: '',
+    id_cliente: '',  // Inicialmente sem cliente selecionado
+    fotos: null,
+    status_reparacao: '',
   });
 
   // Estado de erro de validação
@@ -22,6 +22,9 @@ export default function AdicionarVeiculo() {
   // Estado para armazenar os clientes da API
   const [clientes, setClientes] = useState([]);
   
+  // Estado para armazenar o filtro de pesquisa
+  const [searchTerm, setSearchTerm] = useState('');
+
   // Função de validação do formulário
   const validate = () => {
     const formErrors = {};
@@ -137,6 +140,29 @@ export default function AdicionarVeiculo() {
     });
   };
 
+  // Função para lidar com a mudança no campo de pesquisa
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  // Filtra os clientes com base no termo de pesquisa
+  const filteredClientes = clientes.filter((cliente) => {
+    const search = searchTerm.toLowerCase();
+    return (
+      cliente.nome.toLowerCase().includes(search) ||
+      cliente.email.toLowerCase().includes(search) ||
+      cliente.telefone.includes(search)
+    );
+  });
+
+  // Função para lidar com a seleção de um cliente
+  const handleClienteSelect = (clienteId) => {
+    setFormData({
+      ...formData,
+      id_cliente: clienteId,
+    });
+  };
+
   return (
     <div className="container-fluid">
       <h6 className="mt-5 fw-bold">CADASTRO DE VEICULOS</h6>
@@ -206,23 +232,29 @@ export default function AdicionarVeiculo() {
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
-              <Form.Label className='fw-bold'>ID do Cliente</Form.Label>
+              <Form.Label className='fw-bold'>Pesquisar Cliente</Form.Label>
               <Form.Control
-                as="select"
-                name="id_cliente"
-                value={formData.id_cliente}
-                onChange={handleChange}
-                isInvalid={!!errors.id_cliente}
-              >
-                <option value="">Selecione o Cliente</option>
-                {clientes.map((cliente) => (
-                  <option key={cliente.id_cliente} value={cliente.id_cliente}>
-                    <><p className='text-primary alinharParagrafoEspecial'><strong>{cliente.nome}</strong>- {cliente.email} - {cliente.telefone}
-                    </p></> 
-                  </option>
-                ))}
-              </Form.Control>
-              <Form.Control.Feedback type="invalid">{errors.id_cliente}</Form.Control.Feedback>
+                type="text"
+                value={searchTerm}
+                onChange={handleSearchChange}
+                placeholder="Pesquisar por nome, email ou telefone"
+              />
+              <div className="list-group mt-2" style={{ maxHeight: '200px', overflowY: 'auto' }}>
+                {filteredClientes.length > 0 ? (
+                  filteredClientes.map(cliente => (
+                    <div
+                      key={cliente.id_cliente}
+                      className="list-group-item list-group-item-action"
+                      onClick={() => handleClienteSelect(cliente.id_cliente)}
+                      style={{ cursor: 'pointer' }}
+                    >
+                      {cliente.nome} - {cliente.email} - {cliente.telefone}
+                    </div>
+                  ))
+                ) : (
+                  <div className="list-group-item">Nenhum cliente encontrado</div>
+                )}
+              </div>
             </Form.Group>
           </div>
 
