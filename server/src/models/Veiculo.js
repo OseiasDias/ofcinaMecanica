@@ -2,7 +2,7 @@ const pool = require('../db/Conexao'); // Importa a conexão com o banco de dado
 
 // Classe para o modelo de Veiculo
 class Veiculo {
-    constructor(id_veiculo, marca, modelo, ano, placa, id_cliente, fotos, status_reparacao) {
+    constructor(id_veiculo, marca, modelo, ano, placa, id_cliente, fotos, status_reparacao,analise_diagnostica,motivo_visita) {
         this.id_veiculo = id_veiculo;
         this.marca = marca;
         this.modelo = modelo;
@@ -11,12 +11,14 @@ class Veiculo {
         this.id_cliente = id_cliente;
         this.fotos = fotos;
         this.status_reparacao = status_reparacao;
+        this.analise_diagnostica = analise_diagnostica;
+        this.motivo_visita = motivo_visita;
     }
 
     // Método para salvar um veículo no banco de dados
     static async salvar(veiculo) {
-        const query = `INSERT INTO veiculo (marca, modelo, ano, placa, id_cliente, fotos, status_reparacao) 
-                       VALUES (?, ?, ?, ?, ?, ?, ?)`;
+        const query = `INSERT INTO veiculo (marca, modelo, ano, placa, id_cliente, fotos, status_reparacao,analise_diagnostica,motivo_visita) 
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const values = [
             veiculo.marca,
             veiculo.modelo,
@@ -24,7 +26,9 @@ class Veiculo {
             veiculo.placa,
             veiculo.id_cliente,
             veiculo.fotos,
-            veiculo.status_reparacao
+            veiculo.status_reparacao,
+            veiculo.analise_diagnostica,
+            veiculo.motivo_visita,
         ];
 
         const [result] = await pool.promise().query(query, values);
@@ -55,7 +59,7 @@ class Veiculo {
     // Método para atualizar um veículo
     static async atualizar(veiculo) {
         const query = `UPDATE veiculo SET marca = ?, modelo = ?, ano = ?, placa = ?, 
-                       id_cliente = ?, fotos = ?, status_reparacao = ? 
+                       id_cliente = ?, fotos = ?, status_reparacao = ?, analise_diagnostica = ?, 
                        WHERE id_veiculo = ?`;
         const values = [
             veiculo.marca,
@@ -65,7 +69,9 @@ class Veiculo {
             veiculo.id_cliente,
             veiculo.fotos,
             veiculo.status_reparacao,
-            veiculo.id_veiculo
+            veiculo.id_veiculo,
+            veiculo.analise_diagnostica,
+            veiculo.motivo_visita
         ];
 
         await pool.promise().query(query, values);

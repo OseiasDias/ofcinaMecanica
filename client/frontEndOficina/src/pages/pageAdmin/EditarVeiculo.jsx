@@ -182,9 +182,9 @@ const EditarVeiculoAll = () => {
 
           <div className="flexAuto w-100">
             <TopoAdmin
-              entrada="Editar o conteudo do Blog"
+              entrada="Editar Veículos"
               leftSeta={<FaArrowLeftLong />}
-              leftR='/blogList' // Redireciona de volta para a lista de agendamentos
+              leftR='/veiculosList' // Redireciona de volta para a lista de agendamentos
             />
 
             <div className="vh-100 alturaPereita">
