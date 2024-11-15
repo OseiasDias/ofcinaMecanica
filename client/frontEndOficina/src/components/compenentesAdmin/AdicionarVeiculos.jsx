@@ -3,9 +3,13 @@ import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom'; 
+
 
 export default function AdicionarVeiculo() {
   // Estado do formulário
+  const navigate = useNavigate();  // Inicializando o hook useNavigate
+
   const [formData, setFormData] = useState({
     marca: '',
     modelo: '',
@@ -13,7 +17,7 @@ export default function AdicionarVeiculo() {
     placa: '',
     id_cliente: '',  // Inicialmente sem cliente selecionado
     fotos: null,
-    status_reparacao: '',
+    status_reparacao: 'pronto a começar',
   });
 
   // Estado de erro de validação
@@ -28,34 +32,45 @@ export default function AdicionarVeiculo() {
   // Função de validação do formulário
   // Função de validação do formulário
   const validate = () => {
-    const formErrors = {};
+    let formErrors = {};
 
     // Validação da Marca
     if (!formData.marca) {
-      formErrors.marca = 'Marca é obrigatória';
+      formErrors.marca = "Marca é obrigatória";
+    } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.marca)) {
+      formErrors.marca = "A marca deve conter apenas letras, números e os caracteres / . -";
     }
 
     // Validação do Modelo
     if (!formData.modelo) {
-      formErrors.modelo = 'Modelo é obrigatório';
+      formErrors.modelo = "Modelo é obrigatório";
+    } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.modelo)) {
+      formErrors.modelo = "O modelo deve conter apenas letras, números e os caracteres / . -";
     }
 
     // Validação do Ano
     if (!formData.ano) {
-      formErrors.ano = 'Ano é obrigatório';
+      formErrors.ano = "Ano é obrigatório";
     } else if (!/^\d{4}$/.test(formData.ano) || formData.ano < 1900 || formData.ano > new Date().getFullYear()) {
       formErrors.ano = `Ano inválido. O ano deve estar entre 1900 e ${new Date().getFullYear()}`;
     }
 
     // Validação da Placa
     if (!formData.placa) {
-      formErrors.placa = 'Placa é obrigatória';
+      formErrors.placa = "Placa é obrigatória";
+    } else if (!/^[a-zA-Z0-9\s/. -]+$/.test(formData.placa)) {
+      formErrors.placa = "A Placa deve conter apenas letras, números e os caracteres / . -";
     }
 
     // Validação do ID do Cliente
     if (!formData.id_cliente) {
-      formErrors.id_cliente = 'Selecione um cliente';
+      formErrors.id_cliente = "Selecione um cliente";
     }
+
+    // Validação das Fotos - se necessário, pode descomentar a validação
+    // if (!formData.fotos) {
+    //     formErrors.fotos = "Envie pelo menos uma foto";
+    // }
 
     return formErrors;
   };
@@ -113,6 +128,13 @@ export default function AdicionarVeiculo() {
         const data = await response.json();
         toast.success('Veículo cadastrado com sucesso!');
         console.log('Veículo cadastrado:', data);
+      
+
+       
+        setTimeout(() => {
+          navigate('/veiculosList');  // Redireciona para a página de listagem de veículos
+        }, 4000);  // Redireciona após 3 segundos
+
 
         // Limpa o formulário após o sucesso
         setFormData({
