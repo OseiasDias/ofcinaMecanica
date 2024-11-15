@@ -128,30 +128,32 @@ export default function TabelaVizualizarVeiculos() {
       toast.error("Erro ao excluir veículo.");
     }
   };
-
   const fetchData = async () => {
     try {
       const response = await fetch("http://localhost:5000/api/veiculos");
       if (!response.ok) throw new Error("Erro ao buscar dados dos veículos");
       const vehicles = await response.json();
-
+  
+      // Ordenar os veículos por ID descendente
+      const sortedVehicles = vehicles.sort((a, b) => b.id_veiculo - a.id_veiculo);
+  
       const vehiclesWithClientNames = await Promise.all(
-        vehicles.map(async (vehicle) => {
+        sortedVehicles.map(async (vehicle) => {
           if (vehicle.id_cliente) {
             try {
               const clientResponse = await fetch(`http://localhost:5000/api/clientes/${vehicle.id_cliente}`);
               if (clientResponse.ok) {
                 const clientData = await clientResponse.json();
-                return { ...vehicle, clienteNome: clientData.nome };
+                return {...vehicle, clienteNome: clientData.nome };
               }
             } catch {
               console.warn("Erro ao buscar o cliente para o veículo", vehicle.id_veiculo);
             }
           }
-          return { ...vehicle, clienteNome: "Cliente não encontrado" };
+          return {...vehicle, clienteNome: "Cliente não encontrado" };
         })
       );
-
+  
       setRecords(vehiclesWithClientNames);
       setOriginalRecords(vehiclesWithClientNames);
     } catch (err) {
@@ -160,7 +162,6 @@ export default function TabelaVizualizarVeiculos() {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchData();
   }, []);

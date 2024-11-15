@@ -85,7 +85,7 @@ export default function TopoAdmin({ entrada, direccao, icone, leftSeta, leftR })
             <Dropdown.Item onClick={() => handleNavigate("/addServicos")} className="colorir">
               <IoMdAdd />&nbsp;&nbsp;Serviços
             </Dropdown.Item>
-            <Dropdown.Item onClick={() => handleNavigate("/addVeiculost")} className="colorir">
+            <Dropdown.Item onClick={() => handleNavigate("/addVeiculos")} className="colorir">
               <IoMdAdd />&nbsp;Veiculos
             </Dropdown.Item>
           </Dropdown.Menu>

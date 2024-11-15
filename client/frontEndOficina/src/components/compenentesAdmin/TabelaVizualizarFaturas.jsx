@@ -43,7 +43,7 @@ export default function TabelaVizualizarFaturas() {
   };
 
   const columns = [
-    { name: "Nº da Fatura", selector: (row) => row.id_fatura },
+    { name: "Nº da Fatura", selector:(row) => "BT0"+row.id_fatura },
     { name: "Nome do Cliente", selector: (row) => row.nome_cliente },
     {
       name: "Marca e Modelo do Veículo",
