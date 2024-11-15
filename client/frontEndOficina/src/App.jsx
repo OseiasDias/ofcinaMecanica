@@ -39,6 +39,7 @@ import PerfilFuncionario from "./pages/pageAdmin/PerfilFuncionario.jsx";
 import AgendamentoHistorico from "./pages/pageAdmin/AgendamentoHistorico.jsx";
 //import ConnectionStatus from "./components/compenentesAdmin/ConnectionStatus.jsx"
 import AdiarAgendamento from "./pages/pageAdmin/AdiarAgendemento.jsx";
+import EditarBlogger from "./pages/pageAdmin/EditarBlogger.jsx";
 
 
 
@@ -143,7 +144,7 @@ const App = () => {
               <Route path="/faturaList" element={<Faturas />} />
               <Route path="/agendamentoHistorico" element={<AgendamentoHistorico />} />
               <Route path="/agendamentoAdiar/:id" element={<AdiarAgendamento />} />
-
+              <Route path="/editarBlog/:idBlog" element={<EditarBlogger />} />
  
               {/**Routes de Add de Entidades */}
               <Route path="/addClientes" element={<AddClientes />} />

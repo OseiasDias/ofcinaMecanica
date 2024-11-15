@@ -7,25 +7,32 @@ import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { MdDeleteOutline } from "react-icons/md";
+import { useNavigate } from "react-router-dom"; // Importando useNavigate
+
+
 
 const customStyles = {
   headCells: {
     style: {
-      backgroundColor: "#044697",
-      color: "#fff",
-      fontSize: "16px",
-      fontWeight: "bolder",
-      paddingTop: "10px",
-      paddingBottom: "10px",
-      marginTop: "60px",
+      backgroundColor: "#044697", // Cor de fundo dos cabeçalhos
+      color: "#fff", // Cor do texto
+      fontSize: "16px", // Tamanho da fonte
+      fontWeight: "bolder", // Peso da fonte
+      paddingTop: "10px", // Padding superior
+      paddingBottom: "10px", // Padding inferior
+      marginTop: "60px", // Margem superior (pode não ser necessário, depende do layout)
     },
   },
   cells: {
     style: {
-      whiteSpace: 'nowrap', // Impede que o texto quebre em múltiplas linhas
+      whiteSpace: "nowrap", // Impede quebra de linha dentro das células
+     // Esconde o conteúdo que ultrapassa a célula
+      textOverflow: "ellipsis", // Adiciona reticências ao conteúdo que não cabe
     },
   },
+
 };
+
 
 export default function TabelaBlog() {
   const [records, setRecords] = useState([]);
@@ -36,11 +43,12 @@ export default function TabelaBlog() {
   const [showVisualizarModal, setShowVisualizarModal] = useState(false);  // Modal para visualização
   const [blogIdToDelete, setBlogIdToDelete] = useState(null);
   const [blogDetails, setBlogDetails] = useState(null);  // Detalhes do blog para exibir no modal de visualização
+  const navigate = useNavigate(); // Hook para navegação
 
   const columns = [
     { name: "Data", selector: (row) => new Date(row.data_publicacao).toLocaleDateString(), sortable: true },
     { name: "Título", selector: (row) => row.titulo, sortable: true },
-    
+
     {
       name: "Ações",
       cell: (row) => (
@@ -78,7 +86,7 @@ export default function TabelaBlog() {
 
       // Armazena os detalhes do blog no estado
       setBlogDetails(blogData);
-      
+
       // Exibe o modal de visualização
       setShowVisualizarModal(true);
     } catch (error) {
@@ -87,8 +95,9 @@ export default function TabelaBlog() {
     }
   };
 
+  // Função para redirecionar para a página de edição do blog
   const handleEdit = (id) => {
-    console.log("Editar blog com ID:", id);
+    navigate(`/editarBlog/${id}`); // Navega para a rota de edição passando o id do blog
   };
 
   const openDeleteModal = (id) => {
@@ -178,18 +187,15 @@ export default function TabelaBlog() {
           <Modal.Title>{blogDetails ? blogDetails.titulo : "Carregando..."}</Modal.Title>
         </Modal.Header>
         <Modal.Body >
-         
-              {blogDetails ? (
+          {blogDetails ? (
             <>
               <p><strong>Autor:</strong> {blogDetails.autor || "BI-TURBO MOTORS"}</p>
               <p><strong>Data de Publicação:</strong> {new Date(blogDetails.data_publicacao).toLocaleDateString()}</p>
-              <p><strong>Conteúdo:</strong>
-              {blogDetails.conteudo || "Sem conteúdo"}</p>
+              <p><strong>Conteúdo:</strong> {blogDetails.conteudo || "Sem conteúdo"}</p>
             </>
           ) : (
             <p>Carregando dados do blog...</p>
           )}
-            
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>

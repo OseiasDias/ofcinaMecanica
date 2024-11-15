@@ -10,7 +10,7 @@ app.use(express.json());*/
 const ControllerEmpresa = require('./src/controllers/ControllerEmpresa'); 
 const ControllerFatura = require('./src/controllers/ControllerFatura'); // Importando as rotas de Carros
  
-const ControllerCarro = require('./src/controllers/ControllerCarro'); // Importando as rotas de Carros
+//const ControllerCarro = require('./src/controllers/ControllerCarro'); // Importando as rotas de Carros
 const ControllerCliente = require('./src/controllers/ControllerCliente');
 const ControllerAdministrador = require('./src/controllers/ControllerAdministrador'); 
 const ControllerUsuario = require('./src/controllers/ControllerUsuario'); // Importa o controller do usuário
@@ -369,7 +369,7 @@ app.delete('/api/servicos/:id_servico', ControllerServico.deletarServico);
 ======================================
           Rotas do Carros
 ======================================
-*/
+
 
 // Rota para criar um novo carro
 app.post('/api/carros', ControllerCarro.adicionar); // Rota para adicionar um carro
@@ -388,7 +388,7 @@ app.put('/api/carros/:id_carro', ControllerCarro.atualizar); // Rota para atuali
 
 // Rota para deletar um carro
 app.delete('/api/carros/:id_carro', ControllerCarro.excluir); // Rota para deletar um carro
-
+*/
 
 
 

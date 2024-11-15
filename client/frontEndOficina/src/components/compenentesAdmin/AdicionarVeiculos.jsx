@@ -6,13 +6,13 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function AdicionarVeiculo() {
   const [formData, setFormData] = useState({
-    marca: 'Fiat',             // Marca preenchida
-    modelo: 'Punto',           // Modelo preenchido
-    ano: 2010,                 // Ano preenchido
-    placa: 'LD-34-23-W13',     // Placa preenchida
-    id_cliente: 2,             // id_cliente preenchido
-    fotos: null,               // Campo fotos (pode ser null por enquanto)
-    status_reparacao: 'Pronto a Iniciar',  // Status de reparação preenchido
+    marca: '',             // Marca começa vazia
+    modelo: '',           // Modelo começa vazio
+    ano: '',              // Ano começa vazio
+    placa: '',            // Placa começa vazia
+    id_cliente: 2,        // ID do cliente (preenchido com valor fixo ou vazio conforme necessidade)
+    fotos: null,          // Campo fotos (null por enquanto)
+    status_reparacao: '', // Status de reparação começa vazio
   });
 
   const [errors, setErrors] = useState({});
@@ -52,19 +52,25 @@ export default function AdicionarVeiculo() {
 
     const formErrors = validate();
     if (Object.keys(formErrors).length === 0) {
-      const dataToSend = new FormData();
-      dataToSend.append('marca', formData.marca);
-      dataToSend.append('modelo', formData.modelo);
-      dataToSend.append('ano', formData.ano);
-      dataToSend.append('placa', formData.placa);
-      dataToSend.append('id_cliente', formData.id_cliente);  // Campo id_cliente
-      dataToSend.append('fotos', formData.fotos);  // Campo fotos (null por padrão)
-      dataToSend.append('status_reparacao', formData.status_reparacao);  // Campo status_reparacao
+      // Prepara os dados para envio
+      const dataToSend = {
+        marca: formData.marca,
+        modelo: formData.modelo,
+        ano: formData.ano,
+        placa: formData.placa,
+        id_cliente: formData.id_cliente,  // Campo id_cliente
+        fotos: formData.fotos,  // Campo fotos (null por padrão)
+        status_reparacao: formData.status_reparacao,  // Campo status_reparacao
+      };
 
       try {
+        // Envia os dados como JSON via fetch
         const response = await fetch('http://localhost:5000/api/veiculos', {
           method: 'POST',
-          body: dataToSend,
+          headers: {
+            'Content-Type': 'application/json', // Envia como JSON
+          },
+          body: JSON.stringify(dataToSend), // Converte o objeto para JSON
         });
 
         if (!response.ok) {
@@ -82,8 +88,8 @@ export default function AdicionarVeiculo() {
           ano: '',
           placa: '',
           id_cliente: 2,  // Reseta o valor padrão para id_cliente
-          //fotos: null,  // Reseta o valor padrão para fotos
-          status_reparacao: 'pronto a começar',  // Reseta o valor padrão para status_reparacao
+          fotos: null,  // Reseta o valor padrão para fotos
+          status_reparacao: '',  // Reseta o valor padrão para status_reparacao
         });
       } catch (error) {
         toast.error(error.message || 'Erro ao cadastrar veículo. Tente novamente.');
@@ -191,6 +197,7 @@ export default function AdicionarVeiculo() {
                 value={formData.status_reparacao}
                 onChange={handleChange}
               >
+                <option value="">Selecione o Status</option>
                 <option value="pronto a começar">Pronto a Começar</option>
                 <option value="em andamento">Em Andamento</option>
                 <option value="concluído">Concluído</option>

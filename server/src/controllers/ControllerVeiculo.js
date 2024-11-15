@@ -6,7 +6,7 @@ class ControllerVeiculo {
     static async criarVeiculo(req, res) {
         try {
             const veiculoData = req.body;
-            const novoVeiculoId = await Veiculo.salvar(veiculoData);
+             const novoVeiculoId = await Veiculo.salvar(veiculoData);
             res.status(201).json({ id_veiculo: novoVeiculoId, message: "Veículo cadastrado com sucesso!" });
         } catch (error) {
             console.error(error);

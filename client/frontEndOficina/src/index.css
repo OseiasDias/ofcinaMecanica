@@ -215,3 +215,16 @@ body{
 
 
 
+.divHeaderBloger{
+  background-color: var(--corPrimaria);
+  padding: 25px 15px;
+  color: #fff;
+  margin: 12px 0;
+  position: relative;
+  text-align: justify;
+  max-width: 100%;
+}
+
+.divHeaderBloger h1{
+  font-size: 1.8em;
+}
