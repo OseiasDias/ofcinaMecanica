@@ -234,3 +234,8 @@ body{
   text-align:justify !important;
   color: #555;
 }
+
+p,a,h1,h1,h3,h4,h5,h6,span {
+  word-wrap: break-word; /* Quebra a palavra quando for muito longa */
+  white-space: pre-wrap; /* Respeita as quebras de linha do conteúdo */
+}

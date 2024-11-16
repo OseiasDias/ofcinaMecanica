@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 
-/*
+/* 
 const express = require('express');
 const nodemailer = require('nodemailer');
 const crypto = require('crypto'); // Para gerar tokens aleatórios

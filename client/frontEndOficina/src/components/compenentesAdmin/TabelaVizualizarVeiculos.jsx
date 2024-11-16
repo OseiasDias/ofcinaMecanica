@@ -216,68 +216,67 @@ export default function TabelaVizualizarVeiculos() {
       />
 
       {/* Modal para visualização do veículo */}
-      <Modal show={showVisualizarModal} onHide={() => setShowVisualizarModal(false)} centered size="lg">
-        <Modal.Header closeButton>
-          <Modal.Title>{selectedVehicle ? selectedVehicle.marca : "Carregando..."}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {selectedVehicle ? (
-            <>
-              <div className="row">
+      <Modal show={showVisualizarModal} scrollable onHide={() => setShowVisualizarModal(false)} centered size="xl">
+  <Modal.Header closeButton>
+    <Modal.Title>{selectedVehicle ? selectedVehicle.marca || "Sem informação" : "Carregando..."}</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    {selectedVehicle ? (
+      <>
+        <div className="row">
+          <div className="col-12 col-md-6 col-lg-6">
+            <p><strong>Marca:</strong> {selectedVehicle.marca || "Sem informação"}</p>
+          </div>
+          <div className="col-12 col-md-6 col-lg-6">
+            <p><strong>Modelo:</strong> {selectedVehicle.modelo || "Sem informação"}</p>
+          </div>
+          <div className="col-12 col-md-6 col-lg-6">
+            <p><strong>Placa:</strong> {selectedVehicle.placa || "Sem informação"}</p>
+          </div>
+          <div className="col-12 col-md-6 col-lg-6">
+            <p><strong>Status de Reparação:</strong> {selectedVehicle.status_reparacao || "Sem informação"}</p>
+          </div>
+          <div className="col-12 col-md-6 col-lg-12 my-2">
+            <p><span className="fw-bold">Motivo de Visita:</span> {selectedVehicle.motivo_visita || "Sem informação"}</p>
+          </div>
+          <div className="col-12 col-md-6 col-lg-12 my-2">
+            <p><span className="fw-bold">Analise Diagnostica:</span> {selectedVehicle.analise_diagnostica || "Sem informação"}</p>
+          </div>
+        </div>
 
-                <div className="col-12 col-md-6 col-lg-6">
-                  <p><strong>Marca:</strong> {selectedVehicle.marca}</p>
-                </div>
-                <div className="col-12 col-md-6 col-lg-6">
-                  <p><strong>Modelo:</strong> {selectedVehicle.modelo}</p>
-                </div>
-                <div className="col-12 col-md-6 col-lg-6">
-                  <p><strong>Placa:</strong> {selectedVehicle.placa}</p>
-                </div>
-
-                <div className="col-12 col-md-6 col-lg-6">
-                  <p><strong>Status de Reparação:</strong> {selectedVehicle.status_reparacao}</p>
-
-                </div>
+        {/* Dados do cliente */}
+        {clientDetails && (
+          <>
+            <hr />
+            <h6>Detalhes do Cliente</h6>
+            <hr />
+            <div className="row">
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Nome:</strong> {clientDetails.nome || "Sem informação"}</p>
               </div>
-
-              {/* Dados do cliente */}
-              {clientDetails && (
-                <>
-                  <hr />
-                  <h6>Detalhes do Cliente</h6>
-                  <hr />
-                  <div className="row">
-                  <div className="col-12 col-md-6 col-lg-6">
-                    <p><strong>Nome:</strong> {clientDetails.nome}</p>
-                  </div>
-                  <div className="col-12 col-md-6 col-lg-6">
-                    <p><strong>Email:</strong> {clientDetails.email}</p>
-
-                  </div>
-                  <div className="col-12 col-md-6 col-lg-6">
-                    <p><strong>Endereço:</strong> {clientDetails.endereco}</p>
-
-                  </div>
-                  <div className="col-12 col-md-6 col-lg-6">
-                    <p><strong>Telfone:</strong> {clientDetails.telefone}</p>
-
-                  </div>
-                  </div>
-
-                </>
-              )}
-            </>
-          ) : (
-            <p>Carregando dados do veículo...</p>
-          )}
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
-            Fechar
-          </Button>
-        </Modal.Footer>
-      </Modal>
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Email:</strong> {clientDetails.email || "Sem informação"}</p>
+              </div>
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Endereço:</strong> {clientDetails.endereco || "Sem informação"}</p>
+              </div>
+              <div className="col-12 col-md-6 col-lg-6">
+                <p><strong>Telefone:</strong> {clientDetails.telefone || "Sem informação"}</p>
+              </div>
+            </div>
+          </>
+        )}
+      </>
+    ) : (
+      <p>Carregando dados do veículo...</p>
+    )}
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowVisualizarModal(false)}>
+      Fechar
+    </Button>
+  </Modal.Footer>
+</Modal>
 
       {/* Modal para confirmar exclusão */}
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>

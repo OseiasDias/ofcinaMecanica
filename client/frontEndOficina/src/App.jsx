@@ -15,7 +15,7 @@ import HomeAdministrador from "./pages/pageAdmin/HomeAdministrador.jsx";
 import LoginAdmin from "./components/compenentesAdmin/LoginAdmin.jsx";
 import PaginaLoginSuperAdmin from './pages/pageAdmin/PaginaLoginSuperAdmin.jsx';
 import { Navigate } from 'react-router-dom';
-
+  
 //importacoes para clientes
 import Clientes from './pages/pageAdmin/Clientes.jsx';
 import Estoque from './pages/pageAdmin/Estoque.jsx';

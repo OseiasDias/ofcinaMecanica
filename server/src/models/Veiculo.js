@@ -28,7 +28,7 @@ class Veiculo {
             veiculo.fotos,
             veiculo.status_reparacao,
             veiculo.analise_diagnostica,
-            veiculo.motivo_visita,
+            veiculo.motivo_visita
         ];
 
         const [result] = await pool.promise().query(query, values);
@@ -59,7 +59,7 @@ class Veiculo {
     // Método para atualizar um veículo
     static async atualizar(veiculo) {
         const query = `UPDATE veiculo SET marca = ?, modelo = ?, ano = ?, placa = ?, 
-                       id_cliente = ?, fotos = ?, status_reparacao = ?, analise_diagnostica = ?, 
+                       id_cliente = ?, fotos = ?, status_reparacao = ?, analise_diagnostica = ?, motivo_visita = ?, 
                        WHERE id_veiculo = ?`;
         const values = [
             veiculo.marca,

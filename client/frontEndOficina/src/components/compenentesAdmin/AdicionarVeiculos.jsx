@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import { Form } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 
 
 export default function AdicionarVeiculo() {
@@ -18,6 +18,8 @@ export default function AdicionarVeiculo() {
     id_cliente: '',  // Inicialmente sem cliente selecionado
     fotos: null,
     status_reparacao: 'pronto a começar',
+    analise_diagnostica: '',
+    motivo_visita: ''
   });
 
   // Estado de erro de validação
@@ -109,6 +111,8 @@ export default function AdicionarVeiculo() {
         id_cliente: formData.id_cliente,  // Campo id_cliente
         fotos: formData.fotos,  // Campo fotos (null por padrão)
         status_reparacao: formData.status_reparacao,  // Campo status_reparacao
+        analise_diagnostica: formData.analise_diagnostica,
+        motivo_visita: formData.motivo_visita
       };
 
       try {
@@ -128,9 +132,9 @@ export default function AdicionarVeiculo() {
         const data = await response.json();
         toast.success('Veículo cadastrado com sucesso!');
         console.log('Veículo cadastrado:', data);
-      
 
-       
+
+
         setTimeout(() => {
           navigate('/veiculosList');  // Redireciona para a página de listagem de veículos
         }, 4000);  // Redireciona após 3 segundos
@@ -145,6 +149,9 @@ export default function AdicionarVeiculo() {
           id_cliente: '',  // Reseta o valor para id_cliente
           fotos: null,  // Reseta o valor para fotos
           status_reparacao: '',  // Reseta o valor para status_reparacao
+          analise_diagnostica: '',
+          motivo_visita: ''
+
         });
       } catch (error) {
         toast.error(error.message || 'Erro ao cadastrar veículo. Tente novamente.');
@@ -252,7 +259,21 @@ export default function AdicionarVeiculo() {
               <Form.Control.Feedback type="invalid">{errors.placa}</Form.Control.Feedback>
             </Form.Group>
           </div>
-
+          <div className="col-12 col-md-12 col-lg-12">
+            <Form.Group>
+              <Form.Label className='fw-bold'>Motivo da Visita</Form.Label>
+              <Form.Control
+                as="textarea" // Alterado para textarea
+                rows={3} // Define o número de linhas iniciais do textarea
+                name="motivo_visita" // Atualize para o nome correto do campo
+                value={formData.motivo_visita || ''} // Assegura que o estado inicial não seja undefined
+                onChange={handleChange}
+                isInvalid={!!errors.motivo_visita} // Validação específica para o campo
+                placeholder="Descreva o motivo da visita"
+              />
+              <Form.Control.Feedback type="invalid">{errors.motivo_visita}</Form.Control.Feedback>
+            </Form.Group>
+          </div>
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
               <Form.Label className='fw-bold'>Selecione o Propretário</Form.Label>
@@ -302,9 +323,13 @@ export default function AdicionarVeiculo() {
               </Form.Control>
             </Form.Group>
           </div>
-        </div>
 
-        <Button variant="primary" type="submit" className="mt-3 d-block mx-auto">
+
+
+
+        </div>
+        <hr />
+        <Button variant="primary" type="submit" className="my-5 d-block mx-auto">
           Cadastrar Veículo
         </Button>
       </Form>
