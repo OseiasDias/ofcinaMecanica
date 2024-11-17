@@ -453,7 +453,10 @@ app.get('/api/faturas/status/:status_pagamento', ControllerFatura.obterFaturasPo
 
 
 // Rota para obter todos os blogs
-app.get('/api/empresas', ControllerEmpresa.obterEmpresas);
+app.get('/api/empresas', ControllerEmpresa.obterEmpresas); 
+app.get('/api/empresas/:id_empresa', ControllerEmpresa.obterEmpresaPorId);
+app.put('/api/empresas/:id_empresa', ControllerEmpresa.atualizarEmpresa);
+/*
 /*
 
 // Configurações para envio de email usando nodemailer

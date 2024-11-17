@@ -14,6 +14,7 @@ import { FaArrowLeft } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaCalendarDays, FaSackDollar } from "react-icons/fa6";
+import { TbReportSearch } from "react-icons/tb";
 
 // Importando o componente Modal do React Bootstrap
 import { Modal, Button } from 'react-bootstrap';
@@ -35,6 +36,7 @@ const routes = [
   { path: "/pagamentoList", name: "Pagamentos", icon: <FaSackDollar /> },
   { path: "/servicosList", name: "Serviços", icon: <GrServices /> },
   { path: "/veiculosList", name: "Veiculos", icon: <FaCarRear /> },
+  { path: "/pagamentoLi", name: "Relatórios", icon: <TbReportSearch /> },
   { path: "/settings", name: "Definições", icon: <BiCog /> },
 ];
 

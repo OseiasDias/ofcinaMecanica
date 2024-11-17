@@ -41,7 +41,7 @@ import AgendamentoHistorico from "./pages/pageAdmin/AgendamentoHistorico.jsx";
 import AdiarAgendamento from "./pages/pageAdmin/AdiarAgendemento.jsx";
 import EditarBlogger from "./pages/pageAdmin/EditarBlogger.jsx";
 import EditarVeiculo from "./pages/pageAdmin/EditarVeiculo.jsx";
-
+import Deficnicoes from "./pages/pageAdmin/Definicoes.jsx";
 
 
 
@@ -155,8 +155,12 @@ const App = () => {
               <Route path="/addServicos" element={<AddServicos />} />
               <Route path="/addEstoque" element={<AddEstoque/>} />
               <Route path="/addVeiculos" element={<AddVeiculos />} />
+          
 
-              {/**Routes Perfil Funcionarios */}
+              {/**Routes Perfil Funcionarios 
+               */}
+               <Route path="/pageDefinicoes" element={ <Deficnicoes />} />
+              
 
               <Route path="/perfilFuncionario/:id" element={<PerfilFuncionario />} />
 

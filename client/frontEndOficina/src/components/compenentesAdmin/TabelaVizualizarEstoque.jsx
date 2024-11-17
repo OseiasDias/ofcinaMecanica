@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "../../css/StylesAdmin/tbvCliente.css";
 import { FaRegEye } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
+import { GrUpgrade } from "react-icons/gr";
 import { MdDeleteOutline } from "react-icons/md";
 
 const customStyles = {
@@ -52,8 +52,8 @@ export default function TabelaEstoque() {
               &nbsp;&nbsp;Visualizar
             </Dropdown.Item>
             <Dropdown.Item onClick={() => handleEdit(row.id_item)}>
-              <FiEdit />
-              &nbsp;&nbsp;Editar
+              <GrUpgrade />
+              &nbsp;&nbsp;Actualizar
             </Dropdown.Item>
             <Dropdown.Item
               onClick={() => openDeleteModal(row.id_item)}

@@ -1,5 +1,7 @@
 const pool = require('../db/Conexao'); // Importa a conexão com o banco de dados
 
+
+
 // Classe para o modelo de Empresa
 class Empresa {
     constructor(id_empresa, nome_empresa, nif_empresa, endereco, telefone, email, data_criacao, tipo_empresa, ativo, site_empresa, setor_empresa) {
