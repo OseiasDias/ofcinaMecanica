@@ -15,11 +15,20 @@ import Spinner from 'react-bootstrap/Spinner';
 import "react-toastify/dist/ReactToastify.css";
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { IoCall } from 'react-icons/io5';
-import { MdEmail } from 'react-icons/md';
-import { FaWhatsapp, FaFacebook, FaYoutube, FaInstagram } from 'react-icons/fa';
+import { MdEmail, MdOutlineAlternateEmail } from 'react-icons/md';
+import { FaWhatsapp, FaFacebook, FaYoutube, FaInstagram, FaRegMap, FaRegCalendarCheck } from 'react-icons/fa';
 import { GiRoad } from 'react-icons/gi';
-import { RiMapPinLine } from 'react-icons/ri';
+import { RiMapPin2Line, RiMapPinLine } from 'react-icons/ri';
 import { TbMap2 } from 'react-icons/tb';
+import { useEffect } from "react";
+
+import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
+import { TbNumber } from "react-icons/tb";
+import { FaBuildingCircleArrowRight } from "react-icons/fa6";
+import { FaBuildingCircleCheck } from "react-icons/fa6";
+import { FaLink } from "react-icons/fa";
+
+
 
 const FormularioEmpresa = () => {
   const [contactos, setContactos] = useState({
@@ -325,8 +334,10 @@ const EmpresaForm = () => {
     <div className="form-cadastro">
       <h6 className="mt-5">Cadastrar Horários da Empresa</h6>
       <hr />
+      <hr />
       <Form onSubmit={handleSubmit} className="row">
         <h6 className="mt-3">Horários de Funcionamento</h6>
+        <hr />
 
         {['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'].map((dia) => (
           <Form.Group
@@ -334,7 +345,7 @@ const EmpresaForm = () => {
             key={dia}
             controlId={`formHorario${dia.charAt(0).toUpperCase() + dia.slice(1)}`}
           >
-            <Form.Label className="fw-bold">{dia.charAt(0).toUpperCase() + dia.slice(1)}-feira</Form.Label>
+            <Form.Label className="fw-Linha">{dia.charAt(0).toUpperCase() + dia.slice(1)}-feira</Form.Label>
             <div className="d-flex">
               <Form.Control
                 type="time"
@@ -394,12 +405,16 @@ const EmpresaForm = () => {
 };
 
 
-function CadastrarEmpresa() {
+
+function EditarDadosDaEmpresa() {
   const navigate = useNavigate();
+  const id_empresa = 71; // ID da empresa (alterado conforme o exemplo fornecido)
   const [formValues, setFormValues] = useState({
     nome_empresa: "",
     nif_empresa: "",
     rua: "",
+    bairro: "",
+    municipio: "",
     telefone: "",
     email: "",
     data_criacao: "",
@@ -408,16 +423,49 @@ function CadastrarEmpresa() {
     site_empresa: "",
     setor_empresa: "",
   });
-
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
+
+  // Carregar os dados da empresa ao montar o componente
+  useEffect(() => {
+    const fetchEmpresaData = async () => {
+      try {
+        const response = await fetch(`http://localhost:5000/api/empresas/${id_empresa}`);
+        const data = await response.json();
+        if (response.ok) {
+          // Preencher o formulário com os dados da empresa
+          setFormValues({
+            nome_empresa: data.nome_empresa,
+            nif_empresa: data.nif_empresa,
+            telefone: data.telefone,
+            email: data.email,
+            data_criacao: data.data_criacao.split('T')[0], // Para mostrar a data no formato correto
+            tipo_empresa: data.tipo_empresa,
+            ativo: data.ativo,
+            site_empresa: data.site_empresa || "", // Valor vazio se não houver site
+            setor_empresa: data.setor_empresa,
+            rua: data.rua || "",
+            bairro: data.bairro || "",
+            municipio: data.municipio || "",
+          });
+        } else {
+          toast.error("Erro ao carregar os dados da empresa");
+        }
+      } catch (error) {
+        toast.error("Erro ao conectar ao servidor: " + error.message);
+      }
+    };
+
+    fetchEmpresaData();
+  }, [id_empresa]);
 
   // Função para validar o formulário
   const validateForm = () => {
     const newErrors = {};
 
-    const telefoneRegex = /^[0-9]{9,20}$/; // Ajuste conforme a necessidade de telefone
+    const telefoneRegex = /^[0-9]{9,20}$/;
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const urlRegex = /^https?:\/\/[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/; // Para validar URL
 
     // Validações
     if (!formValues.nome_empresa) {
@@ -454,12 +502,20 @@ function CadastrarEmpresa() {
       newErrors.tipo_empresa = "Tipo de empresa é obrigatório.";
     }
 
-    if (formValues.site_empresa && !/^https?:\/\/[a-zA-Z0-9-]+\.[a-zA-Z]{2,}/.test(formValues.site_empresa)) {
+    if (formValues.site_empresa && !urlRegex.test(formValues.site_empresa)) {
       newErrors.site_empresa = "URL do site inválida.";
     }
 
     if (!formValues.setor_empresa) {
       newErrors.setor_empresa = "Setor da empresa é obrigatório.";
+    }
+
+    if (!formValues.bairro) {
+      newErrors.bairro = "Bairro é obrigatório.";
+    }
+
+    if (!formValues.municipio) {
+      newErrors.municipio = "Município é obrigatório.";
     }
 
     setErrors(newErrors);
@@ -479,8 +535,8 @@ function CadastrarEmpresa() {
     setIsLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/empresas", {
-        method: "POST",
+      const response = await fetch(`http://localhost:5000/api/empresas/${id_empresa}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
@@ -489,17 +545,19 @@ function CadastrarEmpresa() {
 
       if (!response.ok) {
         const errorData = await response.json();
-        toast.error(`Cadastro não realizado: ${errorData.message || "Verifique os dados."}`);
+        toast.error(`Erro ao atualizar empresa: ${errorData.message || "Verifique os dados."}`);
         setIsLoading(false);
         return;
       }
 
       const data = await response.json();
-      toast.success("Cadastro da empresa realizado com sucesso!");
+      toast.success("Empresa atualizada com sucesso!");
 
       setTimeout(() => {
-        navigate("/empresasList");
+        navigate("/pageDefinicoes");
+        //window.location.reload();  // Recarrega a página
       }, 5000);
+
     } catch (error) {
       toast.error("Erro ao conectar ao servidor: " + error.message);
       setIsLoading(false);
@@ -508,38 +566,146 @@ function CadastrarEmpresa() {
 
   return (
     <div className="form-cadastro">
+
       <h6 className="mt-5">INFORMAÇÕES DA EMPRESA</h6>
       <hr />
+
       <Form onSubmit={handleCadastro} className="row">
-        <Form.Group className="col-12 col-md-6 col-lg-6 my-1" controlId="formNomeEmpresa">
-          <Form.Label className="fw-bold">Nome da Empresa</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o nome da empresa"
-            name="nome_empresa"
-            value={formValues.nome_empresa}
-            onChange={handleInputChange}
-            isInvalid={!!errors.nome_empresa}
-          />
-          <Form.Control.Feedback type="invalid">{errors.nome_empresa}</Form.Control.Feedback>
-        </Form.Group>
+        {/* Seção 1: Informações Gerais da Empresa */}
+        <div className="col-12">
+          <h6 className="section-title fw-bold">Informações Gerais da Empresa</h6>
+          <hr />
+        </div>
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formNomeEmpresa">
+            <Form.Label className="fw-Linha">Nome da Empresa</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <MdOutlineDriveFileRenameOutline fontSize={22} color="#0070fa"/>
+              </span>
+              <Form.Control
+                type="text"
+                placeholder="Digite o nome da empresa"
+                name="nome_empresa"
+                value={formValues.nome_empresa}
+                onChange={handleInputChange}
+                isInvalid={!!errors.nome_empresa}
 
-        <Form.Group className="col-12 col-md-6 col-lg-6 my-1" controlId="formNifEmpresa">
-          <Form.Label className="fw-bold">NIF da Empresa</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite o NIF da empresa"
-            name="nif_empresa"
-            value={formValues.nif_empresa}
-            onChange={handleInputChange}
-            isInvalid={!!errors.nif_empresa}
-          />
-          <Form.Control.Feedback type="invalid">{errors.nif_empresa}</Form.Control.Feedback>
-        </Form.Group>
+              />
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.nome_empresa}</Form.Control.Feedback>
+          </Form.Group>
+        </div>
 
-        <Form.Group className="col-12 col-md-6 col-lg-6 my-1" controlId="formTelefone">
-          <Form.Label className="fw-bold">Telefone</Form.Label>
-          <Form.Control
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formNifEmpresa">
+            <Form.Label className="fw-Linha">NIF da Empresa</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <TbNumber  fontSize={22} color="#0070fa" />
+              </span>
+              <Form.Control
+                type="text"
+                placeholder="Digite o NIF da empresa"
+                name="nif_empresa"
+                value={formValues.nif_empresa}
+                onChange={handleInputChange}
+                isInvalid={!!errors.nif_empresa}
+              />
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.nif_empresa}</Form.Control.Feedback>
+          </Form.Group>
+        </div>
+
+
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formTipoEmpresa">
+            <Form.Label className="fw-Linha">Tipo de Empresa</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <FaBuildingCircleArrowRight fontSize={22} color="#0070fa" />
+              </span>
+              <Form.Control
+                as="select"
+                name="tipo_empresa"
+                value={formValues.tipo_empresa}
+                onChange={handleInputChange}
+                isInvalid={!!errors.tipo_empresa}
+              >
+                <option value="">Selecione o tipo</option>
+                <option value="Microempresa">Microempresa</option>
+                <option value="Pequena Empresa">Pequena Empresa</option>
+                <option value="Média Empresa">Média Empresa</option>
+                <option value="Grande Empresa">Grande Empresa</option>
+              </Form.Control>
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.tipo_empresa}</Form.Control.Feedback>
+          </Form.Group>
+        </div>
+
+
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formSetorEmpresa">
+            <Form.Label className="fw-Linha">Sector da Empresa</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <FaBuildingCircleCheck  fontSize={22} color="#0070fa" />
+              </span>
+              <Form.Control
+                as="select"
+                name="setor_empresa"
+                value={formValues.setor_empresa}
+                onChange={handleInputChange}
+                isInvalid={!!errors.setor_empresa}
+              >
+                <option value="Automação">Automação</option>
+                {/* Adicione mais setores conforme necessário */}
+              </Form.Control>
+
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.setor_empresa}</Form.Control.Feedback>
+            </Form.Group>
+        </div>
+
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formSiteEmpresa">
+            <Form.Label className="fw-Linha">Site da Empresa</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <FaLink fontSize={22} color="#0070fa" />
+              </span>
+              <Form.Control
+            type="text"
+            placeholder="Digite o site da empresa"
+            name="site_empresa"
+            value={formValues.site_empresa}
+            onChange={handleInputChange}
+            isInvalid={!!errors.site_empresa}
+          />
+
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.site_empresa}</Form.Control.Feedback>
+            </Form.Group>
+        </div>
+
+
+       
+
+        {/* Seção 2: Informações de Contato */}
+        <div className="col-12 mt-4">
+          <hr />
+          <h6 className="section-title fw-bold ">Informações de Contato</h6>
+          <hr />
+        </div>
+
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formTelefone">
+            <Form.Label className="fw-Linha">Telefone</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <IoCall fontSize={22} color="#0070fa" />
+              </span>
+              <Form.Control
             type="text"
             placeholder="Digite o telefone"
             name="telefone"
@@ -547,12 +713,22 @@ function CadastrarEmpresa() {
             onChange={handleInputChange}
             isInvalid={!!errors.telefone}
           />
-          <Form.Control.Feedback type="invalid">{errors.telefone}</Form.Control.Feedback>
-        </Form.Group>
 
-        <Form.Group className="col-12 col-md-6 col-lg-6 my-1" controlId="formEmail">
-          <Form.Label className="fw-bold">Email</Form.Label>
-          <Form.Control
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.telefone}</Form.Control.Feedback>
+            </Form.Group>
+        </div>
+
+      
+
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formEmail">
+            <Form.Label className="fw-Linha">Email</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+              <MdOutlineAlternateEmail fontSize={22} color="#0070fa" />
+              </span>
+              <Form.Control
             type="email"
             placeholder="Digite o email"
             name="email"
@@ -560,12 +736,32 @@ function CadastrarEmpresa() {
             onChange={handleInputChange}
             isInvalid={!!errors.email}
           />
-          <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
-        </Form.Group>
 
-        <Form.Group className="col-12 col-md-6 col-lg-6 my-1" controlId="formrua">
-          <Form.Label className="fw-bold">Endereço</Form.Label>
-          <Form.Control
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
+            </Form.Group>
+        </div>
+
+
+        
+
+        {/* Seção 3: Endereço e Data de Criação */}
+        <div className="col-12 mt-4">
+          <hr />
+          <h6 className="section-title fw-bold">Endereço e Data de Criação</h6>
+          <hr />
+        </div>
+
+
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formRua">
+            <Form.Label className="fw-Linha">Rua</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+              <GiRoad fontSize={22} color="#0070fa"/>
+               
+              </span>
+              <Form.Control
             type="text"
             placeholder="Digite o endereço"
             name="rua"
@@ -573,70 +769,76 @@ function CadastrarEmpresa() {
             onChange={handleInputChange}
             isInvalid={!!errors.rua}
           />
-          <Form.Control.Feedback type="invalid">{errors.rua}</Form.Control.Feedback>
-        </Form.Group>
 
-        <Form.Group className="col-12 col-md-6 col-lg-6 my-1" controlId="formDataCriacao">
-          <Form.Label className="fw-bold">Data de Criação</Form.Label>
-          <Form.Control
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.rua}</Form.Control.Feedback>
+            </Form.Group>
+        </div>
+
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formBairro">
+            <Form.Label className="fw-Linha">Bairro</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <RiMapPin2Line fontSize={22} color="#0070fa" />
+              </span>
+              <Form.Control
+            type="text"
+            placeholder="Digite o bairro"
+            name="bairro"
+            value={formValues.bairro}
+            onChange={handleInputChange}
+            isInvalid={!!errors.bairro}
+          />
+
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.bairro}</Form.Control.Feedback>
+            </Form.Group>
+        </div>
+
+
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formMunicipio">
+            <Form.Label className="fw-Linha">Município</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <FaRegMap fontSize={22} color="#0070fa" />
+              </span>
+              <Form.Control
+            type="text"
+            placeholder="Digite o município"
+            name="municipio"
+            value={formValues.municipio}
+            onChange={handleInputChange}
+            isInvalid={!!errors.municipio}
+          />
+
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.municipio}</Form.Control.Feedback>
+            </Form.Group>
+        </div>
+
+
+        <div className="col-12  col-md-6 col-lg-6 my-1">
+          <Form.Group controlId="formDataCriacao">
+            <Form.Label className="fw-Linha">Data de Criação</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text">
+                <FaRegCalendarCheck fontSize={22} color="#0070fa" />
+              </span>
+              <Form.Control
             type="date"
             name="data_criacao"
             value={formValues.data_criacao}
             onChange={handleInputChange}
             isInvalid={!!errors.data_criacao}
           />
-          <Form.Control.Feedback type="invalid">{errors.data_criacao}</Form.Control.Feedback>
-        </Form.Group>
 
-        <Form.Group className="col-12 col-md-6 col-lg-6 my-1" controlId="formTipoEmpresa">
-          <Form.Label className="fw-bold">Tipo de Empresa</Form.Label>
-          <Form.Control
-            as="select"
-            name="tipo_empresa"
-            value={formValues.tipo_empresa}
-            onChange={handleInputChange}
-            isInvalid={!!errors.tipo_empresa}
-          >
-            <option value="">Selecione o tipo</option>
-            <option value="Microempresa">Microempresa</option>
-            <option value="Pequena Empresa">Pequena Empresa</option>
-            <option value="Média Empresa">Média Empresa</option>
-            <option value="Grande Empresa">Grande Empresa</option>
-          </Form.Control>
-          <Form.Control.Feedback type="invalid">{errors.tipo_empresa}</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="col-12 col-md-6 col-lg-6 my-1" controlId="formSiteEmpresa">
-          <Form.Label className="fw-bold">Site da Empresa</Form.Label>
-          <Form.Control
-            type="url"
-            placeholder="Digite o site da empresa. www.exemplo.co.ao"
-            name="site_empresa"
-            value={formValues.site_empresa}
-            onChange={handleInputChange}
-            isInvalid={!!errors.site_empresa}
-          />
-          <Form.Control.Feedback type="invalid">{errors.site_empresa}</Form.Control.Feedback>
-        </Form.Group>
-
-        <Form.Group className="col-12 col-md-6 col-lg-6 my-1" controlId="formSetorEmpresa">
-          <Form.Label className="fw-bold">Setor da Empresa</Form.Label>
-          <Form.Control
-            as="select"
-            name="setor_empresa"
-            value={formValues.setor_empresa}
-            onChange={handleInputChange}
-            isInvalid={!!errors.setor_empresa}
-          >
-
-            <option value="Oficina Mecânica">Oficina Mecânica</option>
-
-
-            {/* Adicione mais setores conforme necessário */}
-          </Form.Control>
-          <Form.Control.Feedback type="invalid">{errors.setor_empresa}</Form.Control.Feedback>
-        </Form.Group>
-
+            </div>
+            <Form.Control.Feedback type="invalid">{errors.data_criacao}</Form.Control.Feedback>
+            </Form.Group>
+        </div>
+     
 
         {/* Botão de Cadastro */}
         <div className="w-100">
@@ -655,9 +857,11 @@ function CadastrarEmpresa() {
         </div>
       </Form>
 
+
+      {/* Toast Container */}
       <ToastContainer
         position="top-center"
-        autoClose={5000}
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop
         closeOnClick
@@ -672,6 +876,8 @@ function CadastrarEmpresa() {
 
 
 
+
+
 function TabsDefinicoes() {
   const [key, setKey] = useState('home');
 
@@ -683,7 +889,7 @@ function TabsDefinicoes() {
       className="mb-3"
     >
       <Tab eventKey="home" title={<strong>Configurações Gerais</strong>}>
-        <CadastrarEmpresa />
+        <EditarDadosDaEmpresa />
       </Tab>
       <Tab eventKey="profile" title={<strong>Horários</strong>}>
         <EmpresaForm />
