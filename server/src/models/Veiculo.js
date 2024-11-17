@@ -59,7 +59,7 @@ class Veiculo {
     // Método para atualizar um veículo
     static async atualizar(veiculo) {
         const query = `UPDATE veiculo SET marca = ?, modelo = ?, ano = ?, placa = ?, 
-                       id_cliente = ?, fotos = ?, status_reparacao = ?, analise_diagnostica = ?, motivo_visita = ?, 
+                       id_cliente = ?, fotos = ?, status_reparacao = ?, analise_diagnostica = ?, motivo_visita = ? 
                        WHERE id_veiculo = ?`;
         const values = [
             veiculo.marca,
@@ -68,7 +68,7 @@ class Veiculo {
             veiculo.placa,
             veiculo.id_cliente,
             veiculo.fotos,
-            veiculo.status_reparacao,
+            veiculo.status_reparacao, 
             veiculo.id_veiculo,
             veiculo.analise_diagnostica,
             veiculo.motivo_visita

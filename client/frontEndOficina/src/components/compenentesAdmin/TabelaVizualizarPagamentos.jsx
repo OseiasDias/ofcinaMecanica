@@ -140,7 +140,7 @@ export default function TabelaPagamento() {
         </div>
       </div>
 
-      <div className="table-responsive ">
+      <div className="table-responsive">
         <DataTable
           columns={columns}
           data={records}

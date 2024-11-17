@@ -209,7 +209,7 @@ const handleEdit = async () => {
   ];
 
   return (
-    <div className="my-4 homeDiv">
+    <div className="homeDiv">
       <div className="search row d-flex justify-content-between">
         <div className="col-12 col-md-6 col-lg-6">
           <h4>Lista de Clientes</h4>

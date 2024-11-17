@@ -12,7 +12,7 @@ class ControllerBlog {
             console.error(error);
             res.status(500).json({ message: 'Erro ao criar blog' });
         }
-    }
+    } 
 
     // Método para obter todos os blogs
     static async obterBlogs(req, res) {

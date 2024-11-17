@@ -254,7 +254,7 @@ export default function TabelaVizualizarFaturas() {
         </div>
       </div>
 
-      <div className="table-responsive">
+      <div className="table-responsive mt-5">
         <DataTable
           columns={columns}
           data={records}

@@ -4,222 +4,218 @@ import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import TopPerfil from "../../components/compenentesAdmin/TopPerfil";
-
-
 import { Form } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 
 
-function AtualizarVeiculo({ idVeiculo, onUpdateSuccess }) {
-  const [formData, setFormData] = useState({
-    marca: '',
-    modelo: '',
-    ano: '',
-    placa: '',
-    id_cliente: '',
-    status_reparacao: '',
-  });
 
-  const [errors, setErrors] = useState({});
-  const [clientes, setClientes] = useState([]);
-  const [searchTerm, setSearchTerm] = useState('');
+function AtualizarVeiculo({ id_veiculo }) {
+    const id = id_veiculo; // Pega o ID da URL
+    const navigate = useNavigate(); // Para redirecionar após sucesso
+    const [formData, setFormData] = useState({
+        marca: "",
+        modelo: "",
+        ano: "",
+        placa: "",
+        id_cliente: "",
+        status_reparacao: "",
+        analise_diagnostica: "",
+        motivo_visita: "",
+    });
+    const [errors, setErrors] = useState({});
+    const [clientes, setClientes] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
+    const [loading, setLoading] = useState(false); // Estado para requisição em andamento
 
-  // Função para buscar os dados do veículo
-  useEffect(() => {
-    const fetchVehicleData = async () => {
-      try {
-        const response = await fetch(`http://localhost:5000/api/veiculos/${idVeiculo}`);
-        if (response.ok) {
-          const data = await response.json();
-          setFormData(data);
-        } else {
-          throw new Error('Erro ao carregar os dados do veículo.');
-        }
-      } catch (error) {
-        toast.error(error.message);
-      }
+    // Buscar dados do veículo e lista de clientes
+    useEffect(() => {
+        const fetchVehicleData = async () => {
+            try {
+                setLoading(true);
+                console.log(`Buscando dados do veículo com ID: ${id}`);
+                const response = await fetch(`http://localhost:5000/api/veiculos/${id}`);
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar os dados do veículo.");
+                }
+                const data = await response.json();
+                console.log("Dados do veículo carregados:", data);
+                setFormData(data);
+                toast.success("Dados do veículo carregados!");
+            } catch (error) {
+                console.error("Erro ao buscar dados do veículo:", error.message);
+                toast.error(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        const fetchClientes = async () => {
+            try {
+                console.log("Buscando lista de clientes...");
+                const response = await fetch("http://localhost:5000/api/clientes");
+                if (!response.ok) {
+                    throw new Error("Erro ao carregar clientes.");
+                }
+                const data = await response.json();
+                console.log("Lista de clientes carregada:", data);
+                setClientes(data);
+            } catch (error) {
+                console.error("Erro ao buscar lista de clientes:", error.message);
+                toast.error(error.message);
+            }
+        };
+
+        fetchVehicleData();
+        fetchClientes();
+    }, [id]);
+
+    // Validação dos campos
+    const validate = () => {
+        const formErrors = {};
+        if (!formData.marca) formErrors.marca = "Marca é obrigatória.";
+        if (!formData.modelo) formErrors.modelo = "Modelo é obrigatório.";
+        if (!formData.ano || !/^\d{4}$/.test(formData.ano)) formErrors.ano = "Ano inválido.";
+        if (!formData.placa) formErrors.placa = "Placa é obrigatória.";
+        if (!formData.id_cliente) formErrors.id_cliente = "Cliente é obrigatório.";
+        return formErrors;
     };
 
-    const fetchClientes = async () => {
-      try {
-        const response = await fetch('http://localhost:5000/api/clientes');
-        if (response.ok) {
-          const data = await response.json();
-          setClientes(data);
+    // Submissão do formulário
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formErrors = validate();
+        if (Object.keys(formErrors).length === 0) {
+            try {
+                setLoading(true);
+                console.log("Dados enviados ao backend:", formData);
+                const response = await fetch(`http://localhost:5000/api/veiculos/${id}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(formData),
+                });
+                const result = await response.json();
+                console.log("Resposta do backend:", result);
+                if (!response.ok) {
+                    throw new Error(result.message || "Erro ao atualizar veículo.");
+                }
+                toast.success("Veículo atualizado com sucesso!");
+                
+                // Aguarda 4 segundos antes de redirecionar
+                setTimeout(() => {
+                    navigate("/veiculosList");
+                }, 4000);
+            } catch (error) {
+                console.error("Erro na atualização:", error.message);
+                toast.error(error.message || "Erro ao atualizar veículo.");
+            } finally {
+                setLoading(false);
+            }
         } else {
-          throw new Error('Erro ao carregar clientes.');
+            setErrors(formErrors);
+            console.log("Erros de validação:", formErrors);
+            toast.error("Por favor, corrija os erros no formulário.");
         }
-      } catch (error) {
-        toast.error(error.message);
-      }
     };
 
-    fetchVehicleData();
-    fetchClientes();
-  }, [idVeiculo]);
+    // Handlers de mudança
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
-  // Função de validação
-  const validate = () => {
-    let formErrors = {};
-    if (!formData.marca) formErrors.marca = 'Marca é obrigatória.';
-    if (!formData.modelo) formErrors.modelo = 'Modelo é obrigatório.';
-    if (!formData.ano || !/^\d{4}$/.test(formData.ano)) formErrors.ano = 'Ano inválido.';
-    if (!formData.placa) formErrors.placa = 'Placa é obrigatória.';
-    if (!formData.id_cliente) formErrors.id_cliente = 'Cliente é obrigatório.';
-    return formErrors;
-  };
+    const handleSearchChange = (e) => {
+        setSearchTerm(e.target.value);
+    };
 
-  // Função de envio do formulário
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+    const handleClienteSelect = (clienteId) => {
+        setFormData({ ...formData, id_cliente: clienteId });
+    };
 
-    const formErrors = validate();
-    if (Object.keys(formErrors).length === 0) {
-      try {
-        const response = await fetch(`http://localhost:5000/api/veiculos/${idVeiculo}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        });
+    const filteredClientes = clientes.filter((cliente) =>
+        cliente.nome.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
-        if (!response.ok) {
-          throw new Error('Erro ao atualizar veículo.');
-        }
-
-        toast.success('Veículo atualizado com sucesso!');
-        if (onUpdateSuccess) onUpdateSuccess();
-      } catch (error) {
-        toast.error(error.message || 'Erro ao atualizar veículo.');
-      }
-    } else {
-      setErrors(formErrors);
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const filteredClientes = clientes.filter((cliente) =>
-    cliente.nome.toLowerCase().includes(searchTerm.toLowerCase())
-  );
-
-  const handleClienteSelect = (clienteId) => {
-    setFormData({ ...formData, id_cliente: clienteId });
-  };
-
-  return (
-    <Form onSubmit={handleSubmit}>
-      <div className="row">
-        <div className="col-md-6">
-          <Form.Group>
-            <Form.Label>Marca</Form.Label>
-            <Form.Control
-              type="text"
-              name="marca"
-              value={formData.marca}
-              onChange={handleChange}
-              isInvalid={!!errors.marca}
-            />
-            <Form.Control.Feedback type="invalid">{errors.marca}</Form.Control.Feedback>
-          </Form.Group>
-        </div>
-        <div className="col-md-6">
-          <Form.Group>
-            <Form.Label>Modelo</Form.Label>
-            <Form.Control
-              type="text"
-              name="modelo"
-              value={formData.modelo}
-              onChange={handleChange}
-              isInvalid={!!errors.modelo}
-            />
-            <Form.Control.Feedback type="invalid">{errors.modelo}</Form.Control.Feedback>
-          </Form.Group>
-        </div>
-        <div className="col-md-6">
-          <Form.Group>
-            <Form.Label>Ano</Form.Label>
-            <Form.Control
-              type="text"
-              name="ano"
-              value={formData.ano}
-              onChange={handleChange}
-              isInvalid={!!errors.ano}
-            />
-            <Form.Control.Feedback type="invalid">{errors.ano}</Form.Control.Feedback>
-          </Form.Group>
-        </div>
-        <div className="col-md-6">
-          <Form.Group>
-            <Form.Label>Placa</Form.Label>
-            <Form.Control
-              type="text"
-              name="placa"
-              value={formData.placa}
-              onChange={handleChange}
-              isInvalid={!!errors.placa}
-            />
-            <Form.Control.Feedback type="invalid">{errors.placa}</Form.Control.Feedback>
-          </Form.Group>
-        </div>
-        <div className="col-md-6">
-          <Form.Group>
-            <Form.Label>Cliente</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Pesquisar cliente"
-              value={searchTerm}
-              onChange={handleSearchChange}
-            />
-            <div className="list-group mt-2" style={{ maxHeight: '200px', overflowY: 'auto' }}>
-              {filteredClientes.map((cliente) => (
-                <div
-                  key={cliente.id_cliente}
-                  className={`list-group-item ${formData.id_cliente === cliente.id_cliente ? 'active' : ''
-                    }`}
-                  onClick={() => handleClienteSelect(cliente.id_cliente)}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {cliente.nome}
+    return (
+        <Form onSubmit={handleSubmit}>
+            <div className="row">
+                <div className="col-md-6">
+                    <Form.Group>
+                        <Form.Label>Marca</Form.Label>
+                        <Form.Control type="text" name="marca" value={formData.marca} onChange={handleChange} isInvalid={!!errors.marca} />
+                        <Form.Control.Feedback type="invalid">{errors.marca}</Form.Control.Feedback>
+                    </Form.Group>
                 </div>
-              ))}
+                
+                <div className="col-md-6">
+                    <Form.Group>
+                        <Form.Label>Modelo</Form.Label>
+                        <Form.Control type="text" name="modelo" value={formData.modelo} onChange={handleChange} isInvalid={!!errors.modelo} />
+                        <Form.Control.Feedback type="invalid">{errors.modelo}</Form.Control.Feedback>
+                    </Form.Group>
+                </div>
+
+                <div className="col-md-6">
+                    <Form.Group>
+                        <Form.Label>Ano</Form.Label>
+                        <Form.Control type="text" name="ano" value={formData.ano} onChange={handleChange} isInvalid={!!errors.ano} />
+                        <Form.Control.Feedback type="invalid">{errors.ano}</Form.Control.Feedback>
+                    </Form.Group>
+                </div>
+
+                <div className="col-md-6">
+                    <Form.Group>
+                        <Form.Label>Placa</Form.Label>
+                        <Form.Control type="text" name="placa" value={formData.placa} onChange={handleChange} isInvalid={!!errors.placa} />
+                        <Form.Control.Feedback type="invalid">{errors.placa}</Form.Control.Feedback>
+                    </Form.Group>
+                </div>
+
+                <div className="col-md-6">
+                    <Form.Group>
+                        <Form.Label>Cliente</Form.Label>
+                        <Form.Control type="text" placeholder="Pesquisar cliente" value={searchTerm} onChange={handleSearchChange} />
+                        <div className="list-group mt-2" style={{ maxHeight: "200px", overflowY: "auto" }}>
+                            {filteredClientes.map((cliente) => (
+                                <div key={cliente.id_cliente} className={`list-group-item ${formData.id_cliente === cliente.id_cliente ? "active" : ""}`} onClick={() => handleClienteSelect(cliente.id_cliente)} style={{ cursor: "pointer" }}>
+                                    {cliente.nome}
+                                </div>
+                            ))}
+                        </div>
+                    </Form.Group>
+                </div>
+
+                {/* Campo para Status de Reparação */}
+                <div className="col-md-6">
+                    <Form.Group>
+                        <Form.Label>Status de Reparação</Form.Label>
+                        <Form.Control as="select" name="status_reparacao" value={formData.status_reparacao} onChange={handleChange}>
+                            <option value="">Selecione o status</option>
+                            <option value="pronto a começar">Pronto a começar</option>
+                            <option value="em andamento">Em andamento</option>
+                            <option value="concluído">Concluído</option>
+                        </Form.Control>
+                    </Form.Group>
+                </div>
+
             </div>
-          </Form.Group>
-        </div>
-        <div className="col-md-6">
-          <Form.Group>
-            <Form.Label>Status de Reparação</Form.Label>
-            <Form.Control
-              as="select"
-              name="status_reparacao"
-              value={formData.status_reparacao}
-              onChange={handleChange}
-            >
-              <option value="">Selecione o status</option>
-              <option value="pronto a começar">Pronto a começar</option>
-              <option value="em andamento">Em andamento</option>
-              <option value="concluído">Concluído</option>
-            </Form.Control>
-          </Form.Group>
-        </div>
-      </div>
-      <Button variant="primary" type="submit" className="mt-3">
-        Atualizar Veículo
-      </Button>
-    </Form>
-  );
+
+            {/* Toast Container */}
+            <ToastContainer duration={3000} />
+
+            {/* Botão de submissão */}
+            <Button variant="primary" type="submit" className="mt-3" disabled={loading}>
+              {loading ? "Atualizando..." : "Atualizar Veículo"}
+            </Button>
+        </Form>
+    );
 }
 
 
@@ -372,8 +368,7 @@ function VisualizarVeiculo() {
             </div>
           </Tab>
           <Tab eventKey="editarDados" title={<strong>Editar os Dados</strong>}>
-            <AtualizarVeiculo idVeiculo={idVeiculo}
-              onUpdateSuccess={() => toast.success('Dados atualizados com sucesso!')} />
+            <AtualizarVeiculo  id_veiculo={idVeiculo}/>
           </Tab>
 
         </Tabs>

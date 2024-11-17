@@ -61,9 +61,8 @@ class ControllerVeiculo {
     static async atualizarVeiculo(req, res) {
         try {
             const { id_veiculo } = req.params;
-            const veiculoData = req.body;
-            veiculoData.id_veiculo = id_veiculo;
-
+            const {  marca, modelo, ano, placa, id_cliente, fotos, status_reparacao,analise_diagnostica,motivo_visita } = req.body;
+            const veiculoData = new Veiculo(id_veiculo, marca, modelo, ano, placa, id_cliente, fotos, status_reparacao,analise_diagnostica,motivo_visita);
             await Veiculo.atualizar(veiculoData);
             res.status(200).json({ message: "Veículo atualizado com sucesso!" });
         } catch (error) {
@@ -93,7 +92,7 @@ class ControllerVeiculo {
             res.status(500).json({ message: 'Erro ao contar veiculos' });
         }
     }
-}
+} 
 
 module.exports = ControllerVeiculo;
 
