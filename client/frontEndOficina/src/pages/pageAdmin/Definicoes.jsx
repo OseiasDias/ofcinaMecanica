@@ -15,13 +15,13 @@ import Spinner from 'react-bootstrap/Spinner';
 import "react-toastify/dist/ReactToastify.css";
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { IoCall } from 'react-icons/io5';
-import { MdEmail, MdOutlineAlternateEmail } from 'react-icons/md';
+import { MdEmail, MdError, MdOutlineAlternateEmail } from 'react-icons/md';
 import { FaWhatsapp, FaFacebook, FaYoutube, FaInstagram, FaRegMap, FaRegCalendarCheck } from 'react-icons/fa';
 import { GiRoad } from 'react-icons/gi';
 import { RiMapPin2Line, RiMapPinLine } from 'react-icons/ri';
 import { TbMap2 } from 'react-icons/tb';
 import { useEffect } from "react";
-
+import { MdAccessTimeFilled } from "react-icons/md";
 import { MdOutlineDriveFileRenameOutline } from "react-icons/md";
 import { TbNumber } from "react-icons/tb";
 import { FaBuildingCircleArrowRight } from "react-icons/fa6";
@@ -269,6 +269,8 @@ const FormularioEmpresa = () => {
 
 
 
+
+
 const EmpresaForm = () => {
   // Estado para os horários da empresa
   const [horarios, setHorarios] = useState({
@@ -326,18 +328,14 @@ const EmpresaForm = () => {
   };
 
   // Função para renderizar os tooltips de erro
-  const renderTooltip = (message) => (
-    <Tooltip id="tooltip">{message}</Tooltip>
-  );
+  const renderTooltip = (message) => <Tooltip id="tooltip">{message}</Tooltip>;
 
   return (
     <div className="form-cadastro">
-      <h6 className="mt-5">Cadastrar Horários da Empresa</h6>
-      <hr />
+      <h6 className="mt-5">Horários de Funcionamento</h6>
       <hr />
       <Form onSubmit={handleSubmit} className="row">
-        <h6 className="mt-3">Horários de Funcionamento</h6>
-        <hr />
+       
 
         {['segunda', 'terca', 'quarta', 'quinta', 'sexta', 'sabado', 'domingo'].map((dia) => (
           <Form.Group
@@ -345,8 +343,14 @@ const EmpresaForm = () => {
             key={dia}
             controlId={`formHorario${dia.charAt(0).toUpperCase() + dia.slice(1)}`}
           >
-            <Form.Label className="fw-Linha">{dia.charAt(0).toUpperCase() + dia.slice(1)}-feira</Form.Label>
-            <div className="d-flex">
+            <Form.Label className="fw-Linha">
+              {dia.charAt(0).toUpperCase() + dia.slice(1)}-feira
+            </Form.Label>
+            <div className="d-flex align-items-center">
+              {/* Ícone ao lado do campo de horário */}
+              <span className="input-group-text">
+                <MdAccessTimeFilled fontSize={22} color="#0070fa" />
+              </span>
               <Form.Control
                 type="time"
                 name={`${dia}_abertura`}
@@ -377,7 +381,7 @@ const EmpresaForm = () => {
                 placement="right"
                 overlay={renderTooltip('A hora de fechamento não pode ser anterior à de abertura')}
               >
-                <span className="text-danger">⚠️</span>
+                <span className="text-danger alinharAviso"><MdError/> Horário inválido</span>
               </OverlayTrigger>
             ) : null}
           </Form.Group>
@@ -403,6 +407,7 @@ const EmpresaForm = () => {
     </div>
   );
 };
+
 
 
 

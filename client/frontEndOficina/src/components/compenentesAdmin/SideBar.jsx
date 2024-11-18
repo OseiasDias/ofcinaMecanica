@@ -37,7 +37,7 @@ const routes = [
   { path: "/servicosList", name: "Serviços", icon: <GrServices /> },
   { path: "/veiculosList", name: "Veiculos", icon: <FaCarRear /> },
   { path: "/pagamentoLi", name: "Relatórios", icon: <TbReportSearch /> },
-  { path: "/settings", name: "Definições", icon: <BiCog /> },
+  { path: "/pageDefinicoes", name: "Definições", icon: <BiCog /> },
 ];
 
 const SideBar = ({ children }) => {

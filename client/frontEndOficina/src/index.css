@@ -244,3 +244,8 @@ p,a,h1,h1,h3,h4,h5,h6,span {
 .fw-Linha{
   font-weight:500;
 }
+
+.alinharAviso{
+  
+  margin-left:50px !important;
+}

@@ -38,6 +38,7 @@ const pagamentosRouter = require('./src/routes/RoutePagamento');
 const servicoRouter = require('./src/routes/RouteServico');
 const usuarioRouter = require('./src/routes/RouterUsuario');
 const veiculoRouter = require('./src/routes/RouteVeiculo');
+const ControllerHorarios = require("./src/controllers/ControllerHorarios");
 
 
 
@@ -456,6 +457,24 @@ app.get('/api/faturas/status/:status_pagamento', ControllerFatura.obterFaturasPo
 app.get('/api/empresas', ControllerEmpresa.obterEmpresas); 
 app.get('/api/empresas/:id_empresa', ControllerEmpresa.obterEmpresaPorId);
 app.put('/api/empresas/:id_empresa', ControllerEmpresa.atualizarEmpresa);
+
+
+
+
+
+app.get('/api/horarios', ControllerHorarios.obterHorarios);
+
+app.get('/api/horarios/:empresa_id/:dia', ControllerHorarios.obterHorariosPorEmpresaDia);
+
+
+
+
+
+
+
+
+
+
 /*
 /*
 
