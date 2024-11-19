@@ -57,6 +57,8 @@ const SideBar = ({ children }) => {
   // Função para lidar com o logout
   const handleLogout = () => {
     // Ação de logout
+    localStorage.clear(); // Limpa o localStorage
+    
     navigate('/acessoAdministrador'); // Redireciona para a página de login
     setShowModal(false); // Fecha a modal
   };

@@ -30,7 +30,10 @@ export default function TopoAdmin({ entrada, direccao, icone, leftSeta, leftR })
 
   // Função para confirmar a saída (redirecionar para a rota armazenada)
   const handleConfirmExit = () => {
+
     navigate(navigateTo); // Navega para a rota que foi armazenada
+    localStorage.clear(); // Limpa o localStorage
+
     setShowModal(false); // Fecha a modal
   };
 
