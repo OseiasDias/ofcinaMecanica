@@ -1,27 +1,28 @@
 import '../../css/StylesAdmin/loginAdmin.css';
-
-import Logo from './Logo';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import ModalAcessoSuperAdmin from './ModalAcessoSuperAdmin.jsx';
-import logoFoto  from "../../assets/img/lgo.png";
+import logoFoto from "../../assets/img/lgo.png";
+import { toast } from 'react-toastify'; // Importa o Toastify
+import { useNavigate } from 'react-router-dom'; // UseNavigate para navegação no React Router v6
 
 export default function AtalhoLoginAdmin() {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const [emailError, setEmailError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [loginError, setLoginError] = useState('');
+    const [loginError, setLoginError] = useState(''); // Estado para erro de login
     const [loginSuccess, setLoginSuccess] = useState('');
 
-    /**Modal Acesso Super admin */
-
     const [modalSuperShow, setModalSuperShow] = useState(false);
+    
+    // Usando useNavigate para redirecionar após o login
+    const navigate = useNavigate();
 
-
+    // Função para validar o e-mail
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email) {
@@ -35,6 +36,7 @@ export default function AtalhoLoginAdmin() {
         return true;
     };
 
+    // Função para lidar com o login
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -43,7 +45,7 @@ export default function AtalhoLoginAdmin() {
         }
 
         try {
-            const response = await fetch('http://localhost:5000/api/clientes/login', {
+            const response = await fetch('http://localhost:5000/api/administradores/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -52,9 +54,11 @@ export default function AtalhoLoginAdmin() {
             });
 
             if (!response.ok) {
-                const errorMessage = await response.text();
-                setLoginError(errorMessage || 'Erro ao fazer login. Verifique suas credenciais.');
+                const errorData = await response.json(); // Recebe a resposta como JSON
+                const errorMessage = errorData.message || 'Erro ao fazer login. Verifique suas credenciais.'; // Extraímos a mensagem de erro
+                setLoginError(errorMessage); // Define a mensagem de erro
                 setLoginSuccess('');
+                toast.error(errorMessage); // Exibe a notificação de erro
                 return;
             }
 
@@ -62,24 +66,27 @@ export default function AtalhoLoginAdmin() {
             setLoginSuccess('Login realizado com sucesso!');
             setLoginError('');
             console.log('Login bem-sucedido:', data);
+
+            // Exibe notificação de sucesso e redireciona para /homeAdministrador
+            toast.success('Login realizado com sucesso!');
+            navigate('/homeAdministrador'); // Redireciona para a página de administrador
+
         } catch (error) {
             console.error('Erro ao fazer login:', error);
             setLoginError('Erro ao conectar ao servidor.');
             setLoginSuccess('');
+            toast.error('Erro ao conectar ao servidor.'); // Exibe notificação de erro
         }
     };
 
     return (
-
-
-
         <div className="container-login my-4  LoginAdmistrador">
             <div className="login-box shadow  rounded">
                 <div className="row  p-2">
-                    <img src={logoFoto} alt="logotipo da bi turbo" style={{width: "220px",height:"100px"}} className='d-block mx-auto'/>
+                    <img src={logoFoto} alt="logotipo da bi turbo" style={{width: "220px", height:"100px"}} className='d-block mx-auto'/>
                     <h5 className="text-center my-2">Acesso para Administrador</h5>
 
-                    <div className="col-11  col-md-9 col-lg-10 mx-auto ">
+                    <div className="col-11  col-md-9 col-lg-10 mx-auto">
                         <Form onSubmit={handleLogin}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email</Form.Label>
@@ -114,7 +121,7 @@ export default function AtalhoLoginAdmin() {
                                 </div>
                             </Form.Group>
 
-                            {loginError && <div className="text-danger mt-2">{loginError}</div>}
+                            {loginError && <div className="text-danger mt-2">{loginError}</div>} {/* Exibe a mensagem de erro formatada */}
                             {loginSuccess && <div className="text-success mt-2">{loginSuccess}</div>}
 
                             <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block">
@@ -125,28 +132,20 @@ export default function AtalhoLoginAdmin() {
                         <hr />
                         <p className="text-center">
                             <strong className="melhorarStron">Esqueceste a sua senha?</strong>
-                           
-
                         </p>
                         <hr />
 
                         <p className="text-center">
                             <strong className="melhorarStrong text-danger" onClick={() => setModalSuperShow(true)}>Super Administrador <RiAdminFill fontSize={25} /></strong>
-
                         </p>
 
                         <ModalAcessoSuperAdmin
                             show={modalSuperShow}
                             onHide={() => setModalSuperShow(false)}
                         />
-
-
                     </div>
-
                 </div>
-
             </div>
         </div>
-
     );
 }

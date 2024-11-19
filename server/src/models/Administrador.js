@@ -114,6 +114,20 @@ class Administrador {
         return { message: 'Status de Administrador atualizado com sucesso!' };
     }
 
+    // Método para fazer login com email e senha
+    static async login(email, senha) {
+        const administrador = await this.obterPorEmail(email); // Obtém o administrador pelo e-mail
+        if (!administrador) {
+            throw new Error('CREDENCIAS NEGADA'); // E-mail não encontrado
+        }
+        const isPasswordValid = await bcrypt.compare(senha, administrador.senha); // Compara a senha fornecida com a senha armazenada
+        if (!isPasswordValid) {
+            throw new Error('CREDENCIAS NEGADA'); // Senha não corresponde
+        }
+        return administrador; // Retorna o administrador se o login for bem-sucedido
+    }
+
+
 }
 
 module.exports = Administrador;

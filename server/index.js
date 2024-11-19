@@ -143,6 +143,10 @@ app.delete('/api/administradores/:id_administrador', ControllerAdministrador.del
 
 // Rota atualizada para receber novoStatus no corpo da requisição
 app.put('/api/administradores/:id_administrador/status', ControllerAdministrador.atualizarStatus);
+
+// Rota para fazer login de administrador
+app.post('/api/administradores/login', ControllerAdministrador.login);
+
 /*
 ======================================
            Rotas do Usuário

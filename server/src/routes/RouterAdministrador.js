@@ -9,7 +9,7 @@ router.post('/', ControllerAdministrador.criarAdministrador);
 
 // Rota para obter todos os administradores
 router.get('/', ControllerAdministrador.obterAdministradores);
-
+ 
 // Rota para obter um administrador por ID
 router.get('/:id_administrador', ControllerAdministrador.obterAdministradorPorId);
 
@@ -21,5 +21,8 @@ router.delete('/:id_administrador', ControllerAdministrador.deletarAdministrador
 
 // Rota para atualizar o status de um cliente
 router.put('/:id_administrador/status', ControllerAdministrador.atualizarStatus);
+
+// Rota para fazer login de administrador
+router.post('/login', ControllerAdministrador.login);
 
 module.exports = router;

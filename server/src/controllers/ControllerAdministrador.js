@@ -5,9 +5,9 @@ class ControllerAdministrador {
     // Método para criar um novo administrador
     static async criarAdministrador(req, res) {
         try {
-            const { nome, email, telefone, senha, genero, estado, data_nascimento, foto,isSuperAdmin } = req.body;
- 
-            const administrador = new Administrador(null, nome, email, telefone, senha, genero, estado, data_nascimento, foto,isSuperAdmin);
+            const { nome, email, telefone, senha, genero, estado, data_nascimento, foto, isSuperAdmin } = req.body;
+
+            const administrador = new Administrador(null, nome, email, telefone, senha, genero, estado, data_nascimento, foto, isSuperAdmin);
             const id_administrador = await Administrador.salvar(administrador);
 
             res.status(201).json({ message: "Administrador criado com sucesso!", id_administrador });
@@ -73,7 +73,6 @@ class ControllerAdministrador {
         }
     }
 
-
     // Método para atualizar o status de super administrador de um administrador
     static async atualizarStatus(req, res) {
         try {
@@ -84,11 +83,11 @@ class ControllerAdministrador {
             let statusValue;
             if (novoStatus === 'Ativado') {
                 statusValue = 1;  // Mapeando Confirmado para 1
-           } else if (novoStatus === 'Bloqueado') {
-               statusValue = 0;  // Mapeando Cancelado para 0
-           } else {
-               return res.status(400).json({ message: "Status inválido. Deve ser 'Confirmado' ou 'Cancelado'." });
-           }
+            } else if (novoStatus === 'Bloqueado') {
+                statusValue = 0;  // Mapeando Cancelado para 0
+            } else {
+                return res.status(400).json({ message: "Status inválido. Deve ser 'Ativado' ou 'Bloqueado'." });
+            }
 
             // Chama o método do modelo para atualizar o status
             const result = await Administrador.atualizarSuperAdmin(id_administrador, statusValue);
@@ -97,6 +96,32 @@ class ControllerAdministrador {
         } catch (error) {
             console.error("Erro ao atualizar status do administrador:", error);
             res.status(400).json({ message: error.message }); // Retorna a mensagem de erro caso algo falhe
+        }
+    }
+
+    // Método para fazer login
+    static async login(req, res) {
+        try {
+            const { email, senha } = req.body;
+
+            // Chama o método de login da classe Administrador
+            const administrador = await Administrador.login(email, senha); 
+
+            // Retorna o administrador autenticado, pode incluir token JWT aqui, por exemplo
+            res.status(200).json({
+                message: "Login realizado com sucesso!",
+                administrador: {
+                    id_administrador: administrador.id_administrador,
+                    nome: administrador.nome,
+                    email: administrador.email,
+                    isSuperAdmin: administrador.isSuperAdmin,
+                    foto: administrador.foto
+                }
+            });
+
+        } catch (error) {
+            console.error("Erro ao realizar login:", error);
+            res.status(400).json({ message: error.message }); // Retorna o erro caso o login falhe
         }
     }
 }
