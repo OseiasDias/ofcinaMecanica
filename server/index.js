@@ -135,6 +135,8 @@ app.get('/api/administradores', ControllerAdministrador.obterAdministradores);
 // Rota para obter um administrador por ID
 app.get('/api/administradores/:id_administrador', ControllerAdministrador.obterAdministradorPorId);
 
+app.get('/api/administradores/email/:email', ControllerAdministrador.obterAdministradorPorEmail);
+
 // Rota para atualizar um administrador
 app.put('/api/administradores/:id_administrador', ControllerAdministrador.atualizarAdministrador);
 

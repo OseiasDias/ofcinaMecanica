@@ -89,7 +89,7 @@ export default function ModalLogin({ show, onHide }) {
 
       setTimeout(() => {
         setIsLoading(false); // Desativa o spinner ao concluir o login
-        navigate('/HomeCliente', { state: { id_cliente: clienteData.id_cliente } });
+       // navigate('/Home999Cliente988777', { state: { id_cliente: clienteData.id_cliente } });
       }, 3000);
   
     // eslint-disable-next-line no-unused-vars

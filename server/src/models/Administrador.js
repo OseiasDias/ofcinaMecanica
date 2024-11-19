@@ -83,13 +83,13 @@ class Administrador {
         const query = 'DELETE FROM administrador WHERE id_administrador = ?';
         await pool.promise().query(query, [id_administrador]);
     }
-
-    // Método para obter um administrador por email (para login)
+    // Método para obter um cliente por email (para login)
     static async obterPorEmail(email) {
         const query = 'SELECT * FROM administrador WHERE email = ?';
         const [rows] = await pool.promise().query(query, [email]);
-        return rows[0]; // Retorna o administrador encontrado
+        return rows[0]; // Retorna o cliente encontrado
     }
+
 
 
     // Método para atualizar o status de administrador
@@ -126,6 +126,9 @@ class Administrador {
         }
         return administrador; // Retorna o administrador se o login for bem-sucedido
     }
+
+
+
 
 
 }

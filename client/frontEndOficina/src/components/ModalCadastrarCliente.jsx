@@ -8,7 +8,6 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../css/modalLogin.css';
 
-// eslint-disable-next-line react/prop-types
 export default function ModalCadastrarCliente({ show, onHide }) {
   const navigate = useNavigate();
   const [formValues, setFormValues] = useState({
@@ -17,12 +16,13 @@ export default function ModalCadastrarCliente({ show, onHide }) {
     telefone: '',
     senha: '',
     confirmSenha: '',
-    dataNascimento: '', // Adicionando o campo dataNascimento
+    dataNascimento: '', 
   });
 
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);  // Estado de carregamento
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,7 +31,7 @@ export default function ModalCadastrarCliente({ show, onHide }) {
 
   const validateForm = () => {
     const newErrors = {};
-    const hoje = new Date().toISOString().split('T')[0]; // Dados atuais no formato aaaa-mm-dd
+    const hoje = new Date().toISOString().split('T')[0];
 
     const nomeRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s]+$/;
     if (!formValues.nome) {
@@ -63,7 +63,6 @@ export default function ModalCadastrarCliente({ show, onHide }) {
       newErrors.confirmSenha = 'As senhas devem ser iguais.';
     }
 
-    // Validação da data de nascimento
     if (!formValues.dataNascimento) {
       newErrors.dataNascimento = "Data de nascimento é obrigatória.";
     } else if (formValues.dataNascimento > hoje) {
@@ -74,13 +73,13 @@ export default function ModalCadastrarCliente({ show, onHide }) {
     return Object.keys(newErrors).length === 0;
   };
 
-
-
   const handleCadastro = async (e) => {
     e.preventDefault();
-  
+
     if (!validateForm()) return;
-  
+
+    setIsLoading(true);  // Ativar o spinner
+
     try {
       const response = await fetch('http://localhost:5000/api/clientes', {
         method: 'POST',
@@ -88,40 +87,40 @@ export default function ModalCadastrarCliente({ show, onHide }) {
         body: JSON.stringify(formValues),
       });
 
-     
-  
       if (!response.ok) {
-        // Se a resposta não for ok, capturamos a mensagem de erro.
         const errorData = await response.json();
         toast.error(`Cadastro não realizado: ${errorData.message || 'Verifique os dados. Email e telefone já existem.'}`);
         return;
       }
-  
-      const data = await response.json(); // Captura o retorno da API
-     // localStorage.setItem('authToken', data.token); // Armazena o token no localStorage
+
+      const data = await response.json();
       localStorage.setItem('authToken', data.id_cliente);
-      // Fetch do maior id_cliente
-     // const userId = await fetchUserId();
-
-     
-
-      // Passa o ID do cliente para a rota HomeCliente
-      setTimeout(() => {
       
-        toast.success(`Cadastro realizado com sucesso !`);
-        
-        navigate('/HomeCliente', { state: { id_cliente: data.id_cliente } }); // Inclui o maior ID do cliente
-      }, 2000);
-  
+      toast.success(`Cadastro realizado com sucesso!`);
+      setFormValues({  // Limpar o formulário após o sucesso
+        nome: '',
+        email: '',
+        telefone: '',
+        senha: '',
+        confirmSenha: '',
+        dataNascimento: '',
+      });
+
+      setTimeout(() => {
+        navigate('/', { state: { id_cliente: data.id_cliente } });
+      }, 5000);
+
       onHide();
     } catch (error) {
       toast.error('Erro ao conectar ao servidor: ' + error.message);
+    } finally {
+      setIsLoading(false);  // Desativar o spinner
     }
   };
-  
+
   return (
     <>
-      <Modal show={show} onHide={onHide} size="xl"  aria-labelledby="contained-modal-title-vcenter" centered>
+      <Modal show={show} onHide={onHide} size="xl" scrollable aria-labelledby="contained-modal-title-vcenter" centered>
         <div className="modalBeleza">
           <Modal.Header closeButton>
             <Modal.Title id="contained-modal-title-vcenter">Cadastro de Cliente</Modal.Title>
@@ -167,18 +166,6 @@ export default function ModalCadastrarCliente({ show, onHide }) {
                 <Form.Control.Feedback type="invalid">{errors.telefone}</Form.Control.Feedback>
               </Form.Group>
 
-              <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formDataNascimento">
-                <Form.Label>Data de Nascimento</Form.Label>
-                <Form.Control
-                  type="date"
-                  name="dataNascimento"
-                  value={formValues.dataNascimento}
-                  onChange={handleInputChange}
-                  isInvalid={!!errors.dataNascimento}
-                />
-                <Form.Control.Feedback type="invalid">{errors.dataNascimento}</Form.Control.Feedback>
-              </Form.Group>
-
               <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formSenha">
                 <Form.Label>Senha</Form.Label>
                 <div className="d-flex">
@@ -190,11 +177,7 @@ export default function ModalCadastrarCliente({ show, onHide }) {
                     onChange={handleInputChange}
                     isInvalid={!!errors.senha}
                   />
-                  <Button
-                    variant="outline-secondary"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="ms-2"
-                  >
+                  <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)} className="ms-2">
                     {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                   </Button>
                 </div>
@@ -212,11 +195,7 @@ export default function ModalCadastrarCliente({ show, onHide }) {
                     onChange={handleInputChange}
                     isInvalid={!!errors.confirmSenha}
                   />
-                  <Button
-                    variant="outline-secondary"
-                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                    className="ms-2"
-                  >
+                  <Button variant="outline-secondary" onClick={() => setShowConfirmPassword(!showConfirmPassword)} className="ms-2">
                     {showConfirmPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                   </Button>
                 </div>
@@ -225,9 +204,12 @@ export default function ModalCadastrarCliente({ show, onHide }) {
 
               {errors.server && <div className="text-danger mt-2">{errors.server}</div>}
 
-              <Button variant="primary" type="submit" className="links-acessos nnB mt-3 px-5 mx-auto d-block">
-                Cadastrar
-              </Button>
+              <div className="row mb-3">
+                <Button variant="primary" type="submit" className="links-acessos nnB mt-3 px-5 mx-auto d-block" disabled={isLoading}>
+                  {isLoading ? 'Cadastrando...' : 'Cadastrar'}
+                </Button>
+              </div>
+              <hr />
             </Form>
           </Modal.Body>
         </div>

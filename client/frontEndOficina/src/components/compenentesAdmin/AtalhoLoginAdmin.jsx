@@ -14,12 +14,10 @@ export default function AtalhoLoginAdmin() {
     const [senha, setSenha] = useState('');
     const [emailError, setEmailError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    const [loginError, setLoginError] = useState(''); // Estado para erro de login
-    const [loginSuccess, setLoginSuccess] = useState('');
+    const [loginError, setLoginError] = useState('');
 
     const [modalSuperShow, setModalSuperShow] = useState(false);
-    
-    // Usando useNavigate para redirecionar após o login
+
     const navigate = useNavigate();
 
     // Função para validar o e-mail
@@ -29,7 +27,7 @@ export default function AtalhoLoginAdmin() {
             setEmailError('E-mail é obrigatório.');
             return false;
         } else if (!emailRegex.test(email) || !email.endsWith('.com')) {
-            setEmailError('Por favor, digite um e-mail válido que contenha "@" e termine com ".com".');
+            setEmailError('Por favor, digite um e-mail válido.');
             return false;
         }
         setEmailError('');
@@ -40,53 +38,57 @@ export default function AtalhoLoginAdmin() {
     const handleLogin = async (e) => {
         e.preventDefault();
 
-        if (!validateEmail(email)) {
+        if (!validateEmail(email)) return;
+
+        if (!senha || senha.length < 6) {
+            toast.error('A senha deve ter pelo menos 6 caracteres.');
             return;
         }
 
         try {
             const response = await fetch('http://localhost:5000/api/administradores/login', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
+                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, senha }),
             });
 
             if (!response.ok) {
-                const errorData = await response.json(); // Recebe a resposta como JSON
-                const errorMessage = errorData.message || 'Erro ao fazer login. Verifique suas credenciais.'; // Extraímos a mensagem de erro
-                setLoginError(errorMessage); // Define a mensagem de erro
-                setLoginSuccess('');
-                toast.error(errorMessage); // Exibe a notificação de erro
-                return;
+                const errorData = await response.json();
+                throw new Error(errorData.message || 'Erro ao fazer login.');
             }
 
             const data = await response.json();
-            setLoginSuccess('Login realizado com sucesso!');
-            setLoginError('');
-            console.log('Login bem-sucedido:', data);
+            localStorage.setItem('authToken', data.token);
 
-            // Exibe notificação de sucesso e redireciona para /homeAdministrador
+            const adminResponse = await fetch(`http://localhost:5000/api/administradores/email/${email}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${data.token}`,
+                },
+            });
+
+            if (!adminResponse.ok) throw new Error('Erro ao buscar dados do administrador.');
+
+            const adminData = await adminResponse.json();
+            localStorage.setItem('adminId', adminData.id_administrador);
+
             toast.success('Login realizado com sucesso!');
-            navigate('/homeAdministrador'); // Redireciona para a página de administrador
-
+            navigate('/homeAdministrador');
         } catch (error) {
-            console.error('Erro ao fazer login:', error);
-            setLoginError('Erro ao conectar ao servidor.');
-            setLoginSuccess('');
-            toast.error('Erro ao conectar ao servidor.'); // Exibe notificação de erro
+            console.error('Erro ao fazer login:', error.message);
+            setLoginError(error.message);
+            toast.error(error.message || 'Erro ao conectar ao servidor.');
         }
     };
 
     return (
-        <div className="container-login my-4  LoginAdmistrador">
-            <div className="login-box shadow  rounded">
-                <div className="row  p-2">
-                    <img src={logoFoto} alt="logotipo da bi turbo" style={{width: "220px", height:"100px"}} className='d-block mx-auto'/>
+        <div className="container-login my-4 LoginAdmistrador">
+            <div className="login-box shadow rounded">
+                <div className="row p-2">
+                    <img src={logoFoto} alt="logotipo da empresa" className='d-block mx-auto' style={{ width: "220px", height: "100px" }} />
                     <h5 className="text-center my-2">Acesso para Administrador</h5>
 
-                    <div className="col-11  col-md-9 col-lg-10 mx-auto">
+                    <div className="col-11 col-md-9 col-lg-10 mx-auto">
                         <Form onSubmit={handleLogin}>
                             <Form.Group controlId="formBasicEmail">
                                 <Form.Label>Email</Form.Label>
@@ -115,14 +117,14 @@ export default function AtalhoLoginAdmin() {
                                         variant="outline-secondary"
                                         onClick={() => setShowPassword(!showPassword)}
                                         className="ms-2"
+                                        aria-label={showPassword ? "Ocultar senha" : "Mostrar senha"}
                                     >
                                         {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
                                     </Button>
                                 </div>
                             </Form.Group>
 
-                            {loginError && <div className="text-danger mt-2">{loginError}</div>} {/* Exibe a mensagem de erro formatada */}
-                            {loginSuccess && <div className="text-success mt-2">{loginSuccess}</div>}
+                            {loginError && <div className="text-danger mt-2">{loginError}</div>}
 
                             <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block">
                                 Entrar
@@ -131,12 +133,14 @@ export default function AtalhoLoginAdmin() {
 
                         <hr />
                         <p className="text-center">
-                            <strong className="melhorarStron">Esqueceste a sua senha?</strong>
+                            <strong className="melhorarStrong">Esqueceu sua senha?</strong>
                         </p>
                         <hr />
 
                         <p className="text-center">
-                            <strong className="melhorarStrong text-danger" onClick={() => setModalSuperShow(true)}>Super Administrador <RiAdminFill fontSize={25} /></strong>
+                            <strong className="melhorarStrong text-danger" onClick={() => setModalSuperShow(true)}>
+                                Super Administrador <RiAdminFill fontSize={25} />
+                            </strong>
                         </p>
 
                         <ModalAcessoSuperAdmin

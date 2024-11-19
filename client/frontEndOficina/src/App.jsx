@@ -15,7 +15,7 @@ import HomeAdministrador from "./pages/pageAdmin/HomeAdministrador.jsx";
 import LoginAdmin from "./components/compenentesAdmin/LoginAdmin.jsx";
 import PaginaLoginSuperAdmin from './pages/pageAdmin/PaginaLoginSuperAdmin.jsx';
 import { Navigate } from 'react-router-dom';
-  
+
 //importacoes para clientes
 import Clientes from './pages/pageAdmin/Clientes.jsx';
 import Estoque from './pages/pageAdmin/Estoque.jsx';
@@ -47,6 +47,14 @@ import Deficnicoes from "./pages/pageAdmin/Definicoes.jsx";
 
 
 
+const ProtectedRouteAdmin = ({ children }) => {
+  const isAuthenticated = !!localStorage.getItem('authToken'); // Exemplo de verificação de autenticação
+
+  return isAuthenticated ? children : <Navigate to="/acessoAdministrador" />;
+};
+
+
+
 //import DashBoard from "./pages/pageAdmin/DashBoard.jsx";
 
 // Componente de rota protegida
@@ -74,7 +82,7 @@ const App = () => {
 
 
 
- 
+
   return (
     <div className="App">
       {loading ? (
@@ -132,44 +140,200 @@ const App = () => {
               } />
 
               {/**Routas para o Administrador */}
-              <Route path="/homeAdministrador" element={<HomeAdministrador />} />
+              <Route path="/homeAdministrador" element={
+                <ProtectedRouteAdmin>
+                  <HomeAdministrador />
+                </ProtectedRouteAdmin>
+
+              } />
               <Route path="/acessoAdministrador" element={<LoginAdmin />} />
-              <Route path="/clienteList" element={<Clientes />} />
-              <Route path="/funcionariosList" element={<Funcionarios />} />
-              <Route path="/estoqueList" element={<Estoque />} />
-              <Route path="/veiculosList" element={<Veiculos />} />
-              <Route path="/agendamentoList" element={<Agendamento />} />
-              <Route path="/blogList" element={<Blogger />} />
-              <Route path="/servicosList" element={<Servicos />} />
-              <Route path="/pagamentoList" element={<Pagamento />} />
-              <Route path="/faturaList" element={<Faturas />} />
-              <Route path="/agendamentoHistorico" element={<AgendamentoHistorico />} />
-              <Route path="/agendamentoAdiar/:id" element={<AdiarAgendamento />} />
-              <Route path="/editarBlog/:idBlog" element={<EditarBlogger />} />
-              <Route path="/editarVeiculo/:idVeiculo" element={<EditarVeiculo />} />
- 
+              
+              <Route path="/clienteList" element={
+                <ProtectedRouteAdmin>
+                  <Clientes />
+                </ProtectedRouteAdmin>
+
+              } />
+              <Route path="/funcionariosList" element={
+
+                <ProtectedRouteAdmin>
+                  <Funcionarios />
+                </ProtectedRouteAdmin>
+
+
+              } />
+              <Route path="/estoqueList" element={
+                <ProtectedRouteAdmin>
+                  <Estoque />
+                </ProtectedRouteAdmin>
+              }
+
+              />
+              <Route path="/veiculosList" element={
+
+
+                <ProtectedRouteAdmin>
+                  <Veiculos />
+                </ProtectedRouteAdmin>
+
+              }
+
+              />
+              <Route path="/agendamentoList" element={
+
+                <ProtectedRouteAdmin>
+                  <Agendamento />
+                </ProtectedRouteAdmin>
+              }
+
+              />
+              <Route path="/blogList" element={
+
+
+
+                <ProtectedRouteAdmin>
+                  <Blogger />
+                </ProtectedRouteAdmin>
+
+
+
+              } />
+              <Route path="/servicosList" element={
+
+
+
+                <ProtectedRouteAdmin>
+                  <Servicos />
+                </ProtectedRouteAdmin>
+
+              }
+
+              />
+              <Route path="/pagamentoList" element={
+
+                <ProtectedRouteAdmin>
+                  <Pagamento />
+                </ProtectedRouteAdmin>
+
+
+              } />
+              <Route path="/faturaList" element={
+
+                <ProtectedRouteAdmin>
+                  <Faturas />
+                </ProtectedRouteAdmin>
+
+
+              } />
+              <Route path="/agendamentoHistorico" element={
+
+
+                <ProtectedRouteAdmin>
+                  <AgendamentoHistorico />
+                </ProtectedRouteAdmin>
+              } />
+              <Route path="/agendamentoAdiar/:id" element={
+
+
+                <ProtectedRouteAdmin>
+                  <AdiarAgendamento />
+                </ProtectedRouteAdmin>
+              } />
+              <Route path="/editarBlog/:idBlog" element={
+
+                <ProtectedRouteAdmin>
+                  <EditarBlogger />
+                </ProtectedRouteAdmin>
+              } />
+              <Route path="/editarVeiculo/:idVeiculo" element={
+                <ProtectedRouteAdmin>
+                  <EditarVeiculo />
+                </ProtectedRouteAdmin>
+              } />
+
               {/**Routes de Add de Entidades */}
-              <Route path="/addClientes" element={<AddClientes />} />
-              <Route path="/addFuncionarios" element={<AddFuncionarios />} />
-              <Route path="/addBlogs" element={<AddBlog />} />
-              <Route path="/addServicos" element={<AddServicos />} />
-              <Route path="/addEstoque" element={<AddEstoque/>} />
-              <Route path="/addVeiculos" element={<AddVeiculos />} />
-          
+              <Route path="/addClientes" element={
+
+                <ProtectedRouteAdmin>
+                  <AddClientes />
+                </ProtectedRouteAdmin>
+
+              } />
+              <Route path="/addFuncionarios" element={
+
+
+
+                <ProtectedRouteAdmin>
+                  <AddFuncionarios />
+                </ProtectedRouteAdmin>
+
+              }
+
+              />
+              <Route path="/addBlogs" element={
+
+                <ProtectedRouteAdmin>
+                  <AddBlog />
+                </ProtectedRouteAdmin>
+
+              } />
+              <Route path="/addServicos" element={
+
+
+
+                <ProtectedRouteAdmin>
+                  <AddServicos />
+                </ProtectedRouteAdmin>
+
+              } />
+              <Route path="/addEstoque" element={
+
+
+
+                <ProtectedRouteAdmin>
+                  <AddEstoque />
+                </ProtectedRouteAdmin>
+
+              } />
+              <Route path="/addVeiculos" element={
+
+                <ProtectedRouteAdmin>
+                  <AddVeiculos />
+                </ProtectedRouteAdmin>
+              } />
+
 
               {/**Routes Perfil Funcionarios 
                */}
-               <Route path="/pageDefinicoes" element={ <Deficnicoes />} />
-              
-
-              <Route path="/perfilFuncionario/:id" element={<PerfilFuncionario />} />
+              <Route path="/pageDefinicoes" element={
 
 
-             {/* <Route path="/addFaturas" element={<AddFaturas />} /> */}
-   
+                <ProtectedRouteAdmin>
+                  <Deficnicoes />
+                </ProtectedRouteAdmin>
+              } />
 
 
-              <Route path="/pagarConta/:id" element={<PagamentoActive />} />
+              <Route path="/perfilFuncionario/:id" element={
+
+                <ProtectedRouteAdmin>
+                  <PerfilFuncionario />
+                </ProtectedRouteAdmin>
+
+
+              } />
+
+
+              {/* <Route path="/addFaturas" element={<AddFaturas />} /> */}
+
+
+
+              <Route path="/pagarConta/:id" element={
+
+                <ProtectedRouteAdmin>
+                  <PagamentoActive />
+                </ProtectedRouteAdmin>
+              } />
 
 
 
@@ -177,7 +341,7 @@ const App = () => {
 
 
 
-             {/**Routas para o Super Administrador */}
+              {/**Routas para o Super Administrador */}
 
               <Route path="/acessoSuperAdministrador" element={<PaginaLoginSuperAdmin />} />
               <Route path="/paginaCliente" element={<Clientes />} />
@@ -186,16 +350,16 @@ const App = () => {
 
 
 
-           </Routes>
-           </Router>
-           {/** <ConnectionStatus /> */}
-           </div>
-           
-         )}
-       </div>
-     );
-   };
-   
-   
-   export default App;
+            </Routes>
+          </Router>
+          {/** <ConnectionStatus /> */}
+        </div>
+
+      )}
+    </div>
+  );
+};
+
+
+export default App;
 

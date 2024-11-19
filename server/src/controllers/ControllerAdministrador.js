@@ -124,6 +124,28 @@ class ControllerAdministrador {
             res.status(400).json({ message: error.message }); // Retorna o erro caso o login falhe
         }
     }
+
+    // Método para obter um administrador pelo e-mail
+ // Método para obter um cliente pelo email
+// Método para obter um administrador pelo email
+static async obterAdministradorPorEmail(req, res) {
+    try {
+        const { email } = req.params;
+        const administrador = await Administrador.obterPorEmail(email); // Chama o método da classe Administrador
+
+        if (!administrador) {
+            return res.status(404).json({ message: "Administrador não encontrado" });
+        }
+
+        res.status(200).json(administrador);
+    } catch (error) {
+        console.error("Erro ao obter administrador por email:", error);
+        res.status(500).json({ message: "Erro ao obter administrador por email" });
+    }
+}
+
+
+
 }
 
 module.exports = ControllerAdministrador;

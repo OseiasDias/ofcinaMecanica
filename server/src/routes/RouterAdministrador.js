@@ -25,4 +25,7 @@ router.put('/:id_administrador/status', ControllerAdministrador.atualizarStatus)
 // Rota para fazer login de administrador
 router.post('/login', ControllerAdministrador.login);
 
+router.get('/email/:email', ControllerAdministrador.obterAdministradorPorEmail);
+
+
 module.exports = router;
