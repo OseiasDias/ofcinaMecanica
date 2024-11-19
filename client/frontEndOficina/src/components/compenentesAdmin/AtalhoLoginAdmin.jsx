@@ -2,6 +2,7 @@ import '../../css/StylesAdmin/loginAdmin.css';
 import { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import Spinner from 'react-bootstrap/Spinner';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import ModalAcessoSuperAdmin from './ModalAcessoSuperAdmin.jsx';
@@ -15,12 +16,11 @@ export default function AtalhoLoginAdmin() {
     const [emailError, setEmailError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [loginError, setLoginError] = useState('');
-
+    const [isLoading, setIsLoading] = useState(false); // Estado para o spinner
     const [modalSuperShow, setModalSuperShow] = useState(false);
 
     const navigate = useNavigate();
 
-    // Função para validar o e-mail
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!email) {
@@ -34,7 +34,6 @@ export default function AtalhoLoginAdmin() {
         return true;
     };
 
-    // Função para lidar com o login
     const handleLogin = async (e) => {
         e.preventDefault();
 
@@ -45,6 +44,7 @@ export default function AtalhoLoginAdmin() {
             return;
         }
 
+        setIsLoading(true); // Ativa o spinner
         try {
             const response = await fetch('http://localhost:5000/api/administradores/login', {
                 method: 'POST',
@@ -78,6 +78,8 @@ export default function AtalhoLoginAdmin() {
             console.error('Erro ao fazer login:', error.message);
             setLoginError(error.message);
             toast.error(error.message || 'Erro ao conectar ao servidor.');
+        } finally {
+            setIsLoading(false); // Desativa o spinner
         }
     };
 
@@ -126,8 +128,8 @@ export default function AtalhoLoginAdmin() {
 
                             {loginError && <div className="text-danger mt-2">{loginError}</div>}
 
-                            <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block">
-                                Entrar
+                            <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block" disabled={isLoading}>
+                                {isLoading ? <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : "Entrar"}
                             </Button>
                         </Form>
 
