@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaRegEye, FaRegEyeSlash, FaTransgenderAlt } from "react-icons/fa";
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'; // Importando o hook useNavigate
 import Spinner from 'react-bootstrap/Spinner'; // Importando o Spinner
 import 'react-toastify/dist/ReactToastify.css';
+import { IoPerson, IoMail, IoCall, IoHome, IoCalendar } from 'react-icons/io5'; // Importing icons
+import { MdPassword } from "react-icons/md";
 
 export default function CadastrarCliente() {
   const navigate = useNavigate(); // Instanciando o hook navigate para redirecionamento
@@ -141,123 +143,141 @@ export default function CadastrarCliente() {
       <h6 className="mt-5 fw-bold">CADASTRAR CLIENTE</h6>
       <hr />
       <Form onSubmit={handleCadastro} className='row'>
+        
+        {/* Nome */}
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formNome">
           <Form.Label className="fw-bold">Nome Completo</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite seu nome"
-            name="nome"
-            value={formValues.nome}
-            onChange={handleInputChange}
-            isInvalid={!!errors.nome}
-          />
+          <div className="input-group">
+            <span className="input-group-text"><IoPerson fontSize={20} color="#0070fa"/></span>
+            <Form.Control 
+              type="text" 
+              placeholder="Digite seu nome" 
+              name="nome" 
+              value={formValues.nome} 
+              onChange={handleInputChange} 
+              isInvalid={!!errors.nome} 
+            />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.nome}</Form.Control.Feedback>
         </Form.Group>
 
+        {/* Email */}
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formEmail">
           <Form.Label className="fw-bold">Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Digite seu email"
-            name="email"
-            value={formValues.email}
-            onChange={handleInputChange}
-            isInvalid={!!errors.email}
-          />
+          <div className="input-group">
+            <span className="input-group-text"><IoMail fontSize={20} color="#0070fa"/></span>
+            <Form.Control 
+              type="email" 
+              placeholder="Digite seu email" 
+              name="email" 
+              value={formValues.email} 
+              onChange={handleInputChange} 
+              isInvalid={!!errors.email} 
+            />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </Form.Group>
 
+        {/* Telefone */}
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formTelefone">
           <Form.Label className="fw-bold">Telefone</Form.Label>
-          <Form.Control
-            type="number"
-            placeholder="Digite seu telefone"
-            name="telefone"
-            value={formValues.telefone}
-            onChange={handleInputChange}
-            isInvalid={!!errors.telefone}
-          />
+          <div className="input-group">
+            <span className="input-group-text"><IoCall fontSize={20} color="#0070fa" /></span>
+            <Form.Control 
+              type="text" 
+              placeholder="Digite seu telefone" 
+              name="telefone" 
+              value={formValues.telefone} 
+              onChange={handleInputChange} 
+              isInvalid={!!errors.telefone} 
+            />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.telefone}</Form.Control.Feedback>
         </Form.Group>
 
+        {/* Data de Nascimento 
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formDataNascimento">
           <Form.Label className="fw-bold">Data de Nascimento</Form.Label>
-          <Form.Control
-            type="date"
-            name="dataNascimento"
-            value={formValues.dataNascimento}
-            onChange={handleInputChange}
-            isInvalid={!!errors.dataNascimento}
-          />
+          <div className="input-group">
+            <span className="input-group-text"><IoCalendar /></span>
+            <Form.Control 
+              type="date" 
+              name="dataNascimento" 
+              value={formValues.dataNascimento} 
+              onChange={handleInputChange} 
+              isInvalid={!!errors.dataNascimento} 
+            />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.dataNascimento}</Form.Control.Feedback>
-        </Form.Group>
+        </Form.Group>*/}
 
+        {/* Endereço */}
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formEndereco">
           <Form.Label className="fw-bold">Endereço</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="Digite seu endereço"
-            name="endereco"
-            value={formValues.endereco}
-            onChange={handleInputChange}
-            isInvalid={!!errors.endereco}
-          />
+          <div className="input-group">
+            <span className="input-group-text"><IoHome fontSize={20} color="#0070fa" /></span>
+            <Form.Control 
+              type="text" 
+              placeholder="Digite seu endereço" 
+              name="endereco" 
+              value={formValues.endereco} 
+              onChange={handleInputChange} 
+              isInvalid={!!errors.endereco} 
+            />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.endereco}</Form.Control.Feedback>
         </Form.Group>
 
+        {/* Gênero */}
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formGenero">
           <Form.Label className="fw-bold">Gênero</Form.Label>
-          <Form.Control
-            as="select"
-            name="genero"
-            value={formValues.genero}
-            onChange={handleInputChange}
-          >
+          <div className="d-flex">
+          <span className="input-group-text"><FaTransgenderAlt fontSize={20} color="#0070fa" /></span>
+          <Form.Control as="select" name="genero" value={formValues.genero} onChange={handleInputChange}>
             <option>Masculino</option>
             <option>Feminino</option>
             <option>Outro</option>
-            <option>Prefiro não dizer</option>
+            
           </Form.Control>
+          </div>
         </Form.Group>
 
+        {/* Senha */}
         <Form.Group className='col-12 col-md-12 col-lg-6 my-1' controlId="formSenha">
           <Form.Label className="fw-bold"><strong>Senha gerada</strong></Form.Label>
           <div className="d-flex">
-            <Form.Control
-              type={showPassword ? "text" : "password"}
-              placeholder="Digite sua senha"
-              name="senha"
-              value={formValues.senha}
-              onChange={handleInputChange}
-              isInvalid={!!errors.senha}
-              disabled={!!formValues.senha}  // Desabilita o campo se a senha já estiver gerada
+            <span className="input-group-text"><MdPassword fontSize={20} color="#0070fa" /></span>
+            <Form.Control 
+              type={showPassword ? "text" : "password"} 
+              placeholder="Digite sua senha" 
+              name="senha" 
+              value={formValues.senha} 
+              onChange={handleInputChange} 
+              isInvalid={!!errors.senha} 
+              disabled
             />
-            <Button
-              variant="outline-secondary"
-              onClick={() => setShowPassword(!showPassword)}
-              className="ms-2"
-            >
+            <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)} className="ms-2">
               {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
             </Button>
           </div>
           <Form.Control.Feedback type="invalid">{errors.senha}</Form.Control.Feedback>
         </Form.Group>
 
-        {errors.server && <div className="text-danger mt-2">{errors.server}</div>}
+        {errors.server && (
+          <div className="text-danger mt-2">{errors.server}</div>
+        )}
 
+        {/* Submit Button */}
         <div className="w-100">
-          <Button 
-            variant="primary" 
-            type="submit" 
-            className="links-acessos mt-3 px-5  mx-auto d-block" 
-            disabled={isLoading} // Desabilita o botão quando está carregando
-          >
-            {isLoading ? 
-              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" /> : 
+          <Button variant="primary" type="submit" className="links-acessos mt-3 px-5 mx-auto d-block" disabled={isLoading}>
+            {isLoading ? (
+              <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+            ) : (
               "Cadastrar"
-            }
+            )}
           </Button>
         </div>
+
       </Form>
 
       <ToastContainer position="top-center" autoClose={5000} hideProgressBar={false} newestOnTop closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />

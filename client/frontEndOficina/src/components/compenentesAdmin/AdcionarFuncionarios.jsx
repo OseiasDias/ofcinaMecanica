@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaRegAddressCard, FaRegEye, FaRegEyeSlash, FaTransgenderAlt } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
 import "react-toastify/dist/ReactToastify.css";
+import { MdAlternateEmail, MdOutlineDriveFileRenameOutline, MdPassword } from "react-icons/md";
+import { IoCall, IoMailOpenSharp } from "react-icons/io5";
+import { BsBank2, BsCalendar2DateFill, BsCalendarDate } from "react-icons/bs";
 
 export default function CadastrarFuncionario() {
   const navigate = useNavigate();
@@ -181,7 +184,11 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         {/* Campos existentes */}
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNome">
+        
           <Form.Label className="fw-bold">Nome Completo</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><MdOutlineDriveFileRenameOutline fontSize={20} color="#0070fa" /></span>
+           
           <Form.Control
             type="text"
             placeholder="Digite seu nome"
@@ -190,11 +197,15 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             onChange={handleInputChange}
             isInvalid={!!errors.nome}
           />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.nome}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formEmail">
           <Form.Label className="fw-bold">Email</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><MdAlternateEmail fontSize={20} color="#0070fa" /></span>
+           
           <Form.Control
             type="email"
             placeholder="Digite seu email"
@@ -203,11 +214,15 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             onChange={handleInputChange}
             isInvalid={!!errors.email}
           />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formTelefone">
           <Form.Label className="fw-bold">Telefone</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><IoCall fontSize={20} color="#0070fa" /></span>
+           
           <Form.Control
             type="number"
             placeholder="Digite seu telefone"
@@ -216,11 +231,15 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             onChange={handleInputChange}
             isInvalid={!!errors.telefone}
           />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.telefone}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataNascimento">
           <Form.Label className="fw-bold">Data de Nascimento</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><BsCalendar2DateFill fontSize={20} color="#0070fa" /></span>
+            
           <Form.Control
             type="date"
             name="dataNascimento"
@@ -228,11 +247,15 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             onChange={handleInputChange}
             isInvalid={!!errors.dataNascimento}
           />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.dataNascimento}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNivelAcesso">
           <Form.Label className="fw-bold">Cargo</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><MdWork fontSize={20} color="#0070fa" /></span>
+           
           <Form.Control
             as="select"
             name="nivelAcesso"
@@ -249,11 +272,15 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             <option>Técnico em Diagnóstico</option>
             <option>Mecânico</option>
           </Form.Control>
+          </div>
           <Form.Control.Feedback type="invalid">{errors.nivelAcesso}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formGenero">
           <Form.Label className="fw-bold">Gênero</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><FaTransgenderAlt fontSize={20} color="#0070fa" /></span>
+           
           <Form.Control
             as="select"
             name="genero"
@@ -266,11 +293,15 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             <option value="Feminino">Feminino</option>
             <option value="Outro">Outro</option>
           </Form.Control>
+          </div>
           <Form.Control.Feedback type="invalid">{errors.genero}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formEndereco">
           <Form.Label className="fw-bold">Endereço</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><IoMailOpenSharp fontSize={20} color="#0070fa" /></span>
+           
           <Form.Control
             type="text"
             placeholder="Digite o endereço"
@@ -279,6 +310,8 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             onChange={handleInputChange}
             isInvalid={!!errors.endereco}
           />
+
+          </div>
           <Form.Control.Feedback type="invalid">{errors.endereco}</Form.Control.Feedback>
         </Form.Group>
 
@@ -286,6 +319,9 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formBilheteIdentidade">
           <Form.Label className="fw-bold">Bilhete de Identidade</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><FaRegAddressCard fontSize={20} color="#0070fa" /></span>
+           
           <Form.Control
             type="text"
             placeholder="Digite o número do bilhete"
@@ -294,11 +330,15 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             onChange={handleInputChange}
             isInvalid={!!errors.bilhete_identidade}
           />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.bilhete_identidade}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formIban">
           <Form.Label className="fw-bold">IBAN</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><BsBank2 fontSize={20} color="#0070fa" /></span>
+           
           <Form.Control
             type="text"
             placeholder="Digite o IBAN"
@@ -306,12 +346,15 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             value={formValues.iban}
             onChange={handleInputChange}
             isInvalid={!!errors.iban}
-          />
+          /> </div>
           <Form.Control.Feedback type="invalid">{errors.iban}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataAdmissao">
           <Form.Label className="fw-bold">Data de Admissão</Form.Label>
+          <div className="d-flex">
+            <span className="input-group-text"><BsCalendarDate fontSize={20} color="#0070fa" /></span>
+           
           <Form.Control
             type="date"
             name="data_admissao"
@@ -319,6 +362,7 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
             onChange={handleInputChange}
             isInvalid={!!errors.data_admissao}
           />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.data_admissao}</Form.Control.Feedback>
         </Form.Group>
 

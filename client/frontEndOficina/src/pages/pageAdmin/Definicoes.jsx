@@ -264,7 +264,7 @@ const FormularioEmpresa = () => {
         </button>
       </div>
     </form>
-  );
+  ); 
 };
 
 

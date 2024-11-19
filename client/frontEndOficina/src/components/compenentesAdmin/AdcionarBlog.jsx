@@ -5,6 +5,9 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner'; // Spinner importado
 import { useNavigate } from 'react-router-dom'; // Importando useNavigate
+import { IoImage } from 'react-icons/io5'; // Importing an icon for image upload
+import { MdTextFields } from "react-icons/md";import { BsChatRightTextFill } from "react-icons/bs";
+
 
 export default function CadastroBlog() {
   const [formValues, setFormValues] = useState({
@@ -79,30 +82,50 @@ export default function CadastroBlog() {
         {/* Título */}
         <Form.Group className="col-12 my-2" controlId="formTitulo">
           <Form.Label className="fw-bold">Título</Form.Label>
-          <Form.Control 
-            type="text" 
-            placeholder="Digite o título do blog" 
-            name="titulo" 
-            value={formValues.titulo} 
-            onChange={handleInputChange} 
-            isInvalid={!!errors.titulo} 
-          />
+          <div className="input-group">
+            <span className="input-group-text"><MdTextFields fontSize={22} color="#0070fa" /></span>
+            <Form.Control 
+              type="text" 
+              placeholder="Digite o título do blog" 
+              name="titulo" 
+              value={formValues.titulo} 
+              onChange={handleInputChange} 
+              isInvalid={!!errors.titulo} 
+            />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.titulo}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Conteúdo */}
         <Form.Group className="col-12 my-2" controlId="formConteudo">
           <Form.Label className="fw-bold">Conteúdo</Form.Label>
-          <Form.Control 
-            as="textarea" 
-            rows={5} 
-            placeholder="Digite o conteúdo do blog" 
-            name="conteudo" 
-            value={formValues.conteudo} 
-            onChange={handleInputChange} 
-            isInvalid={!!errors.conteudo} 
-          />
+          <div className="input-group">
+            <span className="input-group-text"><BsChatRightTextFill fontSize={22} color="#0070fa" /></span>
+            <Form.Control 
+              as="textarea" 
+              rows={5} 
+              placeholder="Digite o conteúdo do blog" 
+              name="conteudo" 
+              value={formValues.conteudo} 
+              onChange={handleInputChange} 
+              isInvalid={!!errors.conteudo} 
+            />
+          </div>
           <Form.Control.Feedback type="invalid">{errors.conteudo}</Form.Control.Feedback>
+        </Form.Group>
+
+        {/* Foto Upload */}
+        <Form.Group className="col-12 my-2" controlId="formFoto">
+          <Form.Label className="fw-bold">Carregar Foto (opcional)</Form.Label>
+          <div className="input-group">
+            <span className="input-group-text"><IoImage fontSize={22} color="#0070fa" /></span>
+            <Form.Control 
+              type="file" 
+              accept="image/*"
+              name="foto"
+              
+            />
+          </div>
         </Form.Group>
 
         {/* Botão para cadastrar */}
@@ -111,7 +134,7 @@ export default function CadastroBlog() {
             variant="primary" 
             type="submit" 
             className="mt-4 d-block mx-auto links-acessos px-5" 
-            disabled={isLoading} // Desabilita o botão enquanto você está carregando
+            disabled={isLoading}
           >
             {isLoading ? (
               <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
@@ -127,3 +150,5 @@ export default function CadastroBlog() {
     </>
   );
 }
+
+
