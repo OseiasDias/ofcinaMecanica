@@ -157,8 +157,9 @@ export default function CadastrarCliente() {
               onChange={handleInputChange} 
               isInvalid={!!errors.nome} 
             />
+            <Form.Control.Feedback type="invalid" className="ajusteError">{errors.nome}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.nome}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Email */}
@@ -174,8 +175,9 @@ export default function CadastrarCliente() {
               onChange={handleInputChange} 
               isInvalid={!!errors.email} 
             />
+            <Form.Control.Feedback type="invalid" className="ajusteError">{errors.email}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Telefone */}
@@ -191,8 +193,9 @@ export default function CadastrarCliente() {
               onChange={handleInputChange} 
               isInvalid={!!errors.telefone} 
             />
+            <Form.Control.Feedback type="invalid" className="ajusteError">{errors.telefone}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.telefone}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Data de Nascimento 
@@ -224,8 +227,9 @@ export default function CadastrarCliente() {
               onChange={handleInputChange} 
               isInvalid={!!errors.endereco} 
             />
+            <Form.Control.Feedback type="invalid" className="ajusteError">{errors.endereco}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.endereco}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Gênero */}
@@ -259,8 +263,9 @@ export default function CadastrarCliente() {
             <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)} className="ms-2">
               {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
             </Button>
+            <Form.Control.Feedback type="invalid" className="ajusteError">{errors.senha}</Form.Control.Feedback>
           </div>
-          <Form.Control.Feedback type="invalid">{errors.senha}</Form.Control.Feedback>
+          
         </Form.Group>
 
         {errors.server && (

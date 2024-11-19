@@ -4,6 +4,12 @@ import { Form } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom';
+import { MdOutlineTextFields } from 'react-icons/md';
+import { IoCarSportOutline, IoCarSportSharp } from 'react-icons/io5';
+import { TbNumber } from 'react-icons/tb';
+import { FaPlateWheat } from 'react-icons/fa6';
+import { BsPerson } from 'react-icons/bs';
+import { GrStatusGood } from 'react-icons/gr';
 
 
 export default function AdicionarVeiculo() {
@@ -203,6 +209,9 @@ export default function AdicionarVeiculo() {
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
               <Form.Label className='fw-bold'>Marca</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><IoCarSportSharp fontSize={22} color="#0070fa" /></span>
+       
               <Form.Control
                 type="text"
                 name="marca"
@@ -212,12 +221,16 @@ export default function AdicionarVeiculo() {
                 placeholder="Digite a marca do veículo"
               />
               <Form.Control.Feedback type="invalid">{errors.marca}</Form.Control.Feedback>
+              </div>
             </Form.Group>
           </div>
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
               <Form.Label className='fw-bold'>Modelo</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><IoCarSportOutline fontSize={22} color="#0070fa" /></span>
+       
               <Form.Control
                 type="text"
                 name="modelo"
@@ -227,12 +240,16 @@ export default function AdicionarVeiculo() {
                 placeholder="Digite o modelo do veículo"
               />
               <Form.Control.Feedback type="invalid">{errors.modelo}</Form.Control.Feedback>
+              </div>
             </Form.Group>
           </div>
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
               <Form.Label className='fw-bold'>Ano</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><TbNumber fontSize={22} color="#0070fa" /></span>
+       
               <Form.Control
                 type="text"
                 name="ano"
@@ -242,12 +259,16 @@ export default function AdicionarVeiculo() {
                 placeholder="Digite o ano do veículo"
               />
               <Form.Control.Feedback type="invalid">{errors.ano}</Form.Control.Feedback>
+              </div>
             </Form.Group>
           </div>
 
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
               <Form.Label className='fw-bold'>Placa</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><FaPlateWheat fontSize={22} color="#0070fa" /></span>
+       
               <Form.Control
                 type="text"
                 name="placa"
@@ -257,11 +278,15 @@ export default function AdicionarVeiculo() {
                 placeholder="Digite a placa do veículo"
               />
               <Form.Control.Feedback type="invalid">{errors.placa}</Form.Control.Feedback>
+            </div>
             </Form.Group>
           </div>
           <div className="col-12 col-md-12 col-lg-12">
             <Form.Group>
               <Form.Label className='fw-bold'>Motivo da Visita</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><MdOutlineTextFields fontSize={22} color="#0070fa" /></span>
+       
               <Form.Control
                 as="textarea" // Alterado para textarea
                 rows={3} // Define o número de linhas iniciais do textarea
@@ -272,11 +297,15 @@ export default function AdicionarVeiculo() {
                 placeholder="Descreva o motivo da visita"
               />
               <Form.Control.Feedback type="invalid">{errors.motivo_visita}</Form.Control.Feedback>
+              </div>
             </Form.Group>
           </div>
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
               <Form.Label className='fw-bold'>Selecione o Propretário</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><BsPerson fontSize={22} color="#0070fa" /></span>
+       
               <Form.Control
                 type="text"
                 value={searchTerm}
@@ -284,6 +313,10 @@ export default function AdicionarVeiculo() {
                 placeholder="Pesquisar por nome, email ou telefone"
                 isInvalid={!!errors.id_cliente} // Exibe erro se não selecionar um cliente
               />
+              <Form.Control.Feedback type="invalid">
+                {errors.id_cliente || 'Selecione um cliente'} {/* Mensagem de erro */}
+              </Form.Control.Feedback>
+              </div>
               <div className="list-group mt-2" style={{ maxHeight: '200px', overflowY: 'auto' }}>
                 {filteredClientes.length > 0 ? (
                   filteredClientes.map(cliente => (
@@ -300,9 +333,7 @@ export default function AdicionarVeiculo() {
                   <div className="list-group-item">Nenhum cliente encontrado</div>
                 )}
               </div>
-              <Form.Control.Feedback type="invalid">
-                {errors.id_cliente || 'Selecione um cliente'} {/* Mensagem de erro */}
-              </Form.Control.Feedback>
+              
             </Form.Group>
           </div>
 
@@ -310,6 +341,9 @@ export default function AdicionarVeiculo() {
           <div className="col-12 col-md-12 col-lg-6">
             <Form.Group>
               <Form.Label className='fw-bold'>Status de Reparação</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><GrStatusGood fontSize={22} color="#0070fa" /></span>
+       
               <Form.Control
                 as="select"
                 name="status_reparacao"
@@ -321,6 +355,7 @@ export default function AdicionarVeiculo() {
                 <option value="em andamento">Em Andamento</option>
                 <option value="concluído">Concluído</option>
               </Form.Control>
+              </div>
             </Form.Group>
           </div>
 

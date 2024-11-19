@@ -39,7 +39,7 @@ export default function TabelaFaturas() {
       name: "Cliente",
       selector: (row) =>
         row.id_cliente
-          ? `${row.id_cliente} - ${row.clienteNome || "Nome não encontrado"}`
+          ? `C00${row.id_cliente} - ${row.clienteNome || "Nome não encontrado"}`
           : "ID de Cliente não disponível",
     },
     { name: "Status de Reparação", selector: (row) => row.status_reparacao },

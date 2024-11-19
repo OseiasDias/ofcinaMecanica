@@ -4,6 +4,9 @@ import { toast, ToastContainer } from "react-toastify";
 import { Button, Form, Spinner, Modal } from "react-bootstrap";
 import "react-toastify/dist/ReactToastify.css";
 import "../../css/StylesAdmin/pagarActive.css";
+import { IoMagnet, IoMail } from "react-icons/io5";
+import { GiMoneyStack } from "react-icons/gi";
+import { FaCreditCard, FaTags } from "react-icons/fa";
 
 const PagarActive = () => {
   const { id } = useParams(); // Obtém o ID do veículo da URL
@@ -280,6 +283,9 @@ const PagarActive = () => {
           <div className="col-lg-4 col-12 col-md-6">
             <Form.Group controlId="formFormaPagamento">
               <Form.Label>Forma de Pagamento</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><FaCreditCard fontSize={20} color="#0070fa"/></span>
+            
               <Form.Control
                 as="select"
                 name="formaPagamento"
@@ -292,6 +298,7 @@ const PagarActive = () => {
                 <option value="cartao">Cartão</option>
                 <option value="transferencia">Transferência</option>
               </Form.Control>
+              </div>
             </Form.Group>
           </div>
 
@@ -300,6 +307,9 @@ const PagarActive = () => {
           <div className="col-lg-4 col-12 col-md-6">
             <Form.Group controlId="formValorPagar">
               <Form.Label>Valor a Pagar (KZ)</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><GiMoneyStack fontSize={20} color="#0070fa"/></span>
+            
               <Form.Control
                 type="number"
                 name="valorPagar"
@@ -309,12 +319,16 @@ const PagarActive = () => {
                 min={0}
                 placeholder="Valor total do serviço(KZ)"
               />
+              </div>
             </Form.Group>
           </div>
 
           <div className="col-lg-4 col-12 col-md-6">
             <Form.Group controlId="formDesconto">
               <Form.Label>Desconto (KZ)</Form.Label>
+              <div className="input-group">
+            <span className="input-group-text"><FaTags fontSize={20} color="#0070fa"/></span>
+            
               <Form.Control
                 type="number"
                 name="desconto"
@@ -324,11 +338,12 @@ const PagarActive = () => {
                 min={0}
                 placeholder="Digite o desconto"
               />
+              </div>
             </Form.Group>
           </div>
         </div>
 
-        <div className="col-lg-12">
+        <div className="col-lg-12 mt-3">
           <Button
             variant="primary"
             type="submit"

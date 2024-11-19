@@ -5,6 +5,8 @@ import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom"; // Importando o hook useNavigate
 import Spinner from "react-bootstrap/Spinner"; // Importando o Spinner
 import "react-toastify/dist/ReactToastify.css";
+import { BsCalendar2 } from "react-icons/bs";
+import { FaBalanceScale, FaWrench } from "react-icons/fa";
 
 export default function AdicionarProdutoEstoque() {
   const navigate = useNavigate(); // Instanciando o hook navigate para redirecionamento
@@ -105,6 +107,9 @@ export default function AdicionarProdutoEstoque() {
       <Form onSubmit={handleCadastro} className="row">
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNomePeca">
           <Form.Label className="fw-bold">Nome da Peça</Form.Label>
+          <div className="input-group">
+            <span className="input-group-text"><FaWrench fontSize={20} color="#0070fa" /></span>
+
           <Form.Control
             type="text"
             placeholder="Digite o nome da peça"
@@ -114,10 +119,14 @@ export default function AdicionarProdutoEstoque() {
             isInvalid={!!errors.nome_peca}
           />
           <Form.Control.Feedback type="invalid">{errors.nome_peca}</Form.Control.Feedback>
+          </div>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formQuantidade">
           <Form.Label className="fw-bold">Quantidade</Form.Label>
+          <div className="input-group">
+            <span className="input-group-text"><FaBalanceScale fontSize={20} color="#0070fa" /></span>
+
           <Form.Control
             type="number"
             placeholder="Digite a quantidade"
@@ -127,10 +136,15 @@ export default function AdicionarProdutoEstoque() {
             isInvalid={!!errors.quantidade}
           />
           <Form.Control.Feedback type="invalid">{errors.quantidade}</Form.Control.Feedback>
+        
+          </div>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataReposicao">
           <Form.Label className="fw-bold">Data de Reposição</Form.Label>
+          <div className="input-group">
+            <span className="input-group-text"><BsCalendar2 fontSize={20} color="#0070fa" /></span>
+
           <Form.Control
             type="datetime-local"
             name="data_reposicao"
@@ -140,6 +154,7 @@ export default function AdicionarProdutoEstoque() {
             disabled={true} // A data é automaticamente preenchida, não editável
           />
           <Form.Control.Feedback type="invalid">{errors.data_reposicao}</Form.Control.Feedback>
+          </div>
         </Form.Group>
 
         <div className="w-100">

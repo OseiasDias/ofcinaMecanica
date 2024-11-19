@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { FaRegAddressCard, FaRegEye, FaRegEyeSlash, FaTransgenderAlt } from "react-icons/fa";
+import { FaRegAddressCard, FaTransgenderAlt } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
 import "react-toastify/dist/ReactToastify.css";
-import { MdAlternateEmail, MdOutlineDriveFileRenameOutline, MdPassword } from "react-icons/md";
-import { IoCall, IoMailOpenSharp } from "react-icons/io5";
+import { MdAlternateEmail, MdOutlineDriveFileRenameOutline, MdWork } from "react-icons/md";
+import { IoCall, IoHome } from "react-icons/io5";
 import { BsBank2, BsCalendar2DateFill, BsCalendarDate } from "react-icons/bs";
 
 export default function CadastrarFuncionario() {
@@ -109,9 +109,9 @@ export default function CadastrarFuncionario() {
     }
 
     // Validação para o campo "IBAN" (não obrigatório, mas podemos validar o formato)
-if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
-  newErrors.iban = "IBAN inválido. O formato correto é AOXX seguido de 21 números.";
-}
+    if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
+      newErrors.iban = "IBAN inválido. O formato correto é AOXX seguido de 21 números.";
+    }
 
 
     // Validação para o campo "Data de Admissão"
@@ -184,186 +184,197 @@ if (formValues.iban && !/^AO\d{2}[0-9]{21}$/.test(formValues.iban)) {
         {/* Campos existentes */}
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNome">
-        
+
           <Form.Label className="fw-bold">Nome Completo</Form.Label>
-          <div className="d-flex">
+          <div className="input-group">
             <span className="input-group-text"><MdOutlineDriveFileRenameOutline fontSize={20} color="#0070fa" /></span>
-           
-          <Form.Control
-            type="text"
-            placeholder="Digite seu nome"
-            name="nome"
-            value={formValues.nome}
-            onChange={handleInputChange}
-            isInvalid={!!errors.nome}
-          />
+
+            <Form.Control
+              type="text"
+              placeholder="Digite seu nome"
+              name="nome"
+              value={formValues.nome}
+              onChange={handleInputChange}
+              isInvalid={!!errors.nome}
+            />
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.nome}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.nome}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formEmail">
           <Form.Label className="fw-bold">Email</Form.Label>
-          <div className="d-flex">
+          <div className="input-group">
             <span className="input-group-text"><MdAlternateEmail fontSize={20} color="#0070fa" /></span>
-           
-          <Form.Control
-            type="email"
-            placeholder="Digite seu email"
-            name="email"
-            value={formValues.email}
-            onChange={handleInputChange}
-            isInvalid={!!errors.email}
-          />
+
+            <Form.Control
+              type="email"
+              placeholder="Digite seu email"
+              name="email"
+              value={formValues.email}
+              onChange={handleInputChange}
+              isInvalid={!!errors.email}
+            />
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.email}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.email}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formTelefone">
           <Form.Label className="fw-bold">Telefone</Form.Label>
-          <div className="d-flex">
+          <div className="input-group">
             <span className="input-group-text"><IoCall fontSize={20} color="#0070fa" /></span>
-           
-          <Form.Control
-            type="number"
-            placeholder="Digite seu telefone"
-            name="telefone"
-            value={formValues.telefone}
-            onChange={handleInputChange}
-            isInvalid={!!errors.telefone}
-          />
+
+            <Form.Control
+              type="number"
+              placeholder="Digite seu telefone"
+              name="telefone"
+              value={formValues.telefone}
+              onChange={handleInputChange}
+              isInvalid={!!errors.telefone}
+            />
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.telefone}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.telefone}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataNascimento">
           <Form.Label className="fw-bold">Data de Nascimento</Form.Label>
-          <div className="d-flex">
+          <div className="input-group">
             <span className="input-group-text"><BsCalendar2DateFill fontSize={20} color="#0070fa" /></span>
-            
-          <Form.Control
-            type="date"
-            name="dataNascimento"
-            value={formValues.dataNascimento}
-            onChange={handleInputChange}
-            isInvalid={!!errors.dataNascimento}
-          />
+
+            <Form.Control
+              type="date"
+              name="dataNascimento"
+              value={formValues.dataNascimento}
+              onChange={handleInputChange}
+              isInvalid={!!errors.dataNascimento}
+            />
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.dataNascimento}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.dataNascimento}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formNivelAcesso">
           <Form.Label className="fw-bold">Cargo</Form.Label>
-          <div className="d-flex">
+          <div className="input-group">
             <span className="input-group-text"><MdWork fontSize={20} color="#0070fa" /></span>
-           
-          <Form.Control
-            as="select"
-            name="nivelAcesso"
-            value={formValues.nivelAcesso}
-            onChange={handleInputChange}
-            isInvalid={!!errors.nivelAcesso}
-          >
-            <option>Assistente Técnico</option>
-            <option>Eletricista Automotivo</option>
-            <option>Lavador de Veículos</option>
-            <option>Gerente de Oficina</option>
-            <option>Atendente/Recepcionista</option>
-            <option>Estagiário</option>
-            <option>Técnico em Diagnóstico</option>
-            <option>Mecânico</option>
-          </Form.Control>
+
+            <Form.Control
+              as="select"
+              name="nivelAcesso"
+              value={formValues.nivelAcesso}
+              onChange={handleInputChange}
+              isInvalid={!!errors.nivelAcesso}
+            >
+              <option>Assistente Técnico</option>
+              <option>Eletricista Automotivo</option>
+              <option>Lavador de Veículos</option>
+              <option>Gerente de Oficina</option>
+              <option>Atendente/Recepcionista</option>
+              <option>Estagiário</option>
+              <option>Técnico em Diagnóstico</option>
+              <option>Mecânico</option>
+            </Form.Control>
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.nivelAcesso}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.nivelAcesso}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formGenero">
           <Form.Label className="fw-bold">Gênero</Form.Label>
-          <div className="d-flex">
+          <div className="input-group">
             <span className="input-group-text"><FaTransgenderAlt fontSize={20} color="#0070fa" /></span>
-           
-          <Form.Control
-            as="select"
-            name="genero"
-            value={formValues.genero}
-            onChange={handleInputChange}
-            isInvalid={!!errors.genero}
-          >
-            <option value="">Selecione um gênero</option>
-            <option value="Masculino">Masculino</option>
-            <option value="Feminino">Feminino</option>
-            <option value="Outro">Outro</option>
-          </Form.Control>
+
+            <Form.Control
+              as="select"
+              name="genero"
+              value={formValues.genero}
+              onChange={handleInputChange}
+              isInvalid={!!errors.genero}
+            >
+              <option value="">Selecione um gênero</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+              <option value="Outro">Outro</option>
+            </Form.Control>
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.genero}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.genero}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formEndereco">
           <Form.Label className="fw-bold">Endereço</Form.Label>
-          <div className="d-flex">
-            <span className="input-group-text"><IoMailOpenSharp fontSize={20} color="#0070fa" /></span>
-           
-          <Form.Control
-            type="text"
-            placeholder="Digite o endereço"
-            name="endereco"
-            value={formValues.endereco}
-            onChange={handleInputChange}
-            isInvalid={!!errors.endereco}
-          />
+          <div className="input-group">
+            <span className="input-group-text"><IoHome fontSize={20} color="#0070fa" /></span>
+
+            <Form.Control
+              type="text"
+              placeholder="Digite o endereço"
+              name="endereco"
+              value={formValues.endereco}
+              onChange={handleInputChange}
+              isInvalid={!!errors.endereco}
+            />
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.endereco}</Form.Control.Feedback>
+
 
           </div>
-          <Form.Control.Feedback type="invalid">{errors.endereco}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Novos campos adicionados */}
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formBilheteIdentidade">
           <Form.Label className="fw-bold">Bilhete de Identidade</Form.Label>
-          <div className="d-flex">
+          <div className="input-group">
             <span className="input-group-text"><FaRegAddressCard fontSize={20} color="#0070fa" /></span>
-           
-          <Form.Control
-            type="text"
-            placeholder="Digite o número do bilhete"
-            name="bilhete_identidade"
-            value={formValues.bilhete_identidade}
-            onChange={handleInputChange}
-            isInvalid={!!errors.bilhete_identidade}
-          />
+
+            <Form.Control
+              type="text"
+              placeholder="Digite o número do bilhete"
+              name="bilhete_identidade"
+              value={formValues.bilhete_identidade}
+              onChange={handleInputChange}
+              isInvalid={!!errors.bilhete_identidade}
+            />
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.bilhete_identidade}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.bilhete_identidade}</Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formIban">
           <Form.Label className="fw-bold">IBAN</Form.Label>
-          <div className="d-flex">
+          <div className="input-group">
             <span className="input-group-text"><BsBank2 fontSize={20} color="#0070fa" /></span>
-           
-          <Form.Control
-            type="text"
-            placeholder="Digite o IBAN"
-            name="iban"
-            value={formValues.iban}
-            onChange={handleInputChange}
-            isInvalid={!!errors.iban}
-          /> </div>
-          <Form.Control.Feedback type="invalid">{errors.iban}</Form.Control.Feedback>
+
+            <Form.Control
+              type="text"
+              placeholder="Digite o IBAN"
+              name="iban"
+              value={formValues.iban}
+              onChange={handleInputChange}
+              isInvalid={!!errors.iban}
+            />
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.iban}</Form.Control.Feedback>
+
+          </div>
         </Form.Group>
 
         <Form.Group className="col-12 col-md-12 col-lg-6 my-1" controlId="formDataAdmissao">
           <Form.Label className="fw-bold">Data de Admissão</Form.Label>
-          <div className="d-flex">
+          <div className="input-group">
             <span className="input-group-text"><BsCalendarDate fontSize={20} color="#0070fa" /></span>
-           
-          <Form.Control
-            type="date"
-            name="data_admissao"
-            value={formValues.data_admissao}
-            onChange={handleInputChange}
-            isInvalid={!!errors.data_admissao}
-          />
+
+            <Form.Control
+              type="date"
+              name="data_admissao"
+              value={formValues.data_admissao}
+              onChange={handleInputChange}
+              isInvalid={!!errors.data_admissao}
+            />
+            <Form.Control.Feedback className="ajusteError" type="invalid">{errors.data_admissao}</Form.Control.Feedback>
+
           </div>
-          <Form.Control.Feedback type="invalid">{errors.data_admissao}</Form.Control.Feedback>
         </Form.Group>
 
         {/* Botão de Cadastro */}

@@ -5,6 +5,8 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Spinner from 'react-bootstrap/Spinner'; // Importando o Spinner
 import { useNavigate } from 'react-router-dom'; // Importando o hook useNavigate
+import { MdTextFields } from "react-icons/md";
+import { BsFillChatLeftTextFill } from "react-icons/bs";
 
 
 export default function CadastroServico() {
@@ -94,6 +96,9 @@ export default function CadastroServico() {
         {/* Nome do Serviço */}
         <Form.Group className="col-12 my-2" controlId="formNomeServico">
           <Form.Label className="fw-bold">Nome do Serviço</Form.Label>
+          <div className="input-group">
+            <span className="input-group-text"><MdTextFields fontSize={22} color="#0070fa" /></span>
+       
           <Form.Control
             type="text"
             placeholder="Digite o nome do serviço"
@@ -103,11 +108,15 @@ export default function CadastroServico() {
             isInvalid={!!errors.nome_servico}
           />
           <Form.Control.Feedback type="invalid">{errors.nome_servico}</Form.Control.Feedback>
+        </div>
         </Form.Group>
 
         {/* Descrição */}
         <Form.Group className="col-12 my-2" controlId="formDescricao">
           <Form.Label className="fw-bold">Descrição</Form.Label>
+          <div className="input-group">
+            <span className="input-group-text"><BsFillChatLeftTextFill fontSize={22} color="#0070fa" /></span>
+       
           <Form.Control
             as="textarea"
             rows={5}
@@ -118,6 +127,7 @@ export default function CadastroServico() {
             isInvalid={!!errors.descricao}
           />
           <Form.Control.Feedback type="invalid">{errors.descricao}</Form.Control.Feedback>
+        </div>
         </Form.Group>
 
         {/* Botão para cadastrar */}

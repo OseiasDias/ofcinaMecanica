@@ -7,6 +7,7 @@ import Form from 'react-bootstrap/Form';
 import { FaRegEye, FaRegEyeSlash } from "react-icons/fa";
 import { RiAdminFill } from "react-icons/ri";
 import ModalAcessoSuperAdmin from './ModalAcessoSuperAdmin.jsx';
+import logoFoto  from "../../assets/img/lgo.png";
 
 export default function AtalhoLoginAdmin() {
     const [email, setEmail] = useState('');
@@ -75,7 +76,7 @@ export default function AtalhoLoginAdmin() {
         <div className="container-login my-4  LoginAdmistrador">
             <div className="login-box shadow  rounded">
                 <div className="row  p-2">
-                    <Logo />
+                    <img src={logoFoto} alt="logotipo da bi turbo" style={{width: "220px",height:"100px"}} className='d-block mx-auto'/>
                     <h5 className="text-center my-2">Acesso para Administrador</h5>
 
                     <div className="col-11  col-md-9 col-lg-10 mx-auto ">
