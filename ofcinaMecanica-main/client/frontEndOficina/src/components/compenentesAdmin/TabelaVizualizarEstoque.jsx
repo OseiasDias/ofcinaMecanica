@@ -243,15 +243,15 @@ export default function TabelaEstoque() {
                   placeholder="Digite a nova quantidade"
                 />
               </div>
-            </Form.Group>
+            </Form.Group>  
           </Form>
 
           <div className="modal-footer-description">
             <p className="text-danger">
               <strong>Nota:</strong> Ao confirmar, os dados serão atualizados no sistema e refletirão na lista de estoque.
-            </p>
+            </p>  
           </div>
-        </Modal.Body>
+        </Modal.Body> 
 
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowUpdateModal(false)}>
@@ -259,7 +259,7 @@ export default function TabelaEstoque() {
           </Button>
           <Button variant="primary" onClick={handleUpdate}>
             Atualizar Estoque
-          </Button>
+          </Button> 
         </Modal.Footer>
       </Modal>
 
