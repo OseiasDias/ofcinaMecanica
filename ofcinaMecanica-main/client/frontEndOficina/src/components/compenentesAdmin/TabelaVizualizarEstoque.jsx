@@ -252,14 +252,14 @@ export default function TabelaEstoque() {
             </p>  
           </div>
         </Modal.Body> 
-
+   
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowUpdateModal(false)}>
             Cancelar
           </Button>
           <Button variant="primary" onClick={handleUpdate}>
             Atualizar Estoque
-          </Button> 
+          </Button>   
         </Modal.Footer>
       </Modal>
 
