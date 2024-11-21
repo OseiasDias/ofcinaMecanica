@@ -1,43 +1,100 @@
-import { FaBlogger, FaBox, FaSignOutAlt } from "react-icons/fa";
+import { FaAddressCard, FaBalanceScaleRight, FaBlogger, FaBox, FaCartArrowDown, FaClipboardList, FaDollarSign, FaIdCardAlt, FaListOl, FaSignOutAlt, FaTicketAlt } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom"; // Usando useNavigate do React Router
 import { FaHome, FaUser } from "react-icons/fa";
-import { IoNewspaperSharp } from "react-icons/io5";
-import { BiCog } from "react-icons/bi";
-import { FaCarRear } from "react-icons/fa6";
+import { IoCarSportSharp, IoLibrary, IoNewspaperSharp } from "react-icons/io5";
+import { BiCog, BiSolidCarMechanic } from "react-icons/bi";
+import { FaCarRear, FaTruckArrowRight, FaUserTie, FaWrench } from "react-icons/fa6";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SideBarMenu";
 import Logo from "./Logo";
 import { GrServices } from "react-icons/gr";
-import { GiHamburgerMenu } from "react-icons/gi";
+import { GiCardboardBox, GiHamburgerMenu, GiLightningBranches, GiMoneyStack, GiWallet } from "react-icons/gi";
 import { FaArrowLeft } from "react-icons/fa6";
 import { FaUsers } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaCalendarDays, FaSackDollar } from "react-icons/fa6";
 import { TbReportSearch } from "react-icons/tb";
-
+import { MdAttachEmail, MdInventory, MdOutlineInput, MdPayment, MdPriceChange, MdVerified } from "react-icons/md";
 // Importando o componente Modal do React Bootstrap
 import { Modal, Button } from 'react-bootstrap';
+import { FcCustomerSupport } from "react-icons/fc";
+import { SiToyota } from "react-icons/si";
+import { IoIosColorPalette } from "react-icons/io";
+import { AiFillCalculator } from "react-icons/ai";
+import { BsTools } from "react-icons/bs";
 
 const routes = [
-  { path: "/homeAdministrador", name: "Painel", icon: <FaHome /> },
+  { path: "/homeAdministrador", name: "Painel de Controle", icon: <FaHome /> },
+  { path: "/agendamentoList", name: "Agendamentos", icon: <FaCalendarDays /> },
   {
-    name: "Usuarios",
-    icon: <FaUsers />,
+    name: "Inventário",
+    icon: <MdInventory size={24}/>,
     subRoutes: [
-      { path: "/clienteList", name: "Clientes", icon: <FaCircleUser /> },
-      { path: "/funcionariosList", name: "Funcionarios", icon: <FaUser /> },
+      { path: "", name: "Fornecedor", icon: <FaTruckArrowRight  /> },
+      { path: "", name: "Produtos", icon: <FaWrench /> },
+      { path: "", name: "Compra", icon: <FaCartArrowDown /> },
+      { path: "/estoqueList", name: "Estoque", icon: <GiCardboardBox /> },
     ],
   },
-  { path: "/agendamentoList", name: "Agendamentos", icon: <FaCalendarDays /> },
-  { path: "/blogList", name: "Blog", icon: <FaBlogger /> },
-  { path: "/estoqueList", name: "Estoque", icon: <FaBox /> },
-  { path: "/faturaList", name: "Faturas", icon: <IoNewspaperSharp /> },
-  { path: "/pagamentoList", name: "Pagamentos", icon: <FaSackDollar /> },
+  {
+    name: "Usuarios",
+    icon: <FaUsers size={24}/>,
+    subRoutes: [
+      { path: "/clienteList", name: "Clientes", icon: <FaCircleUser /> },
+      { path: "/funcionariosList", name: "Funcionarios", icon: <FaUserTie /> },
+      { path: "/funcionariosList", name: "Equipe de suporte", icon: <FcCustomerSupport /> },
+    ],
+  },
+  {
+    name: "Veículos",
+    icon: <BiSolidCarMechanic size={24} />,
+    subRoutes: [
+      { path: "/clienteList", name: "Lista de veículos", icon: <FaListOl /> },
+      { path: "/funcionariosList", name: "Tipos de veículos", icon: <IoCarSportSharp /> },
+      { path: "/funcionariosList", name: "Marcas de veículos", icon: <SiToyota /> },
+      { path: "/funcionariosList", name: "Cores de Veículos", icon: <IoIosColorPalette /> },
+    ],
+  },
   { path: "/servicosList", name: "Serviços", icon: <GrServices /> },
-  { path: "/veiculosList", name: "Veiculos", icon: <FaCarRear /> },
-  { path: "/pagamentoLi", name: "Relatórios", icon: <TbReportSearch /> },
-  { path: "/pageDefinicoes", name: "Definições", icon: <BiCog /> },
+  { path: "", name: "Contação", icon: <MdPriceChange /> },
+  { path: "/faturaList", name: "Faturas", icon: <IoNewspaperSharp /> },
+
+  {
+    name: "Cartão de trabalho",
+    icon: <FaAddressCard size={24} />,
+    subRoutes: [
+      { path: "", name: "Cartão de Trabalho", icon: <FaIdCardAlt /> },
+      { path: "", name: "Ingresso", icon: <FaTicketAlt/> },
+     
+    ],
+  },
+  {
+    name: "Contas",
+    icon: <AiFillCalculator size={24}/>,
+    subRoutes: [
+      { path: "", name: "Lista de taxas", icon: <FaBalanceScaleRight /> },
+      { path: "", name: (<>Lista de método  <br /> de pagamento</>), icon: <MdPayment /> },
+      { path: "", name: "Rendas", icon: <GiMoneyStack /> },
+      { path: "", name: "Dispesas", icon: <GiWallet /> },
+    ],
+  }, 
+  { path: "/blogList", name: "Blog", icon: <FaBlogger /> },
+  { path: "/pagamentoList", name: "Pagamentos", icon: <FaSackDollar /> },
+
+  { path: "", name: "Vendas de Peças", icon: <BsTools /> },
+  { path: "", name: "Conformidade", icon: <MdVerified /> },
+  { path: "", name: "Relatórios", icon: <FaClipboardList /> },
+
+  { path: "", name: "Templates de Email", icon: <MdAttachEmail /> },
+  { path: "", name: "Campos Personalizados", icon: <MdOutlineInput /> },
+  { path: "", name: "Biblioteca de Observação", icon: <IoLibrary /> },
+  { path: "", name: "Galhos", icon: <GiLightningBranches /> },
+
+  { path: "", name: "Relatórios", icon: <TbReportSearch /> },
+  { path: "", name: "Definições", icon: <BiCog /> },
+
+
 ];
 
 const SideBar = ({ children }) => {

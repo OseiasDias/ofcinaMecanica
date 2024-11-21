@@ -1,8 +1,0 @@
-
-
-
-.bordarModal{
-    border-left: 6px solid var(--corPrimaria) !important;
-    border-right: 6px solid var(--corPrimaria) !important;
-    border-radius: var(--borderRadius);
-}
