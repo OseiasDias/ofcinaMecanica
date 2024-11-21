@@ -5,7 +5,7 @@ import { Form, Row, Col, Button } from 'react-bootstrap';
 import { useState } from 'react';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdDeleteForever } from "react-icons/md";
-import { IoMdAdd } from "react-icons/io";
+import {  IoMdAddCircle } from "react-icons/io";
 
 
 
@@ -532,9 +532,9 @@ const AddFornecedor = () => {
                 <div className="col-md-12 mt-5">
                   <div className="d-flex justify-content-between">
                   <h6>ADICIONAR NOTAS</h6>
-                  <Button  onClick={addNote} className="btnAddEspecial">
-                    <IoMdAdd className="iconeEliminar text-white" />
-                  </Button>
+                  
+                    <IoMdAddCircle className="iconeApagarNota" fontSize={32}  onClick={addNote}/>
+                  
                   </div>
                   <hr />
                   

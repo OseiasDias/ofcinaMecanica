@@ -270,7 +270,28 @@ p,a,h1,h1,h3,h4,h5,h6,span {
 }
 
 .btnAddEspecial{
-   color: #fff !important;
+   
  
   transition: all ease-in 300ms;
+}
+
+
+.iconeApagarNota{
+  cursor: pointer;
+  color: var(--corPrimaria);
+  transition: all ease-in 300ms;
+}
+
+.iconeApagarNota:hover{
+
+  transform: scale(1.1);
+}
+
+
+
+@media (max-width:768px){
+  .btnIcone{
+    display: block;
+    float: right;
+  }
 }
