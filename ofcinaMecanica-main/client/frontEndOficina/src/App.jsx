@@ -42,6 +42,27 @@ import AdiarAgendamento from "./pages/pageAdmin/AdiarAgendemento.jsx";
 import EditarBlogger from "./pages/pageAdmin/EditarBlogger.jsx";
 import EditarVeiculo from "./pages/pageAdmin/EditarVeiculo.jsx";
 import Deficnicoes from "./pages/pageAdmin/Definicoes.jsx";
+import Fornecedor from "./pages/pageAdmin/Fornecedor.jsx";
+import Compra from "./pages/pageAdmin/Compra.jsx";
+import Produto from "./pages/pageAdmin/Produto.jsx";
+import EquipeSuporte from "./pages/pageAdmin/EquipeSuporte.jsx";
+import CartaoTrabalho from "./pages/pageAdmin/Cartaotrabalho.jsx";
+import Ingresso from "./pages/pageAdmin/Ingresso.jsx";
+import Vendas from "./pages/pageAdmin/Vendas.jsx";
+import Taxas from "./pages/pageAdmin/ListaTaxas.jsx";
+import MetodoPagamento from "./pages/pageAdmin/MetodoPagamento.jsx";
+import Rendas from "./pages/pageAdmin/Rendas.jsx";
+import Dispesas from "./pages/pageAdmin/Dispesas.jsx";
+import Conformidade from "./pages/pageAdmin/Conformidade.jsx";
+import Relatorios from "./pages/pageAdmin/Relatorios.jsx";
+import TemplatesEmail from "./pages/pageAdmin/TemplateEmail.jsx";
+import CamposPersonalizados from "./pages/pageAdmin/CamposPersonalizados.jsx";
+import BibiliotecaObservacao from "./pages/pageAdmin/BibiliotecaObservacoes.jsx";
+import Galhos from "./pages/pageAdmin/Galhos.jsx";
+import Contacao from "./pages/pageAdmin/CotacaoPage.jsx";
+
+
+
 
 
 
@@ -127,7 +148,7 @@ const App = () => {
                   <VerAgendamento />
                 </ProtectedRoute>
               } />
-              <Route path="/verVeiculos" element={
+              <Route path="/veiculosPage" element={
 
                 <ProtectedRoute>
                   <VerVeiculos />
@@ -147,7 +168,7 @@ const App = () => {
 
               } />
               <Route path="/acessoAdministrador" element={<LoginAdmin />} />
-              
+
               <Route path="/clienteList" element={
                 <ProtectedRouteAdmin>
                   <Clientes />
@@ -169,7 +190,7 @@ const App = () => {
               }
 
               />
-              <Route path="/veiculosList" element={
+              <Route path="/veiculosPageItens" element={
 
 
                 <ProtectedRouteAdmin>
@@ -324,6 +345,9 @@ const App = () => {
               } />
 
 
+
+
+
               {/* <Route path="/addFaturas" element={<AddFaturas />} /> */}
 
 
@@ -334,6 +358,137 @@ const App = () => {
                   <PagamentoActive />
                 </ProtectedRouteAdmin>
               } />
+
+
+              {/**Novas Rotas */}
+
+              <Route path="/fornecedorPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Fornecedor />
+                </ProtectedRouteAdmin>} />
+
+              <Route path="/produtosPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Produto />
+                </ProtectedRouteAdmin>} />
+
+
+              <Route path="/comprasPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Compra />
+                </ProtectedRouteAdmin>} />
+
+
+              <Route path="/equipeSuportePage" element={
+
+                <ProtectedRouteAdmin>
+                  <EquipeSuporte />
+                </ProtectedRouteAdmin>} />
+
+
+
+              <Route path="/cartaoTrabalhoPage" element={
+
+                <ProtectedRouteAdmin>
+                  <CartaoTrabalho />
+                </ProtectedRouteAdmin>} />
+
+
+              <Route path="/ingressoPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Ingresso />
+                </ProtectedRouteAdmin>} />
+
+
+              <Route path="/cotacaoPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Contacao />
+                </ProtectedRouteAdmin>} />
+
+              <Route path="/vendasPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Vendas />
+                </ProtectedRouteAdmin>} />
+              <Route path="/listaTaxaPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Taxas />
+                </ProtectedRouteAdmin>} />
+
+
+              <Route path="/metodoPagamentoPage" element={
+
+                <ProtectedRouteAdmin>
+                  <MetodoPagamento />
+                </ProtectedRouteAdmin>} />
+
+              <Route path="/rendasPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Rendas />
+                </ProtectedRouteAdmin>} />
+
+              <Route path="/dispesasPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Dispesas />
+                </ProtectedRouteAdmin>} />
+
+
+              <Route path="/conformidadePage" element={
+
+                <ProtectedRouteAdmin>
+                  <Conformidade />
+                </ProtectedRouteAdmin>} />
+
+
+              <Route path="/relatoriosPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Relatorios />
+                </ProtectedRouteAdmin>} />
+
+
+              <Route path="/templatesEmailPages" element={
+
+                <ProtectedRouteAdmin>
+                  <TemplatesEmail />
+                </ProtectedRouteAdmin>} />
+
+              <Route path="/camposPersonalizadosPage" element={
+
+                <ProtectedRouteAdmin>
+                  <CamposPersonalizados />
+                </ProtectedRouteAdmin>} />
+
+              <Route path="/bibiliotecaObservacaoPage" element={
+
+                <ProtectedRouteAdmin>
+                  <BibiliotecaObservacao />
+                </ProtectedRouteAdmin>} />
+
+
+              <Route path="/galhosPage" element={
+
+                <ProtectedRouteAdmin>
+                  <Galhos />
+                </ProtectedRouteAdmin>} />
+
+
+
+
+
+
+
+
+
+
 
 
 

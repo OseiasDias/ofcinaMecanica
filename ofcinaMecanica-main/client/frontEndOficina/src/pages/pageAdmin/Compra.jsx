@@ -2,21 +2,19 @@ import "../../css/StylesAdmin/homeAdministrador.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { IoIosAdd } from "react-icons/io";
-import TabelaVizualizarFaturas from "../../components/compenentesAdmin/TabelaVizualizarFaturas";
 
-const Faturas = () => {
+const Compras = () => {
   return (
     <>
-     <div className="container-fluid">
+      <div className="container-fluid">
         <div className="d-flex">
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Estoque" icone={<IoIosAdd />}  leftR="/estoqueList" direccao="/addEstoque"/>
+            <TopoAdmin entrada="Compras" direccao="/addCompras" icone={<IoIosAdd />} leftR="/ComprasList"/>
 
             <div className="vh-100 alturaPereita">
-            <TabelaVizualizarFaturas />
-            </div>
+            <h3>Compras</h3>            </div>
             <div className="div text-center np pt-2 mt-2 ppAr">
               <hr />
               <p className="text-center">
@@ -34,4 +32,4 @@ const Faturas = () => {
   );
 };
 
-export default Faturas;
+export default Compras;

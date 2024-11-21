@@ -55,11 +55,7 @@ export default function TabelaVizualizarFaturas() {
       selector: (row) => ` ${parseFloat(row.valor_total).toFixed(2)} KZ`,
       sortable: true
     },
-    {
-      name: "Data de Emissão",
-      selector: (row) => new Date(row.data_emissao).toLocaleDateString(),
-      sortable: true
-    },
+   
     {
       name: "Ações",
       cell: (row) => (

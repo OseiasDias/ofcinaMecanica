@@ -1,9 +1,9 @@
-import { FaAddressCard, FaBalanceScaleRight, FaBlogger, FaBox, FaCartArrowDown, FaClipboardList, FaDollarSign, FaIdCardAlt, FaListOl, FaSignOutAlt, FaTicketAlt } from "react-icons/fa";
+import { FaAddressCard, FaBalanceScaleRight, FaBlogger, FaCartArrowDown, FaClipboardList, FaDollarSign, FaIdCardAlt, FaListOl, FaSignOutAlt, FaTicketAlt } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom"; // Usando useNavigate do React Router
-import { FaHome, FaUser } from "react-icons/fa";
+import { FaHome } from "react-icons/fa";
 import { IoCarSportSharp, IoLibrary, IoNewspaperSharp } from "react-icons/io5";
 import { BiCog, BiSolidCarMechanic } from "react-icons/bi";
-import { FaCarRear, FaTruckArrowRight, FaUserTie, FaWrench } from "react-icons/fa6";
+import {  FaTruckArrowRight, FaUserTie, FaWrench } from "react-icons/fa6";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SideBarMenu";
@@ -31,9 +31,9 @@ const routes = [
     name: "Inventário",
     icon: <MdInventory size={24}/>,
     subRoutes: [
-      { path: "", name: "Fornecedor", icon: <FaTruckArrowRight  /> },
-      { path: "", name: "Produtos", icon: <FaWrench /> },
-      { path: "", name: "Compra", icon: <FaCartArrowDown /> },
+      { path: "/fornecedorPage", name: "Fornecedor", icon: <FaTruckArrowRight  /> },
+      { path: "/produtosPage", name: "Produtos", icon: <FaWrench /> },
+      { path: "/comprasPage", name: "Compra", icon: <FaCartArrowDown /> },
       { path: "/estoqueList", name: "Estoque", icon: <GiCardboardBox /> },
     ],
   },
@@ -43,29 +43,29 @@ const routes = [
     subRoutes: [
       { path: "/clienteList", name: "Clientes", icon: <FaCircleUser /> },
       { path: "/funcionariosList", name: "Funcionarios", icon: <FaUserTie /> },
-      { path: "/funcionariosList", name: "Equipe de suporte", icon: <FcCustomerSupport /> },
+      { path: "/equipeSuportePage", name: "Equipe de suporte", icon: <FcCustomerSupport /> },
     ],
   },
   {
     name: "Veículos",
     icon: <BiSolidCarMechanic size={24} />,
     subRoutes: [
-      { path: "/clienteList", name: "Lista de veículos", icon: <FaListOl /> },
-      { path: "/funcionariosList", name: "Tipos de veículos", icon: <IoCarSportSharp /> },
-      { path: "/funcionariosList", name: "Marcas de veículos", icon: <SiToyota /> },
-      { path: "/funcionariosList", name: "Cores de Veículos", icon: <IoIosColorPalette /> },
+      { path: "/veiculosPageItens", name: "Lista de veículos", icon: <FaListOl /> },
+      { path: "tipoVeiculosPage", name: "Tipos de veículos", icon: <IoCarSportSharp /> },
+      { path: "marcasVeiculosPage", name: "Marcas de veículos", icon: <SiToyota /> },
+      { path: "coresPage", name: "Cores de Veículos", icon: <IoIosColorPalette /> },
     ],
   },
   { path: "/servicosList", name: "Serviços", icon: <GrServices /> },
-  { path: "", name: "Contação", icon: <MdPriceChange /> },
+  { path: "/cotacaoPage", name: "Contação", icon: <MdPriceChange /> },
   { path: "/faturaList", name: "Faturas", icon: <IoNewspaperSharp /> },
 
   {
     name: "Cartão de trabalho",
     icon: <FaAddressCard size={24} />,
     subRoutes: [
-      { path: "", name: "Cartão de Trabalho", icon: <FaIdCardAlt /> },
-      { path: "", name: "Ingresso", icon: <FaTicketAlt/> },
+      { path: "/cartaoTrabalhoPage", name: "Cartão de Trabalho", icon: <FaIdCardAlt /> },
+      { path: "/ingressoPage", name: "Ingresso", icon: <FaTicketAlt/> },
      
     ],
   },
@@ -73,30 +73,31 @@ const routes = [
     name: "Contas",
     icon: <AiFillCalculator size={24}/>,
     subRoutes: [
-      { path: "", name: "Lista de taxas", icon: <FaBalanceScaleRight /> },
-      { path: "", name: (<>Lista de método  <br /> de pagamento</>), icon: <MdPayment /> },
-      { path: "", name: "Rendas", icon: <GiMoneyStack /> },
-      { path: "", name: "Dispesas", icon: <GiWallet /> },
+      { path: "/listaTaxaPage", name: "Lista de taxas", icon: <FaBalanceScaleRight /> },
+      { path: "/metodoPagamentoPage", name: (<>Lista de método  <br /> de pagamento</>), icon: <MdPayment /> },
+      { path: "/rendasPage", name: "Rendas", icon: <GiMoneyStack /> },
+      { path: "/dispesasPage", name: "Dispesas", icon: <GiWallet /> },
     ],
   }, 
   { path: "/blogList", name: "Blog", icon: <FaBlogger /> },
   { path: "/pagamentoList", name: "Pagamentos", icon: <FaSackDollar /> },
 
-  { path: "", name: "Vendas de Peças", icon: <BsTools /> },
-  { path: "", name: "Conformidade", icon: <MdVerified /> },
-  { path: "", name: "Relatórios", icon: <FaClipboardList /> },
+  { path: "/vendasPage", name: "Vendas de Peças", icon: <BsTools /> },
+  { path: "/conformidadePage", name: "Conformidade", icon: <MdVerified /> },
+  { path: "/relatoriosPages", name: "Relatórios", icon: <FaClipboardList /> },
 
-  { path: "", name: "Templates de Email", icon: <MdAttachEmail /> },
-  { path: "", name: "Campos Personalizados", icon: <MdOutlineInput /> },
-  { path: "", name: "Biblioteca de Observação", icon: <IoLibrary /> },
-  { path: "", name: "Galhos", icon: <GiLightningBranches /> },
+  { path: "/templatesEmailPages", name: "Templates de Email", icon: <MdAttachEmail /> },
+  { path: "/camposPersonalizadosPage", name: "Campos Personalizados", icon: <MdOutlineInput /> },
+  { path: "/bibiliotecaObservacaoPage", name: "Biblioteca de Observação", icon: <IoLibrary /> },
+  { path: "/galhosPage", name: "Galhos", icon: <GiLightningBranches /> },
 
-  { path: "", name: "Relatórios", icon: <TbReportSearch /> },
-  { path: "", name: "Definições", icon: <BiCog /> },
+  { path: "/relatoriosPage", name: "Relatórios", icon: <TbReportSearch /> },
+  { path: "/pageDefinicoes", name: "Definições", icon: <BiCog /> },
 
 
 ];
 
+// eslint-disable-next-line react/prop-types
 const SideBar = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [showModal, setShowModal] = useState(false); // Estado para controlar a visibilidade da modal
