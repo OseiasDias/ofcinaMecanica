@@ -3,7 +3,7 @@ import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { IoPersonAdd } from "react-icons/io5";
-import AdicionarClientes from "../../components/compenentesAdmin/AdcionarClientes"; 
+import AdicionarClientes from "../../components/compenentesAdmin/AdcionarClientes";
 const AddClientes = () => {
   return (
     <>
@@ -15,8 +15,8 @@ const AddClientes = () => {
             <TopoAdmin entrada="Adicionar Clientes" icone={<IoPersonAdd />} leftSeta={<FaArrowLeftLong />} leftR="/clienteList" />
 
             <div className="vh-100 alturaPereita">
-            <AdicionarClientes />
-          
+              <AdicionarClientes />
+
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">
               <hr />
