@@ -60,6 +60,7 @@ import CamposPersonalizados from "./pages/pageAdmin/CamposPersonalizados.jsx";
 import BibiliotecaObservacao from "./pages/pageAdmin/BibiliotecaObservacoes.jsx";
 import Galhos from "./pages/pageAdmin/Galhos.jsx";
 import Contacao from "./pages/pageAdmin/CotacaoPage.jsx";
+import AddFornecedor from "./pages/pagesAdd/AddFornecedor.jsx";
 
 
 
@@ -479,6 +480,17 @@ const App = () => {
                 <ProtectedRouteAdmin>
                   <Galhos />
                 </ProtectedRouteAdmin>} />
+
+              {/** Rotas de Adicionar Entidades */}
+
+
+              <Route path="/addFornecedorPage" element={
+
+                <ProtectedRouteAdmin>
+                  <AddFornecedor />
+                </ProtectedRouteAdmin>} />
+
+
 
 
 

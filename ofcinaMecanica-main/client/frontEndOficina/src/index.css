@@ -253,3 +253,24 @@ p,a,h1,h1,h3,h4,h5,h6,span {
 .ajusteError{
   margin-left: 48px;
 }
+
+
+.iconeEliminar{
+   color: var(--corPrimaria) !important;
+}
+
+.btnIcone{
+  border: none;
+  padding-top: 20px;
+  transition: all ease-in 300ms;
+}
+
+.btnIcone:hover{
+   transform: scale(1.2);
+}
+
+.btnAddEspecial{
+   color: #fff !important;
+ 
+  transition: all ease-in 300ms;
+}

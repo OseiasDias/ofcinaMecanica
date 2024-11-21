@@ -6,7 +6,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom'; // Importando o hook useNavigate
 import Spinner from 'react-bootstrap/Spinner'; // Importando o Spinner
 import 'react-toastify/dist/ReactToastify.css';
-import { IoPerson, IoMail, IoCall, IoHome, IoCalendar } from 'react-icons/io5'; // Importing icons
+import { IoPerson, IoMail, IoCall, IoHome } from 'react-icons/io5'; // Importing icons
 import { MdPassword } from "react-icons/md";
 
 export default function CadastrarCliente() {
