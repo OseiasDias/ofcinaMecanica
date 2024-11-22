@@ -491,6 +491,14 @@ const App = () => {
                 </ProtectedRouteAdmin>} />
 
 
+              <Route path="/addProdutos" element={
+
+                <ProtectedRouteAdmin>
+                  <AddFornecedor />
+                </ProtectedRouteAdmin>} />
+
+
+
 
 
 
