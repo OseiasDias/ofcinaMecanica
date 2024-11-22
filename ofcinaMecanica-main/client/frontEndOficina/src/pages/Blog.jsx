@@ -13,7 +13,7 @@ export default function Blog(){
         <ConteudoBlog />
         <div className="mt-5">
         <Footer />
-        </div>
+        </div>      
         </>
-    )
+    )    
 }
