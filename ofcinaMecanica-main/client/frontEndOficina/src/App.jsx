@@ -61,6 +61,7 @@ import BibiliotecaObservacao from "./pages/pageAdmin/BibiliotecaObservacoes.jsx"
 import Galhos from "./pages/pageAdmin/Galhos.jsx";
 import Contacao from "./pages/pageAdmin/CotacaoPage.jsx";
 import AddFornecedor from "./pages/pagesAdd/AddFornecedor.jsx";
+import AddProdutos from "./pages/pagesAdd/AddProduto.jsx";
 
 
 
@@ -494,7 +495,7 @@ const App = () => {
               <Route path="/addProdutos" element={
 
                 <ProtectedRouteAdmin>
-                  <AddFornecedor />
+                  <AddProdutos />
                 </ProtectedRouteAdmin>} />
 
 

@@ -34,9 +34,12 @@ a:hover{
 
 }
 
+
+
 input,textarea,select{
   border-radius: 0 !important;
-  border:1px solid var(--corSecodaria)  !important;
+  border:1px solid #04469757  !important;
+  box-shadow: var(--sombraC);
   
 }
 
