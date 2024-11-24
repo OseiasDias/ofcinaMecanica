@@ -62,6 +62,8 @@ import Galhos from "./pages/pageAdmin/Galhos.jsx";
 import Contacao from "./pages/pageAdmin/CotacaoPage.jsx";
 import AddFornecedor from "./pages/pagesAdd/AddFornecedor.jsx";
 import AddProdutos from "./pages/pagesAdd/AddProduto.jsx";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 
 

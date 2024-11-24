@@ -40,6 +40,12 @@ input,textarea,select{
   border-radius: 0 !important;
   border:1px solid #04469757  !important;
   box-shadow: var(--sombraC);
+
+  
+}
+
+.fortificarLetter{
+  font-weight: 500;
   
 }
 
@@ -297,4 +303,39 @@ p,a,h1,h1,h3,h4,h5,h6,span {
     display: block;
     float: right;
   }
+}
+
+.btnBorder{
+
+  border: 0 !important;
+
+}
+
+.color-options{
+   border: 1px solid #000;
+}
+
+.btnAddCor{
+  right: -8px;
+  position: relative;
+}
+
+.btnAddEsp{
+   background-color: #00000000 !important;
+   border: none;
+   transition: var(--trasicao);
+}
+
+.btnAddEsp:hover{
+  transform: scale(1.1);
+}
+
+.btnColorir{
+  color: var(--corPrimaria);
+  font-size: 2em;
+}
+
+.btnDeleteColorir{
+  color: var(--corPrimaria);
+  font-size: 2em;
 }
