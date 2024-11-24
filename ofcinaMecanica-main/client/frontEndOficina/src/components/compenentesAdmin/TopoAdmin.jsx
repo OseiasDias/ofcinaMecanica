@@ -47,10 +47,11 @@ export default function TopoAdmin({ entrada, direccao, icone, leftSeta, leftR })
   return (
     <div className="topoAdministrador mt-4 d-flex justify-content-between">
       <h4 className="tituloSh formatTexto">
-        <span onClick={() => handleNavigate(leftR)}>
+        <span onClick={() => handleNavigate(leftR)} className='cursor-point'>
           {leftSeta}
+          <span>{entrada}</span>
         </span>{" "}
-        <span>{entrada}</span>
+     
         <> &nbsp;&nbsp;&nbsp;</>
         {direccao && (
           <span className="definirCor" onClick={() => handleNavigate(direccao)}>

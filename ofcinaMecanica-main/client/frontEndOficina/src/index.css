@@ -339,3 +339,8 @@ p,a,h1,h1,h3,h4,h5,h6,span {
   color: var(--corPrimaria);
   font-size: 2em;
 }
+
+.cursor-point{
+  cursor: pointer !important
+  ;
+}

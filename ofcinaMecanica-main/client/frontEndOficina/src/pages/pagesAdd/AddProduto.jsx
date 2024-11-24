@@ -1,11 +1,12 @@
 import "../../css/StylesAdmin/homeAdministrador.css";
 import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
-import { IoIosAdd, IoMdAdd, IoMdAddCircle } from "react-icons/io";
+import { IoIosAdd, IoMdAddCircle } from "react-icons/io";
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { useState } from 'react';
 import { Form, Button, Col, Row, Modal } from 'react-bootstrap';
-import { MdDeleteForever } from "react-icons/md";
+import { MdAttachMoney, MdBusiness, MdCategory, MdDateRange, MdDeleteForever, MdImage, MdNote, MdOutlineFileCopy, MdPalette, MdSecurity, MdStore, MdStraighten, MdTextFields } from "react-icons/md";
+import { AiOutlineFieldNumber } from "react-icons/ai";
 
 function FormularioProduto() {
   const [showCorModal, setShowCorModal] = useState(false); // Modal para cores
@@ -136,19 +137,27 @@ function FormularioProduto() {
 
   return (
     <>
+
       <Form id="produtoForm" method="post" onSubmit={handleSubmit} encType="multipart/form-data">
+        <div className="col-md-12 mt-5">
+          <h6>INFORMAÇÕES DO PRODUTO</h6>
+          <hr />
+        </div>
         <Row>
           {/* Número do Produto */}
           <Col xs={12} md={6} lg={6}>
             <Form.Group controlId="numeroProduto">
               <Form.Label className="fortificarLetter">Número de Produto <span className="text-danger">*</span></Form.Label>
-              <Form.Control
-                type="text"
-                name="numeroProduto"
-                value={produto.numeroProduto}
-                onChange={handleChange}
-                readOnly
-              />
+              <div className="input-group">
+                <span className="input-group-text"><AiOutlineFieldNumber  fontSize={22} color="#0070fa" /></span>
+                <Form.Control
+                  type="text"
+                  name="numeroProduto"
+                  value={produto.numeroProduto}
+                  onChange={handleChange}
+                  readOnly
+                />
+              </div>
             </Form.Group>
           </Col>
 
@@ -156,12 +165,15 @@ function FormularioProduto() {
           <Col xs={12} md={6} lg={6}>
             <Form.Group controlId="dataCompra">
               <Form.Label className="fortificarLetter">Data de Compra <span className="text-danger">*</span></Form.Label>
-              <Form.Control
-                type="date"
-                name="dataCompra"
-                value={produto.dataCompra}
-                onChange={handleChange}
-              />
+              <div className="input-group">
+                <span className="input-group-text"><MdDateRange fontSize={22} color="#0070fa" /></span>
+                <Form.Control
+                  type="date"
+                  name="dataCompra"
+                  value={produto.dataCompra}
+                  onChange={handleChange}
+                />
+              </div>
             </Form.Group>
           </Col>
         </Row>
@@ -171,15 +183,18 @@ function FormularioProduto() {
           <Col xs={12} md={6} lg={6}>
             <Form.Group controlId="nome">
               <Form.Label className="fortificarLetter">Nome do produto<span className="text-danger">*</span></Form.Label>
-              <Form.Control
-                type="text"
-                name="nome"
-                value={produto.nome}
-                onChange={handleChange}
-                placeholder="Digite o nome do produto"
-                maxLength="30"
-                required
-              />
+              <div className="input-group">
+                <span className="input-group-text"><MdTextFields fontSize={22} color="#0070fa" /></span>
+                <Form.Control
+                  type="text"
+                  name="nome"
+                  value={produto.nome}
+                  onChange={handleChange}
+                  placeholder="Digite o nome do produto"
+                  maxLength="30"
+                  required
+                />
+              </div>
             </Form.Group>
           </Col>
 
@@ -187,14 +202,19 @@ function FormularioProduto() {
           <Col xs={12} md={6} lg={6}>
             <Form.Group controlId="galho">
               <Form.Label className="fortificarLetter">Galho <span className="text-danger">*</span></Form.Label>
-              <Form.Control
-                as="select"
-                name="galho"
-                value={produto.galho}
-                onChange={handleChange}
-              >
-                <option value="1">Galho Principal</option>
-              </Form.Control>
+              <div className="input-group">
+                <span className="input-group-text"><MdCategory fontSize={22} color="#0070fa" /></span>
+                <Form.Control
+                  as="select"
+                  name="galho"
+                  value={produto.galho}
+                  onChange={handleChange}
+                >
+
+
+                  <option value="1">Galho Principal</option>
+                </Form.Control>
+              </div>
             </Form.Group>
           </Col>
         </Row>
@@ -205,35 +225,42 @@ function FormularioProduto() {
             <Form.Group controlId="fabricante">
               <Form.Label className="fortificarLetter">Nome do Fabricante <span className="text-danger">*</span></Form.Label>
               <div className="d-flex">
-                <Form.Control
-                  as="select"
-                  name="fabricante"
-                  value={produto.fabricante}
-                  onChange={handleChange}
-                  className="mr-2"
-                >
-                  <option value="">--Selecione o nome da fabricação--</option>
-                  <option value="1">Filips</option>
-                  <option value="2">Alemanha</option>
-                </Form.Control>
-                <button onClick={handleShowUnidadeModal} className="btn btn-primary ms-3 links-acessos">Adicionar/remover</button>
+                <div className="input-group">
+                  <span className="input-group-text"><MdBusiness fontSize={22} color="#0070fa" /></span>
+                  <Form.Control
+                    as="select"
+                    name="fabricante"
+                    value={produto.fabricante}
+                    onChange={handleChange}
+                    className="mr-2"
+                  >
+                    <option value="">--Selecione o nome da fabricação--</option>
+                    <option value="1">Filips</option>
+                    <option value="2">Alemanha</option>
+                  </Form.Control>
+                  <button onClick={handleShowUnidadeModal} className="btn btn-primary ms-3 links-acessos">Adicionar/remover</button>
+                </div>
               </div>
             </Form.Group>
+
           </Col>
 
           {/* Preço */}
           <Col xs={12} md={6} lg={6}>
             <Form.Group controlId="preco">
               <Form.Label className="fortificarLetter">Preço ($) <span className="text-danger">*</span></Form.Label>
-              <Form.Control
-                type="text"
-                name="preco"
-                value={produto.preco}
-                onChange={handleChange}
-                placeholder="Digite o preço do produto"
-                maxLength="10"
-                required
-              />
+              <div className="input-group">
+                <span className="input-group-text"><MdAttachMoney fontSize={22} color="#0070fa" /></span>
+                <Form.Control
+                  type="text"
+                  name="preco"
+                  value={produto.preco}
+                  onChange={handleChange}
+                  placeholder="Digite o preço do produto"
+                  maxLength="10"
+                  required
+                />
+              </div>
             </Form.Group>
           </Col>
         </Row>
@@ -244,17 +271,20 @@ function FormularioProduto() {
             <Form.Group controlId="unidadeMedida">
               <Form.Label className="fortificarLetter">Unidade de Medida <span className="text-danger">*</span></Form.Label>
               <div className="d-flex">
-                <Form.Control
-                  as="select"
-                  name="unidadeMedida"
-                  value={produto.unidadeMedida}
-                  onChange={handleChange}
-                >
-                  <option value="">- Selecionar Unidade -</option>
-                  {unidades.map((unidade) => (
-                    <option key={unidade.id} value={unidade.nome}>{unidade.nome}</option>
-                  ))}
-                </Form.Control>
+                <div className="input-group">
+                  <span className="input-group-text"><MdStraighten fontSize={22} color="#0070fa" /></span>
+                  <Form.Control
+                    as="select"
+                    name="unidadeMedida"
+                    value={produto.unidadeMedida}
+                    onChange={handleChange}
+                  >
+                    <option value="">- Selecionar Unidade -</option>
+                    {unidades.map((unidade) => (
+                      <option key={unidade.id} value={unidade.nome}>{unidade.nome}</option>
+                    ))}
+                  </Form.Control>
+                </div>
                 <button onClick={handleShowUnidadeModal} className="btn btn-primary ms-3 links-acessos">Adicionar/remover</button>
               </div>
             </Form.Group>
@@ -264,15 +294,18 @@ function FormularioProduto() {
           <Col xs={12} md={6} lg={6}>
             <Form.Group controlId="fornecedor">
               <Form.Label className="fortificarLetter">Fornecedor <span className="text-danger">*</span></Form.Label>
-              <Form.Control
-                as="select"
-                name="fornecedor"
-                value={produto.fornecedor}
-                onChange={handleChange}
-              >
-                <option value="">- Selecione Fornecedor -</option>
-                <option value="56">Gondoafrica</option>
-              </Form.Control>
+              <div className="input-group">
+                <span className="input-group-text"><MdStore fontSize={22} color="#0070fa" /></span>
+                <Form.Control
+                  as="select"
+                  name="fornecedor"
+                  value={produto.fornecedor}
+                  onChange={handleChange}
+                >
+                  <option value="">- Selecione Fornecedor -</option>
+                  <option value="56">Gondoafrica</option>
+                </Form.Control>
+              </div>
             </Form.Group>
           </Col>
         </Row>
@@ -284,17 +317,20 @@ function FormularioProduto() {
               <Form.Label className="fortificarLetter">Cor</Form.Label>
               <div className="d-flex align-items-center">
                 <div className="w-100">
-                  <Form.Select
-                    value={produto.cor}
+                  <div className="input-group">
+                    <span className="input-group-text"><MdPalette fontSize={22} color="#0070fa" /></span>
+                    <Form.Select
+                      value={produto.cor}
 
-                  >
-                    <option value="">-- Selecione a cor --</option>
-                    {cores.map((cor) => (
-                      <option key={cor.hex} value={cor.hex} style={{ backgroundColor: cor.hex }}>
-                        {cor.nome}
-                      </option>
-                    ))}
-                  </Form.Select>
+                    >
+                      <option value="">-- Selecione a cor --</option>
+                      {cores.map((cor) => (
+                        <option key={cor.hex} value={cor.hex} style={{ backgroundColor: cor.hex }}>
+                          {cor.nome}
+                        </option>
+                      ))}
+                    </Form.Select>
+                  </div>
                 </div>
                 <button
                   onClick={handleShowCorModal}
@@ -308,21 +344,24 @@ function FormularioProduto() {
           <Col xs={12} md={6} lg={6}>
             <Form.Group controlId="garantia">
               <Form.Label className="fortificarLetter">Garantia</Form.Label>
-              <Form.Control
-                type="text"
-                name="garantia"
-                value={produto.garantia}
-                onChange={handleChange}
-                placeholder="Insira a garantia do produto"
-                maxLength="20"
-              />
+              <div className="input-group">
+                <span className="input-group-text"><MdSecurity fontSize={22} color="#0070fa" /></span>
+                <Form.Control
+                  type="text"
+                  name="garantia"
+                  value={produto.garantia}
+                  onChange={handleChange}
+                  placeholder="Insira a garantia do produto"
+                  maxLength="20"
+                />
+              </div>
             </Form.Group>
           </Col>
         </Row>
 
         {/* Garantia */}
         <Row>
-         
+
         </Row>
 
         {/* Imagem */}
@@ -330,11 +369,14 @@ function FormularioProduto() {
           <Col xs={12} md={6} lg={6}>
             <Form.Group controlId="imagem">
               <Form.Label className="fortificarLetter">Imagem</Form.Label>
-              <Form.Control
-                type="file"
-                name="imagem"
-                onChange={handleImageChange}
-              />
+              <div className="input-group">
+                <span className="input-group-text"><MdImage fontSize={22} color="#0070fa" /></span>
+                <Form.Control
+                  type="file"
+                  name="imagem"
+                  onChange={handleImageChange}
+                />
+              </div>
               {produto.imagem && (
                 <img
                   src={URL.createObjectURL(produto.imagem)}
@@ -350,16 +392,16 @@ function FormularioProduto() {
 
         <Form.Group>
           <div className="d-flex justify-content-between">
-          <h6 className="mt-5">Adicionar Notas</h6>
-          {/* Botão de Adicionar Nota */}
-          <Button
-            variant="primary"
-            type="button"
-            onClick={handleAddNota}
-            className="mt-3 btnAddEsp"
-          >
-            <IoMdAddCircle className="btnColorir" />
-          </Button>
+            <h6 className="mt-5">Adicionar Notas</h6>
+            {/* Botão de Adicionar Nota */}
+            <Button
+              variant="primary"
+              type="button"
+              onClick={handleAddNota}
+              className="mt-3 btnAddEsp"
+            >
+              <IoMdAddCircle className="btnColorir" />
+            </Button>
           </div>
           <hr />
           {produto.notas.map((nota, index) => (
@@ -368,25 +410,32 @@ function FormularioProduto() {
                 <Col xs={12} md={6} lg={4}>
                   <Form.Group controlId={`nota-texto-${index}`}>
                     <Form.Label className="fortificarLetter">Notas</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      name="textoNota"
-                      value={nota.textoNota}
-                      onChange={(e) => handleNotaChange(index, e)}
-                      maxLength="100"
-                    />
+                    <div className="input-group">
+                      <span className="input-group-text"><MdNote fontSize={22} color="#0070fa" /></span>
+                      <Form.Control
+                        as="textarea"
+                        name="textoNota"
+                        value={nota.textoNota}
+                        onChange={(e) => handleNotaChange(index, e)}
+                        maxLength="100"
+                      />
+                    </div>
                   </Form.Group>
                 </Col>
 
                 <Col xs={12} md={6} lg={4}>
                   <Form.Group controlId={`nota-arquivos-${index}`}>
                     <Form.Label className="fortificarLetter">Arquivos</Form.Label>
-                    <Form.Control
-                      type="file"
-                      name={`nota-arquivos-${index}`}
-                      onChange={(e) => handleFileChange(index, e)}
-                      multiple
-                    />
+                    <div className="input-group">
+                      <span className="input-group-text"><MdOutlineFileCopy fontSize={22} color="#0070fa" /></span>
+                      <Form.Control
+                        type="file"
+                        name={`nota-arquivos-${index}`}
+                        onChange={(e) => handleFileChange(index, e)}
+                        multiple
+                      />
+                    </div>
+
                   </Form.Group>
                 </Col>
 
@@ -416,12 +465,12 @@ function FormularioProduto() {
                 onClick={() => handleRemoveNota(index)}
                 className="mt-2 btnAddEsp"
               >
-                 <MdDeleteForever className="btnDeleteColorir" fontSize={20} />
+                <MdDeleteForever className="btnDeleteColorir" fontSize={20} />
               </Button>
             </div>
           ))}
 
-          
+
         </Form.Group>
 
         {/* Botão de Enviar */}
@@ -549,7 +598,7 @@ export default function AddProdutos() {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="AddProdutos" direccao="/AddProdutos" leftSeta={<FaArrowLeftLong />} icone={<IoIosAdd />} leftR="/produtosPage" />
+            <TopoAdmin entrada="Adicionar Produtos" direccao="/AddProdutos" leftSeta={<FaArrowLeftLong />} icone={<IoIosAdd />} leftR="/produtosPage" />
 
             <div className="vh-100 alturaPereita">
               <FormularioProduto />
