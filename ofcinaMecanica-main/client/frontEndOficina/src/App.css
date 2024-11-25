@@ -1,1 +1,31 @@
 /*  box-shadow: 0 .0rem 1rem rgba(0, 0, 0, .15) !important;*/
+
+
+.btn-addCompra{
+
+     background-color: var(--corPrimaria)
+     ;margin-left: 6px;
+     margin-bottom: 10px;
+     margin-top: -5px;
+     color: #fff;
+     border-radius: 0 !important;
+     font-size: 1.1em;
+}
+
+.bordarDiv{
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.baixarTexto{
+   
+    display: block;
+    position: relative;
+    bottom: -10px;
+   
+}
+
+.formularioNotas{
+    display: flex !important
+    ;
+}

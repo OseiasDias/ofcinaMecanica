@@ -344,3 +344,19 @@ p,a,h1,h1,h3,h4,h5,h6,span {
   cursor: pointer !important
   ;
 }
+
+.btn-delete{
+
+  background-color: #00000000 !important;
+  border: 0;
+}
+
+
+.icone-delete{
+  color: #000000c7;
+  transition: var(--trasicao);
+}
+
+.icone-delete:hover{
+  transform:scale(1.2);
+}

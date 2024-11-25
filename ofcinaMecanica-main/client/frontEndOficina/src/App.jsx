@@ -15,6 +15,8 @@ import HomeAdministrador from "./pages/pageAdmin/HomeAdministrador.jsx";
 import LoginAdmin from "./components/compenentesAdmin/LoginAdmin.jsx";
 import PaginaLoginSuperAdmin from './pages/pageAdmin/PaginaLoginSuperAdmin.jsx';
 import { Navigate } from 'react-router-dom';
+import './App.css'; 
+
 
 //importacoes para clientes
 import Clientes from './pages/pageAdmin/Clientes.jsx';
@@ -63,6 +65,7 @@ import Contacao from "./pages/pageAdmin/CotacaoPage.jsx";
 import AddFornecedor from "./pages/pagesAdd/AddFornecedor.jsx";
 import AddProdutos from "./pages/pagesAdd/AddProduto.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import AddCompras from "./pages/pagesAdd/AddCompras.jsx";
 
 
 
@@ -72,6 +75,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
+// eslint-disable-next-line react/prop-types
 const ProtectedRouteAdmin = ({ children }) => {
   const isAuthenticated = !!localStorage.getItem('authToken'); // Exemplo de verificação de autenticação
 
@@ -499,6 +503,14 @@ const App = () => {
                 <ProtectedRouteAdmin>
                   <AddProdutos />
                 </ProtectedRouteAdmin>} />
+
+
+              <Route path="/addCompras" element={
+
+                <ProtectedRouteAdmin>
+                  <AddCompras />
+                </ProtectedRouteAdmin>} />
+
 
 
 
