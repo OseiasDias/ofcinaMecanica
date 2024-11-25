@@ -15,7 +15,7 @@ import HomeAdministrador from "./pages/pageAdmin/HomeAdministrador.jsx";
 import LoginAdmin from "./components/compenentesAdmin/LoginAdmin.jsx";
 import PaginaLoginSuperAdmin from './pages/pageAdmin/PaginaLoginSuperAdmin.jsx';
 import { Navigate } from 'react-router-dom';
-import './App.css'; 
+import './App.css';
 
 
 //importacoes para clientes
@@ -28,12 +28,12 @@ import Veiculos from "./pages/pageAdmin/Veiculos.jsx";
 import Blogger from "./pages/pageAdmin/Blogger.jsx";
 import Servicos from "./pages/pageAdmin/Servicos.jsx";
 import Pagamento from "./pages/pageAdmin/Pagamento.jsx";
-import AddClientes from "./pages/pageAdmin/AddClientes.jsx";
+import AddClientes from "./pages/pagesAdd/AddClientes.jsx";
 import AddFuncionarios from "./pages/pageAdmin/AddFuncionarios.jsx";
 import AddBlog from "./pages/pageAdmin/AddBlog.jsx";
 import AddServicos from "./pages/pageAdmin/AddServicos.jsx";
 import AddVeiculos from "./pages/pageAdmin/AddVeiculos.jsx";
-import AddEstoque from "./pages/pageAdmin/AddEstoque.jsx";
+import AddEstoque from "./pages/pagesAdd/AddEstoque.jsx";
 //import AddFaturas from "./pages/pageAdmin/AddFatura.jsx";
 import PagamentoActive from "./pages/pageAdmin/PagamentoActive.jsx";
 import Faturas from "./pages/pageAdmin/Faturas.jsx";
@@ -66,6 +66,7 @@ import AddFornecedor from "./pages/pagesAdd/AddFornecedor.jsx";
 import AddProdutos from "./pages/pagesAdd/AddProduto.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddCompras from "./pages/pagesAdd/AddCompras.jsx";
+//import AddClientes from "./pages/pagesAdd/AddClientes.jsx";
 
 
 
@@ -512,6 +513,15 @@ const App = () => {
                 </ProtectedRouteAdmin>} />
 
 
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addClientes" element={
+
+                <ProtectedRouteAdmin>
+                  <AddClientes />
+                </ProtectedRouteAdmin>
+
+              } />
 
 
 

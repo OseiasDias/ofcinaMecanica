@@ -3,13 +3,11 @@ import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { IoIosAdd } from "react-icons/io";
 import { FaArrowLeftLong } from "react-icons/fa6";
-
 import { useState } from 'react';
 import { Button, Form, Row, Col, Table } from 'react-bootstrap';
 import { AiFillDelete } from 'react-icons/ai';
-import { MdNote, MdOutlineFileCopy, MdDeleteForever, MdCategory } from 'react-icons/md';
-import { FaPlus, FaRegFileAlt, FaCalendarAlt, FaIndustry, FaPhoneAlt, FaEnvelope, FaMapMarkedAlt, FaTree } from 'react-icons/fa';
-
+import { MdNote, MdOutlineFileCopy, MdDeleteForever } from 'react-icons/md';
+import { FaRegFileAlt, FaCalendarAlt, FaIndustry, FaPhoneAlt, FaEnvelope, FaMapMarkedAlt, FaTree } from 'react-icons/fa';
 
 function FormularioAddCompra() {
     const [dadosCompra, setDadosCompra] = useState({
@@ -113,6 +111,10 @@ function FormularioAddCompra() {
 
     return (
         <Form onSubmit={handleSubmit}>
+            <div className="col-md-12 mt-5">
+                <h6>INFORMAÇÕES DA COMPRA</h6>
+                <hr />
+            </div>
             <Row className="mb-3">
                 <Form.Group as={Col} md={6} controlId="numeroCompra">
                     <Form.Label>
@@ -268,7 +270,6 @@ function FormularioAddCompra() {
                     {dadosCompra.produtos.map((produto, index) => (
                         <tr key={index}>
                             <td>
-                                
                                 <Form.Control
                                     as="select"
                                     name="fabricanteId"
@@ -410,31 +411,20 @@ function FormularioAddCompra() {
     );
 }
 
-
-
-
-
-
-
-
-
 export default function AddCompras() {
     return (
         <>
             <div className="container-fluid">
                 <div className="d-flex">
                     <SideBar />
-
                     <div className="flexAuto w-100 ">
-                        <TopoAdmin entrada="Adicionar Compra" direccao="/comprasPage" leftSeta={<FaArrowLeftLong />} icone={<IoIosAdd />} leftR="/comprasPage" />
-
+                        <TopoAdmin entrada="Adicionar Compra" leftSeta={<FaArrowLeftLong />} icone={<IoIosAdd />} leftR="/comprasPage" />
                         <div className="vh-100 alturaPereita">
                             <FormularioAddCompra />
                         </div>
                         <div className="div text-center np pt-2 mt-2 ppAr">
                             <hr />
                             <p className="text-center">
-
                                 Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos
                                 reservados.
                                 <br />

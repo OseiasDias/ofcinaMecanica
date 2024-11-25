@@ -29,3 +29,14 @@
     display: flex !important
     ;
 }
+
+.colorirBTN{
+    background-color: #00000000 !important
+    ;color: var(--corPrimaria) !important
+    ;
+}
+
+.colorirBTN:hover{
+    background-color: #00000000 !important
+    ;
+}
