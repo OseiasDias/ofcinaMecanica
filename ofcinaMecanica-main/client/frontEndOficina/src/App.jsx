@@ -29,7 +29,7 @@ import Blogger from "./pages/pageAdmin/Blogger.jsx";
 import Servicos from "./pages/pageAdmin/Servicos.jsx";
 import Pagamento from "./pages/pageAdmin/Pagamento.jsx";
 import AddClientes from "./pages/pagesAdd/AddClientes.jsx";
-import AddFuncionarios from "./pages/pageAdmin/AddFuncionarios.jsx";
+import AddFuncionarios from "./pages/pagesAdd/AddFuncionarios.jsx";
 import AddBlog from "./pages/pageAdmin/AddBlog.jsx";
 import AddServicos from "./pages/pageAdmin/AddServicos.jsx";
 import AddVeiculos from "./pages/pageAdmin/AddVeiculos.jsx";

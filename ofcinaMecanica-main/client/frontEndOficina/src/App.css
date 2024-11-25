@@ -40,3 +40,11 @@
     background-color: #00000000 !important
     ;
 }
+
+.sombraGrafico{
+    box-shadow: var(--sombraC);
+}
+
+.marginTop{
+    margin-top: -50px;
+}

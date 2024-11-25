@@ -7,6 +7,8 @@ import Entidades from "../../components/compenentesAdmin/Entidades";
 import { MdDashboard } from "react-icons/md";
 
 
+
+
 const HomeAdministrador = () => {
   /*const [isSidebarMinimized, setIsSidebarMinimized] = useState(false);
 
@@ -14,23 +16,28 @@ const HomeAdministrador = () => {
     setIsSidebarMinimized(!isSidebarMinimized);
   };*/
 
+
+
   return (
     <>
-    <div className="container-fluid">
-      <div className="d-flex">
-        <SideBar   />
+      <div className="container-fluid">
+        <div className="d-flex">
+          <SideBar />
 
-        <div className="flexAuto w-100 ">
-           
-          <TopoAdmin entrada="Painel"  icone={<MdDashboard />} direccao="/homeAdministrador"/>
-           <AccordionItem />
-           <Entidades />
-         
+          <div className="flexAuto w-100 vh-100">
 
+            <TopoAdmin entrada="Painel" icone={<MdDashboard />} direccao="/homeAdministrador" />
+            <AccordionItem />
+            <Entidades />
+          
+
+          
+
+
+          </div>
         </div>
       </div>
-      </div>
-    
+
     </>
   );
 };
