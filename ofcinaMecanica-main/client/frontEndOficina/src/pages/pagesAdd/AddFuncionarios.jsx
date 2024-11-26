@@ -9,7 +9,7 @@ import "../../css/StylesAdmin/homeAdministrador.css";
 //import SideBar from "../../components/compenentesAdmin/SideBar.jsx";
 //import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin.jsx";
 import "../../css/StylesAdmin/homeAdministrador.css";
-import { FaGlobe, FaMapMarkerAlt, FaMapPin, FaHome, FaCamera, FaLock, FaRegEye, FaRegEyeSlash } from "react-icons/fa";
+import { FaGlobe, FaMapMarkerAlt, FaMapPin, FaHome, FaCamera, FaLock, FaRegEye, FaRegEyeSlash, FaEnvelope, FaUser, FaCalendarAlt, FaVenusMars, FaMobileAlt, FaPhone, FaBuilding, FaSuitcase, FaTag, FaRegCalendarAlt } from "react-icons/fa";
 import {  InputGroup } from 'react-bootstrap';
 import {  useEffect } from 'react';
 
@@ -125,6 +125,9 @@ const FormularioFuncionario = () => {
         <Col md={6}>
           <Form.Group controlId="nome">
             <Form.Label>Primeiro nome <span className="text-danger">*</span></Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaUser fontSize={20} color="#0070fa" /></span>
+
             <Form.Control
               type="text"
               name="nome"
@@ -133,11 +136,15 @@ const FormularioFuncionario = () => {
               maxLength="50"
               onChange={handleAlteracao}
             />
+            </div>
           </Form.Group>
         </Col>
         <Col md={6}>
           <Form.Group controlId="sobrenome">
             <Form.Label>Último nome <span className="text-danger">*</span></Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaUser fontSize={20} color="#0070fa" /></span>
+
             <Form.Control
               type="text"
               name="sobrenome"
@@ -146,6 +153,7 @@ const FormularioFuncionario = () => {
               maxLength="50"
               onChange={handleAlteracao}
             />
+            </div>
           </Form.Group>
         </Col>
       </Row>
@@ -154,17 +162,24 @@ const FormularioFuncionario = () => {
         <Col md={6}>
           <Form.Group controlId="dataNascimento">
             <Form.Label>Data de Nascimento</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaCalendarAlt fontSize={20} color="#0070fa" /></span>
+
             <Form.Control
               type="date"
               name="dataNascimento"
               value={dadosFormulario.dataNascimento}
               onChange={handleAlteracao}
             />
+            </div>
           </Form.Group>
         </Col>
         <Col md={6}>
           <Form.Group controlId="email">
             <Form.Label>E-mail <span className="text-danger">*</span></Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaEnvelope fontSize={20} color="#0070fa" /></span>
+
             <Form.Control
               type="email"
               name="email"
@@ -173,6 +188,7 @@ const FormularioFuncionario = () => {
               maxLength="50"
               onChange={handleAlteracao}
             />
+            </div>
           </Form.Group>
         </Col>
       </Row>
@@ -195,7 +211,10 @@ const FormularioFuncionario = () => {
         <Col md={6}>
           <Form.Group controlId="genero">
             <Form.Label>Gênero</Form.Label>
-            <div>
+            <div className="input-group">
+              <span className="input-group-text"><FaVenusMars fontSize={20} color="#0070fa" /></span>
+
+            <div className="d-flex ms-3">
               <Form.Check
                 type="radio"
                 label="Masculino"
@@ -205,6 +224,7 @@ const FormularioFuncionario = () => {
                 onChange={handleAlteracao}
               />
               <Form.Check
+                className="ms-3"
                 type="radio"
                 label="Feminino"
                 name="genero"
@@ -212,6 +232,7 @@ const FormularioFuncionario = () => {
                 checked={dadosFormulario.genero === '1'}
                 onChange={handleAlteracao}
               />
+            </div>
             </div>
           </Form.Group>
         </Col>
@@ -231,6 +252,7 @@ const FormularioFuncionario = () => {
                 onChange={handleMudanca}
                 disabled
               />
+              
               <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)} className="ms-2">
                 {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
               </Button>
@@ -249,6 +271,9 @@ const FormularioFuncionario = () => {
         <Col md={6}>
           <Form.Group controlId="celular">
             <Form.Label>Número do celular <span className="text-danger">*</span></Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaMobileAlt fontSize={20} color="#0070fa" /></span>
+
             <Form.Control
               type="text"
               name="celular"
@@ -257,11 +282,15 @@ const FormularioFuncionario = () => {
               maxLength="16"
               onChange={handleAlteracao}
             />
+            </div>
           </Form.Group>
         </Col>
         <Col md={6}>
           <Form.Group controlId="telefoneFixo">
             <Form.Label>Número do telefone fixo</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaPhone fontSize={20} color="#0070fa" /></span>
+
             <Form.Control
               type="text"
               name="telefoneFixo"
@@ -270,6 +299,7 @@ const FormularioFuncionario = () => {
               maxLength="16"
               onChange={handleAlteracao}
             />
+            </div>
           </Form.Group>
         </Col>
       </Row>
@@ -284,6 +314,9 @@ const FormularioFuncionario = () => {
         <Col md={6}>
           <Form.Group controlId="filial">
             <Form.Label>Filial <span className="text-danger">*</span></Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaBuilding fontSize={20} color="#0070fa" /></span>
+
             <Form.Control
               as="select"
               name="filial"
@@ -292,17 +325,23 @@ const FormularioFuncionario = () => {
             >
               <option value="1">Filial Principal</option>
             </Form.Control>
+            </div>
           </Form.Group>
         </Col>
         <Col md={6}>
           <Form.Group controlId="cargo">
             <Form.Label>Cargo <span className="text-danger">*</span></Form.Label>
+            
             <InputGroup>
+            <div className="input-group">
+              <span className="input-group-text"><FaSuitcase fontSize={20} color="#0070fa" /></span>
+
               <Form.Control
                 as="select"
                 name="cargo"
                 value={dadosFormulario.cargo}
                 onChange={handleAlteracao}
+               
               >
                 <option value="">Selecione o cargo</option>
                 {cargos.map((cargo, index) => (
@@ -311,9 +350,11 @@ const FormularioFuncionario = () => {
                   </option>
                 ))}
               </Form.Control>
+            
               <Button variant="outline-secondary" onClick={() => setMostrarModal(true)}>
                 Adicionar
               </Button>
+              </div>
             </InputGroup>
           </Form.Group>
         </Col>
@@ -323,6 +364,9 @@ const FormularioFuncionario = () => {
       <Col md={6}>
           <Form.Group controlId="nomeExibicao">
             <Form.Label>Nome Exibido</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaTag fontSize={20} color="#0070fa" /></span>
+
             <Form.Control
               type="text"
               name="nomeExibicao"
@@ -331,17 +375,22 @@ const FormularioFuncionario = () => {
               maxLength="25"
               onChange={handleAlteracao}
             />
+            </div>
           </Form.Group>
         </Col>
         <Col md={6}>
           <Form.Group controlId="dataAdmissao">
             <Form.Label>Data de Admissão <span className="text-danger">*</span></Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaRegCalendarAlt fontSize={20} color="#0070fa" /></span>
+
             <Form.Control
               type="date"
               name="dataAdmissao"
               value={dadosFormulario.dataAdmissao}
               onChange={handleAlteracao}
             />
+            </div>
           </Form.Group>
         </Col>
       </Row>
