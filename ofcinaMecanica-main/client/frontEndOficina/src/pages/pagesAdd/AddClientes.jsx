@@ -7,7 +7,7 @@ import { IoPersonAdd } from "react-icons/io5";
 
 import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Image } from 'react-bootstrap';
-import { FaBuilding, FaCalendarAlt, FaCamera, FaEnvelope, FaGlobe, FaHome, FaIdCard, FaLock, FaMapMarkerAlt, FaMapPin, FaPhone, FaPhoneAlt, FaRegEye, FaRegEyeSlash, FaTransgender, FaUser, FaUserCircle } from 'react-icons/fa';
+import { FaBuilding, FaCalendarAlt, FaCamera, FaEnvelope, FaGlobe, FaHome, FaIdCard, FaLock, FaMapMarkerAlt, FaPhone, FaPhoneAlt, FaRegEye, FaRegEyeSlash, FaTransgender, FaUser, FaUserCircle } from 'react-icons/fa';
 import { MdDeleteForever} from 'react-icons/md';
 import 'bootstrap/dist/css/bootstrap.min.css';
 

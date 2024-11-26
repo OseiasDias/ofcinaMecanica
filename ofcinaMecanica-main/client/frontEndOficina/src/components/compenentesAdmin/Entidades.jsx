@@ -43,8 +43,8 @@ const Grafico = () => {
   return (
     <>
       <h6>Gráfico de Métricas</h6>
-      <div className="sombraGrafico my-3">
-        <ResponsiveContainer width="100%" height={400}>
+      <div className="sombraGrafico ">
+        <ResponsiveContainer width="100%" height={400} >
           <ComposedChart
             data={data}
             margin={{
