@@ -1,37 +1,89 @@
 import "../../css/StylesAdmin/homeAdministrador.css";
-import SideBar from "../../components/compenentesAdmin/SideBar";
-import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
-import { FaArrowLeftLong, FaMapLocationDot } from "react-icons/fa6";
-import { IoPersonAdd } from "react-icons/io5";
+import SideBar from "../../components/compenentesAdmin/SideBar.jsx";
+import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin.jsx";
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { useState } from 'react';
+import { Form, Button, Row, Col, Modal, Image } from 'react-bootstrap';
+
+import "../../css/StylesAdmin/homeAdministrador.css";
+//import SideBar from "../../components/compenentesAdmin/SideBar.jsx";
+//import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin.jsx";
+import "../../css/StylesAdmin/homeAdministrador.css";
+import { FaGlobe, FaMapMarkerAlt, FaMapPin, FaHome, FaCamera, FaLock, FaRegEye, FaRegEyeSlash, FaEnvelope, FaUser, FaCalendarAlt, FaVenusMars, FaMobileAlt, FaPhone, FaBuilding, FaSuitcase, FaTag, FaRegCalendarAlt } from "react-icons/fa";
+import { InputGroup } from 'react-bootstrap';
+import { useEffect } from 'react';
 
 
-import { useState, useEffect } from 'react';
-import { Form, Button, Row, Col, Image } from 'react-bootstrap';
-import { FaBuilding, FaCalendarAlt, FaCamera, FaEnvelope, FaGlobe, FaHome, FaIdCard, FaLock, FaMapMarkerAlt, FaPhone, FaPhoneAlt, FaRegEye, FaRegEyeSlash, FaTransgender, FaUser, FaUserCircle } from 'react-icons/fa';
-import { MdDeleteForever} from 'react-icons/md';
-import 'bootstrap/dist/css/bootstrap.min.css';
-
-
-const FormularioCliente = () => {
+const FormularioEquipeSuporte = () => {
   const [dadosFormulario, setDadosFormulario] = useState({
-    primeiroNome: '',
+    nome: '',
     sobrenome: '',
     genero: '',
-    celular: '',
     email: '',
     senha: '',
+    confirmarSenha: '',
+    celular: '',
+    filial: '1',
+    dataAdmissao: '2024-11-25',
+    cargo: '',
+    dataSaida: '',
+    // senha: '',
     dataNascimento: '',
     nomeExibicao: '',
-    nomeEmpresa: '',
     telefoneFixo: '',
-    cpf: '',
-    idPais: '',
-    idProvincia: '',
+    pais: '',
+    estado: '',
     cidade: '',
     endereco: '',
-    uploadArquivo: null,
-    notas: [{ textoNota: '', arquivoNota: [], interno: false, compartilhado: false }]
+    imagem: null,
   });
+
+  const handleAlteracao = (e) => {
+    const { name, value } = e.target;
+    setDadosFormulario({ ...dadosFormulario, [name]: value });
+  };
+
+  const handleMudancaArquivo = (e) => {
+    setDadosFormulario({ ...dadosFormulario, imagem: e.target.files[0] });
+  };
+
+  const handleEnvio = (e) => {
+    e.preventDefault();
+    console.log(dadosFormulario);
+  };
+
+  const [mostrarModal, setMostrarModal] = useState(false);
+  const [novoCargo, setNovoCargo] = useState('');
+  const [cargos, setCargos] = useState([
+    'Gerente',
+    'Assistente',
+    'Analista',
+    'Desenvolvedor',
+    'Coordenador',
+  ]);
+
+  const handleAlteracaoNovoCargo = (e) => {
+    setNovoCargo(e.target.value);
+  };
+
+  const handleAdicionarCargo = () => {
+    if (novoCargo) {
+      setCargos([...cargos, novoCargo]);
+      setNovoCargo('');
+      setMostrarModal(false);
+    } else {
+      alert("Por favor, insira um nome para o cargo.");
+    }
+  };
+
+  const handleMudanca = (e) => {
+    const { name, value } = e.target;
+    setDadosFormulario((prevValues) => ({
+      ...prevValues,
+      [name]: value,
+    }));
+  };
+
 
   const [showPassword, setShowPassword] = useState(false); // Para alternar a visibilidade da senha
   //const [errors, setErrors] = useState({}); // Para lidar com erros de validação
@@ -52,155 +104,76 @@ const FormularioCliente = () => {
     console.log('Senha gerada:', senhaGerada); // Exibe a senha gerada no console
   }, []); // Executa apenas uma vez, quando o componente for montado
 
-  const handleMudanca = (e) => {
-    const { name, value } = e.target;
-    setDadosFormulario((prevValues) => ({
-      ...prevValues,
-      [name]: value,
-    }));
-  };
-
-  const handleMudancaArquivo = (e) => {
-    const { name, files } = e.target;
-    setDadosFormulario((prevValues) => ({
-      ...prevValues,
-      [name]: files,
-    }));
-  };
-
-  const handleEnvio = (e) => {
-    e.preventDefault();
-    // Aqui você pode adicionar a lógica para enviar os dados do formulário
-    console.log(dadosFormulario);
-  };
-
-  const handleNotaChange = (index, e) => {
-    const { name, value, type, checked, files } = e.target;
-    const newNotas = [...dadosFormulario.notas];
-    const nota = { ...newNotas[index] };
-
-    if (type === "checkbox") {
-      nota[name] = checked;
-    } else if (name === "arquivoNota") {
-      nota[name] = files;
-    } else {
-      nota[name] = value;
-    }
-
-    newNotas[index] = nota;
-    setDadosFormulario((prevValues) => ({
-      ...prevValues,
-      notas: newNotas,
-    }));
-  };
-
-  const handleAddNota = () => {
-    setDadosFormulario((prevValues) => ({
-      ...prevValues,
-      notas: [...prevValues.notas, { textoNota: '', arquivoNota: [], interna: false, compartilhado: false }]
-    }));
-  };
-
-  const handleRemoveNota = (index) => {
-    const newNotas = [...dadosFormulario.notas];
-    newNotas.splice(index, 1);
-    setDadosFormulario((prevValues) => ({
-      ...prevValues,
-      notas: newNotas,
-    }));
-  };
 
 
   return (
-    <Form onSubmit={handleEnvio} encType="multipart/form-data">
-
-      {/* Seção 1: Dados Pessoais */}
-
+    <Form
+      id="formulario_adicionar_funcionario"
+      method="post"
+      action="https://biturbomotors.com/garage/employee/store"
+      encType="multipart/form-data"
+      className="form-horizontal upperform employeeAddForm"
+      onSubmit={handleEnvio}
+    >
+      {/* Dados Pessoais */}
       <div className="col-md-12 mt-5">
         <h6>INFORMAÇÕES PESSOAIS</h6>
         <hr />
       </div>
 
-      {/* Primeiro Nome e Sobrenome */}
-      <Row>
+      <Row className="mb-3">
         <Col md={6}>
-
-          <Form.Group controlId="primeiroNome">
+          <Form.Group controlId="nome">
             <Form.Label>Primeiro nome <span className="text-danger">*</span></Form.Label>
             <div className="input-group">
               <span className="input-group-text"><FaUser fontSize={20} color="#0070fa" /></span>
 
               <Form.Control
                 type="text"
-                name="primeiroNome"
-                value={dadosFormulario.primeiroNome}
-                onChange={handleMudanca}
+                name="nome"
+                value={dadosFormulario.nome}
                 placeholder="Introduza o primeiro nome"
-                required
+                maxLength="50"
+                onChange={handleAlteracao}
               />
             </div>
           </Form.Group>
         </Col>
-
         <Col md={6}>
           <Form.Group controlId="sobrenome">
-            <Form.Label>Sobrenome <span className="text-danger">*</span></Form.Label>
+            <Form.Label>Último nome <span className="text-danger">*</span></Form.Label>
             <div className="input-group">
               <span className="input-group-text"><FaUser fontSize={20} color="#0070fa" /></span>
+
               <Form.Control
                 type="text"
                 name="sobrenome"
                 value={dadosFormulario.sobrenome}
-                onChange={handleMudanca}
-                placeholder="Insira o sobrenome"
-                required
+                placeholder="Insira o último nome"
+                maxLength="50"
+                onChange={handleAlteracao}
               />
             </div>
           </Form.Group>
         </Col>
-
       </Row>
 
-      {/* Gênero e Celular */}
-      <Row>
-      <Col md={6}>
+      <Row className="mb-3">
+        <Col md={6}>
           <Form.Group controlId="dataNascimento">
-            <Form.Label>Data de nascimento</Form.Label>
+            <Form.Label>Data de Nascimento</Form.Label>
             <div className="input-group">
               <span className="input-group-text"><FaCalendarAlt fontSize={20} color="#0070fa" /></span>
+
               <Form.Control
                 type="date"
                 name="dataNascimento"
                 value={dadosFormulario.dataNascimento}
-                onChange={handleMudanca}
-                required
+                onChange={handleAlteracao}
               />
             </div>
           </Form.Group>
         </Col>
-      
-
-        <Col md={6}>
-          <Form.Group controlId="celular">
-            <Form.Label>Celular <span className="text-danger">*</span></Form.Label>
-            <div className="input-group">
-              <span className="input-group-text"><FaPhone fontSize={20} color="#0070fa" /></span>
-
-              <Form.Control
-                type="text"
-                name="celular"
-                value={dadosFormulario.celular}
-                onChange={handleMudanca}
-                placeholder="Digite o número de celular"
-                required
-              />
-            </div>
-          </Form.Group>
-        </Col>
-      </Row>
-
-      {/* E-mail e Senha */}
-      <Row>
         <Col md={6}>
           <Form.Group controlId="email">
             <Form.Label>E-mail <span className="text-danger">*</span></Form.Label>
@@ -211,36 +184,15 @@ const FormularioCliente = () => {
                 type="email"
                 name="email"
                 value={dadosFormulario.email}
-                onChange={handleMudanca}
                 placeholder="Digite o e-mail"
-                required
+                maxLength="50"
+                onChange={handleAlteracao}
               />
-            </div>
-          </Form.Group>
-        </Col>
-
-        <Col md={6}>
-          <Form.Group controlId="senha">
-            <Form.Label>Senha gerada <span className="text-danger">*</span></Form.Label>
-            <div className="input-group">
-              <span className="input-group-text"><FaLock fontSize={20} color="#0070fa" /></span>
-              <Form.Control
-                type={showPassword ? "text" : "password"}
-                placeholder="Senha gerada automaticamente"
-                name="senha"
-                value={dadosFormulario.senha}
-                onChange={handleMudanca}
-                disabled
-              />
-              <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)} className="ms-2">
-                {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
-              </Button>
             </div>
           </Form.Group>
         </Col>
       </Row>
 
-      {/* Confirmação de Senha e Data de Nascimento */}
       <Row>
         <Col>
           <Form.Group controlId="uploadArquivo">
@@ -256,132 +208,211 @@ const FormularioCliente = () => {
             <Image src={dadosFormulario.uploadArquivo ? URL.createObjectURL(dadosFormulario.uploadArquivo[0]) : ''} thumbnail />
           </Form.Group>
         </Col>
-
         <Col md={6}>
-
-<Form.Group controlId="genero">
-  <Form.Label>Gênero</Form.Label>
-  <div className="input-group">
-    <span className="input-group-text me-3"><FaTransgender fontSize={20} color="#0070fa" /></span>
-
-    <Form.Check
-      type="radio"
-      label="Masculino"
-      name="genero"
-      value="0"
-      onChange={handleMudanca}
-    />
-    <Form.Check className="ms-3"
-      type="radio"
-      label="Feminino"
-      name="genero"
-      value="1"
-      onChange={handleMudanca}
-    /></div>
-</Form.Group>
-
-</Col>
-      </Row>
-
-      {/* Seção 2: Informações de Empresa e Contato */}
-      <Row className="mt-3">
-        <Col>
-          <h6>INFORMAÇÕES DE EMPRESA E CONTATO</h6>
-          <hr />
-        </Col>
-      </Row>
-
-      {/* Nome de Exibição e Nome da Empresa */}
-      <Row>
-        <Col md={6}>
-          <Form.Group controlId="nomeExibicao">
-            <Form.Label>Nome de exibição</Form.Label>
+          <Form.Group controlId="genero">
+            <Form.Label>Gênero</Form.Label>
             <div className="input-group">
-              <span className="input-group-text"><FaUserCircle fontSize={20} color="#0070fa" /></span>
-              <Form.Control
-                type="text"
-                name="nomeExibicao"
-                value={dadosFormulario.nomeExibicao}
-                onChange={handleMudanca}
-                placeholder="Digite o nome de exibição"
-              />
-            </div>
-          </Form.Group>
-        </Col>
+              <span className="input-group-text"><FaVenusMars fontSize={20} color="#0070fa" /></span>
 
-        <Col md={6}>
-          <Form.Group controlId="nomeEmpresa">
-            <Form.Label>Nome da empresa</Form.Label>
-            <div className="input-group">
-              <span className="input-group-text"><FaBuilding  fontSize={20} color="#0070fa" /></span>
-              <Form.Control
-                type="text"
-                name="nomeEmpresa"
-                value={dadosFormulario.nomeEmpresa}
-                onChange={handleMudanca}
-                placeholder="Digite o nome da empresa"
-              />
+              <div className="d-flex ms-3">
+                <Form.Check
+                  type="radio"
+                  label="Masculino"
+                  name="genero"
+                  value="0"
+                  checked={dadosFormulario.genero === '0'}
+                  onChange={handleAlteracao}
+                />
+                <Form.Check
+                  className="ms-3"
+                  type="radio"
+                  label="Feminino"
+                  name="genero"
+                  value="1"
+                  checked={dadosFormulario.genero === '1'}
+                  onChange={handleAlteracao}
+                />
+              </div>
             </div>
           </Form.Group>
         </Col>
       </Row>
 
-      {/* Telefone Fixo e CPF */}
       <Row>
+        <Col md={6}>
+          <Form.Group controlId="senha">
+            <Form.Label>Senha gerada <span className="text-danger">*</span></Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaLock fontSize={20} color="#0070fa" /></span>
+              <Form.Control
+                type={showPassword ? "text" : "password"}
+                placeholder="Senha gerada automaticamente"
+                name="senha"
+                value={dadosFormulario.senha}
+                onChange={handleMudanca}
+                disabled
+              />
+
+              <Button variant="outline-secondary" onClick={() => setShowPassword(!showPassword)} className="ms-2">
+                {showPassword ? <FaRegEyeSlash /> : <FaRegEye />}
+              </Button>
+            </div>
+          </Form.Group>
+        </Col>
+      </Row>
+
+      {/* Informações de Contato */}
+      <div className="col-md-12 col-lg-12 col-xl-12 mt-3 col-xxl-12 col-sm-12 col-xs-12 space">
+        <h6>INFORMAÇÕES DE CONTATO</h6>
+        <hr />
+      </div>
+
+      <Row className="mb-3">
+        <Col md={6}>
+          <Form.Group controlId="celular">
+            <Form.Label>Número do celular <span className="text-danger">*</span></Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaMobileAlt fontSize={20} color="#0070fa" /></span>
+
+              <Form.Control
+                type="text"
+                name="celular"
+                value={dadosFormulario.celular}
+                placeholder="Digite o número de celular"
+                maxLength="16"
+                onChange={handleAlteracao}
+              />
+            </div>
+          </Form.Group>
+        </Col>
         <Col md={6}>
           <Form.Group controlId="telefoneFixo">
-            <Form.Label>Telefone fixo</Form.Label>
+            <Form.Label>Número do telefone fixo</Form.Label>
             <div className="input-group">
-              <span className="input-group-text"><FaPhoneAlt fontSize={20} color="#0070fa" /></span>
+              <span className="input-group-text"><FaPhone fontSize={20} color="#0070fa" /></span>
+
               <Form.Control
                 type="text"
                 name="telefoneFixo"
                 value={dadosFormulario.telefoneFixo}
-                onChange={handleMudanca}
-                placeholder="Digite o número de telefone fixo"
+                placeholder="Digite o telefone fixo"
+                maxLength="16"
+                onChange={handleAlteracao}
               />
             </div>
           </Form.Group>
         </Col>
+      </Row>
 
+      {/* Informações Profissionais */}
+      <div className="col-md-12 col-lg-12 col-xl-12 col-xxl-12 col-sm-12 col-xs-12 space">
+        <h6>INFORMAÇÕES PROFISSIONAIS</h6>
+        <hr />
+      </div>
+
+      <Row className="mb-3">
         <Col md={6}>
-          <Form.Group controlId="cpf">
-            <Form.Label>CPF</Form.Label>
+          <Form.Group controlId="filial">
+            <Form.Label>Filial <span className="text-danger">*</span></Form.Label>
             <div className="input-group">
-              <span className="input-group-text"><FaIdCard fontSize={20} color="#0070fa" /></span>
+              <span className="input-group-text"><FaBuilding fontSize={20} color="#0070fa" /></span>
+
+              <Form.Control
+                as="select"
+                name="filial"
+                value={dadosFormulario.filial}
+                onChange={handleAlteracao}
+              >
+                <option value="1">Filial Principal</option>
+              </Form.Control>
+            </div>
+          </Form.Group>
+        </Col>
+        <Col md={6}>
+          <Form.Group controlId="cargo">
+            <Form.Label>Cargo <span className="text-danger">*</span></Form.Label>
+
+            <InputGroup>
+              <div className="input-group">
+                <span className="input-group-text"><FaSuitcase fontSize={20} color="#0070fa" /></span>
+
+                <Form.Control
+                  as="select"
+                  name="cargo"
+                  value={dadosFormulario.cargo}
+                  onChange={handleAlteracao}
+
+                >
+                  <option value="">Selecione o cargo</option>
+                  {cargos.map((cargo, index) => (
+                    <option key={index} value={cargo}>
+                      {cargo}
+                    </option>
+                  ))}
+                </Form.Control>
+
+                <Button variant="outline-secondary" onClick={() => setMostrarModal(true)}>
+                  Adicionar
+                </Button>
+              </div>
+            </InputGroup>
+          </Form.Group>
+        </Col>
+      </Row>
+
+      <Row className="mb-3">
+        <Col md={6}>
+          <Form.Group controlId="nomeExibicao">
+            <Form.Label>Nome Exibido</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaTag fontSize={20} color="#0070fa" /></span>
+
               <Form.Control
                 type="text"
-                name="cpf"
-                value={dadosFormulario.cpf}
-                onChange={handleMudanca}
-                placeholder="Digite o CPF"
+                name="nomeExibicao"
+                value={dadosFormulario.nomeExibicao}
+                placeholder="Nome que será exibido"
+                maxLength="25"
+                onChange={handleAlteracao}
+              />
+            </div>
+          </Form.Group>
+        </Col>
+        <Col md={6}>
+          <Form.Group controlId="dataAdmissao">
+            <Form.Label>Data de Admissão <span className="text-danger">*</span></Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaRegCalendarAlt fontSize={20} color="#0070fa" /></span>
+
+              <Form.Control
+                type="date"
+                name="dataAdmissao"
+                value={dadosFormulario.dataAdmissao}
+                onChange={handleAlteracao}
               />
             </div>
           </Form.Group>
         </Col>
       </Row>
 
-      {/* Seção 3: Endereço */}
-      <Row className="mt-3">
-        <Col>
-          <h6>ENDEREÇO</h6>
-          <hr />
-        </Col>
-      </Row>
 
-      {/* País, Provincia e Cidade */}
+      {/* Endereço */}
+      <div className="col-md-12 mt-3">
+        <h6>ENDEREÇO</h6>
+        <hr />
+      </div>
+
       <Row>
         <Col md={6}>
-          <Form.Group controlId="idPais">
-            <Form.Label>País <span className="text-danger">*</span></Form.Label>
+          <Form.Group controlId="pais">
+            <Form.Label className="fw-900">País <span className="text-danger">*</span></Form.Label>
             <div className="input-group">
               <span className="input-group-text"><FaGlobe fontSize={20} color="#0070fa" /></span>
               <Form.Control
                 as="select"
-                name="idPais"
-                value={dadosFormulario.idPais}
-                onChange={handleMudanca}
-                required
+                name="pais"
+                value={dadosFormulario.pais}
+                onChange={handleAlteracao}
               >
                 <option value="">Selecione o país</option>
                 <option value="5">Andorra</option>
@@ -625,113 +656,94 @@ const FormularioCliente = () => {
                 <option value="245">Zâmbia</option>
                 <option value="246">Zimbábue</option>
 
+                {/* Outras opções de países */}
               </Form.Control>
             </div>
           </Form.Group>
         </Col>
 
         <Col md={6}>
-          <Form.Group controlId="idProvincia">
-            <Form.Label>Província</Form.Label>
-            <div className="input-group">
-              <span className="input-group-text"><FaMapLocationDot fontSize={20} color="#0070fa" /></span>
-              <Form.Control
-                type="text"
-                name="idProvincia"
-                value={dadosFormulario.idProvincia}
-                onChange={handleMudanca}
-                placeholder="Digite a província"
-              />
-            </div>
-          </Form.Group>
-        </Col>
-
-
-      </Row>
-
-      <Row>
-        <Col md={6}>
-          <Form.Group controlId="municipio">
-            <Form.Label>Município</Form.Label>
+          <Form.Group controlId="estado">
+            <Form.Label className="fw-900">Província/Estado</Form.Label>
             <div className="input-group">
               <span className="input-group-text"><FaMapMarkerAlt fontSize={20} color="#0070fa" /></span>
               <Form.Control
                 type="text"
-                name="municipio"
-                value={dadosFormulario.municipio}
-                onChange={handleMudanca}
-                placeholder="Digite o município"
+                name="estado"
+                value={dadosFormulario.estado}
+                onChange={handleAlteracao}
+                placeholder="Digite o nome do estado"
+              />
+            </div>
+          </Form.Group>
+        </Col>
+      </Row>
+
+      <Row>
+        <Col md={6}>
+          <Form.Group controlId="cidade">
+            <Form.Label className="fw-900">Cidade</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text"><FaMapPin fontSize={20} color="#0070fa" /></span>
+              <Form.Control
+                type="text"
+                name="cidade"
+                value={dadosFormulario.cidade}
+                onChange={handleAlteracao}
+                placeholder="Digite a cidade"
               />
             </div>
           </Form.Group>
         </Col>
 
-
         <Col md={6}>
           <Form.Group controlId="endereco">
-            <Form.Label>Endereço <span className="text-danger">*</span></Form.Label>
+            <Form.Label className="fw-900">Endereço <span className="text-danger">*</span></Form.Label>
             <div className="input-group">
               <span className="input-group-text"><FaHome fontSize={20} color="#0070fa" /></span>
               <Form.Control
                 as="textarea"
                 name="endereco"
                 value={dadosFormulario.endereco}
-                onChange={handleMudanca}
-                placeholder="Digite o endereço"
-                required
+                onChange={handleAlteracao}
+                placeholder="Digite o endereço completo"
+                maxLength="100"
               />
             </div>
           </Form.Group>
         </Col>
       </Row>
 
-
-
-      {/* Notas */}
-      <div className="die mt-5">
-        <div className="itemNota d-flex justify-content-between bordarDiv">
-          <h6 className="baixarTexto">ADICIONAR NOTAS</h6>
-          <Button className="btn-addCompra links-acessos" size="sm" onClick={handleAddNota}>
-            +
+      {/* Modal para Adicionar Cargo */}
+      <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Adicionar Novo Cargo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form.Group controlId="novoCargo">
+            <Form.Label>Nome do Cargo</Form.Label>
+            <Form.Control
+              type="text"
+              value={novoCargo}
+              onChange={handleAlteracaoNovoCargo}
+              placeholder="Digite o nome do cargo"
+            />
+          </Form.Group>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setMostrarModal(false)}>
+            Fechar
           </Button>
-        </div>
+          <Button variant="primary" onClick={handleAdicionarCargo}>
+            Adicionar
+          </Button>
+        </Modal.Footer>
+      </Modal>
 
-      </div>
-      {dadosFormulario.notas.map((nota, index) => (
-        <>
-          <div key={index} className="nota">
-
-            <div className="d-flex ">
-              <Row>
-
-                <Col md={6}><Form.Group controlId={`nota-texto-${index}`}><Form.Label>Nota</Form.Label>
-                  <div className="input-group">
-                    <span className="input-group-text"><FaMapMarkerAlt fontSize={20} color="#0070fa" /></span>
-                    <Form.Control as="textarea" name="textoNota" value={nota.textoNota} onChange={(e) => handleNotaChange(index, e)} />
-                  </div>
-                </Form.Group></Col>
-                <Col md={6}><Form.Group controlId={`nota-arquivos-${index}`}><Form.Label>Arquivos</Form.Label>
-                  <Form.Control type="file" name="arquivoNota" onChange={(e) => handleNotaChange(index, e)} multiple />
-                </Form.Group></Col>
-              </Row>
-
-              {/* Checkbox */}
-              <Row className="m-4"><Col>
-                <Form.Check type="checkbox" label="Nota Interna" name="interna" checked={nota.interna} onChange={(e) => handleNotaChange(index, e)} />
-                <Form.Check type="checkbox" label="Compartilhado com fornecedor" name="compartilhado" checked={nota.compartilhado} onChange={(e) => handleNotaChange(index, e)} />
-              </Col></Row>
-
-              {/* Remover Nota */}
-              <Button className="mt-2 btnAddEsp" type="button" onClick={() => handleRemoveNota(index)}>
-                <MdDeleteForever className="links-acessos colorirBTN" fontSize={30} />
-              </Button>
-            </div>
-          </div></>
-      ))}
-
-
-      {/* Botão de Enviar */}
-      <Button variant="primary" type="submit" className="mx-auto w-25 d-block links-acessos mt-4">Salvar</Button>
+      {/* Botão Enviar */}
+      <Button type="submit" variant="success" className="botaoSubmitEquipeSuportemt-5 links-acessos w-25 px-5 mx-auto d-block">
+        Cadastrar
+      </Button>
     </Form>
   );
 };
@@ -741,33 +753,20 @@ const FormularioCliente = () => {
 
 
 
-
-
-
-
-
-
-
-
-
-const AddClientes = () => {
+const AddFuncionarios = () => {
   return (
     <>
       <div className="container-fluid">
         <div className="d-flex">
           <SideBar />
-
-          <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Adicionar Clientes" icone={<IoPersonAdd />} leftSeta={<FaArrowLeftLong />} leftR="/clienteList" />
-
+          <div className="flexAuto w-100">
+            <TopoAdmin entrada="Adicionar Equipe de Suporte" leftSeta={<FaArrowLeftLong />} leftR="/funcionariosList" />
             <div className="vh-100 alturaPereita">
-              <FormularioCliente />
-
+              <FormularioEquipeSuporte />
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">
               <hr />
               <p className="text-center">
-
                 Copyright © 2024 <b>Bi-tubo Moters</b>, Ltd. Todos os direitos
                 reservados.
                 <br />
@@ -781,4 +780,4 @@ const AddClientes = () => {
   );
 };
 
-export default AddClientes;
+export default AddFuncionarios;

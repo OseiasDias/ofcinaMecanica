@@ -32,7 +32,7 @@ import AddClientes from "./pages/pagesAdd/AddClientes.jsx";
 import AddFuncionarios from "./pages/pagesAdd/AddFuncionarios.jsx";
 import AddBlog from "./pages/pageAdmin/AddBlog.jsx";
 import AddServicos from "./pages/pageAdmin/AddServicos.jsx";
-import AddVeiculos from "./pages/pageAdmin/AddVeiculos.jsx";
+import AddVeiculos from "./pages/pagesAdd/AddVeiculos.jsx";
 import AddEstoque from "./pages/pagesAdd/AddEstoque.jsx";
 //import AddFaturas from "./pages/pageAdmin/AddFatura.jsx";
 import PagamentoActive from "./pages/pageAdmin/PagamentoActive.jsx";
@@ -66,8 +66,7 @@ import AddFornecedor from "./pages/pagesAdd/AddFornecedor.jsx";
 import AddProdutos from "./pages/pagesAdd/AddProduto.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddCompras from "./pages/pagesAdd/AddCompras.jsx";
-//import AddClientes from "./pages/pagesAdd/AddClientes.jsx";
-
+import AddEquipeSuporte from "./pages/pagesAdd/AddEquipeSuporte.jsx";
 
 
 
@@ -522,6 +521,26 @@ const App = () => {
                 </ProtectedRouteAdmin>
 
               } />
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addEquipeSuporte" element={
+
+                <ProtectedRouteAdmin>
+                  <AddEquipeSuporte />
+                </ProtectedRouteAdmin>
+
+              } />
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addVeiculos" element={
+
+                <ProtectedRouteAdmin>
+                  <AddVeiculos />
+                </ProtectedRouteAdmin>
+
+              } />
+
+
 
 
 

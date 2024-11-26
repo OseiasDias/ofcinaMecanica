@@ -11,7 +11,7 @@ const Compras = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Equipe de Suporte" direccao="/addCompras" icone={<IoIosAdd />} leftR="/ComprasList"/>
+            <TopoAdmin entrada="Equipe de Suporte" direccao="/addEquipeSuporte" icone={<IoIosAdd />} leftR="/equipeSuportePage"/>
 
             <div className="vh-100 alturaPereita">
             <h3>Equipe de Suporte</h3>            </div>

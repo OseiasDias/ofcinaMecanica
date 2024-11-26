@@ -48,3 +48,22 @@
 .marginTop{
     margin-top: -50px;
 }
+
+.configurarBTN{
+    border-radius: 0;
+    padding: 0px 12px !important;
+   
+    
+}
+
+.border-radius-zero{
+    border-radius: 0;
+}
+
+.tranformBTN{
+    transition: all 300ms ease-in-out;
+}
+
+.tranformBTN:hover{
+    transform: scale(1.2);
+}
