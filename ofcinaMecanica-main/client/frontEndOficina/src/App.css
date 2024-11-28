@@ -67,3 +67,24 @@
 .tranformBTN:hover{
     transform: scale(1.2);
 }
+
+@media (min-width:768px) and (max-width:992px){
+
+    .arranjarBTN{
+        margin-top:0;
+    }
+
+}
+
+@media (max-width:768px) {
+
+    .arranjarBTN{
+        margin-top:0;
+    }
+
+}
+
+.bordando{
+    margin-top: 33px;
+    padding-top: 5px;
+}

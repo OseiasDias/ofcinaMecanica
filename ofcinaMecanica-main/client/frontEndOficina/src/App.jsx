@@ -16,9 +16,6 @@ import LoginAdmin from "./components/compenentesAdmin/LoginAdmin.jsx";
 import PaginaLoginSuperAdmin from './pages/pageAdmin/PaginaLoginSuperAdmin.jsx';
 import { Navigate } from 'react-router-dom';
 import './App.css';
-
-
-//importacoes para clientes
 import Clientes from './pages/pageAdmin/Clientes.jsx';
 import Estoque from './pages/pageAdmin/Estoque.jsx';
 import Agendamento from './pages/pageAdmin/Agendamento.jsx';
@@ -34,12 +31,10 @@ import AddBlog from "./pages/pageAdmin/AddBlog.jsx";
 import AddServicos from "./pages/pageAdmin/AddServicos.jsx";
 import AddVeiculos from "./pages/pagesAdd/AddVeiculos.jsx";
 import AddEstoque from "./pages/pagesAdd/AddEstoque.jsx";
-//import AddFaturas from "./pages/pageAdmin/AddFatura.jsx";
 import PagamentoActive from "./pages/pageAdmin/PagamentoActive.jsx";
 import Faturas from "./pages/pageAdmin/Faturas.jsx";
 import PerfilFuncionario from "./pages/pageAdmin/PerfilFuncionario.jsx";
 import AgendamentoHistorico from "./pages/pageAdmin/AgendamentoHistorico.jsx";
-//import ConnectionStatus from "./components/compenentesAdmin/ConnectionStatus.jsx"
 import AdiarAgendamento from "./pages/pageAdmin/AdiarAgendemento.jsx";
 import EditarBlogger from "./pages/pageAdmin/EditarBlogger.jsx";
 import EditarVeiculo from "./pages/pageAdmin/EditarVeiculo.jsx";
@@ -67,8 +62,11 @@ import AddProdutos from "./pages/pagesAdd/AddProduto.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AddCompras from "./pages/pagesAdd/AddCompras.jsx";
 import AddEquipeSuporte from "./pages/pagesAdd/AddEquipeSuporte.jsx";
-
-
+import ListarTiposVeiculos from "./pages/pagesListas/ListarTiposVeiculos.jsx";
+import ListarMarcasVeiculos from "./pages/pagesListas/ListarMarcasVeiculos.jsx";
+import ListarCorVeiculos from './pages/pagesListas/ListarCorVeiculos.jsx';
+import ListarOrdemServico from "./pages/pagesListas/ListarOrdemServico.jsx";
+import AddOrdemServico from "./pages/pagesAdd/AddOrdemServico.jsx";
 
 
 
@@ -84,9 +82,6 @@ const ProtectedRouteAdmin = ({ children }) => {
 
 
 
-//import DashBoard from "./pages/pageAdmin/DashBoard.jsx";
-
-// Componente de rota protegida
 
 // eslint-disable-next-line react/prop-types
 const ProtectedRoute = ({ children }) => {
@@ -539,6 +534,57 @@ const App = () => {
                 </ProtectedRouteAdmin>
 
               } />
+
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/tipoVeiculosPage" element={
+
+                <ProtectedRouteAdmin>
+                  <ListarTiposVeiculos />
+                </ProtectedRouteAdmin>
+
+              } />
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/listarTiposVeiculos" element={
+
+                <ProtectedRouteAdmin>
+                  <ListarMarcasVeiculos />
+                </ProtectedRouteAdmin>
+
+              } />
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/listarCorVeiculos" element={
+
+                <ProtectedRouteAdmin>
+                  <ListarCorVeiculos />
+                </ProtectedRouteAdmin>
+
+              } />
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/listarOrdemServico" element={
+
+                <ProtectedRouteAdmin>
+                  <ListarOrdemServico />
+                </ProtectedRouteAdmin>
+
+              } />
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addOrdemServico" element={
+
+                <ProtectedRouteAdmin>
+                  <AddOrdemServico />
+                </ProtectedRouteAdmin>
+
+              } />
+
+
+
+
+
 
 
 

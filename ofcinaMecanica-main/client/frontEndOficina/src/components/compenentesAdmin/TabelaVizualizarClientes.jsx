@@ -240,7 +240,7 @@ const handleEdit = async () => {
         customStyles={customStyles}
         pagination
         paginationPerPage={10}
-        paginationRowsPerPageOptions={[10]}
+        //paginationRowsPerPageOptions={[10]}
         footer={<div>Exibindo {records.length} registros no total</div>}
       />
 
