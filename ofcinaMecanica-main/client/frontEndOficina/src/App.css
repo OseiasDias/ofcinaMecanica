@@ -88,3 +88,13 @@
     margin-top: 33px;
     padding-top: 5px;
 }
+
+
+.topifincando{
+   margin-top: -35px;
+}
+
+.linhaRem{
+    margin: 8px 0;
+    border-radius: 0 !important;
+}

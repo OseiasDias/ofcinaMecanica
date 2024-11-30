@@ -715,7 +715,7 @@ const FormularioFuncionario = () => {
       </Row>
 
       {/* Modal para Adicionar Cargo */}
-      <Modal show={mostrarModal} onHide={() => setMostrarModal(false)}>
+      <Modal show={mostrarModal} onHide={() => setMostrarModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Adicionar Novo Cargo</Modal.Title>
         </Modal.Header>

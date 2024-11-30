@@ -8,11 +8,11 @@ import { IoPersonAdd } from "react-icons/io5";
 import { useState, useEffect } from 'react';
 import { Form, Button, Row, Col, Image } from 'react-bootstrap';
 import { FaBuilding, FaCalendarAlt, FaCamera, FaEnvelope, FaGlobe, FaHome, FaIdCard, FaLock, FaMapMarkerAlt, FaPhone, FaPhoneAlt, FaRegEye, FaRegEyeSlash, FaTransgender, FaUser, FaUserCircle } from 'react-icons/fa';
-import { MdDeleteForever} from 'react-icons/md';
+import { MdDeleteForever } from 'react-icons/md';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-const FormularioCliente = () => {
+export function FormularioCliente() {
   const [dadosFormulario, setDadosFormulario] = useState({
     primeiroNome: '',
     sobrenome: '',
@@ -163,7 +163,7 @@ const FormularioCliente = () => {
 
       {/* Gênero e Celular */}
       <Row>
-      <Col md={6}>
+        <Col md={6}>
           <Form.Group controlId="dataNascimento">
             <Form.Label>Data de nascimento</Form.Label>
             <div className="input-group">
@@ -178,7 +178,7 @@ const FormularioCliente = () => {
             </div>
           </Form.Group>
         </Col>
-      
+
 
         <Col md={6}>
           <Form.Group controlId="celular">
@@ -259,28 +259,28 @@ const FormularioCliente = () => {
 
         <Col md={6}>
 
-<Form.Group controlId="genero">
-  <Form.Label>Gênero</Form.Label>
-  <div className="input-group">
-    <span className="input-group-text me-3"><FaTransgender fontSize={20} color="#0070fa" /></span>
+          <Form.Group controlId="genero">
+            <Form.Label>Gênero</Form.Label>
+            <div className="input-group">
+              <span className="input-group-text me-3"><FaTransgender fontSize={20} color="#0070fa" /></span>
 
-    <Form.Check
-      type="radio"
-      label="Masculino"
-      name="genero"
-      value="0"
-      onChange={handleMudanca}
-    />
-    <Form.Check className="ms-3"
-      type="radio"
-      label="Feminino"
-      name="genero"
-      value="1"
-      onChange={handleMudanca}
-    /></div>
-</Form.Group>
+              <Form.Check
+                type="radio"
+                label="Masculino"
+                name="genero"
+                value="0"
+                onChange={handleMudanca}
+              />
+              <Form.Check className="ms-3"
+                type="radio"
+                label="Feminino"
+                name="genero"
+                value="1"
+                onChange={handleMudanca}
+              /></div>
+          </Form.Group>
 
-</Col>
+        </Col>
       </Row>
 
       {/* Seção 2: Informações de Empresa e Contato */}
@@ -313,7 +313,7 @@ const FormularioCliente = () => {
           <Form.Group controlId="nomeEmpresa">
             <Form.Label>Nome da empresa</Form.Label>
             <div className="input-group">
-              <span className="input-group-text"><FaBuilding  fontSize={20} color="#0070fa" /></span>
+              <span className="input-group-text"><FaBuilding fontSize={20} color="#0070fa" /></span>
               <Form.Control
                 type="text"
                 name="nomeEmpresa"

@@ -2,13 +2,18 @@ import "../../css/StylesAdmin/homeAdministrador.css";
 import SideBar from "../../components/compenentesAdmin/SideBar.jsx";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin.jsx";
 import { FaArrowLeftLong } from "react-icons/fa6";
-
-
+import { useState } from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import { RiAddLargeFill } from 'react-icons/ri';
 import "../../css/StylesAdmin/homeAdministrador.css";
+import { Form, Row, Col } from "react-bootstrap";
+import { FaCar } from "react-icons/fa";
+import { FormularioCliente } from "./AddClientes.jsx";
+import { FormularioVeiculo } from "./AddVeiculos.jsx";
+import { MdDeleteForever } from "react-icons/md";
 
 
-import { useState } from "react";
-import { Form, Button, Row, Col } from "react-bootstrap";
+
 
 const ServiceAddForm = () => {
   const [notes, setNotes] = useState([{ id: 1, text: "", file: null, internal: false, shared: false }]);
@@ -42,6 +47,55 @@ const ServiceAddForm = () => {
   };
 
 
+  const [showModal, setShowModal] = useState(false);
+  const [modalContent, setModalContent] = useState('');
+
+  // Função para abrir a modal com conteúdo específico
+  const handleOpenModal = (content) => {
+    setModalContent(content);
+    setShowModal(true);
+  };
+
+  // Função para fechar a modal
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
+
+  const [showCorModal, setShowCorModal] = useState(false);
+  const [novaCategoria, setNovaCategoria] = useState({ nome: '' });
+  const [categorias, setCategorias] = useState([]);
+
+  // Função para abrir a modal
+  const handleShowCorModal = () => setShowCorModal(true);
+
+  // Função para fechar a modal
+  const handleCloseCorModal = () => setShowCorModal(false);
+
+  // Função para tratar a mudança no campo de nome da categoria
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNovaCategoria({ ...novaCategoria, [name]: value });
+  };
+
+  // Função para adicionar uma nova categoria
+  const handleAddCategoria = () => {
+    if (novaCategoria.nome) {
+      setCategorias([...categorias, novaCategoria]);
+      setNovaCategoria({ nome: '' }); // Limpar o campo após adicionar
+    }
+  };
+
+  // Função para remover uma categoria
+  const handleRemoveCategoria = (nome) => {
+    setCategorias(categorias.filter((categoria) => categoria.nome !== nome));
+  };
+
+
+
+
+
+
   return (
     <div className="row">
       <div className="col-md-12 col-xs-12">
@@ -63,10 +117,22 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="cust_id">
                   <Form.Label>Nome do cliente <span className="text-danger">*</span></Form.Label>
-                  <Form.Control as="select" required>
-                    <option value="">Selecione o Cliente</option>
-                    <option value="6">Abraão Odair Kanepa</option>
-                  </Form.Control>
+                  <div className="d-flex">
+                    <div className="input-group">
+                      <span className="input-group-text"><FaCar fontSize={20} color="#0070fa" /></span>
+
+                      <Form.Control as="select" required>
+                        <option value="">Selecione o Cliente</option>
+                        <option value="6">Abraão Odair Kanepa</option>
+                      </Form.Control>
+                    </div>
+                    <Button
+                      className="links-acessos px-2 border-radius-zero"
+                      onClick={() => handleOpenModal('cliente')}  // Passa o conteúdo específico para a modal
+                    >
+                      <RiAddLargeFill />
+                    </Button>
+                  </div>
                 </Form.Group>
               </Col>
             </Row>
@@ -75,9 +141,21 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="vhi">
                   <Form.Label>Nome do veículo <span className="text-danger">*</span></Form.Label>
-                  <Form.Control as="select" required>
-                    <option value="">Selecione o nome do veículo</option>
-                  </Form.Control>
+                  <div className="d-flex">
+                    <div className="input-group">
+                      <span className="input-group-text"><FaCar fontSize={20} color="#0070fa" /></span>
+
+                      <Form.Control as="select" required>
+                        <option value="">Selecione o nome do veículo</option>
+                      </Form.Control>
+                    </div>
+                    <Button
+                      className="links-acessos px-2 border-radius-zero"
+                      onClick={() => handleOpenModal('veiculo')}  // Passa o conteúdo específico para a modal
+                    >
+                      <RiAddLargeFill />
+                    </Button>
+                  </div>
                 </Form.Group>
               </Col>
 
@@ -98,13 +176,26 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="repair_cat">
                   <Form.Label>Categoria de reparo <span className="text-danger">*</span></Form.Label>
-                  <Form.Control as="select" required>
-                    <option value="">- Selecione categoria de reparo -</option>
-                    <option value="breakdown">Breakdown</option>
-                    <option value="booked vehicle">Booked Vehicle</option>
-                    <option value="repeat job">Repeat Job</option>
-                    <option value="customer waiting">Customer Waiting</option>
-                  </Form.Control>
+                  <div className="d-flex">
+                    <div className="input-group">
+                      <span className="input-group-text">
+                        <FaCar fontSize={20} color="#0070fa" />
+                      </span>
+                      <Form.Control as="select" required>
+                        <option value="">- Selecione categoria de reparo -</option>
+                        <option value="breakdown">Breakdown</option>
+                        <option value="booked vehicle">Booked Vehicle</option>
+                        <option value="repeat job">Repeat Job</option>
+                        <option value="customer waiting">Customer Waiting</option>
+                      </Form.Control>
+                    </div>
+                    <Button
+                      className="links-acessos px-2 border-radius-zero"
+                      onClick={handleShowCorModal}  // Abre a modal ao clicar no botão
+                    >
+                      <RiAddLargeFill />
+                    </Button>
+                  </div>
                 </Form.Group>
               </Col>
 
@@ -296,7 +387,7 @@ const ServiceAddForm = () => {
                           }
                         />
                       </Col>
-                   
+
                       <Col xs={6} md={2}>
                         <Form.Check
                           type="checkbox"
@@ -335,6 +426,85 @@ const ServiceAddForm = () => {
               </Col>
             </Row>
           </Form>
+
+          {/* Modal */}
+          <Modal show={showModal} onHide={handleCloseModal} centered size="xl" scrollable >
+            <Modal.Header closeButton>
+              <Modal.Title>Adicionar {modalContent === 'cliente' ? 'Cliente' : 'Veículo'}</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {/* Aqui você pode renderizar conteúdo dinâmico dependendo do tipo de modal */}
+              {modalContent === 'cliente' && (
+                <div className="topifincando">
+                  <FormularioCliente />
+                </div>
+              )}
+              {modalContent === 'veiculo' && (
+                <div className="topifincando">
+                  <FormularioVeiculo />
+                </div>
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              <Button variant="secondary" onClick={handleCloseModal}>
+                Fechar
+              </Button>
+
+            </Modal.Footer>
+          </Modal>
+          <Modal show={showCorModal} onHide={handleCloseCorModal} scrollable centered>
+            <Modal.Header closeButton>
+              <Modal.Title>Adicionar Categoria de Reparo</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form>
+                {/* Nome da categoria */}
+                <div className="d-flex mb-3">
+                  <Form.Group controlId="novaCategoriaNome" className="w-100">
+                    <Form.Label>Nome da Categoria</Form.Label>
+                    <div className="d-flex">
+                    <Form.Control
+                      type="text"
+                      name="nome"
+                      value={novaCategoria.nome}
+                      onChange={handleChange}
+                      placeholder="Digite o nome da categoria"
+                    />
+                    <Button variant="primary" onClick={handleAddCategoria} className="btnAddCor links-acessos">
+                      Adicionar
+                    </Button>
+                    </div>
+                  </Form.Group>
+                </div>
+
+                
+
+              </Form>
+
+              {/* Lista de categorias atuais */}
+              <hr />
+              <h6>Categorias Atuais</h6>
+              <ul className="list-group">
+                {categorias.map((categoria) => (
+                  <li
+                    key={categoria.codigo}
+                    className="p-3 border linhaRem d-flex justify-content-between align-items-center"
+                  >
+                    {/* Nome e código da categoria */}
+                    <span>{categoria.nome} - {categoria.codigo}</span>
+
+                    {/* Ícone para remover a categoria */}
+                    <MdDeleteForever
+                      className="text-danger"
+                      fontSize={20}
+                      onClick={() => handleRemoveCategoria(categoria.codigo)}
+                      style={{ cursor: 'pointer' }}
+                    />
+                  </li>
+                ))}
+              </ul>
+            </Modal.Body>
+          </Modal>
         </div>
       </div>
     </div >

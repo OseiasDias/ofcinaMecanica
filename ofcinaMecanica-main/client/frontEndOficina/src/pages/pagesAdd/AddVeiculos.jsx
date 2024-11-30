@@ -15,7 +15,7 @@ import { RiAddLargeFill } from "react-icons/ri";
 
 
 
-const FormularioVeiculo = () => {
+export function FormularioVeiculo(){
   const [dadosFormulario, setDadosFormulario] = useState({
     veiculoPara: "0", // Serviço selecionado por padrão
     tipoVeiculo: "",
@@ -42,7 +42,6 @@ const FormularioVeiculo = () => {
   });
 
 
-
   const handleFileChange = (e) => {
     const arquivos = Array.from(e.target.files);
     setDadosFormulario({
@@ -50,11 +49,6 @@ const FormularioVeiculo = () => {
       imagens: arquivos
     });
   };
-
-
-
-
-
 
 
   const [descricao, setDescricao] = useState([{ text: '' }]);
@@ -713,7 +707,7 @@ const FormularioVeiculo = () => {
         </Col>
       </Row>
       {/* Modal */}
-      <Modal show={showModal} onHide={handleCloseModal}>
+      <Modal show={showModal} onHide={handleCloseModal}  centered>
         <Modal.Header closeButton>
           <Modal.Title><h5>Adicionar ou Remover Tipo de Veículo</h5></Modal.Title>
         </Modal.Header>
@@ -769,7 +763,7 @@ const FormularioVeiculo = () => {
 
 
 
-
+ 
 
 
 
