@@ -68,6 +68,8 @@ import ListarCorVeiculos from './pages/pagesListas/ListarCorVeiculos.jsx';
 import ListarOrdemServico from "./pages/pagesListas/ListarOrdemServico.jsx";
 import AddOrdemServico from "./pages/pagesAdd/AddOrdemServico.jsx";
 import AddCotacao from './pages/pagesAdd/AddCotacao.jsx';
+import AddFaturas from './pages/pagesAdd/AddFaturas.jsx';
+import AddGetPass from './pages/pagesAdd/AddGetPass.jsx';
 
 
 
@@ -591,7 +593,30 @@ const App = () => {
 
               } />
 
-         
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addFaturas" element={
+
+                <ProtectedRouteAdmin>
+                  <AddFaturas />
+                </ProtectedRouteAdmin>
+
+              } />
+
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addGetPass" element={
+
+                <ProtectedRouteAdmin>
+                  <AddGetPass />
+                </ProtectedRouteAdmin>
+
+              } />
+
+
+
+
+
 
 
 

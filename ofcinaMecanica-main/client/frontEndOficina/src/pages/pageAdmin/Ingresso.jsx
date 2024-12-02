@@ -11,7 +11,7 @@ const Ingresso = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Ingresso" direccao="/addIngresso" icone={<IoIosAdd />} leftR="/IngressoList" />
+            <TopoAdmin entrada="Ingresso" direccao="/addGetPass" icone={<IoIosAdd />} />
 
             <div className="vh-100 alturaPereita">
               <h3>Ingresso</h3>

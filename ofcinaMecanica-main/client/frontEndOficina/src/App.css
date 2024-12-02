@@ -112,3 +112,7 @@
     bottom: -30px;
     position: relative;
 }
+
+.bordarNONE{
+    border: 0 !important;
+}

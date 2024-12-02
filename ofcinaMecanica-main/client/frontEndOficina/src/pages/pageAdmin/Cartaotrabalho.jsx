@@ -8,10 +8,10 @@ const CartaoTrabalho = () => {
     <>
       <div className="container-fluid">
         <div className="d-flex">
-          <SideBar />
+          <SideBar /> 
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Cartão de Trabalho" direccao="/addCartaoTrabalho" icone={<IoIosAdd />} leftR="/CartaoTrabalhoList"/>
+            <TopoAdmin entrada="Cartão de Trabalho" direccao="/addOrdemServico" icone={<IoIosAdd />} leftR="/cartaoTrabalhoPage"/>
 
             <div className="vh-100 alturaPereita">
             <h3>Cartao de Trabalho</h3>            </div>

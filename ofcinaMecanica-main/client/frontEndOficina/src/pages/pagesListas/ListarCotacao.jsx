@@ -13,11 +13,85 @@ import { RiAddLargeFill, RiArrowDownSLine } from "react-icons/ri";
 import { Modal, Button, Form } from "react-bootstrap";
 import { FaCar } from "react-icons/fa";
 
-
+// Estilos customizados para a tabela
+const customStyles = {
+  headCells: {
+    style: {
+      backgroundColor: '#044697',
+      color: '#fff',
+      fontSize: '16px',
+      fontWeight: 'bolder',
+      paddingTop: '10px',
+      paddingBottom: '10px',
+    },
+  },
+  cells: {
+    style: {
+      padding: '8px',
+      fontSize: '14px',
+    },
+  },
+};
 
 // eslint-disable-next-line react/prop-types
 function VizualizarListaTipo({ setShowModal }) {
+  const [records, setRecords] = useState([
+    { tipoVeiculo: <>&nbsp;&nbsp;&nbsp;{ 'Turismo'}</>  },
+    { tipoVeiculo: <>&nbsp;&nbsp;&nbsp;{ 'SUV'}</> },
+    { tipoVeiculo:<>&nbsp;&nbsp;&nbsp;{ 'SUV'}</>  },
+    { tipoVeiculo:<>&nbsp;&nbsp;&nbsp;{ 'SUV'}</>  },
+    { tipoVeiculo:<>&nbsp;&nbsp;&nbsp;{ 'SUV'}</>  },
+  ]);
 
+  const originalRecords = [
+    { tipoVeiculo:<>&nbsp;&nbsp;&nbsp;{ 'Turismo'}</> },
+    { tipoVeiculo:<>&nbsp;&nbsp;&nbsp;{ 'SUV'}</>  },
+    { tipoVeiculo:<>&nbsp;&nbsp;&nbsp;{ 'SUV'}</>  },
+    { tipoVeiculo:<>&nbsp;&nbsp;&nbsp;{ 'SUV'}</>  },
+  ];
+
+  const handleSearch = (e) => {
+    const query = e.target.value.toLowerCase();
+    if (!query) {
+      setRecords(originalRecords);
+    } else {
+      const filteredRecords = originalRecords.filter(
+        (item) => item.tipoVeiculo.toLowerCase().includes(query)
+      );
+      setRecords(filteredRecords);
+    }
+  };
+
+  const columns = [
+    {
+      name: 'Marcas de Veículos',
+      selector: (row) => row.tipoVeiculo,
+      sortable: true,
+    },
+    {
+      name: 'Tipos de Veículos',
+      selector: (row) => row.tipoVeiculo,
+      sortable: true,
+    },
+    {
+      name: 'Ações',
+      cell: () => (
+        <Dropdown className="btnDrop" drop="up">
+          <Dropdown.Toggle variant="link" id="dropdown-basic"></Dropdown.Toggle>
+          <Dropdown.Menu className="cimaAll">
+            <Dropdown.Item>
+              <FiEdit />
+              &nbsp;&nbsp;Editar
+            </Dropdown.Item>
+            <Dropdown.Item className="text-danger">
+              <MdDeleteOutline />
+              &nbsp;&nbsp;Excluir
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      ),
+    },
+  ];
 
   return (
     <div className="homeDiv">
