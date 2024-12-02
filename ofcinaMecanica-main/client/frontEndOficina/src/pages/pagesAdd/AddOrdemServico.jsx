@@ -7,7 +7,7 @@ import { Modal, Button } from 'react-bootstrap';
 import { RiAddLargeFill } from 'react-icons/ri';
 import "../../css/StylesAdmin/homeAdministrador.css";
 import { Form, Row, Col } from "react-bootstrap";
-import { FaCar } from "react-icons/fa";
+import { FaCalendarAlt, FaCar, FaClipboard, FaCreditCard, FaDollarSign, FaFileAlt, FaHeading, FaHome, FaStickyNote, FaTint, FaTools, FaUpload, FaUser, FaUserCog } from "react-icons/fa";
 import { FormularioCliente } from "./AddClientes.jsx";
 import { FormularioVeiculo } from "./AddVeiculos.jsx";
 import { MdDeleteForever } from "react-icons/md";
@@ -110,7 +110,10 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="jobno">
                   <Form.Label>Número do cartão de trabalho <span className="text-danger">*</span></Form.Label>
-                  <Form.Control type="text" value="J000005" readOnly />
+                  <div className="input-group">
+                    <span className="input-group-text"><FaCreditCard fontSize={20} color="#0070fa" /></span>
+                    <Form.Control type="text" value="J000005" readOnly />
+                  </div>
                 </Form.Group>
               </Col>
 
@@ -119,7 +122,7 @@ const ServiceAddForm = () => {
                   <Form.Label>Nome do cliente <span className="text-danger">*</span></Form.Label>
                   <div className="d-flex">
                     <div className="input-group">
-                      <span className="input-group-text"><FaCar fontSize={20} color="#0070fa" /></span>
+                      <span className="input-group-text"><FaUser fontSize={20} color="#0070fa" /></span>
 
                       <Form.Control as="select" required>
                         <option value="">Selecione o Cliente</option>
@@ -162,12 +165,16 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="p_date">
                   <Form.Label>Encontro <span className="text-danger">*</span></Form.Label>
-                  <Form.Control
-                    type="datetime-local"
-                    name="date"
-                    defaultValue="2024-11-27T21:21:28"
-                    required
-                  />
+                  <div className="input-group">
+                    <span className="input-group-text"><FaCalendarAlt fontSize={20} color="#0070fa" /></span>
+
+                    <Form.Control
+                      type="datetime-local"
+                      name="date"
+                      defaultValue="2024-11-27T21:21:28"
+                      required
+                    />
+                  </div>
                 </Form.Group>
               </Col>
             </Row>
@@ -179,7 +186,7 @@ const ServiceAddForm = () => {
                   <div className="d-flex">
                     <div className="input-group">
                       <span className="input-group-text">
-                        <FaCar fontSize={20} color="#0070fa" />
+                        <FaTools fontSize={20} color="#0070fa" />
                       </span>
                       <Form.Control as="select" required>
                         <option value="">- Selecione categoria de reparo -</option>
@@ -202,14 +209,18 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="AssigneTo">
                   <Form.Label>Atribuir a <span className="text-danger">*</span></Form.Label>
-                  <Form.Control as="select" required>
-                    <option value="">-- Selecione Atribuir a --</option>
-                    <option value="2">Julia Jeremias</option>
-                    <option value="4">Silvana Alfredo</option>
-                    <option value="5">Augusto Da Silva</option>
-                    <option value="10">Firmino Yundula Kiala João</option>
-                    <option value="11">Paulo Pedro Bassunga</option>
-                  </Form.Control>
+                  <div className="input-group">
+                    <span className="input-group-text"><FaUserCog fontSize={20} color="#0070fa" /></span>
+
+                    <Form.Control as="select" required>
+                      <option value="">-- Selecione Atribuir a --</option>
+                      <option value="2">Julia Jeremias</option>
+                      <option value="4">Silvana Alfredo</option>
+                      <option value="5">Augusto Da Silva</option>
+                      <option value="10">Firmino Yundula Kiala João</option>
+                      <option value="11">Paulo Pedro Bassunga</option>
+                    </Form.Control>
+                  </div>
                 </Form.Group>
               </Col>
             </Row>
@@ -232,12 +243,16 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="charge_required">
                   <Form.Label>Taxa de serviço (kz) <span className="text-danger">*</span></Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="charge"
-                    placeholder="Insira a taxa de serviço"
-                    required
-                  />
+                  <div className="input-group">
+                    <span className="input-group-text"><FaDollarSign fontSize={20} color="#0070fa" /></span>
+
+                    <Form.Control
+                      type="text"
+                      name="charge"
+                      placeholder="Insira a taxa de serviço"
+                      required
+                    />
+                  </div>
                 </Form.Group>
               </Col>
             </Row>
@@ -246,16 +261,24 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="branch">
                   <Form.Label>Galho <span className="text-danger">*</span></Form.Label>
-                  <Form.Control as="select" required>
-                    <option value="1">Main Branch</option>
-                  </Form.Control>
+                  <div className="input-group">
+                    <span className="input-group-text"><FaHome fontSize={20} color="#0070fa" /></span>
+
+                    <Form.Control as="select" required>
+                      <option value="1">Main Branch</option>
+                    </Form.Control>
+                  </div>
                 </Form.Group>
               </Col>
 
               <Col xs={12} md={6}>
                 <Form.Group controlId="details">
                   <Form.Label>Detalhes</Form.Label>
-                  <Form.Control as="textarea" name="details" maxLength="100" />
+                  <div className="input-group">
+                    <span className="input-group-text"><FaClipboard fontSize={20} color="#0070fa" /></span>
+
+                    <Form.Control as="textarea" name="details" maxLength="100" />
+                  </div>
                 </Form.Group>
               </Col>
             </Row>
@@ -282,12 +305,16 @@ const ServiceAddForm = () => {
                 <Col xs={12} md={6}>
                   <Form.Group controlId="washBayCharge">
                     <Form.Label>Preço de lavagem (kz)</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="washBayCharge"
-                      placeholder="Insira as preço de lavagem"
-                      maxLength="10"
-                    />
+                    <div className="input-group">
+                      <span className="input-group-text"><FaTint fontSize={20} color="#0070fa" /></span>
+
+                      <Form.Control
+                        type="text"
+                        name="washBayCharge"
+                        placeholder="Insira as preço de lavagem"
+                        maxLength="10"
+                      />
+                    </div>
                   </Form.Group>
                 </Col>
               )}
@@ -298,6 +325,7 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="motTestStatusCheckbox" className="d-flex  bordando">
                   <Form.Label className="me-2">Teste MOT</Form.Label>
+
                   <Form.Check
                     type="checkbox"
                     name="motTestStatusCheckbox"
@@ -314,12 +342,16 @@ const ServiceAddForm = () => {
                 <Col xs={12} md={6}>
                   <Form.Group controlId="motTestCharge">
                     <Form.Label>Preço de teste MOT (kz)</Form.Label>
-                    <Form.Control
-                      type="text"
-                      name="motTestCharge"
-                      placeholder="Insira as preço de teste MOT"
-                      maxLength="10"
-                    />
+                    <div className="input-group">
+                      <span className="input-group-text"><FaTools fontSize={20} color="#0070fa" /></span>
+
+                      <Form.Control
+                        type="text"
+                        name="motTestCharge"
+                        placeholder="Insira as preço de teste MOT"
+                        maxLength="10"
+                      />
+                    </div>
                   </Form.Group>
                 </Col>
               )}
@@ -329,98 +361,126 @@ const ServiceAddForm = () => {
               <Col xs={12} md={6}>
                 <Form.Group controlId="images">
                   <Form.Label>Selecione várias imagens</Form.Label>
-                  <Form.Control
-                    type="file"
-                    name="image[]"
-                    multiple
-                    data-max-file-size="5M"
-                  />
+                  <div className="input-group">
+                    <span className="input-group-text"><FaUpload fontSize={20} color="#0070fa" /></span>
+
+                    <Form.Control
+                      type="file"
+                      name="image[]"
+                      multiple
+                      data-max-file-size="5M"
+                    /></div>
                 </Form.Group>
               </Col>
 
               <Col xs={12} md={6}>
                 <Form.Group controlId="title">
                   <Form.Label>Título</Form.Label>
-                  <Form.Control
-                    type="text"
-                    name="title"
-                    placeholder="Digite o título"
-                    maxLength="50"
-                  />
+                  <div className="input-group">
+                    <span className="input-group-text"><FaHeading fontSize={20} color="#0070fa" /></span>
+
+                    <Form.Control
+                      type="text"
+                      name="title"
+                      placeholder="Digite o título"
+                      maxLength="50"
+                    />
+                  </div>
                 </Form.Group>
               </Col>
             </Row>
 
             <div className="note-row">
+              <div className="d-flex justify-content-between">
+                <h6 className="baixarTexto text-uppercase">Adicionar Notas</h6>
+
+                {/* Botão para Adicionar Nota */}
+                <Button variant="success" onClick={addNote} className="mt-5 links-acessos border-radius-zero">
+                  +
+                </Button>
+              </div>
               <Row className="mb-3">
                 <Col xs={12}>
-                  <h5>Adcionar Notas</h5>
+
                   <hr />
                   {notes.map((note, index) => (
                     <Row key={note.id} className="align-items-center mb-2">
-                      <Col xs={12} md={5}>
-                        <Form.Control
-                          as="textarea"
-                          value={note.text}
-                          onChange={(e) =>
-                            handleNoteChange(note.id, "text", e.target.value)
-                          }
-                          placeholder="Escreva uma nota"
-                        />
-                      </Col>
-                      <Col xs={6} md={3}>
-                        <Form.Control
-                          type="file"
-                          onChange={(e) =>
-                            handleNoteChange(note.id, "file", e.target.files[0])
-                          }
-                        />
+                      {/* Nota Texto */}
+                      <Col xs={12} md={4}>
+                        <h6>Nota</h6>
+                        <div className="input-group">
+                          <span className="input-group-text">< FaStickyNote fontSize={20} color="#0070fa" /></span>
+
+                          <Form.Control
+                            as="textarea"
+                            value={note.text}
+                            onChange={(e) => handleNoteChange(note.id, "text", e.target.value)}
+                            placeholder="Escreva uma nota"
+                          />
+                        </div>
                       </Col>
 
-                      <Col xs={6} md={2}>
+                      {/* Arquivos */}
+                      <Col xs={6} md={3}>
+                        <h6>Arquivos</h6>
+                        <div className="input-group">
+                          <span className="input-group-text">< FaFileAlt fontSize={20} color="#0070fa" /></span>
+
+                          <Form.Control
+                            type="file"
+                            onChange={(e) =>
+                              handleNoteChange(note.id, "files", e.target.files)
+                            }
+                            multiple
+                          />
+                        </div>
+                      </Col>
+
+                      {/* Checkboxes em coluna única */}
+                      <Col xs={12} md={3}>
+                        <h6>Opções</h6>
                         <Form.Check
                           type="checkbox"
                           checked={note.internal}
-                          label="Notas Interno"
+                          label="Nota Interna"
                           onChange={(e) =>
                             handleNoteChange(note.id, "internal", e.target.checked)
                           }
+                          className="d-block mb-2"
                         />
-                      </Col>
-
-                      <Col xs={6} md={2}>
                         <Form.Check
                           type="checkbox"
                           checked={note.shared}
-                          label="Notas Compartilhado"
+                          label="Compartilhado com fornecedor"
                           onChange={(e) =>
                             handleNoteChange(note.id, "shared", e.target.checked)
                           }
+                          className="d-block"
                         />
                       </Col>
 
-                      <Col xs={12}>
+                      {/* Remover Nota */}
+                      <Col xs={12} md={1}>
                         <Button
-                          variant="danger"
+
                           onClick={() => removeNote(note.id)}
                           size="sm"
-                          className="mt-2"
+                          className="mt-2 border-radius-zero borderSem colorirBTN"
                         >
-                          Remover Nota
+                          <MdDeleteForever className="links-acessos colorirBTN" fontSize={30} />
+
                         </Button>
                       </Col>
                     </Row>
                   ))}
-                  <Button variant="success" onClick={addNote} className="mt-3">
-                    Adicionar Nota
-                  </Button>
+
                 </Col>
               </Row>
             </div>
 
             <Row>
               <Col xs={12} className="text-center">
-                <Button variant="primary" type="submit" size="lg">
+                <Button variant="primary" type="submit" size="lg" className="mt-5 links-acessos px-3 w-25 d-block mx-auto">
                   Salvar
                 </Button>
               </Col>
@@ -463,21 +523,21 @@ const ServiceAddForm = () => {
                   <Form.Group controlId="novaCategoriaNome" className="w-100">
                     <Form.Label>Nome da Categoria</Form.Label>
                     <div className="d-flex">
-                    <Form.Control
-                      type="text"
-                      name="nome"
-                      value={novaCategoria.nome}
-                      onChange={handleChange}
-                      placeholder="Digite o nome da categoria"
-                    />
-                    <Button variant="primary" onClick={handleAddCategoria} className="btnAddCor links-acessos">
-                      Adicionar
-                    </Button>
+                      <Form.Control
+                        type="text"
+                        name="nome"
+                        value={novaCategoria.nome}
+                        onChange={handleChange}
+                        placeholder="Digite o nome da categoria"
+                      />
+                      <Button variant="primary" onClick={handleAddCategoria} className="btnAddCor links-acessos">
+                        Adicionar
+                      </Button>
                     </div>
                   </Form.Group>
                 </div>
 
-                
+
 
               </Form>
 
@@ -513,12 +573,6 @@ const ServiceAddForm = () => {
 
 
 
-
-
-
-
-
-
 const AddFuncionarios = () => {
   return (
     <>
@@ -526,7 +580,7 @@ const AddFuncionarios = () => {
         <div className="d-flex">
           <SideBar />
           <div className="flexAuto w-100">
-            <TopoAdmin entrada="Adicionar Ordem de Serviço" leftSeta={<FaArrowLeftLong />} leftR="/funcionariosList" />
+            <TopoAdmin entrada="Adicionar Ordem de Serviço" leftSeta={<FaArrowLeftLong />} leftR="/listarOrdemServico" />
             <div className="vh-100 alturaPereita">
               <ServiceAddForm />
             </div>

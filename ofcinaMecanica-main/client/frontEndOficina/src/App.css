@@ -98,3 +98,17 @@
     margin: 8px 0;
     border-radius: 0 !important;
 }
+
+.borderSem{
+    border: none
+    !important;
+}
+
+.baixarTexto{
+    margin-top: 60px;
+}
+
+.baixarText{
+    bottom: -30px;
+    position: relative;
+}

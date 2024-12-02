@@ -56,7 +56,7 @@ import TemplatesEmail from "./pages/pageAdmin/TemplateEmail.jsx";
 import CamposPersonalizados from "./pages/pageAdmin/CamposPersonalizados.jsx";
 import BibiliotecaObservacao from "./pages/pageAdmin/BibiliotecaObservacoes.jsx";
 import Galhos from "./pages/pageAdmin/Galhos.jsx";
-import Contacao from "./pages/pageAdmin/CotacaoPage.jsx";
+import ContacaoPage from "./pages/pageAdmin/CotacaoPage.jsx";
 import AddFornecedor from "./pages/pagesAdd/AddFornecedor.jsx";
 import AddProdutos from "./pages/pagesAdd/AddProduto.jsx";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -67,6 +67,7 @@ import ListarMarcasVeiculos from "./pages/pagesListas/ListarMarcasVeiculos.jsx";
 import ListarCorVeiculos from './pages/pagesListas/ListarCorVeiculos.jsx';
 import ListarOrdemServico from "./pages/pagesListas/ListarOrdemServico.jsx";
 import AddOrdemServico from "./pages/pagesAdd/AddOrdemServico.jsx";
+import AddCotacao from './pages/pagesAdd/AddCotacao.jsx';
 
 
 
@@ -410,7 +411,7 @@ const App = () => {
               <Route path="/cotacaoPage" element={
 
                 <ProtectedRouteAdmin>
-                  <Contacao />
+                  <ContacaoPage />
                 </ProtectedRouteAdmin>} />
 
               <Route path="/vendasPage" element={
@@ -580,6 +581,17 @@ const App = () => {
                 </ProtectedRouteAdmin>
 
               } />
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addCotacao" element={
+
+                <ProtectedRouteAdmin>
+                  <AddCotacao />
+                </ProtectedRouteAdmin>
+
+              } />
+
+         
 
 
 

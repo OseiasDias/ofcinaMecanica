@@ -14,7 +14,7 @@ const OrdemServico = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Ordem de Serviço" leftR="/addOrdemServico" direccao="/addOrdemServico" icone={<IoIosAdd />} />
+            <TopoAdmin entrada="Ordem de Serviço"  direccao="/addOrdemServico" icone={<IoIosAdd />} />
 
             <div className="vh-100">
          
