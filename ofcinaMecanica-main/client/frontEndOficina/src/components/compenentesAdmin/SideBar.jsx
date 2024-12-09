@@ -1,7 +1,7 @@
 import { FaAddressCard, FaBalanceScaleRight, FaBlogger, FaCartArrowDown, FaClipboardList, FaIdCardAlt, FaListOl, FaSignOutAlt, FaTicketAlt } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom"; // Usando useNavigate do React Router
 import { FaHome } from "react-icons/fa";
-import { IoCarSportSharp, IoLibrary, IoNewspaperSharp } from "react-icons/io5";
+import { IoCarSportSharp,  IoNewspaperSharp } from "react-icons/io5";
 import { BiCog, BiSolidCarMechanic } from "react-icons/bi";
 import { FaTruckArrowRight, FaUserTie, FaWrench } from "react-icons/fa6";
 import { useState } from "react";
@@ -15,7 +15,7 @@ import { FaUsers } from "react-icons/fa6";
 import { FaCircleUser } from "react-icons/fa6";
 import { FaCalendarDays, FaSackDollar } from "react-icons/fa6";
 import { TbReportSearch } from "react-icons/tb";
-import { MdAssignmentAdd, MdAttachEmail,  MdInventory, MdOutlineInput, MdPayment, MdPriceChange, MdVerified } from "react-icons/md";
+import { MdAssignmentAdd, MdAttachEmail,  MdInventory,  MdPayment, MdPriceChange } from "react-icons/md";
 // Importando o componente Modal do React Bootstrap
 import { Modal, Button } from 'react-bootstrap';
 import { FcCustomerSupport } from "react-icons/fc";
@@ -85,13 +85,17 @@ const routes = [
 
 
   { path: "/vendasPage", name: "Vendas de Peças", icon: <BsTools /> },
-  { path: "/conformidadePage", name: "Conformidade", icon: <MdVerified /> },
+  /** { path: "/conformidadePage", name: "Conformidade", icon: <MdVerified /> },*/
   { path: "/relatoriosPages", name: "Relatórios", icon: <FaClipboardList /> },
 
   { path: "/templatesEmailPages", name: "Templates de Email", icon: <MdAttachEmail /> },
-  { path: "/camposPersonalizadosPage", name: "Campos Personalizados", icon: <MdOutlineInput /> },
-  { path: "/bibiliotecaObservacaoPage", name: "Biblioteca de Observação", icon: <IoLibrary /> },
-  { path: "/galhosPage", name: "Galhos", icon: <GiLightningBranches /> },
+  /**  { path: "/camposPersonalizadosPage", name: "Campos Personalizados", icon: <MdOutlineInput /> },
+ */
+   
+ /**  { path: "/bibiliotecaObservacaoPage", name: "Biblioteca de Observação", icon: <IoLibrary /> },
+ */
+
+ { path: "/galhosPage", name: "Filial", icon: <GiLightningBranches /> },
 
   { path: "/relatoriosPage", name: "Relatórios", icon: <TbReportSearch /> },
   { path: "/pageDefinicoes", name: "Definições", icon: <BiCog /> },

@@ -27,6 +27,8 @@ const FormularioVenda = () => {
     ]
   });
 
+
+  // eslint-disable-next-line no-unused-vars
   const lidarComMudanca = (e, index) => {
     const { name, value } = e.target;
     const dadosAtualizados = { ...dadosFormulario };

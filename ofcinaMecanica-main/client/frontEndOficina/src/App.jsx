@@ -73,6 +73,7 @@ import AddGetPass from './pages/pagesAdd/AddGetPass.jsx';
 import AddRenda from './pages/pagesAdd/AddRenda.jsx';
 import AddDispesas from './pages/pagesAdd/AddDispesas.jsx';
 import AddPecas from "./pages/pagesAdd/AddPecas.jsx";
+import AddGalho from "./pages/pagesAdd/AddFilial.jsx";
 
 
 
@@ -644,6 +645,16 @@ const App = () => {
                 </ProtectedRouteAdmin>
 
               } />
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addGalho" element={
+
+                <ProtectedRouteAdmin>
+                  <AddGalho />
+                </ProtectedRouteAdmin>
+
+              } />
+
 
 
 

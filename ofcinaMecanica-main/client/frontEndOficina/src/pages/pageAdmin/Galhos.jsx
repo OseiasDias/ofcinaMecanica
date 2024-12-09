@@ -3,7 +3,7 @@ import SideBar from "../../components/compenentesAdmin/SideBar";
 import TopoAdmin from "../../components/compenentesAdmin/TopoAdmin";
 import { IoIosAdd } from "react-icons/io";
 
-const Galhos = () => {
+const filial = () => {
   return (
     <>
       <div className="container-fluid">
@@ -11,10 +11,10 @@ const Galhos = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Galhos" direccao="/addGalhos" icone={<IoIosAdd />} leftR="/GalhosList" />
+            <TopoAdmin entrada="Filial" direccao="/addGalho" icone={<IoIosAdd />}  />
 
             <div className="vh-100 alturaPereita">
-              <h3>Galhos</h3>
+              <h3>Filial</h3>
             </div>
             <div className="div text-center np pt-2 mt-2 ppAr">
               <hr />
@@ -33,4 +33,4 @@ const Galhos = () => {
   );
 };
 
-export default Galhos;
+export default filial;
