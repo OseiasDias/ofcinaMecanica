@@ -10,16 +10,16 @@ export default function Home() {
     <>
 
       <Banner />
-       
-        <Servicos />
 
-        <ContUp />
-        <Faq />
-        <Footer />
-      
+      <Servicos />
 
-    
-      
+      <ContUp />
+      <Faq />
+      <Footer />
+
+
+
+
     </>
   );
 }

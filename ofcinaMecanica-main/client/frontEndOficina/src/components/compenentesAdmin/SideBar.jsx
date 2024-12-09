@@ -88,7 +88,7 @@ const routes = [
   /** { path: "/conformidadePage", name: "Conformidade", icon: <MdVerified /> },*/
   { path: "/relatoriosPages", name: "Relatórios", icon: <FaClipboardList /> },
 
-  { path: "/templatesEmailPages", name: "Templates de Email", icon: <MdAttachEmail /> },
+  { path: "/templatesEmailPages", name: "Notificação", icon: <MdAttachEmail /> },
   /**  { path: "/camposPersonalizadosPage", name: "Campos Personalizados", icon: <MdOutlineInput /> },
  */
    

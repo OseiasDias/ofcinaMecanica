@@ -24,7 +24,7 @@ function Faq() {
           <div className="col-12 col-md-12 col-lg-6">
             <h3 className="perguntasFaq">Peguntas Frequentes <FaArrowDown fontSize={17} /></h3>
             <Accordion defaultActiveKey="0" className="bordaritem">
-              <Accordion.Item eventKey="0">
+              <Accordion.Item eventKey="0"> 
                 <Accordion.Header><FiHelpCircle className="iconeFaq" /> <strong >Com que frequência devo fazer a troca de óleo do meu veículo?</strong></Accordion.Header>
                 <Accordion.Body className="textAliado" >
                 <strong>Resposta:</strong> A troca de óleo deve ser feita a cada 5.000 a 10.000 km, dependendo do tipo de óleo utilizado e das recomendações do fabricante do veículo. Consulte o manual do proprietário para orientações específicas.
