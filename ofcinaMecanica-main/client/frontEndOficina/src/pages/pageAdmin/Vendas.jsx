@@ -11,7 +11,7 @@ const Vendas = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Vendas" direccao="/addVendas" icone={<IoIosAdd />} leftR="/VendasList" />
+            <TopoAdmin entrada="Vendas de Peças" direccao="/addPecas" icone={<IoIosAdd />} leftR="/VendasList" />
 
             <div className="vh-100 alturaPereita">
               <h3>Vendas</h3>

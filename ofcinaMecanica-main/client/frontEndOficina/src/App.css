@@ -109,10 +109,24 @@
 }
 
 .baixarText{
-    bottom: -30px;
+    bottom: -30px; 
     position: relative;
 }
 
 .bordarNONE{
     border: 0 !important;
+}
+
+.baixarH6{
+    display: block;
+    bottom: -17px;
+    position: relative;
+}
+
+.ttt{
+    transition: var(--trasicao);
+}
+
+.ttt:hover{
+    transform: scale(1.2);
 }

@@ -1,4 +1,3 @@
-// database/connection.js
 const mysql2 = require("mysql2");
 
 // Usa uma flag para alternar entre configurações de localhost e servidor
@@ -9,19 +8,20 @@ let connectionParams;
 if (useLocalhost) {
     console.log("Conectando ao banco de dados local");
     connectionParams = {
-        user: "root",          // Usuário do banco de dados local
-        host: "localhost",     // Host do banco de dados local
-        password: "",          // Senha do banco de dados local
-        database: "oficina",   // Nome do banco de dados
-    };
-} else {
-    connectionParams = {
-        user: "seu_usuario",   // Substitua pelo seu usuário do banco na Hostinger
-        host: "seu_host",      // Substitua pelo host do banco na Hostinger
-        password: "sua_senha", // Substitua pela sua senha do banco na Hostinger
+        user: "root",           // Usuário do banco de dados local
+        host: "localhost",      // Host do banco de dados local
+        password: "",           // Senha do banc o de dados local
         database: "oficina",    // Nome do banco de dados
     };
-}
+} else {
+    // Conectando ao banco de dados da Hostinger
+    connectionParams = {
+        user: "oficinaBT",   // Nome correto do usuário
+        host: "biturbo.biturbomotors.com", // O host correto
+        password: "Emirates1953###",    // Senha fornecida
+        database: "oficina",          // Nome correto do banco de dados
+    };
+} 
 
 // Cria um pool de conexões
 const pool = mysql2.createPool(connectionParams);

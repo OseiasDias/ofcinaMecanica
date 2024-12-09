@@ -11,7 +11,7 @@ const Dispesas = () => {
           <SideBar />
 
           <div className="flexAuto w-100 ">
-            <TopoAdmin entrada="Dispesas" direccao="/addDispesas" icone={<IoIosAdd />} leftR="/DispesasList"/>
+            <TopoAdmin entrada="Dispesas" direccao="/addDispesas" icone={<IoIosAdd />} leftR="/dispesasPage"/>
 
             <div className="vh-100 alturaPereita">
             <h3>Dispesas</h3>            </div>

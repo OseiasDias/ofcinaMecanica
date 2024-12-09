@@ -8,7 +8,7 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 
 import { useState } from "react";
 import { Form, Button, Row, Col, InputGroup, FormControl } from "react-bootstrap";
-import { FaMobileAlt } from "react-icons/fa";
+
 import { MdBuild, MdCalendarToday, MdCardTravel, MdDirectionsCar, MdEmail, MdGasMeter, MdPerson, MdPersonOutline, MdPhone, MdSpeed } from "react-icons/md";
 
 function GatepassForm() {

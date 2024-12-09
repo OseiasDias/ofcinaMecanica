@@ -70,7 +70,9 @@ import AddOrdemServico from "./pages/pagesAdd/AddOrdemServico.jsx";
 import AddCotacao from './pages/pagesAdd/AddCotacao.jsx';
 import AddFaturas from './pages/pagesAdd/AddFaturas.jsx';
 import AddGetPass from './pages/pagesAdd/AddGetPass.jsx';
-
+import AddRenda from './pages/pagesAdd/AddRenda.jsx';
+import AddDispesas from './pages/pagesAdd/AddDispesas.jsx';
+import AddPecas from "./pages/pagesAdd/AddPecas.jsx";
 
 
 
@@ -612,6 +614,40 @@ const App = () => {
                 </ProtectedRouteAdmin>
 
               } />
+
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addRenda" element={
+
+                <ProtectedRouteAdmin>
+                  <AddRenda />
+                </ProtectedRouteAdmin>
+
+              } />
+
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addDispesas" element={
+
+                <ProtectedRouteAdmin>
+                  <AddDispesas />
+                </ProtectedRouteAdmin>
+
+              } />
+
+
+              {/**Routes de Add de Entidades */}
+              <Route path="/addPecas" element={
+
+                <ProtectedRouteAdmin>
+                  <AddPecas />
+                </ProtectedRouteAdmin>
+
+              } />
+
+
+
+
 
 
 
