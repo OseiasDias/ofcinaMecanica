@@ -1,4 +1,4 @@
-import { FaAddressCard, FaBalanceScaleRight, FaBlogger, FaCartArrowDown, FaClipboardList, FaIdCardAlt, FaListOl, FaSignOutAlt, FaTicketAlt } from "react-icons/fa";
+import { FaAddressCard, FaBalanceScaleRight, FaBlogger, FaCartArrowDown,  FaIdCardAlt, FaListOl, FaSignOutAlt, FaTicketAlt } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom"; // Usando useNavigate do React Router
 import { FaHome } from "react-icons/fa";
 import { IoCarSportSharp,  IoNewspaperSharp } from "react-icons/io5";
@@ -86,8 +86,7 @@ const routes = [
 
   { path: "/vendasPage", name: "Vendas de Peças", icon: <BsTools /> },
   /** { path: "/conformidadePage", name: "Conformidade", icon: <MdVerified /> },*/
-  { path: "/relatoriosPages", name: "Relatórios", icon: <FaClipboardList /> },
-
+  { path: "/relatoriosPage", name: "Relatórios", icon: <TbReportSearch /> },
   { path: "/templatesEmailPages", name: "Notificação", icon: <MdAttachEmail /> },
   /**  { path: "/camposPersonalizadosPage", name: "Campos Personalizados", icon: <MdOutlineInput /> },
  */
@@ -97,7 +96,7 @@ const routes = [
 
  { path: "/galhosPage", name: "Filial", icon: <GiLightningBranches /> },
 
-  { path: "/relatoriosPage", name: "Relatórios", icon: <TbReportSearch /> },
+
   { path: "/pageDefinicoes", name: "Definições", icon: <BiCog /> },
 
 
